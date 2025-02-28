@@ -3,15 +3,25 @@ package to_list_generic
 
 object AppenderFromSize {
 
-  def tran[F[_[_]]](from: GenericAuxFrom[F], to: GenericAuxTo[F], modelSize: ModelSize[F]): SimpleProductX[F] =
-    ??? /*new SimpleProductX[F] {
-    override val model: SimpleProductXImpl2.NotHList.Appender[F] = new SimpleProductXImpl2.NotHList.FromOtherAppender[GetAppender.F1, F] {
-      override def fromModel[X[_]](f: GetAppender.F1[X]): F[X] = from.fromModel(f).asInstanceOf[F[X]]
-      override def toModel[X[_]](g: F[X]): GetAppender.F1[X] =
-        to.toModel(g.asInstanceOf[F[({ type FX[_] = Any })#FX]]).asInstanceOf[GetAppender.F1[X]]
-      override def appenderF: SimpleProductXImpl.NotHList.Appender[GetAppender.F1] = GetAppender.get(modelSize.modelSize)
+  def tran[F[_[_]]](from: GenericAuxFrom[F], to: GenericAuxTo[F], modelSize: ModelSize[F]): SimpleProductX[F] = new SimpleProductX[F] {
+    override val model: SimpleProductXImpl2.NotHList.Appender[F] = {
+      val mImpl = new appender.LastMapHListLikeAppender[F, Any, appender.ColType] {
+
+        override def append1In[M[_]](a1: M[Any], a2: appender.ColType.toM[M, appender.ColType]): F[M] =
+          from.fromModel(appender.append[M[Any], appender.ColType.toM[M, appender.ColType]](a1, a2))
+
+        override def takeHead1In[M[_]](a1: F[M]): M[Any] = appender.unappendHead[M[Any], Tuple](to.toModel(a1).asInstanceOf)
+
+        override def takeTail1In[M[_]](a1: F[M]): appender.ColType.toM[M, appender.ColType] =
+          appender.unappendTail[Any, appender.ColType.toM[M, appender.ColType]](to.toModel(a1).asInstanceOf)
+
+        override def tailHListLikeAppender: appender.HListLikeAppender[appender.ColType] =
+          GetAppender.get(modelSize.modelSize - 1).asInstanceOf[appender.HListLikeAppender[appender.ColType]]
+      }
+
+      mImpl.asInstanceOf[SimpleProductXImpl2.NotHList.Appender[F]]
     }
-  }*/
+  }
 
   val appender: SimpleProductXImpl2.AppendContext[Tuple, EmptyTuple, ({ type Ad[Head, TU <: Tuple] = Head *: TU })#Ad] =
     new SimpleProductXImpl2.AppendContext[Tuple, EmptyTuple, ({ type Ad[Head, TU <: Tuple] = Head *: TU })#Ad] {
@@ -25,7 +35,7 @@ object AppenderFromSize {
     type F1[_[_]] = Tuple
 
     def get(i: Int): SimpleProductXImpl2.NotHList.Appender[F1] = {
-      /*if (i >= appenderList.size) {
+      if (i >= appenderList.size) {
         this.synchronized {
           while (i >= appenderList.size) {
             if (appenderList.headOption.isDefined) {
@@ -37,15 +47,15 @@ object AppenderFromSize {
                   : appender.HListLikeAppender[appender.ColType.TakeTail[appender.AppendColType[Any, appender.ColType]]] = cutHead
               }
 
-              appenderList = newItem.asInstanceOf[SimpleProductXImpl.NotHList.Appender[F1]] :: appenderList
+              appenderList = newItem.asInstanceOf[SimpleProductXImpl2.NotHList.Appender[F1]] :: appenderList
             } else {
-              appenderList = List(appender.ZeroHListLikeAppender.value.asInstanceOf[SimpleProductXImpl.NotHList.Appender[F1]])
+              appenderList = List(appender.ZeroHListLikeAppender.value.asInstanceOf[SimpleProductXImpl2.NotHList.Appender[F1]])
             }
           }
 
           appenderArray = appenderList.reverse.to(Array)
         }
-      }*/
+      }
 
       appenderArray(i)
     }

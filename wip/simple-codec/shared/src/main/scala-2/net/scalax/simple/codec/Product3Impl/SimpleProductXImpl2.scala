@@ -1,8 +1,6 @@
 package net.scalax.simple.codec
 package to_list_generic
 
-import java.security.DrbgParameters.NextBytes
-
 class SimpleProductXImpl2 {
   SimpleProduct3Self =>
 

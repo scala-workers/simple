@@ -25,7 +25,7 @@ object S3CirceTest1 {
 
   final def main(args: Array[String]): Unit = {
     println(modelInstance.asJson.spaces2)
-    println(parser.parse(modelInstance.asJson.spaces2).right.flatMap(_.as[CatNameTest3]))
+    println(parser.parse(modelInstance.asJson.spaces2).right.flatMap(_.as[S3CatName]))
   }
 
 }

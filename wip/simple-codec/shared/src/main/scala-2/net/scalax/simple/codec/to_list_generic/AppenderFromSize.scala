@@ -7,12 +7,16 @@ import scala.collection.compat._
 
 object AppenderFromSize {
 
+  @inline def toTarget[U](u: Any): U = u.asInstanceOf[U]
+
   def tran[F[_[_]]](from: GenericAuxFrom[F], to: GenericAuxTo[F], modelSize: ModelSize[F]): SimpleProductX[F] = new SimpleProductX[F] {
     override val model: SimpleProductXImpl2.NotHList.Appender[F] = {
       val mImpl = new appender.LastMapHListLikeAppender[F, Any, appender.ColType] {
-        override def append1In[M[_]](a1: M[Any], a2: appender.ColType#toM[M]): F[M] = from.fromModel(a1 :: a2.asInstanceOf[HList])
-        override def takeHead1In[M[_]](a1: F[M]): M[Any]                            = to.toModel(a1).asInstanceOf[M[Any] :: HNil].head
-        override def takeTail1In[M[_]](a1: F[M]): appender.ColType#toM[M] = to.toModel(a1).asInstanceOf[Any :: appender.ColType#toM[M]].tail
+        override def append1In[M[_]](a1: M[Any], a2: appender.ColType#toM[M]): F[M] =
+          from.fromModel(appender.append(a1, a2.asInstanceOf[HList]))
+        override def takeHead1In[M[_]](a1: F[M]): M[Any] = appender.unappendHead(to.toModel(a1).asInstanceOf[M[Any] :: HList])
+        override def takeTail1In[M[_]](a1: F[M]): appender.ColType#toM[M] =
+          appender.unappendTail(to.toModel(a1).asInstanceOf[Any :: appender.ColType#toM[M]])
         override def tailHListLikeAppender: appender.HListLikeAppender[appender.ColType] =
           GetAppender.get(modelSize.modelSize - 1).asInstanceOf[appender.HListLikeAppender[appender.ColType]]
       }
