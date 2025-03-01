@@ -27,12 +27,13 @@ object AppenderFromSize {
     }
   }
 
-  object appender extends SimpleProductXImpl2.AppendContext[HList, HNil, ({ type Ad[Head, TU <: HList] = Head :: TU })#Ad] {
+  class appender private (@inline override val zero: HNil)
+      extends SimpleProductXImpl2.AppendContext[HList, HNil, ({ type Ad[Head, TU <: HList] = Head :: TU })#Ad] {
     @inline override def append[H, T <: HList](h: H, t: T): H :: T = h :: t
     @inline override def unappendHead[H, T <: HList](a: H :: T): H = a.head
     @inline override def unappendTail[H, T <: HList](a: H :: T): T = a.tail
-    @inline override def zero: HNil                                = HNil
   }
+  object appender extends appender(HNil)
 
   object GetAppender {
     type F1[_[_]] = HList

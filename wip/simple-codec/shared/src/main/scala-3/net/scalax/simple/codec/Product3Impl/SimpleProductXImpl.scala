@@ -18,8 +18,8 @@ class SimpleProductXImpl2 {
 
     object ColType {
       type toM[M[_], Col <: ColType] <: HListLike = Col match {
-        case ZeroColType            => ZeroType
         case AppendColType[t, tail] => AppendType[M[t], toM[M, tail]]
+        case ZeroColType            => ZeroType
       }
     }
 
@@ -42,9 +42,8 @@ class SimpleProductXImpl2 {
 
       override def takeTail(
         c: NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[X1, CT1X]], FT1X]]
-      ): NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, CT1X], FT1X]] = unappendTail(
-        c.asInstanceOf
-      ).asInstanceOf
+      ): NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, CT1X], FT1X]] =
+        unappendTail(c.asInstanceOf).asInstanceOf
 
       override def next = SelfInSetImpl1.asInstanceOf
     }
@@ -94,8 +93,8 @@ class SimpleProductXImpl2 {
       override def andThen = SelfZeroInputInstance.asInstanceOf
     }
     private val ZeroInputInstanceImpl: ZeroInputInstance[NotHList.FType] = new ZeroInputInstance[NotHList.FType] {
-      @annotation.threadUnsafe
       @inline
+      @annotation.threadUnsafe
       override lazy val andThen = super.andThen
     }
     locally {

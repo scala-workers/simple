@@ -23,12 +23,13 @@ object AppenderFromSize {
     }
   }
 
-  object appender extends SimpleProductXImpl2.AppendContext[Tuple, EmptyTuple, ({ type Ad[Head, TU <: Tuple] = Head *: TU })#Ad] {
+  class appender private (@inline override val zero: EmptyTuple)
+      extends SimpleProductXImpl2.AppendContext[Tuple, EmptyTuple, ({ type Ad[Head, TU <: Tuple] = Head *: TU })#Ad] {
     @inline inline override def append[H, T <: Tuple](h: H, t: T): H *: T = h *: t
     @inline inline override def unappendHead[H, T <: Tuple](a: H *: T): H = a.head
     @inline inline override def unappendTail[H, T <: Tuple](a: H *: T): T = a.tail
-    @inline inline override def zero: EmptyTuple                          = EmptyTuple
   }
+  object appender extends appender(zero = EmptyTuple)
 
   object GetAppender {
     type F1[_[_]] = Tuple
