@@ -33,7 +33,7 @@ object AppenderFromSize {
     @inline override def unappendHead[H, T <: HList](a: H :: T): H = a.head
     @inline override def unappendTail[H, T <: HList](a: H :: T): T = a.tail
   }
-  object appender extends appender(HNil)
+  object appender extends appender(zero = HNil)
 
   object GetAppender {
     type F1[_[_]] = HList

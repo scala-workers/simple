@@ -5,7 +5,7 @@ trait FillIdentity[T] {
   def value: T
 }
 
-object FillIdentity:
+object FillIdentity {
   import shapeless3.deriving.*
 
   given [A1](using a: => A1): FillIdentity[A1] with {
@@ -25,4 +25,4 @@ object FillIdentity:
 
   def apply[T]: Builder[T] = new Builder
 
-end FillIdentity
+}
