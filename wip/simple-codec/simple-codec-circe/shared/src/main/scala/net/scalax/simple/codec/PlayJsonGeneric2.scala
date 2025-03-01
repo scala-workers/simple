@@ -10,7 +10,6 @@ object PlayJsonGeneric2 {
   type Named[_] = String
 
   def writesModelImpl[F[_[_]]](model: F[cats.Id], simpleProduct3: SimpleProduct3.Appender[F], named: F[Named], g: F[Writes]): JsValue = {
-
     trait EncodeJson[Name, Enc, Id] {
       def toJson(n: Name, enc: Enc, id: Id, l: List[(String, JsValue)]): List[(String, JsValue)]
     }
