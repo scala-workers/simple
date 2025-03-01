@@ -14,7 +14,7 @@ object ZipGeneric {
         type MA[A, B, C] = (A, B) => C
         val func = new SimpleProduct3.AppendMonad[MA] {
           override def zip[A1, B1, C1, A2, B2, C2, A3, B3, C3](
-            c: SimpleProduct3.ConvertF3[A1, B1, C1, A2, B2, C2, A3, B3, C3],
+            c: SimpleProduct3.ConvertF[A1, B1, C1, A2, B2, C2, A3, B3, C3],
             ma: (A1, A2) => A3,
             mb: (B1, B2) => B3
           ): (C1, C2) => C3 = (c1, c2) => c.from3(ma(c.takeHead1(c1), c.takeHead2(c2)), mb(c.takeTail1(c1), c.takeTail2(c2)))

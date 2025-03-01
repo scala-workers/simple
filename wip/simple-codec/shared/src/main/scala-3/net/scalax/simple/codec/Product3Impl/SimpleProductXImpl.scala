@@ -21,73 +21,7 @@ class SimpleProductXImpl2 {
         case ZeroColType            => ZeroType
         case AppendColType[t, tail] => AppendType[M[t], toM[M, tail]]
       }
-
-      type TakeHead[Col <: ColType] = Col match {
-        case AppendColType[t, tail] => t
-      }
-      type TakeTail[Col <: ColType] <: ColType = Col match {
-        case AppendColType[t, tail] => tail
-      }
     }
-
-    // ===
-    /*trait GetSet[Item, HL <: ColType, FT <: NotHList.FType]
-        extends NotHList.Mapper[
-          NotHList.ZipInputType[NotHList.ItemInputType[Item, FT], NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, HL], FT]],
-          NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[Item, HL]], FT]
-        ] {
-      type type1 = NotHList.ZipInputType[NotHList.ItemInputType[Item, FT], NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, HL], FT]]
-      type type2 = NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[Item, HL]], FT]
-      type head1 = NotHList.InputType.TakeHead[type1]
-      type head2 = NotHList.InputType.TakeHead[type2]
-      type tail1 = NotHList.InputType.TakeTail[type1]
-      type tail2 = NotHList.InputType.TakeTail[type2]
-
-      override def map(n: head1): head2        = append(n.asInstanceOf).asInstanceOf
-      override def reverseMap(n: head2): head1 = unappend(n.asInstanceOf).asInstanceOf
-    }*/
-
-    /*object GetSet {
-      @inline private val getsetModel: GetSet[Any, ColType, NotHList.FType] = new GetSet[Any, ColType, NotHList.FType] {
-        GetSetImplSelf =>
-        @inline override lazy val nextMapper = GetSetImplSelf.asInstanceOf
-      }
-
-      locally {
-        getsetModel.nextMapper
-      }
-
-      @inline def value[Item, HL <: ColType, FT <: NotHList.FType]: GetSet[Item, HL, FT] =
-        getsetModel.asInstanceOf[GetSet[Item, HL, FT]]
-    }*/
-
-    /*trait ZeroUnitMapper[FT <: NotHList.FType]
-        extends NotHList.Mapper[NotHList.ZeroInputType, NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, ZeroColType], FT]] {
-      type type1 = NotHList.ZeroInputType
-      type type2 = NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, ZeroColType], FT]
-      type head1 = NotHList.InputType.TakeHead[type1]
-      type head2 = NotHList.InputType.TakeHead[type2]
-      type tail1 = NotHList.InputType.TakeTail[type1]
-      type tail2 = NotHList.InputType.TakeTail[type2]
-
-      override def map(ia: head1)        = AppendContextSelf.zero.asInstanceOf
-      override def reverseMap(ib: head2) = SimpleZero.value.asInstanceOf
-    }*/
-
-    /*object ZeroUnitMapper {
-      @inline private val zeroUnitMapperProductImplImpl: ZeroUnitMapper[NotHList.FType] = new ZeroUnitMapper[NotHList.FType] {
-        thisSelf =>
-        @inline override lazy val nextMapper = thisSelf.asInstanceOf
-      }
-
-      locally {
-        zeroUnitMapperProductImplImpl.nextMapper
-      }
-
-      @inline def zeroAppender[FT <: NotHList.FType]: ZeroUnitMapper[FT] = zeroUnitMapperProductImplImpl.asInstanceOf
-    }*/
-
-    // =============================================================================
 
     class InSetImpl1[X1, FT1X <: NotHList.FType, CT1X <: ColType]
         extends NotHList.ConvertF[
@@ -144,12 +78,12 @@ class SimpleProductXImpl2 {
       override def toHList[M[_ <: NotHList.InputType], FT <: NotHList.FType](monad: NotHList.AppendMonad[M])(
         func: NotHList.TypeGen[M, FT]
       ): M[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[A, X]], FT]] = {
-        val tailModel: M[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, ColType.TakeTail[AppendColType[A, X]]], FT]] =
+        val tailModel: M[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, X], FT]] =
           tailHListLikeAppender.toHList[M, FT](monad)(func)
         positiveAppender[M, X, FT, A](monad, func, tailModel)
       }
 
-      def tailHListLikeAppender: HListLikeAppender[ColType.TakeTail[AppendColType[A, X]]]
+      def tailHListLikeAppender: HListLikeAppender[X]
     }
 
     private class ZeroInputInstance[FT <: NotHList.FType]
@@ -171,7 +105,7 @@ class SimpleProductXImpl2 {
 
     object ZeroHListLikeAppender {
       @inline val value: HListLikeAppender[ZeroColType] = new HListLikeAppender[ZeroColType] {
-        override def toHList[M[_ <: NotHList.InputType], FT <: NotHList.FType](monad: NotHList.AppendMonad[M])(
+        @inline override def toHList[M[_ <: NotHList.InputType], FT <: NotHList.FType](monad: NotHList.AppendMonad[M])(
           func: NotHList.TypeGen[M, FT]
         ): M[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, ZeroColType], FT]] = monad.zero(genZeroInputInstance[FT])
       }
@@ -250,42 +184,12 @@ class SimpleProductXImpl2 {
       case ZeroFType           => ZeroInputType
     }
 
-    /*type ZipInputType[In1 <: InputType, In2 <: InputType] <: InputType = (In1, In2) match {
-      case (PositiveInputType[item1, tail1], PositiveInputType[item2, tail2]) =>
-        PositiveInputType[AppendFunc[item1, item2], ZipInputType[tail1, tail2]]
-      case (ZeroInputType, ZeroInputType) => ZeroInputType
-    }*/
-
     type FGenericInputType[F[_[_]], FT <: FType] <: InputType = FT match {
       case PositiveFType[u, tail] => PositiveInputType[F[u], FGenericInputType[F, tail]]
       case ZeroFType              => ZeroInputType
     }
 
-    // ===
-    /*trait Mapper[InputA <: InputType, InputB <: InputType] {
-      def map(ia: InputType.TakeHead[InputA]): InputType.TakeHead[InputB]
-      def reverseMap(ib: InputType.TakeHead[InputB]): InputType.TakeHead[InputA]
-
-      def nextMapper: Mapper[InputType.TakeTail[InputA], InputType.TakeTail[InputB]]
-    }
-
-    object Mapper {
-      /*val unitInputType: Mapper[ZeroInputType, ZeroInputType] = new Mapper[ZeroInputType, ZeroInputType] {
-        SelfUnitInputType =>
-        override def map(ia: Unit): Unit        = ia
-        override def reverseMap(ib: Unit): Unit = ib
-        override lazy val nextMapper: Mapper[InputType.TakeTail[ZeroInputType], InputType.TakeTail[ZeroInputType]] =
-          SelfUnitInputType.asInstanceOf
-      }
-
-      locally {
-        unitInputType.nextMapper
-      }*/
-    }*/
-
     trait ConvertF[A1 <: InputType, B1 <: InputType, C1 <: InputType] {
-      SelfConvertF =>
-
       def from(a: InputType.TakeHead[A1], b: InputType.TakeHead[B1]): InputType.TakeHead[C1]
       def takeHead(c: InputType.TakeHead[C1]): InputType.TakeHead[A1]
       def takeTail(c: InputType.TakeHead[C1]): InputType.TakeHead[B1]
@@ -313,36 +217,6 @@ class SimpleProductXImpl2 {
     trait Appender[F[_[_]]] {
       def toHList[M[_ <: InputType], FT <: FType](monad: AppendMonad[M])(func: TypeGen[M, FT]): M[FGenericInputType[F, FT]]
     }
-
-    /*trait FromOtherAppender[F[_[_]], G[_[_]]] extends Appender[G] {
-      def fromModel[X[_]](f: F[X]): G[X]
-      def toModel[X[_]](g: G[X]): F[X]
-      def appenderF: Appender[F]
-
-      private class InnerMapperHelper[FT <: FType] extends Mapper[FGenericInputType[F, FT], FGenericInputType[G, FT]] {
-        SelfInnerMapperHelper =>
-        type type1 = FGenericInputType[F, FT]
-        type type2 = FGenericInputType[G, FT]
-        type head1 = NotHList.InputType.TakeHead[type1]
-        type head2 = NotHList.InputType.TakeHead[type2]
-        type tail1 = NotHList.InputType.TakeTail[type1]
-        type tail2 = NotHList.InputType.TakeTail[type2]
-
-        override def map(ia: head1)        = fromModel(ia.asInstanceOf).asInstanceOf
-        override def reverseMap(ib: head2) = toModel(ib.asInstanceOf).asInstanceOf
-        override def nextMapper            = SelfInnerMapperHelper.asInstanceOf
-      }
-
-      private val value1 = new InnerMapperHelper[FType]
-
-      override def toHList[M[_ <: InputType], FT <: FType](
-        monad: AppendMonad[M]
-      )(func: TypeGen[M, FT]): M[FGenericInputType[G, FT]] = {
-        val mModel: M[FGenericInputType[F, FT]]                                 = appenderF.toHList[M, FT](monad)(func)
-        val mapperA: Mapper[FGenericInputType[F, FT], FGenericInputType[G, FT]] = value1.asInstanceOf
-        monad.to[FGenericInputType[F, FT], FGenericInputType[G, FT]](mModel)(mapperA)
-      }
-    }*/
   }
 
 }

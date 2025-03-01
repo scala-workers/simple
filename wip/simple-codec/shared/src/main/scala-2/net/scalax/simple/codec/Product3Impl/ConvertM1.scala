@@ -31,15 +31,15 @@ object ConvertM1Impl {
           fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C],
           ma: M2[A#toItem],
           mb: M2[B#toItem]
-        ): M2[C#toItem] = append.zip(
-          new SimpleProduct1.ConvertF1[A#toItem, B#toItem, C#toItem] {
+        ): M2[C#toItem] = {
+          val c1: SimpleProduct1.ConvertF[A#toItem, B#toItem, C#toItem] = new SimpleProduct1.ConvertF[A#toItem, B#toItem, C#toItem] {
             override def from1(a: A#toItem, b: B#toItem): C#toItem = fromTo.from(a, b)
             override def takeHead1(modelC: C#toItem): A#toItem     = fromTo.takeHead(modelC)
             override def takeTail1(modelC: C#toItem): B#toItem     = fromTo.takeTail(modelC)
-          },
-          ma,
-          mb
-        )
+          }
+
+          append.zip(c1, ma, mb)
+        }
 
         override def zero[N <: codec.to_list_generic.SimpleProductXImpl2.NotHList.InputType](
           i: codec.to_list_generic.SimpleProductXImpl2.NotHList.InputInstance[N]

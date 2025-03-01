@@ -22,7 +22,7 @@ object FromListByTheSameTypeGeneric {
   private def monadAdd[SeqType]: SimpleProduct1.AppendMonad[({ type T1[U] = SeqType => (SeqType, U) })#T1] =
     new SimpleProduct1.AppendMonad[({ type T1[U] = SeqType => (SeqType, U) })#T1] {
       override def zip[A1, B1, C1](
-        c: SimpleProduct1.ConvertF1[A1, B1, C1],
+        c: SimpleProduct1.ConvertF[A1, B1, C1],
         ma: SeqType => (SeqType, A1),
         mb: SeqType => (SeqType, B1)
       ): SeqType => (SeqType, C1) = { l =>

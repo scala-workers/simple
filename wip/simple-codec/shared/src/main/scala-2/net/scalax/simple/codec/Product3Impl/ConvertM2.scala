@@ -38,19 +38,20 @@ object ConvertM2Impl {
         fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C],
         ma: M2[A#toItem, A#AndThen#toItem],
         mb: M2[B#toItem, B#AndThen#toItem]
-      ): M2[C#toItem, C#AndThen#toItem] = append.zip(
-        new SimpleProduct2.ConvertF2[A#toItem, B#toItem, C#toItem, A#AndThen#toItem, B#AndThen#toItem, C#AndThen#toItem] {
-          override def from1(a: A#toItem, b: B#toItem): C#toItem = fromTo.from(a, b)
-          override def takeHead1(modelC: C#toItem): A#toItem     = fromTo.takeHead(modelC)
-          override def takeTail1(modelC: C#toItem): B#toItem     = fromTo.takeTail(modelC)
+      ): M2[C#toItem, C#AndThen#toItem] = {
+        val c1: SimpleProduct2.ConvertF[A#toItem, B#toItem, C#toItem, A#AndThen#toItem, B#AndThen#toItem, C#AndThen#toItem] =
+          new SimpleProduct2.ConvertF[A#toItem, B#toItem, C#toItem, A#AndThen#toItem, B#AndThen#toItem, C#AndThen#toItem] {
+            override def from1(a: A#toItem, b: B#toItem): C#toItem = fromTo.from(a, b)
+            override def takeHead1(modelC: C#toItem): A#toItem     = fromTo.takeHead(modelC)
+            override def takeTail1(modelC: C#toItem): B#toItem     = fromTo.takeTail(modelC)
 
-          override def from2(a: A#AndThen#toItem, b: B#AndThen#toItem): C#AndThen#toItem = fromTo.next.from(a, b)
-          override def takeHead2(modelC: C#AndThen#toItem): A#AndThen#toItem             = fromTo.next.takeHead(modelC)
-          override def takeTail2(modelC: C#AndThen#toItem): B#AndThen#toItem             = fromTo.next.takeTail(modelC)
-        },
-        ma,
-        mb
-      )
+            override def from2(a: A#AndThen#toItem, b: B#AndThen#toItem): C#AndThen#toItem = fromTo.next.from(a, b)
+            override def takeHead2(modelC: C#AndThen#toItem): A#AndThen#toItem             = fromTo.next.takeHead(modelC)
+            override def takeTail2(modelC: C#AndThen#toItem): B#AndThen#toItem             = fromTo.next.takeTail(modelC)
+          }
+
+        append.zip(c1, ma, mb)
+      }
 
       override def zero[N <: codec.to_list_generic.SimpleProductXImpl2.NotHList.InputType](
         i: codec.to_list_generic.SimpleProductXImpl2.NotHList.InputInstance[N]

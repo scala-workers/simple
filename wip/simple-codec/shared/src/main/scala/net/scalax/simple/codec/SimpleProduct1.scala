@@ -3,14 +3,14 @@ package to_list_generic
 
 object SimpleProduct1 {
 
-  trait ConvertF1[A1, B1, C1] {
+  trait ConvertF[A1, B1, C1] {
     def from1(a: A1, b: B1): C1
     def takeHead1(c: C1): A1
     def takeTail1(c: C1): B1
   }
 
   trait AppendMonad[M[_]] {
-    def zip[A1, B1, C1](c: ConvertF1[A1, B1, C1], ma: M[A1], mb: M[B1]): M[C1]
+    def zip[A1, B1, C1](c: ConvertF[A1, B1, C1], ma: M[A1], mb: M[B1]): M[C1]
     def zero[N1](n1: N1): M[N1]
   }
 

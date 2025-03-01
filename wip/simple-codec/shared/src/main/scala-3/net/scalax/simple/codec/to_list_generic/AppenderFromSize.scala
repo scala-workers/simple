@@ -23,13 +23,12 @@ object AppenderFromSize {
     }
   }
 
-  val appender: SimpleProductXImpl2.AppendContext[Tuple, EmptyTuple, ({ type Ad[Head, TU <: Tuple] = Head *: TU })#Ad] =
-    new SimpleProductXImpl2.AppendContext[Tuple, EmptyTuple, ({ type Ad[Head, TU <: Tuple] = Head *: TU })#Ad] {
-      override def append[H, T <: Tuple](h: H, t: T): H *: T = h *: t
-      override def unappendHead[H, T <: Tuple](a: H *: T): H = a.head
-      override def unappendTail[H, T <: Tuple](a: H *: T): T = a.tail
-      override def zero: EmptyTuple                          = EmptyTuple
-    }
+  object appender extends SimpleProductXImpl2.AppendContext[Tuple, EmptyTuple, ({ type Ad[Head, TU <: Tuple] = Head *: TU })#Ad] {
+    @inline inline override def append[H, T <: Tuple](h: H, t: T): H *: T = h *: t
+    @inline inline override def unappendHead[H, T <: Tuple](a: H *: T): H = a.head
+    @inline inline override def unappendTail[H, T <: Tuple](a: H *: T): T = a.tail
+    @inline inline override def zero: EmptyTuple                          = EmptyTuple
+  }
 
   object GetAppender {
     type F1[_[_]] = Tuple
@@ -39,12 +38,11 @@ object AppenderFromSize {
         this.synchronized {
           while (i >= appenderList.size) {
             if (appenderList.headOption.isDefined) {
-              val cutHead = appenderList.head
-                .asInstanceOf[appender.HListLikeAppender[appender.ColType.TakeTail[appender.AppendColType[Any, appender.ColType]]]]
+              val cutHead: appender.HListLikeAppender[appender.ColType] =
+                appenderList.head.asInstanceOf[appender.HListLikeAppender[appender.ColType]]
 
               val newItem = new appender.PositiveHListLikeAppender[Any, appender.ColType] {
-                override val tailHListLikeAppender
-                  : appender.HListLikeAppender[appender.ColType.TakeTail[appender.AppendColType[Any, appender.ColType]]] = cutHead
+                override val tailHListLikeAppender: appender.HListLikeAppender[appender.ColType] = cutHead
               }
 
               appenderList = newItem.asInstanceOf[SimpleProductXImpl2.NotHList.Appender[F1]] :: appenderList

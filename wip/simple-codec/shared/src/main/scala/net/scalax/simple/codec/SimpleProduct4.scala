@@ -3,7 +3,7 @@ package to_list_generic
 
 object SimpleProduct4 {
 
-  trait ConvertF4[A1, B1, C1, A2, B2, C2, A3, B3, C3, A4, B4, C4] {
+  trait ConvertF[A1, B1, C1, A2, B2, C2, A3, B3, C3, A4, B4, C4] {
     def from1(a: A1, b: B1): C1
     def takeHead1(c: C1): A1
     def takeTail1(c: C1): B1
@@ -23,7 +23,7 @@ object SimpleProduct4 {
 
   trait AppendMonad[M[_, _, _, _]] {
     def zip[A1, B1, C1, A2, B2, C2, A3, B3, C3, A4, B4, C4](
-      c: ConvertF4[A1, B1, C1, A2, B2, C2, A3, B3, C3, A4, B4, C4],
+      c: ConvertF[A1, B1, C1, A2, B2, C2, A3, B3, C3, A4, B4, C4],
       ma: M[A1, A2, A3, A4],
       mb: M[B1, B2, B3, B4]
     ): M[C1, C2, C3, C4]

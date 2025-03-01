@@ -20,7 +20,7 @@ object FoldFGenerc {
   private def monadAddLeft[SeqType]: SimpleProduct1.AppendMonad[({ type T1[U] = (U, SeqType) => SeqType })#T1] =
     new SimpleProduct1.AppendMonad[({ type T1[U] = (U, SeqType) => SeqType })#T1] {
       override def zip[A1, B1, C1](
-        c: SimpleProduct1.ConvertF1[A1, B1, C1],
+        c: SimpleProduct1.ConvertF[A1, B1, C1],
         ma: (A1, SeqType) => SeqType,
         mb: (B1, SeqType) => SeqType
       ): (C1, SeqType) => SeqType = { (ab, l) =>
@@ -34,7 +34,7 @@ object FoldFGenerc {
   private def monadAddRight[SeqType]: SimpleProduct1.AppendMonad[({ type T1[U] = (U, SeqType) => SeqType })#T1] =
     new SimpleProduct1.AppendMonad[({ type T1[U] = (U, SeqType) => SeqType })#T1] {
       override def zip[A1, B1, C1](
-        c: SimpleProduct1.ConvertF1[A1, B1, C1],
+        c: SimpleProduct1.ConvertF[A1, B1, C1],
         ma: (A1, SeqType) => SeqType,
         mb: (B1, SeqType) => SeqType
       ): (C1, SeqType) => SeqType = { (ab, l) =>

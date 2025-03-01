@@ -16,7 +16,7 @@ object CirceGeneric {
 
     val appender: SimpleProduct3.AppendMonad[EncodeJson] = new SimpleProduct3.AppendMonad[EncodeJson] {
       override def zip[A1, B1, C1, A2, B2, C2, A3, B3, C3](
-        c: SimpleProduct3.ConvertF3[A1, B1, C1, A2, B2, C2, A3, B3, C3],
+        c: SimpleProduct3.ConvertF[A1, B1, C1, A2, B2, C2, A3, B3, C3],
         ma: EncodeJson[A1, A2, A3],
         mb: EncodeJson[B1, B2, B3]
       ): EncodeJson[C1, C2, C3] = new EncodeJson[C1, C2, C3] {
@@ -55,7 +55,7 @@ object CirceGeneric {
 
     val appender: SimpleProduct3.AppendMonad[DecodeJson] = new SimpleProduct3.AppendMonad[DecodeJson] {
       override def zip[A1, B1, C1, A2, B2, C2, A3, B3, C3](
-        c: SimpleProduct3.ConvertF3[A1, B1, C1, A2, B2, C2, A3, B3, C3],
+        c: SimpleProduct3.ConvertF[A1, B1, C1, A2, B2, C2, A3, B3, C3],
         ma: DecodeJson[A1, A2, A3],
         mb: DecodeJson[B1, B2, B3]
       ): DecodeJson[C1, C2, C3] = new DecodeJson[C1, C2, C3] {

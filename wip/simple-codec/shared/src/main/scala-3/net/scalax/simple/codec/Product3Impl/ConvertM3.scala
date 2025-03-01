@@ -61,7 +61,7 @@ object ConvertM3Impl {
       ): M2[InputType.TakeHead[C], InputType.TakeHead[InputType.TakeTail[C]], InputType.TakeHead[
         InputType.TakeTail[InputType.TakeTail[C]]
       ]] = {
-        val c1: SimpleProduct3.ConvertF3[
+        val c1: SimpleProduct3.ConvertF[
           InputType.TakeHead[A],
           InputType.TakeHead[B],
           InputType.TakeHead[C],
@@ -72,7 +72,7 @@ object ConvertM3Impl {
           InputType.TakeHead[InputType.TakeTail[InputType.TakeTail[B]]],
           InputType.TakeHead[InputType.TakeTail[InputType.TakeTail[C]]]
         ] =
-          new SimpleProduct3.ConvertF3[
+          new SimpleProduct3.ConvertF[
             InputType.TakeHead[A],
             InputType.TakeHead[B],
             InputType.TakeHead[C],

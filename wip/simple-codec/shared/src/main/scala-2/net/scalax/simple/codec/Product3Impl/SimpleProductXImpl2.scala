@@ -14,17 +14,15 @@ class SimpleProductXImpl2 {
 
     trait ColType {
       type toM[M[_]] <: HListLike
-      type Tail <: ColType
     }
 
     trait AppendColType[T, TailType <: ColType] extends ColType {
       override type toM[M[_]] = AppendType[M[T], TailType#toM[M]]
-      override type Tail      = TailType
+      type Tail               = TailType
     }
 
     trait ZeroColType extends ColType {
       override type toM[M[_]] = ZeroType
-      override type Tail      = ZeroColType
     }
 
     class InSetImpl1[X1, FT1X <: NotHList.FType, CT1X <: ColType]

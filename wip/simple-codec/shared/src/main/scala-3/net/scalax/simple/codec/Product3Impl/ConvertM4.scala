@@ -110,7 +110,7 @@ object ConvertM4Impl {
           InputType.TakeTail[InputType.TakeTail[InputType.TakeTail[C]]]
         ]
       ] = {
-        val c1: SimpleProduct4.ConvertF4[
+        val c1: SimpleProduct4.ConvertF[
           InputType.TakeHead[A],
           InputType.TakeHead[B],
           InputType.TakeHead[C],
@@ -124,7 +124,7 @@ object ConvertM4Impl {
           InputType.TakeHead[InputType.TakeTail[InputType.TakeTail[InputType.TakeTail[B]]]],
           InputType.TakeHead[InputType.TakeTail[InputType.TakeTail[InputType.TakeTail[C]]]]
         ] =
-          new SimpleProduct4.ConvertF4[
+          new SimpleProduct4.ConvertF[
             InputType.TakeHead[A],
             InputType.TakeHead[B],
             InputType.TakeHead[C],
