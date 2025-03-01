@@ -138,8 +138,6 @@ class SimpleProductXImpl2 {
       override def toHList[M[_ <: NotHList.InputType], FT <: NotHList.FType](monad: NotHList.AppendMonad[M])(
         func: NotHList.TypeGen[M, FT]
       ): M[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, X], FT]]
-
-      def tailHListLikeAppender: HListLikeAppender[ColType.TakeTail[X]]
     }
 
     trait PositiveHListLikeAppender[A, X <: ColType] extends HListLikeAppender[AppendColType[A, X]] {
@@ -151,7 +149,7 @@ class SimpleProductXImpl2 {
         positiveAppender[M, X, FT, A](monad, func, tailModel)
       }
 
-      override def tailHListLikeAppender: HListLikeAppender[ColType.TakeTail[AppendColType[A, X]]]
+      def tailHListLikeAppender: HListLikeAppender[ColType.TakeTail[AppendColType[A, X]]]
     }
 
     private class ZeroInputInstance[FT <: NotHList.FType]
@@ -166,31 +164,16 @@ class SimpleProductXImpl2 {
       @inline
       override lazy val andThen = super.andThen
     }
+    locally {
+      ZeroInputInstanceImpl.andThen
+    }
     private def genZeroInputInstance[FT <: NotHList.FType]: ZeroInputInstance[FT] = ZeroInputInstanceImpl.asInstanceOf
 
-    trait ZeroHListLikeAppender extends HListLikeAppender[ZeroColType] {
-      SelfZeroHListLikeAppender =>
-      override def toHList[M[_ <: NotHList.InputType], FT <: NotHList.FType](monad: NotHList.AppendMonad[M])(
-        func: NotHList.TypeGen[M, FT]
-      ): M[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, ZeroColType], FT]]
-
-      override def tailHListLikeAppender = SelfZeroHListLikeAppender.asInstanceOf
-    }
-
     object ZeroHListLikeAppender {
-      @inline val value: ZeroHListLikeAppender = new ZeroHListLikeAppender {
-        ZeroHListLikeAppenderSelf =>
+      @inline val value: HListLikeAppender[ZeroColType] = new HListLikeAppender[ZeroColType] {
         override def toHList[M[_ <: NotHList.InputType], FT <: NotHList.FType](monad: NotHList.AppendMonad[M])(
           func: NotHList.TypeGen[M, FT]
         ): M[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, ZeroColType], FT]] = monad.zero(genZeroInputInstance[FT])
-
-        @annotation.threadUnsafe
-        @inline
-        override lazy val tailHListLikeAppender = super.tailHListLikeAppender
-      }
-
-      locally {
-        value.tailHListLikeAppender
       }
     }
 

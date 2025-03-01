@@ -58,7 +58,6 @@ class SimpleProductXImpl2 {
         func: NotHList.TypeGen[M, FT]
       ): M[NotHList.FGenericInputType[X#toM, FT]]
 
-      def tailHListLikeAppender: HListLikeAppender[X#Tail]
     }
 
     trait PositiveHListLikeAppender[A, X <: ColType] extends HListLikeAppender[AppendColType[A, X]] {
@@ -69,7 +68,7 @@ class SimpleProductXImpl2 {
         positiveAppender[M, X, FT, A](monad, func, tailModel)
       }
 
-      override def tailHListLikeAppender: HListLikeAppender[X]
+      def tailHListLikeAppender: HListLikeAppender[X]
     }
 
     trait LastMapHListLikeAppender[U[_[_]], A, X <: ColType] extends NotHList.Appender[U] {
@@ -105,24 +104,12 @@ class SimpleProductXImpl2 {
       def tailHListLikeAppender: HListLikeAppender[X]
     }
 
-    trait ZeroHListLikeAppender extends HListLikeAppender[ZeroColType] {
-      SelfZeroHListLikeAppender =>
-
-      override def toHList[M[_ <: NotHList.InputType], FT <: NotHList.FType](monad: NotHList.AppendMonad[M])(
-        func: NotHList.TypeGen[M, FT]
-      ): M[NotHList.FGenericInputType[ZeroColType#toM, FT]] =
-        monad.zero[NotHList.FGenericInputType[ZeroColType#toM, FT]](ZeroHListLikeAppender.instanceA[FT])
-
-      override def tailHListLikeAppender: ZeroHListLikeAppender = SelfZeroHListLikeAppender
-    }
-
     object ZeroHListLikeAppender {
-      @inline val value: ZeroHListLikeAppender = new ZeroHListLikeAppender {
-        @inline override lazy val tailHListLikeAppender: ZeroHListLikeAppender = super.tailHListLikeAppender
-      }
-
-      locally {
-        value.tailHListLikeAppender
+      @inline val value: HListLikeAppender[ZeroColType] = new HListLikeAppender[ZeroColType] {
+        override def toHList[M[_ <: NotHList.InputType], FT <: NotHList.FType](monad: NotHList.AppendMonad[M])(
+          func: NotHList.TypeGen[M, FT]
+        ): M[NotHList.FGenericInputType[ZeroColType#toM, FT]] =
+          monad.zero[NotHList.FGenericInputType[ZeroColType#toM, FT]](ZeroHListLikeAppender.instanceA[FT])
       }
 
       private class NInU[FUU <: NotHList.FType] extends NotHList.InputInstance[NotHList.FGenericInputType[ZeroColType#toM, FUU]] {

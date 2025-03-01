@@ -37,9 +37,9 @@ object CirceGeneric {
         }
       }
 
-    val modeToJson: EncodeJson[F[Named], F[Encoder], F[cats.Id]] = sp3.toHList1[EncodeJson, Named, Encoder, cats.Id](appender)(typeGen)
+    val encodeFunc: EncodeJson[F[Named], F[Encoder], F[cats.Id]] = sp3.toHList1[EncodeJson, Named, Encoder, cats.Id](appender)(typeGen)
 
-    val list: List[(String, Json)] = modeToJson.toJson(named, g, model, List.empty)
+    val list: List[(String, Json)] = encodeFunc.toJson(named, g, model, List.empty)
     Json.fromJsonObject(JsonObject.fromIterable(list))
   }
 
@@ -54,24 +54,6 @@ object CirceGeneric {
     }
 
     val appender: SimpleProduct3.AppendMonad[DecodeJson] = new SimpleProduct3.AppendMonad[DecodeJson] {
-      /*override def zip[A, B, C, S, T, U](ma: DecodeJson[A, B, C], ms: DecodeJson[S, T, U]): DecodeJson[(A, S), (B, T), (C, U)] =
-        new DecodeJson[(A, S), (B, T), (C, U)] {
-          override def fromJson(n: (A, S), enc: (B, T)): Decoder.Result[(C, U)] = for {
-            t1 <- ma.fromJson(n._1, enc._1)
-            t2 <- ms.fromJson(n._2, enc._2)
-          } yield (t1, t2)
-        }
-
-      override def to[A, B, C, S, T, U](
-        m1: DecodeJson[A, B, C]
-      )(in1: A => S, in2: B => T, in3: C => U)(in4: S => A, in5: T => B, in6: U => C): DecodeJson[S, T, U] = new DecodeJson[S, T, U] {
-        override def fromJson(n: S, enc: T): Decoder.Result[U] = for (t <- m1.fromJson(in4(n), in5(enc))) yield in3(t)
-      }
-
-      override def zero: DecodeJson[SimpleZero, SimpleZero, SimpleZero] = new DecodeJson[SimpleZero, SimpleZero, SimpleZero] {
-        override def fromJson(n: SimpleZero, enc: SimpleZero): Decoder.Result[SimpleZero] = Right(SimpleZero.value)
-      }*/
-
       override def zip[A1, B1, C1, A2, B2, C2, A3, B3, C3](
         c: SimpleProduct3.ConvertF3[A1, B1, C1, A2, B2, C2, A3, B3, C3],
         ma: DecodeJson[A1, A2, A3],

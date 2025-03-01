@@ -40,10 +40,10 @@ object PlayJsonGeneric2 {
         }
       }
 
-    val modeToJson: EncodeJson[F[Named], F[Writes], F[cats.Id]] =
+    val encodeFunc: EncodeJson[F[Named], F[Writes], F[cats.Id]] =
       simpleProduct3.toHList1[EncodeJson, Named, Writes, cats.Id](appender)(typeGen)
 
-    val list: List[(String, JsValue)] = modeToJson.toJson(named, g, model, List.empty)
+    val list: List[(String, JsValue)] = encodeFunc.toJson(named, g, model, List.empty)
     JsObject(list)
   }
 
