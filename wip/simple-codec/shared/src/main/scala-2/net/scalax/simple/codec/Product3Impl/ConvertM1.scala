@@ -28,14 +28,14 @@ object ConvertM1Impl {
           B <: SimpleProductXImpl2.NotHList.InputType,
           C <: SimpleProductXImpl2.NotHList.InputType
         ](
-          fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C],
+          fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C, SimpleProductXImpl2.NotHList.ProductInputFunc],
           ma: M2[A#toItem],
           mb: M2[B#toItem]
         ): M2[C#toItem] = {
           val c1: SimpleProduct1.ConvertF[A#toItem, B#toItem, C#toItem] = new SimpleProduct1.ConvertF[A#toItem, B#toItem, C#toItem] {
-            override def from1(a: A#toItem, b: B#toItem): C#toItem = fromTo.from(a, b)
-            override def takeHead1(modelC: C#toItem): A#toItem     = fromTo.takeHead(modelC)
-            override def takeTail1(modelC: C#toItem): B#toItem     = fromTo.takeTail(modelC)
+            override def from1(a: A#toItem, b: B#toItem): C#toItem = fromTo.inputFunc._1(a, b)
+            override def takeHead1(modelC: C#toItem): A#toItem     = fromTo.inputFunc._2(modelC)
+            override def takeTail1(modelC: C#toItem): B#toItem     = fromTo.inputFunc._3(modelC)
           }
 
           append.zip(c1, ma, mb)

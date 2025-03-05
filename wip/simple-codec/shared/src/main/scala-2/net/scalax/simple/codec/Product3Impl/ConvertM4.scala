@@ -48,7 +48,7 @@ object ConvertM4Impl {
         B <: SimpleProductXImpl2.NotHList.InputType,
         C <: SimpleProductXImpl2.NotHList.InputType
       ](
-        fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C],
+        fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C, SimpleProductXImpl2.NotHList.ProductInputFunc],
         ma: M2[A#toItem, A#AndThen#toItem, A#AndThen#AndThen#toItem, A#AndThen#AndThen#AndThen#toItem],
         mb: M2[B#toItem, B#AndThen#toItem, B#AndThen#AndThen#toItem, B#AndThen#AndThen#AndThen#toItem]
       ): M2[C#toItem, C#AndThen#toItem, C#AndThen#AndThen#toItem, C#AndThen#AndThen#AndThen#toItem] = {
@@ -79,22 +79,22 @@ object ConvertM4Impl {
           B#AndThen#AndThen#AndThen#toItem,
           C#AndThen#AndThen#AndThen#toItem
         ] {
-          override def from1(a: A#toItem, b: B#toItem): C#toItem                         = fromTo.from(a, b)
-          override def takeHead1(c: C#toItem): A#toItem                                  = fromTo.takeHead(c)
-          override def takeTail1(c: C#toItem): B#toItem                                  = fromTo.takeTail(c)
-          override def from2(a: A#AndThen#toItem, b: B#AndThen#toItem): C#AndThen#toItem = fromTo.next.from(a, b)
-          override def takeHead2(c: C#AndThen#toItem): A#AndThen#toItem                  = fromTo.next.takeHead(c)
-          override def takeTail2(c: C#AndThen#toItem): B#AndThen#toItem                  = fromTo.next.takeTail(c)
+          override def from1(a: A#toItem, b: B#toItem): C#toItem                         = fromTo.inputFunc._1(a, b)
+          override def takeHead1(c: C#toItem): A#toItem                                  = fromTo.inputFunc._2(c)
+          override def takeTail1(c: C#toItem): B#toItem                                  = fromTo.inputFunc._3(c)
+          override def from2(a: A#AndThen#toItem, b: B#AndThen#toItem): C#AndThen#toItem = fromTo.next.inputFunc._1(a, b)
+          override def takeHead2(c: C#AndThen#toItem): A#AndThen#toItem                  = fromTo.next.inputFunc._2(c)
+          override def takeTail2(c: C#AndThen#toItem): B#AndThen#toItem                  = fromTo.next.inputFunc._3(c)
           override def from3(a: A#AndThen#AndThen#toItem, b: B#AndThen#AndThen#toItem): C#AndThen#AndThen#toItem =
-            fromTo.next.next.from(a, b)
-          override def takeHead3(c: C#AndThen#AndThen#toItem): A#AndThen#AndThen#toItem = fromTo.next.next.takeHead(c)
-          override def takeTail3(c: C#AndThen#AndThen#toItem): B#AndThen#AndThen#toItem = fromTo.next.next.takeTail(c)
+            fromTo.next.next.inputFunc._1(a, b)
+          override def takeHead3(c: C#AndThen#AndThen#toItem): A#AndThen#AndThen#toItem = fromTo.next.next.inputFunc._2(c)
+          override def takeTail3(c: C#AndThen#AndThen#toItem): B#AndThen#AndThen#toItem = fromTo.next.next.inputFunc._3(c)
           override def from4(a: A#AndThen#AndThen#AndThen#toItem, b: B#AndThen#AndThen#AndThen#toItem): C#AndThen#AndThen#AndThen#toItem =
-            fromTo.next.next.next.from(a, b)
+            fromTo.next.next.next.inputFunc._1(a, b)
           override def takeHead4(c: C#AndThen#AndThen#AndThen#toItem): A#AndThen#AndThen#AndThen#toItem =
-            fromTo.next.next.next.takeHead(c)
+            fromTo.next.next.next.inputFunc._2(c)
           override def takeTail4(c: C#AndThen#AndThen#AndThen#toItem): B#AndThen#AndThen#AndThen#toItem =
-            fromTo.next.next.next.takeTail(c)
+            fromTo.next.next.next.inputFunc._3(c)
         }
 
         append.zip(c1, ma, mb)

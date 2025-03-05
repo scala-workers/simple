@@ -35,19 +35,19 @@ object ConvertM2Impl {
         B <: SimpleProductXImpl2.NotHList.InputType,
         C <: SimpleProductXImpl2.NotHList.InputType
       ](
-        fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C],
+        fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C, SimpleProductXImpl2.NotHList.ProductInputFunc],
         ma: M2[A#toItem, A#AndThen#toItem],
         mb: M2[B#toItem, B#AndThen#toItem]
       ): M2[C#toItem, C#AndThen#toItem] = {
         val c1: SimpleProduct2.ConvertF[A#toItem, B#toItem, C#toItem, A#AndThen#toItem, B#AndThen#toItem, C#AndThen#toItem] =
           new SimpleProduct2.ConvertF[A#toItem, B#toItem, C#toItem, A#AndThen#toItem, B#AndThen#toItem, C#AndThen#toItem] {
-            override def from1(a: A#toItem, b: B#toItem): C#toItem = fromTo.from(a, b)
-            override def takeHead1(modelC: C#toItem): A#toItem     = fromTo.takeHead(modelC)
-            override def takeTail1(modelC: C#toItem): B#toItem     = fromTo.takeTail(modelC)
+            override def from1(a: A#toItem, b: B#toItem): C#toItem = fromTo.inputFunc._1(a, b)
+            override def takeHead1(modelC: C#toItem): A#toItem     = fromTo.inputFunc._2(modelC)
+            override def takeTail1(modelC: C#toItem): B#toItem     = fromTo.inputFunc._3(modelC)
 
-            override def from2(a: A#AndThen#toItem, b: B#AndThen#toItem): C#AndThen#toItem = fromTo.next.from(a, b)
-            override def takeHead2(modelC: C#AndThen#toItem): A#AndThen#toItem             = fromTo.next.takeHead(modelC)
-            override def takeTail2(modelC: C#AndThen#toItem): B#AndThen#toItem             = fromTo.next.takeTail(modelC)
+            override def from2(a: A#AndThen#toItem, b: B#AndThen#toItem): C#AndThen#toItem = fromTo.next.inputFunc._1(a, b)
+            override def takeHead2(modelC: C#AndThen#toItem): A#AndThen#toItem             = fromTo.next.inputFunc._2(modelC)
+            override def takeTail2(modelC: C#AndThen#toItem): B#AndThen#toItem             = fromTo.next.inputFunc._3(modelC)
           }
 
         append.zip(c1, ma, mb)
