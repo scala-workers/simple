@@ -35,7 +35,7 @@ object ConvertM2Impl {
         B <: SimpleProductXImpl2.NotHList.InputType,
         C <: SimpleProductXImpl2.NotHList.InputType
       ](
-        fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C, SimpleProductXImpl2.NotHList.ProductInputFunc],
+        fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C],
         ma: M2[A#toItem, A#AndThen#toItem],
         mb: M2[B#toItem, B#AndThen#toItem]
       ): M2[C#toItem, C#AndThen#toItem] = {

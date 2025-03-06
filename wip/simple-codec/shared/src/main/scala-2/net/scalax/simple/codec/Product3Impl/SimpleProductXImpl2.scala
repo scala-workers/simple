@@ -29,8 +29,7 @@ class SimpleProductXImpl2 {
         extends NotHList.ConvertF[
           NotHList.ItemInputType[X1, FT1X],
           NotHList.FGenericInputType[CT1X#toM, FT1X],
-          NotHList.FGenericInputType[AppendColType[X1, CT1X]#toM, FT1X],
-          NotHList.ProductInputFunc
+          NotHList.FGenericInputType[AppendColType[X1, CT1X]#toM, FT1X]
         ] {
       override val inputFunc: (
         (FT1X#toF[X1], CT1X#toM[FT1X#toF]) => AppendType[FT1X#toF[X1], CT1X#toM[FT1X#toF]],
@@ -42,7 +41,9 @@ class SimpleProductXImpl2 {
     }
 
     object InSetImpl2 extends InSetImpl1[Any, NotHList.FType, ColType] {
-      override lazy val next: InSetImpl1[Any, NotHList.FType#Next, ColType] = super.next
+      SelfInSetImpl2 =>
+      override lazy val next: InSetImpl1[Any, NotHList.FType#Next, ColType] =
+        SelfInSetImpl2.asInstanceOf[InSetImpl1[Any, NotHList.FType#Next, ColType]]
     }
     InSetImpl2.next
     def InSetTo1[X1, FT1X <: NotHList.FType, CT1X <: ColType]: InSetImpl1[X1, FT1X, CT1X] =
@@ -83,8 +84,7 @@ class SimpleProductXImpl2 {
             extends NotHList.ConvertF[
               NotHList.ItemInputType[A, FT111],
               NotHList.FGenericInputType[X#toM, FT111],
-              NotHList.FGenericInputType[U, FT111],
-              NotHList.ProductInputFunc
+              NotHList.FGenericInputType[U, FT111]
             ] {
           override val inputFunc
             : ((FT111#toF[A], X#toM[FT111#toF]) => U[FT111#toF], U[FT111#toF] => FT111#toF[A], U[FT111#toF] => X#toM[FT111#toF]) =
@@ -149,11 +149,6 @@ class SimpleProductXImpl2 {
       type AndThen <: InputType
     }
 
-    trait InputFunc {
-      type toFunc[_, _, _]
-      type FuncThen <: InputFunc
-    }
-
     trait ItemInputType[T, FT <: FType] extends InputType {
       override type toItem  = FT#toF[T]
       override type AndThen = ItemInputType[T, FT#Next]
@@ -170,20 +165,15 @@ class SimpleProductXImpl2 {
     }
 
     // ===
-    trait ConvertF[A1 <: InputType, B1 <: InputType, C1 <: InputType, Fu <: InputFunc] {
+    trait ConvertF[A1 <: InputType, B1 <: InputType, C1 <: InputType] {
       SelfConvertF =>
-      def inputFunc: Fu#toFunc[A1#toItem, B1#toItem, C1#toItem]
-      def next: ConvertF[A1#AndThen, B1#AndThen, C1#AndThen, Fu#FuncThen]
-    }
-
-    trait ProductInputFunc extends InputFunc {
-      override type toFunc[A, B, C] = ((A, B) => C, C => A, C => B)
-      override type FuncThen        = ProductInputFunc
+      def inputFunc: ((A1#toItem, B1#toItem) => C1#toItem, C1#toItem => A1#toItem, C1#toItem => B1#toItem)
+      def next: ConvertF[A1#AndThen, B1#AndThen, C1#AndThen]
     }
 
     // ===
     trait AppendMonad[M[_ <: InputType]] {
-      def zip[A <: InputType, B <: InputType, C <: InputType](convertF: ConvertF[A, B, C, ProductInputFunc], ma: M[A], mb: M[B]): M[C]
+      def zip[A <: InputType, B <: InputType, C <: InputType](convertF: ConvertF[A, B, C], ma: M[A], mb: M[B]): M[C]
       def zero[N <: InputType](i: InputInstance[N]): M[N]
     }
 

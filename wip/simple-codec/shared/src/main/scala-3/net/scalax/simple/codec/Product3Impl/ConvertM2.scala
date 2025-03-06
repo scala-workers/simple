@@ -50,18 +50,18 @@ object ConvertM2Impl {
             InputType.TakeHead[InputType.TakeTail[B]],
             InputType.TakeHead[InputType.TakeTail[C]]
           ] {
-            override def from1(a: InputType.TakeHead[A], b: InputType.TakeHead[B]): InputType.TakeHead[C] = fromTo.from(a, b)
-            override def takeHead1(modelC: InputType.TakeHead[C]): InputType.TakeHead[A]                  = fromTo.takeHead(modelC)
-            override def takeTail1(modelC: InputType.TakeHead[C]): InputType.TakeHead[B]                  = fromTo.takeTail(modelC)
+            override def from1(a: InputType.TakeHead[A], b: InputType.TakeHead[B]): InputType.TakeHead[C] = fromTo.inputFunc._1(a, b)
+            override def takeHead1(modelC: InputType.TakeHead[C]): InputType.TakeHead[A]                  = fromTo.inputFunc._2(modelC)
+            override def takeTail1(modelC: InputType.TakeHead[C]): InputType.TakeHead[B]                  = fromTo.inputFunc._3(modelC)
 
             override def from2(
               a: InputType.TakeHead[InputType.TakeTail[A]],
               b: InputType.TakeHead[InputType.TakeTail[B]]
-            ): InputType.TakeHead[InputType.TakeTail[C]] = fromTo.next.from(a, b)
+            ): InputType.TakeHead[InputType.TakeTail[C]] = fromTo.next.inputFunc._1(a, b)
             override def takeHead2(modelC: InputType.TakeHead[InputType.TakeTail[C]]): InputType.TakeHead[InputType.TakeTail[A]] =
-              fromTo.next.takeHead(modelC)
+              fromTo.next.inputFunc._2(modelC)
             override def takeTail2(modelC: InputType.TakeHead[InputType.TakeTail[C]]): InputType.TakeHead[InputType.TakeTail[B]] =
-              fromTo.next.takeTail(modelC)
+              fromTo.next.inputFunc._3(modelC)
           }
 
         append.zip(c1, ma, mb)

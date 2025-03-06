@@ -30,7 +30,33 @@ class SimpleProductXImpl2 {
           NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[X1, CT1X]], FT1X]
         ] {
       SelfInSetImpl1 =>
-      override def from(
+      override val inputFunc: (
+        (
+          NotHList.InputType.TakeHead[NotHList.ItemInputType[X1, FT1X]],
+          NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, CT1X], FT1X]]
+        ) => NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[X1, CT1X]], FT1X]],
+        NotHList.InputType.TakeHead[
+          NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[X1, CT1X]], FT1X]
+        ] => NotHList.InputType.TakeHead[NotHList.ItemInputType[X1, FT1X]],
+        NotHList.InputType.TakeHead[
+          NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[X1, CT1X]], FT1X]
+        ] => NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, CT1X], FT1X]]
+      ) = (
+        (
+          a: NotHList.InputType.TakeHead[NotHList.ItemInputType[X1, FT1X]],
+          b: NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, CT1X], FT1X]]
+        ) =>
+          append(a, b.asInstanceOf).asInstanceOf[NotHList.InputType.TakeHead[
+            NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[X1, CT1X]], FT1X]
+          ]],
+        (c: NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[X1, CT1X]], FT1X]]) =>
+          unappendHead(c.asInstanceOf).asInstanceOf[NotHList.InputType.TakeHead[NotHList.ItemInputType[X1, FT1X]]],
+        (c: NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[X1, CT1X]], FT1X]]) =>
+          unappendTail(c.asInstanceOf)
+            .asInstanceOf[NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, CT1X], FT1X]]]
+      )
+
+      /*override def from(
         a: NotHList.InputType.TakeHead[NotHList.ItemInputType[X1, FT1X]],
         b: NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, CT1X], FT1X]]
       ): NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[X1, CT1X]], FT1X]] =
@@ -43,7 +69,7 @@ class SimpleProductXImpl2 {
       override def takeTail(
         c: NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, AppendColType[X1, CT1X]], FT1X]]
       ): NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x[_]] =>> ColType.toM[x, CT1X], FT1X]] =
-        unappendTail(c.asInstanceOf).asInstanceOf
+        unappendTail(c.asInstanceOf).asInstanceOf*/
 
       override def next = SelfInSetImpl1.asInstanceOf
     }
@@ -123,8 +149,33 @@ class SimpleProductXImpl2 {
               NotHList.FGenericInputType[U, FT111]
             ] {
           SelfABInstance =>
+          override val inputFunc: (
+            (
+              NotHList.InputType.TakeHead[NotHList.ItemInputType[A, FT111]],
+              NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x1[_]] =>> ColType.toM[x1, X], FT111]]
+            ) => NotHList.InputType.TakeHead[NotHList.FGenericInputType[U, FT111]],
+            NotHList.InputType.TakeHead[
+              NotHList.FGenericInputType[U, FT111]
+            ] => NotHList.InputType.TakeHead[NotHList.ItemInputType[A, FT111]],
+            NotHList.InputType.TakeHead[
+              NotHList.FGenericInputType[U, FT111]
+            ] => NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x1[_]] =>> ColType.toM[x1, X], FT111]]
+          ) = (
+            (
+              a: NotHList.InputType.TakeHead[NotHList.ItemInputType[A, FT111]],
+              b: NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x1[_]] =>> ColType.toM[x1, X], FT111]]
+            ) =>
+              append1In[[_] =>> Any](a, b.asInstanceOf).asInstanceOf[NotHList.InputType.TakeHead[
+                NotHList.FGenericInputType[U, FT111]
+              ]],
+            (c: NotHList.InputType.TakeHead[NotHList.FGenericInputType[U, FT111]]) =>
+              takeHead1In[[_] =>> Any](c.asInstanceOf).asInstanceOf[NotHList.InputType.TakeHead[NotHList.ItemInputType[A, FT111]]],
+            (c: NotHList.InputType.TakeHead[NotHList.FGenericInputType[U, FT111]]) =>
+              takeTail1In[[_] =>> Any](c.asInstanceOf)
+                .asInstanceOf[NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x1[_]] =>> ColType.toM[x1, X], FT111]]]
+          )
 
-          override def from(
+          /*override def from(
             a: NotHList.InputType.TakeHead[NotHList.ItemInputType[A, FT111]],
             b: NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x1[_]] =>> ColType.toM[x1, X], FT111]]
           ): NotHList.InputType.TakeHead[NotHList.FGenericInputType[U, FT111]] =
@@ -138,7 +189,7 @@ class SimpleProductXImpl2 {
             c: NotHList.InputType.TakeHead[NotHList.FGenericInputType[U, FT111]]
           ): NotHList.InputType.TakeHead[NotHList.FGenericInputType[[x1[_]] =>> ColType.toM[x1, X], FT111]] = takeTail1In[[_] =>> Any](
             c.asInstanceOf
-          ).asInstanceOf
+          ).asInstanceOf*/
 
           override def next = SelfABInstance.asInstanceOf
         }
@@ -189,10 +240,11 @@ class SimpleProductXImpl2 {
     }
 
     trait ConvertF[A1 <: InputType, B1 <: InputType, C1 <: InputType] {
-      def from(a: InputType.TakeHead[A1], b: InputType.TakeHead[B1]): InputType.TakeHead[C1]
-      def takeHead(c: InputType.TakeHead[C1]): InputType.TakeHead[A1]
-      def takeTail(c: InputType.TakeHead[C1]): InputType.TakeHead[B1]
-
+      def inputFunc: (
+        (InputType.TakeHead[A1], InputType.TakeHead[B1]) => InputType.TakeHead[C1],
+        InputType.TakeHead[C1] => InputType.TakeHead[A1],
+        InputType.TakeHead[C1] => InputType.TakeHead[B1]
+      )
       def next: ConvertF[InputType.TakeTail[A1], InputType.TakeTail[B1], InputType.TakeTail[C1]]
     }
 

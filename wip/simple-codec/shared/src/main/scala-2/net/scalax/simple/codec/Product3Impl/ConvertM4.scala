@@ -48,7 +48,7 @@ object ConvertM4Impl {
         B <: SimpleProductXImpl2.NotHList.InputType,
         C <: SimpleProductXImpl2.NotHList.InputType
       ](
-        fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C, SimpleProductXImpl2.NotHList.ProductInputFunc],
+        fromTo: SimpleProductXImpl2.NotHList.ConvertF[A, B, C],
         ma: M2[A#toItem, A#AndThen#toItem, A#AndThen#AndThen#toItem, A#AndThen#AndThen#AndThen#toItem],
         mb: M2[B#toItem, B#AndThen#toItem, B#AndThen#AndThen#toItem, B#AndThen#AndThen#AndThen#toItem]
       ): M2[C#toItem, C#AndThen#toItem, C#AndThen#AndThen#toItem, C#AndThen#AndThen#AndThen#toItem] = {

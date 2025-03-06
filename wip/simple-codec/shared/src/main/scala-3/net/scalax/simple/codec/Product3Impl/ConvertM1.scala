@@ -29,9 +29,9 @@ object ConvertM1Impl {
         ): M2[InputType.TakeHead[C]] = {
           val c1: SimpleProduct1.ConvertF[InputType.TakeHead[A], InputType.TakeHead[B], InputType.TakeHead[C]] =
             new SimpleProduct1.ConvertF[InputType.TakeHead[A], InputType.TakeHead[B], InputType.TakeHead[C]] {
-              override def from1(a: InputType.TakeHead[A], b: InputType.TakeHead[B]): InputType.TakeHead[C] = fromTo.from(a, b)
-              override def takeHead1(modelC: InputType.TakeHead[C]): InputType.TakeHead[A]                  = fromTo.takeHead(modelC)
-              override def takeTail1(modelC: InputType.TakeHead[C]): InputType.TakeHead[B]                  = fromTo.takeTail(modelC)
+              override def from1(a: InputType.TakeHead[A], b: InputType.TakeHead[B]): InputType.TakeHead[C] = fromTo.inputFunc._1(a, b)
+              override def takeHead1(modelC: InputType.TakeHead[C]): InputType.TakeHead[A]                  = fromTo.inputFunc._2(modelC)
+              override def takeTail1(modelC: InputType.TakeHead[C]): InputType.TakeHead[B]                  = fromTo.inputFunc._3(modelC)
             }
 
           append.zip(c1, ma, mb)
