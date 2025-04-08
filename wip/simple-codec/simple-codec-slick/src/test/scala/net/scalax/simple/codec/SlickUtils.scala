@@ -1,8 +1,18 @@
 package net.scalax.simple.codec
 package aa
 
-import net.scalax.simple.codec.to_list_generic.{BasedInstalled, ModelLink, SimpleProduct1, SimpleProduct2, SimpleProduct3, SimpleProduct4}
+import net.scalax.simple.codec.to_list_generic.{
+  BasedInstalled,
+  FoldFGenerc,
+  ModelLink,
+  SimpleProduct1,
+  SimpleProduct2,
+  SimpleProduct3,
+  SimpleProduct4,
+  ToListByTheSameTypeGeneric
+}
 import slick.ast.{ColumnOption, TypedType}
+import slick.collection.heterogeneous.HList.HListShape
 import slick.jdbc.JdbcProfile
 
 class SlickUtils[F[_[_]], V <: JdbcProfile](
@@ -19,6 +29,18 @@ class SlickUtils[F[_[_]], V <: JdbcProfile](
   val appender4: SimpleProduct4.Appender[F]            = SimpleProduct4[F].derived(basedInstalled.basedInstalled)
   val zip3Generic: Zip3Generic[F]                      = Zip3Generic[F].derived(appender4)
   val mapGeneric: MapGenerc[F]                         = MapGenerc[F].derived(appender2)
+  val folderGeneric: FoldFGenerc[F]                    = FoldFGenerc[F].derived(appender1)
+  val toListGeneric: ToListByTheSameTypeGeneric[F]     = ToListByTheSameTypeGeneric[F].derived(folderGeneric)
+
+  type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
+
+  import net.scalax.slickless.compat
+
+  def toShape(t1: F[ShapeF]): HListShape[_, _, _, _] =
+    toListGeneric.toListByTheSameType[Shape[_, _, _, _], HListShape[ShapeLevel, shapeless.HList, shapeless.HList, shapeless.HList]](
+      compat.hnilShape,
+      (sum, each) => compat.hconsShape(each, sum)
+    )
 
   def colN[T](name: String, func: OptsFromCol[T], tt: TypedType[T]): Table[_] => Rep[T] = { tb =>
     val colsFunc = for (n <- func) yield n(tb.O)
