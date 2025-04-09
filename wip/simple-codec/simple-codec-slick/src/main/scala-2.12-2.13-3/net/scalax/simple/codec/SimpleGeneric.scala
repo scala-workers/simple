@@ -7,5 +7,5 @@ class SlickCompatAlias[V <: JdbcProfile](val profile: V) {
 }
 
 object SlickCompatAlias {
-  def build[V <: JdbcProfile](implicit p: V): SlickCompatAlias[p.type] = new SlickCompatAlias(profile = p)
+  def build[T <: JdbcProfile](implicit p: T): SlickCompatAlias[p.type] = new SlickCompatAlias(profile = p)
 }

@@ -5,16 +5,18 @@ import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, ModelLi
 import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
 import slick.lifted.ProvenShape
-import net.scalax.slickless.compat._
 
-case class UserAbs[F[_], U[_]](id: F[U[Int]], first: F[String], last: F[String])
+case class UserAbs[F[_], U[_]](id: F[U[Int]], first: F[String], last: F[String], age: F[Long])
 
-class Model2[U[_]](val slickProfile: JdbcProfile) {
-  type F1Alias[E1[_]] = UserAbs[E1, U]
+class Model2(val slickProfile: JdbcProfile) {
 
   import slickProfile.api._
 
-  val commonAlias = SlickCompatAlias.build(slickProfile)
+  implicit def appender[U[_]]: ModelLink[({ type FModel[X[_]] = UserAbs[X, U] })#FModel, UserAbs[({ type U1[T] = T })#U1, U]] =
+    ModelLinkCommonF[({ type FModel[X[_]] = UserAbs[X, U] })#FModel].derived
+  val commonAlias: SlickCompatAlias[slickProfile.type] = SlickCompatAlias.build(slickProfile)
+  def utils[U[_]]: SlickUtils[({ type FModel[X[_]] = UserAbs[X, U] })#FModel, slickProfile.type] =
+    SlickUtils[({ type FModel[X[_]] = UserAbs[X, U] })#FModel](appender).build(slickProfile)
 
   def addElem[T](seq: Seq[T], t: T*): Seq[T] = t ++: seq
   def colN[T](
@@ -32,33 +34,38 @@ class Model2[U[_]](val slickProfile: JdbcProfile) {
   type RepFromTable[T] = slickProfile.Table[_] => Rep[T]
   type OptsFromCol[T]  = Seq[commonAlias.SqlColumnOptions => ColumnOption[T]]
 
-  def userTypedTypeGeneric(implicit tt12: TypedType[U[Int]]): UserAbs[TypedType, U] = FillIdentity[UserAbs[TypedType, U]].derived
+  def userTypedTypeGeneric[U[_]](implicit tt12: TypedType[U[Int]]): UserAbs[TypedType, U] = FillIdentity[UserAbs[TypedType, U]].derived
+  def userShapeGeneric[U[_]](implicit tt12: ShapeF[U[Int]]): UserAbs[ShapeF, U]           = FillIdentity[UserAbs[ShapeF, U]].derived
 
-  implicit val appender: ModelLink[F1Alias, F1Alias[({ type U1[T] = T })#U1]] = ModelLinkCommonF[F1Alias].derived
+  def userOptImpl[U[_]]: UserAbs[OptsFromCol, U] = utils.userOptImpl
 
-  def userOptImpl: UserAbs[OptsFromCol, U] = SlickUtils[F1Alias](appender).build(slickProfile).userOptImpl
-
-  def userOpt: UserAbs[OptsFromCol, U] = {
+  def userOpt[U[_]]: UserAbs[OptsFromCol, U] = {
     val impl                      = userOptImpl
     val list: OptsFromCol[U[Int]] = addElem(impl.id, _.AutoInc, _.PrimaryKey)
     impl.copy[OptsFromCol, U](id = list)
   }
 
-  def userRep(implicit tt12: TypedType[U[Int]]): slickProfile.Table[_] => UserAbs[Rep, U] =
-    SlickUtils[F1Alias](appender).build(slickProfile).userRep(appender.labelled, userOpt, userTypedTypeGeneric)
+  val utils1 = utils[Option]
+  val utils2 = utils[Id]
 
-  class TableUserAbs(tag: Tag)(implicit tt: TypedType[U[Int]], s: ShapeF[U[Int]]) extends slickProfile.Table[UserAbs[Id, U]](tag, "users") {
-    self =>
-    private val repModel: slickProfile.Table[_] => UserAbs[Rep, U] = userRep
-    private def __tableInnserRep: UserAbs[Rep, U]                  = repModel(self)
-
-    override def * : ProvenShape[UserAbs[Id, U]] =
-      (__tableInnserRep.id, __tableInnserRep.first, __tableInnserRep.last) <> ((UserAbs.apply[Id, U] _).tupled, UserAbs.unapply[Id, U] _)
-  }
-
-  object TableUserAbs {
-    import scala.language.implicitConversions
-    implicit def TableUserAbsTableImpl(tb: TableUserAbs): UserAbs[Rep, U] = tb.__tableInnserRep
+  object Query1
+      extends TableQuery(cons =>
+        new utils2.CommonTable(cons)(
+          labelled = appender[Id].labelled,
+          opt = userOpt,
+          typedType = userTypedTypeGeneric,
+          userShapeGeneric = userShapeGeneric
+        )
+      ) {
+    object forInsert
+        extends TableQuery(cons =>
+          new utils1.CommonTable(cons)(
+            labelled = appender.labelled,
+            opt = userOpt,
+            typedType = userTypedTypeGeneric,
+            userShapeGeneric = userShapeGeneric
+          )
+        )
   }
 
 }
@@ -69,20 +76,36 @@ object Runner1 {
   def main(arr: Array[String]): Unit = {
     val p = slick.jdbc.MySQLProfile
 
-    val newModel: Model2[Id]   = new Model2[Id](p)
-    val newOpt: Model2[Option] = new Model2[Option](p)
-    val modelInt: IndexModel[({ type F1[U[_]] = UserAbs[U, Id] })#F1] =
-      IndexModel[({ type F1[U[_]] = UserAbs[U, Id] })#F1].derived(newModel.appender.fromListByTheSameTypeGeneric)
+    val newOpt: Model2 = new Model2(p)
+    val Query1         = newOpt.Query1
 
     import p.api._
 
-    object Query1 extends TableQuery(cons => new newOpt.TableUserAbs(cons)) {
-      object forInsert extends TableQuery(cons => new newModel.TableUserAbs(cons))
+    val db: Database = Database.forURL(url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", user = "sa", password = "", driver = "org.h2.Driver")
+    val sql1         = Query1.schema.create
+    val sql2         = Query1.forInsert += UserAbs[Id, Option](id = None, first = "first_name1", last = "last_name1", age = 5201314)
+    val sql3         = Query1.forInsert += UserAbs[Id, Option](id = None, first = "first_name2", last = "last_name2", age = 114514)
+    val sql4         = Query1.forInsert += UserAbs[Id, Option](id = None, first = "first_name3", last = "last_name3", age = 314159)
+
+    val action1 = DBIO.seq(sql1, sql2, sql3, sql4)
+    val action2 = Query1.result
+    val action3 = Query1.filter(_.last endsWith "3").filter(_.first endsWith "3").result
+
+    import scala.concurrent.ExecutionContext.Implicits.global
+
+    val futureAction = for {
+      _     <- action1
+      list1 <- action2
+      list2 <- action3
+    } yield {
+      println(list1)
+      println(list2)
     }
+
+    scala.concurrent.Await.result(db.run(futureAction), scala.concurrent.duration.Duration.Inf)
 
     println(Query1.forInsert.result.statements)
     println(Query1.result.statements)
-    println(modelInt.model)
   }
 
 }
