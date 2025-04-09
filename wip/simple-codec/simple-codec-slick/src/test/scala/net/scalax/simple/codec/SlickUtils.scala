@@ -35,12 +35,35 @@ class SlickUtils[F[_[_]], V <: JdbcProfile](
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
 
   import net.scalax.slickless.compat
+  import net.scalax.slickless.compat.impl.{HListShape => HListShapeImpl}
 
-  def toShape(t1: F[ShapeF]): HListShape[_, _, _, _] =
-    toListGeneric.toListByTheSameType[Shape[_, _, _, _], HListShape[ShapeLevel, shapeless.HList, shapeless.HList, shapeless.HList]](
+  def toShape(t1: F[ShapeF]): HListShapeImpl[ShapeLevel, _ <: shapeless.HList, _ <: shapeless.HList, _ <: shapeless.HList] = {
+    val toListFunc = toListGeneric.toListByTheSameType[Shape[ShapeLevel, _ <: Any, _ <: Any, _ <: Any], HListShapeImpl[
+      ShapeLevel,
+      _ <: shapeless.HList,
+      _ <: shapeless.HList,
+      _ <: shapeless.HList
+    ]](
       compat.hnilShape,
       (sum, each) => compat.hconsShape(each, sum)
     )
+
+    val model2: F[({ type X1[_] = Shape[ShapeLevel, _ <: Any, _ <: Any, _ <: Any] })#X1] =
+      t1.asInstanceOf[F[({ type X1[_] = Shape[ShapeLevel, _ <: Any, _ <: Any, _ <: Any] })#X1]]
+
+    toListFunc(model2)
+  }
+
+  def toRep(t1: F[Rep]): shapeless.HList = {
+    val toListFunc = toListGeneric.toListByTheSameType[Rep[_ <: Any], shapeless.HList](
+      shapeless.HNil,
+      (sum, each) => shapeless.::(each, sum)
+    )
+
+    val model2: F[({ type X1[_] = Rep[_ <: Any] })#X1] = t1.asInstanceOf[F[({ type X1[_] = Rep[_ <: Any] })#X1]]
+
+    toListFunc(model2)
+  }
 
   def colN[T](name: String, func: OptsFromCol[T], tt: TypedType[T]): Table[_] => Rep[T] = { tb =>
     val colsFunc = for (n <- func) yield n(tb.O)
