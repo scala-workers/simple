@@ -4,7 +4,6 @@ package aa
 import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, ModelLinkCommonF}
 import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
-import slick.lifted.ProvenShape
 
 case class UserAbs[F[_], U[_]](id: F[U[Int]], first: F[String], last: F[String], age: F[Long])
 
@@ -67,6 +66,10 @@ class Model2(val slickProfile: JdbcProfile) {
           )
         )
   }
+
+  println("// ===")
+  println(utils1.getIndexByName("age"))
+  println("// ===")
 
 }
 

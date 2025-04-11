@@ -31,8 +31,11 @@ class SlickUtils[F[_[_]], V <: JdbcProfile](
   val folderGeneric: FoldFGenerc[F]                                 = FoldFGenerc[F].derived(appender1)
   val toListGeneric: ToListByTheSameTypeGeneric[F]                  = ToListByTheSameTypeGeneric[F].derived(folderGeneric)
   val fromListByTheSameTypeGeneric: FromListByTheSameTypeGeneric[F] = FromListByTheSameTypeGeneric[F].derived(appender1)
+  val indexOfPropertyName: IndexOfPropertyName[F]                   = IndexOfPropertyName[F].derived(appender1)
 
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
+
+  def getIndexByName(n: String): Int = indexOfPropertyName.ofName(n, basedInstalled.labelled.modelLabelled)
 
   private val helperUtil: helperUtils[slickProfile.type, F] = new helperUtils[slickProfile.type, F](
     slickProfile = slickProfile
