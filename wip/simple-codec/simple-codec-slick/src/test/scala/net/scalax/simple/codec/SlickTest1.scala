@@ -67,6 +67,12 @@ class Model2(val slickProfile: JdbcProfile) {
         )
   }
 
+  val replace1: ReplaceByIndex[({ type F1[H1[_]] = UserAbs[H1, Id] })#F1] =
+    ReplaceByIndex[({ type F1[H1[_]] = UserAbs[H1, Id] })#F1].derived(utils2.appender1)
+
+  val replace2: ReplaceByIndex[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1] =
+    ReplaceByIndex[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1].derived(utils1.appender1)
+
   println("// ===")
   println(utils1.getIndexByName("age"))
   println("// ===")
@@ -103,6 +109,8 @@ object Runner1 {
     } yield {
       println(list1)
       println(list2)
+      println("33".repeat(10))
+      println(list1.map(x1 => newOpt.replace1.replace[Id](1, "new_new_name")(x1)).map(x1 => newOpt.replace1.replace[Id](3, 2121213)(x1)))
     }
 
     scala.concurrent.Await.result(db.run(futureAction), scala.concurrent.duration.Duration.Inf)
