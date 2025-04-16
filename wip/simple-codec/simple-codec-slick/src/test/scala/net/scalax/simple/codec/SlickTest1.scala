@@ -1,7 +1,7 @@
 package net.scalax.simple.codec
 package aa
 
-import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, ModelLinkCommonF}
+import net.scalax.simple.codec.to_list_generic.{BasedInstalled, FillIdentity, ModelLink, ModelLinkCommonF}
 import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
 
@@ -73,6 +73,14 @@ class Model2(val slickProfile: JdbcProfile) {
   val replace2: ReplaceByIndex[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1] =
     ReplaceByIndex[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1].derived(utils1.appender1)
 
+  val replace3: ReplaceByPropertyName[({ type F1[H1[_]] = UserAbs[H1, Id] })#F1] =
+    ReplaceByPropertyName[({ type F1[H1[_]] = UserAbs[H1, Id] })#F1]
+      .derived(implicitly[BasedInstalled[({ type F1[H1[_]] = UserAbs[H1, Id] })#F1]])
+
+  val replace4: ReplaceByPropertyName[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1] =
+    ReplaceByPropertyName[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1]
+      .derived(implicitly[BasedInstalled[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1]])
+
   println("// ===")
   println(utils1.getIndexByName("age"))
   println("// ===")
@@ -111,6 +119,9 @@ object Runner1 {
       println(list2)
       println("33".repeat(10))
       println(list1.map(x1 => newOpt.replace1.replace[Id](1, "new_new_name")(x1)).map(x1 => newOpt.replace1.replace[Id](3, 2121213)(x1)))
+      println(
+        list1.map(x1 => newOpt.replace3.replace[Id]("last", "new_new_name")(x1)).map(x1 => newOpt.replace3.replace[Id]("age", 114514)(x1))
+      )
     }
 
     scala.concurrent.Await.result(db.run(futureAction), scala.concurrent.duration.Duration.Inf)
