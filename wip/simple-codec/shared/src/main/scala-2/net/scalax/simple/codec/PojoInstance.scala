@@ -19,26 +19,13 @@ trait PojoInstance[U[_], Model] {
 
 object PojoInstance {
 
-  trait ReplaceImpl[Model] {
+  private trait ReplaceImpl[Model] {
     def re[T[_]](r: PojoInstance[T, Model]): PojoInstance[T, Model]
   }
 
-  def copyImpl1[Model](
-    proName: String,
-    m: Any,
+  private def copyImpl1[Model](proName: String, data: Any)(
     basedInstalled: BasedInstalled[({ type F1[T[_]] = PojoInstance[T, Model] })#F1]
   ): ReplaceImpl[Model] = {
-    val replaceByPropertyName: ReplaceByPropertyName[({ type F1[T[_]] = PojoInstance[T, Model] })#F1] =
-      ReplaceByPropertyName[({ type F1[T[_]] = PojoInstance[T, Model] })#F1].derived(basedInstalled)
-    new ReplaceImpl[Model] {
-      override def re[T[_]](r: PojoInstance[T, Model]): PojoInstance[T, Model] = replaceByPropertyName.replace[T](proName, m)(r)
-    }
-  }
-
-  def copyImpl2[Model, MP, XX1[_]](
-    proName: String,
-    func: Model => MP
-  )(data: XX1[MP])(basedInstalled: BasedInstalled[({ type F1[T[_]] = PojoInstance[T, Model] })#F1]): ReplaceImpl[Model] = {
     val replaceByPropertyName: ReplaceByPropertyName[({ type F1[T[_]] = PojoInstance[T, Model] })#F1] =
       ReplaceByPropertyName[({ type F1[T[_]] = PojoInstance[T, Model] })#F1].derived(basedInstalled)
     new ReplaceImpl[Model] {
@@ -46,11 +33,17 @@ object PojoInstance {
     }
   }
 
+  private def copyImpl2[Model, MP, XX1[_]](
+    proName: String,
+    func: Model => MP
+  )(data: XX1[MP])(basedInstalled: BasedInstalled[({ type F1[T[_]] = PojoInstance[T, Model] })#F1]): ReplaceImpl[Model] =
+    copyImpl1(proName, data)(basedInstalled)
+
   trait CopyAble[U[_], Model] {
     CopyAbleSelf =>
     def value: PojoInstance[U, Model]
     def basedInstalled: BasedInstalled[({ type F1[T[_]] = PojoInstance[T, Model] })#F1]
-    def copyImpl3[MP](proName: String, func: Model => MP)(data: U[MP]): PojoInstance[U, Model] =
+    private def copyImpl3[MP](proName: String, func: Model => MP)(data: U[MP]): PojoInstance[U, Model] =
       copyImpl2[Model, MP, U](proName, func)(data)(basedInstalled).re(value)
     def copySelfImpl[MP](proName: String, func: Model => MP)(data: U[MP]): CopyAble[U, Model] = new CopyAble[U, Model] {
       override def value: PojoInstance[U, Model] = CopyAbleSelf.copyImpl3(proName = proName, func = func)(data)
