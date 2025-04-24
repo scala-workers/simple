@@ -7,7 +7,7 @@ import net.scalax.simple.codec.to_list_generic.{FoldFGenerc, ModelLinkPojo, Pojo
 case class CatNameTest3(id3: Int, str3: Option[String], uClass3: Option[Long], name113: String, friends: List[CatNameTest3])
 
 object CatNameTest3 {
-  implicit val deco2_1: ModelLinkPojo[CatNameTest3] = ModelLinkPojo.derived
+  implicit val deco2_1: ModelLinkPojo[CatNameTest3] = ModelLinkPojo[CatNameTest3].derived
 
   import CirceGeneric2._
 
@@ -51,15 +51,15 @@ object CatNameTest3TestCase {
     println(parser.parse(modelInstance.asJson.spaces2).flatMap(_.as[CatNameTest3]))
 
     val labelled1 = implicitly[ModelLinkPojo[CatNameTest3]].labelled.modelLabelled
-    val labelled2 = labelled1.forCopy.copy(_.name113)("name224")
+    val labelled2 = labelled1.copy(_.name113)("name224")
     println(CatNameTest3.names(labelled1))
-    println(CatNameTest3.names(labelled2.value))
-    println(labelled1.forCopy.get(_.name113))
-    println(labelled2.get(_.name113))
-    println(labelled1.forCopy.get(_.id3))
-    println(labelled2.get(_.id3))
-    println(labelled1.forCopy.get(_.friends))
-    println(labelled2.get(_.friends))
+    println(CatNameTest3.names(labelled2))
+    println(labelled1(_.name113))
+    println(labelled2(_.name113))
+    println(labelled1(_.id3))
+    println(labelled2(_.id3))
+    println(labelled1(_.friends))
+    println(labelled2(_.friends))
   }
 
 }

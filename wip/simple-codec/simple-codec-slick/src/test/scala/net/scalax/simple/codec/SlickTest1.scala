@@ -14,7 +14,7 @@ class Model2(val slickProfile: JdbcProfile) {
   implicit def appender[U[_]]: ModelLink[({ type FModel[X[_]] = UserAbs[X, U] })#FModel, UserAbs[({ type U1[T] = T })#U1, U]] =
     ModelLinkCommonF[({ type FModel[X[_]] = UserAbs[X, U] })#FModel].derived
   val commonAlias: SlickCompatAlias[slickProfile.type] = SlickCompatAlias.build(slickProfile)
-  def utils[U[_]]: SlickUtils[({ type FModel[X[_]] = UserAbs[X, U] })#FModel, slickProfile.type] =
+  def utils[U[_]]: SlickUtils[({ type FModel[X[_]] = UserAbs[X, U] })#FModel, UserAbs[({ type Id1[XV] = XV })#Id1, U], slickProfile.type] =
     SlickUtils[({ type FModel[X[_]] = UserAbs[X, U] })#FModel](appender).build(slickProfile)
 
   def addElem[T](seq: Seq[T], t: T*): Seq[T] = t ++: seq
@@ -51,35 +51,21 @@ class Model2(val slickProfile: JdbcProfile) {
       extends TableQuery(cons =>
         new utils2.CommonTable(cons)(
           labelled = appender[Id].labelled,
-          opt = userOpt,
-          typedType = userTypedTypeGeneric,
-          userShapeGeneric = userShapeGeneric
+          opt = userOpt[Id],
+          typedType = userTypedTypeGeneric[Id],
+          userShapeGeneric = userShapeGeneric[Id]
         )
       ) {
     object forInsert
         extends TableQuery(cons =>
           new utils1.CommonTable(cons)(
-            labelled = appender.labelled,
-            opt = userOpt,
-            typedType = userTypedTypeGeneric,
-            userShapeGeneric = userShapeGeneric
+            labelled = appender[Option].labelled,
+            opt = userOpt[Option],
+            typedType = userTypedTypeGeneric[Option],
+            userShapeGeneric = userShapeGeneric[Option]
           )
         )
   }
-
-  val replace1: ReplaceByIndex[({ type F1[H1[_]] = UserAbs[H1, Id] })#F1] =
-    ReplaceByIndex[({ type F1[H1[_]] = UserAbs[H1, Id] })#F1].derived(utils2.appender1)
-
-  val replace2: ReplaceByIndex[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1] =
-    ReplaceByIndex[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1].derived(utils1.appender1)
-
-  val replace3: ReplaceByPropertyName[({ type F1[H1[_]] = UserAbs[H1, Id] })#F1] =
-    ReplaceByPropertyName[({ type F1[H1[_]] = UserAbs[H1, Id] })#F1]
-      .derived(implicitly[BasedInstalled[({ type F1[H1[_]] = UserAbs[H1, Id] })#F1]])
-
-  val replace4: ReplaceByPropertyName[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1] =
-    ReplaceByPropertyName[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1]
-      .derived(implicitly[BasedInstalled[({ type F1[H1[_]] = UserAbs[H1, Option] })#F1]])
 
   println("// ===")
   println(utils1.getIndexByName("age"))
@@ -117,11 +103,6 @@ object Runner1 {
     } yield {
       println(list1)
       println(list2)
-      println("33".repeat(10))
-      println(list1.map(x1 => newOpt.replace1.replace[Id](1, "new_new_name")(x1)).map(x1 => newOpt.replace1.replace[Id](3, 2121213)(x1)))
-      println(
-        list1.map(x1 => newOpt.replace3.replace[Id]("last", "new_new_name")(x1)).map(x1 => newOpt.replace3.replace[Id]("age", 114514)(x1))
-      )
     }
 
     scala.concurrent.Await.result(db.run(futureAction), scala.concurrent.duration.Duration.Inf)

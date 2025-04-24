@@ -5,6 +5,8 @@ import net.scalax.simple.codec.to_list_generic.{
   BasedInstalled,
   FoldFGenerc,
   ModelLink,
+  ModelLinkPojo,
+  PojoInstance,
   SimpleProduct1,
   SimpleProduct2,
   SimpleProduct3,
@@ -14,11 +16,11 @@ import net.scalax.simple.codec.to_list_generic.{
 import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
 
-class SlickUtils[F[_[_]], V <: JdbcProfile](
+class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
   val slickProfile: V,
-  appenderIn: ModelGetSet[F, F[({ type U1[T] = T })#U1]],
+  appenderIn: ModelGetSet[F, Model],
   basedInstalled: BasedInstalled[F]
-)(implicit classTag: scala.reflect.ClassTag[F[({ type U1[T] = T })#U1]]) {
+)(implicit classTag: scala.reflect.ClassTag[Model]) {
   import slickProfile.api._
 
   val commonAlias: SlickCompatAlias[slickProfile.type]              = SlickCompatAlias.build(slickProfile)
@@ -44,9 +46,12 @@ class SlickUtils[F[_[_]], V <: JdbcProfile](
     fromListByTheSameTypeGeneric = fromListByTheSameTypeGeneric
   )
 
-  def mapShape(shapeModel: F[ShapeF], repModel: F[Rep]): slick.lifted.MappedProjection[F[({ type IdImpl[T] = T })#IdImpl]] = {
+  def mapShape(shapeModel: F[ShapeF], repModel: F[Rep]): slick.lifted.MappedProjection[Model] = {
     val shapedValue = anyToShapedValue(helperUtil.toRep(repModel))(helperUtil.toShape(shapeModel))
-    shapedValue.<>(f = helperUtil.toModel _, g = (helperUtil.fromModel _).andThen(t => Some(t)))
+    shapedValue.<>[Model](
+      f = (helperUtil.toModel _).andThen(appenderIn.fromIdentity),
+      g = (helperUtil.fromModel _).andThen(t => Some(t)).compose(appenderIn.toIdentity)
+    )
   }
 
   def colN[T](name: String, func: OptsFromCol[T], tt: TypedType[T]): Table[_] => Rep[T] = { tb =>
@@ -80,12 +85,12 @@ class SlickUtils[F[_[_]], V <: JdbcProfile](
   }
 
   class CommonTable(tag: Tag)(labelled: ModelLabelled[F], opt: F[OptsFromCol], typedType: F[TypedType], userShapeGeneric: F[ShapeF])
-      extends slickProfile.Table[F[({ type ID[T] = T })#ID]](tag, "users") {
+      extends slickProfile.Table[Model](tag, "users") {
     self =>
     private val repModel: slickProfile.Table[_] => F[Rep] = userRep(labelled, opt, typedType)
     private def __tableInnserRep: F[Rep]                  = repModel(self)
 
-    override def * : slick.lifted.ProvenShape[F[({ type ID[T] = T })#ID]] = mapShape(userShapeGeneric, __tableInnserRep)
+    override def * : slick.lifted.ProvenShape[Model] = mapShape(userShapeGeneric, __tableInnserRep)
   }
 
   object CommonTable {
@@ -97,15 +102,27 @@ class SlickUtils[F[_[_]], V <: JdbcProfile](
 
 object SlickUtils {
 
+  def withPojo[M](appender: ModelLinkPojo[M])(implicit
+    classTag: scala.reflect.ClassTag[M]
+  ): SlickUtilsApply[({ type U1[XM[_]] = PojoInstance[XM, M] })#U1, M] =
+    new SlickUtilsApply[({ type U1[XM[_]] = PojoInstance[XM, M] })#U1, M](appender, appender)(classTag)
+
   def apply[F[_[_]]](appender: ModelLink[F, F[({ type U1[T] = T })#U1]])(implicit
     classTag: scala.reflect.ClassTag[F[({ type U1[T] = T })#U1]]
-  ): SlickUtilsApply[F] = new SlickUtilsApply[F](appender, appender)(classTag)
+  ): SlickUtilsApply[F, F[({ type U1[T] = T })#U1]] = new SlickUtilsApplyImpl1[F](appender, appender)(classTag)
 
-  class SlickUtilsApply[F[_[_]]](appender: ModelGetSet[F, F[({ type U1[T] = T })#U1]], basedInstalled: BasedInstalled[F])(implicit
+  class SlickUtilsApplyImpl1[F[_[_]]](appender: ModelGetSet[F, F[({ type U1[T] = T })#U1]], basedInstalled: BasedInstalled[F])(implicit
     classTag: scala.reflect.ClassTag[F[({ type U1[T] = T })#U1]]
+  ) extends SlickUtilsApply[F, F[({ type U1[T] = T })#U1]](appender, basedInstalled) {
+    override def build[V <: JdbcProfile](slickProfile: V): SlickUtils[F, F[({ type U1[T] = T })#U1], slickProfile.type] =
+      new SlickUtils[F, F[({ type U1[T] = T })#U1], slickProfile.type](slickProfile, appender, basedInstalled)(classTag)
+  }
+
+  class SlickUtilsApply[F[_[_]], Model](appender: ModelGetSet[F, Model], basedInstalled: BasedInstalled[F])(implicit
+    classTag: scala.reflect.ClassTag[Model]
   ) {
-    def build[V <: JdbcProfile](slickProfile: V): SlickUtils[F, slickProfile.type] =
-      new SlickUtils[F, slickProfile.type](slickProfile, appender, basedInstalled)(classTag)
+    def build[V <: JdbcProfile](slickProfile: V): SlickUtils[F, Model, slickProfile.type] =
+      new SlickUtils[F, Model, slickProfile.type](slickProfile, appender, basedInstalled)(classTag)
   }
 }
 

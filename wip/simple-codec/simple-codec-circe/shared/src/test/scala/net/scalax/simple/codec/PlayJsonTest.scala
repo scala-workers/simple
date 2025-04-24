@@ -12,7 +12,7 @@ case class CatNameTest5(
 )
 
 object CatNameTest5 {
-  implicit val deco2_1: ModelLinkPojo[CatNameTest5] = ModelLinkPojo.derived
+  implicit val deco2_1: ModelLinkPojo[CatNameTest5] = ModelLinkPojo[CatNameTest5].derived
 
   import PlayJsonGeneric._
   implicit val modelWrites: PojoInstance[Writes, CatNameTest5] = PojoInstance.derived

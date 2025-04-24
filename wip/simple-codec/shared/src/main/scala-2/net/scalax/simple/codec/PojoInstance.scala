@@ -15,6 +15,22 @@ trait PojoInstance[U[_], Model] {
     override def basedInstalled: BasedInstalled[({ type F1[T[_]] = PojoInstance[T, Model] })#F1] = basedInstalledInput
   }
 
+  def copyImpl[T](proName: String, func: Model => T)(data: U[T])(implicit
+    basedInstalledInput: BasedInstalled[({ type F1[XX[_]] = PojoInstance[XX, Model] })#F1]
+  ): PojoInstance[U, Model] = forCopy(basedInstalledInput).copySelfImpl(proName = proName, func = func)(data).value
+
+  def applyImpl[T](proName: String, func: Model => T)(implicit
+    basedInstalledInput: BasedInstalled[({ type F1[XX[_]] = PojoInstance[XX, Model] })#F1]
+  ): U[T] = forCopy(basedInstalledInput).getSelfImpl3(proName = proName, func = func)
+
+  import scala.language.experimental.macros
+  def copy[MP](expr: Model => MP)(data: U[MP])(implicit
+    bInstall: BasedInstalled[({ type F1[XX[_]] = PojoInstance[XX, Model] })#F1]
+  ): PojoInstance[U, Model] = macro macrosImpl.NameOfImpl.nameOf[Model, MP, U]
+  def apply[MP](expr: Model => MP)(implicit
+    bInstall: BasedInstalled[({ type F1[XX[_]] = PojoInstance[XX, Model] })#F1]
+  ): U[MP] = macro macrosImpl.NameOfImpl.nameOf2222[Model, MP, U]
+
 }
 
 object PojoInstance {
@@ -66,9 +82,9 @@ object PojoInstance {
     private def getSelfImpl2(proName: String): Any                  = toListAny(getSelfImpl1(proName = proName))
     def getSelfImpl3[MP](proName: String, func: Model => MP): U[MP] = getSelfImpl2(proName).asInstanceOf[U[MP]]
 
-    import scala.language.experimental.macros
+    /*import scala.language.experimental.macros
     def copy[MP](expr: Model => MP)(data: U[MP]): CopyAble[U, Model] = macro macrosImpl.NameOfImpl.nameOf[Model, MP, U]
-    def get[MP](expr: Model => MP): U[MP] = macro macrosImpl.NameOfImpl.nameOf2222[Model, MP, U]
+    def get[MP](expr: Model => MP): U[MP] = macro macrosImpl.NameOfImpl.nameOf2222[Model, MP, U]*/
   }
 
   implicit def hlistAppendFetch[U[_], T, Tail <: shapeless.HList](implicit
@@ -105,7 +121,9 @@ package macrosImpl {
       expr: c.Expr[M => T]
     )(
       data: c.Expr[U[T]]
-    )(implicit w1: c.WeakTypeTag[M], w2: c.WeakTypeTag[T], w3: c.WeakTypeTag[U[_]]): c.Expr[PojoInstance.CopyAble[U, M]] = {
+    )(
+      bInstall: c.Expr[BasedInstalled[({ type F1[XX[_]] = PojoInstance[XX, M] })#F1]]
+    )(implicit w1: c.WeakTypeTag[M], w2: c.WeakTypeTag[T], w3: c.WeakTypeTag[U[_]]): c.Expr[PojoInstance[U, M]] = {
       import c.universe._
 
       @tailrec def extract(tree: c.Tree): String = tree match {
@@ -143,8 +161,8 @@ package macrosImpl {
         case _                    => extract(expr.tree)
       }
 
-      c.Expr[PojoInstance.CopyAble[U, M]](
-        q"${c.prefix}.copySelfImpl($name, $expr)($data)"
+      c.Expr[PojoInstance[U, M]](
+        q"${c.prefix}.copyImpl($name, $expr)($data)"
       )
     }
 
@@ -152,6 +170,8 @@ package macrosImpl {
       c: blackbox.Context
     )(
       expr: c.Expr[M => T]
+    )(
+      bInstall: c.Expr[BasedInstalled[({ type F1[XX[_]] = PojoInstance[XX, M] })#F1]]
     )(implicit w1: c.WeakTypeTag[M], w2: c.WeakTypeTag[T], w3: c.WeakTypeTag[U[_]]): c.Expr[U[T]] = {
       import c.universe._
 
@@ -191,7 +211,7 @@ package macrosImpl {
       }
 
       c.Expr[U[T]](
-        q"${c.prefix}.getSelfImpl3($name, $expr)"
+        q"${c.prefix}.applyImpl($name, $expr)"
       )
     }
 
