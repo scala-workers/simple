@@ -16,6 +16,19 @@ import net.scalax.simple.codec.to_list_generic.{
 import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
 
+trait SlickLabelled[F[_[_]]] {
+  def slickLabelled: F[({ type X1[_] = String })#X1]
+}
+object SlickLabelled {
+  class Builder[F[_[_]]] {
+    def fromLabelled(m: ModelLabelled[F])(x: F[({ type X1[_] = String })#X1] => F[({ type X1[_] = String })#X1]): SlickLabelled[F] =
+      new SlickLabelled[F] {
+        override def slickLabelled: F[({ type X1[_] = String })#X1] = x(m.modelLabelled)
+      }
+  }
+  def apply[F[_[_]]]: Builder[F] = new Builder[F]
+}
+
 class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
   val slickProfile: V,
   appenderIn: ModelGetSet[F, Model],
@@ -37,7 +50,7 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
 
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
 
-  def getIndexByName(n: String): Int = indexOfPropertyName.ofName(n, basedInstalled.labelled.modelLabelled)
+  def getIndexByName1(n: String): Int = indexOfPropertyName.ofName(n, basedInstalled.labelled.modelLabelled)
 
   private val helperUtil: helperUtils[slickProfile.type, F] = new helperUtils[slickProfile.type, F](
     slickProfile = slickProfile
@@ -67,8 +80,8 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
       override def fill[T]: Seq[commonAlias.SqlColumnOptions => ColumnOption[T]] = Seq.empty
     })
 
-  def userRep(labelled: ModelLabelled[F], opt: F[OptsFromCol], typedType: F[TypedType]): slickProfile.Table[_] => F[Rep] = { tb =>
-    val l1 = labelled.modelLabelled
+  def userRep(labelled: SlickLabelled[F], opt: F[OptsFromCol], typedType: F[TypedType]): slickProfile.Table[_] => F[Rep] = { tb =>
+    val l1 = labelled.slickLabelled
     val l2 = opt
     val l3 = typedType
 
@@ -84,7 +97,7 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
     mapResult(zipResult1)
   }
 
-  class CommonTable(tag: Tag)(labelled: ModelLabelled[F], opt: F[OptsFromCol], typedType: F[TypedType], userShapeGeneric: F[ShapeF])
+  class CommonTable(tag: Tag)(labelled: SlickLabelled[F], opt: F[OptsFromCol], typedType: F[TypedType], userShapeGeneric: F[ShapeF])
       extends slickProfile.Table[Model](tag, "users") {
     self =>
     private val repModel: slickProfile.Table[_] => F[Rep] = userRep(labelled, opt, typedType)

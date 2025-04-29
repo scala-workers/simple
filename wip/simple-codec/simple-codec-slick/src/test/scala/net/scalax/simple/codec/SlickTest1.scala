@@ -47,10 +47,14 @@ class Model2(val slickProfile: JdbcProfile) {
   val utils1 = utils[Option]
   val utils2 = utils[Id]
 
+  def slickLabelled[U[_]]: SlickLabelled[({ type FModel[X[_]] = UserAbs[X, U] })#FModel] =
+    SlickLabelled[({ type FModel[X[_]] = UserAbs[X, U] })#FModel]
+      .fromLabelled(appender[U].labelled)(_.copy[({ type FModel[_] = String })#FModel, U](first = "first_name", last = "last_name"))
+
   object Query1
       extends TableQuery(cons =>
         new utils2.CommonTable(cons)(
-          labelled = appender[Id].labelled,
+          labelled = slickLabelled[Id],
           opt = userOpt[Id],
           typedType = userTypedTypeGeneric[Id],
           userShapeGeneric = userShapeGeneric[Id]
@@ -59,7 +63,7 @@ class Model2(val slickProfile: JdbcProfile) {
     object forInsert
         extends TableQuery(cons =>
           new utils1.CommonTable(cons)(
-            labelled = appender[Option].labelled,
+            labelled = slickLabelled[Option],
             opt = userOpt[Option],
             typedType = userTypedTypeGeneric[Option],
             userShapeGeneric = userShapeGeneric[Option]
@@ -68,7 +72,7 @@ class Model2(val slickProfile: JdbcProfile) {
   }
 
   println("// ===")
-  println(utils1.getIndexByName("age"))
+  println(utils1.getIndexByName1("age"))
   println("// ===")
 
 }

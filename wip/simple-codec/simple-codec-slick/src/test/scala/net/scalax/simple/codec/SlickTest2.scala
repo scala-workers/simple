@@ -48,10 +48,14 @@ class User2CatModel(val slickProfile: JdbcProfile) {
   val utils1 = utils[Option]
   val utils2 = utils[Id]
 
+  def slickLabelled[U[_]]: SlickLabelled[({ type FModel[X[_]] = PojoInstance[X, User2Cat[U]] })#FModel] =
+    SlickLabelled[({ type FModel[X[_]] = PojoInstance[X, User2Cat[U]] })#FModel]
+      .fromLabelled(User2Cat.appender[U].labelled)(_.copy(_.first)("first_name").copy(_.last)("last_name"))
+
   object Query1
       extends TableQuery(cons =>
         new utils2.CommonTable(cons)(
-          labelled = User2Cat.appender[Id].labelled,
+          labelled = slickLabelled[Id],
           opt = userOpt,
           typedType = userTypedTypeGeneric,
           userShapeGeneric = userShapeGeneric
@@ -60,7 +64,7 @@ class User2CatModel(val slickProfile: JdbcProfile) {
     object forInsert
         extends TableQuery(cons =>
           new utils1.CommonTable(cons)(
-            labelled = User2Cat.appender[Option].labelled,
+            labelled = slickLabelled[Option],
             opt = userOpt,
             typedType = userTypedTypeGeneric,
             userShapeGeneric = userShapeGeneric
@@ -69,7 +73,7 @@ class User2CatModel(val slickProfile: JdbcProfile) {
   }
 
   println("// ===")
-  println(utils1.getIndexByName("age"))
+  println(utils1.getIndexByName1("age"))
   println("// ===")
 
 }
