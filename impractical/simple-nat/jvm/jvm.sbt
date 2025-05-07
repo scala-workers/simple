@@ -2,6 +2,7 @@ scalaVersion := scalaV.v3
 name         := "simple-nat"
 
 enableZIOTest := true
+useKindProjector
 
 run / fork := true
 run / javaOptions += "-Xss5M"
