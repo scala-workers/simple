@@ -7,6 +7,11 @@ import ghdmzsk._
 
 object RunTest1 {
 
+  trait TempVar {
+    def build1: ghdmzsk
+    def build2: ghdmzsk
+  }
+
   def build(分子: Long, 分母: Long): ghdmzsk = {
     def buildImpl(isFenmu: Boolean, numLong: Long, zero: () => ghdmzsk): ghdmzsk = {
       if (numLong > 0) {
@@ -20,10 +25,16 @@ object RunTest1 {
       }
     }
 
-    lazy val build1: ghdmzsk = buildImpl(isFenmu = false, numLong = 分子, zero = () => build2)
-    lazy val build2: ghdmzsk = buildImpl(isFenmu = true, numLong = 分母, zero = () => build1)
+    // lazy val build1: ghdmzsk = buildImpl(isFenmu = false, numLong = 分子, zero = () => build2)
+    // lazy val build2: ghdmzsk = buildImpl(isFenmu = true, numLong = 分母, zero = () => build1)
 
-    build1
+    val tempVar = new TempVar {
+      TempVarSelf =>
+      override val build1: ghdmzsk = buildImpl(isFenmu = false, numLong = 分子, zero = () => TempVarSelf.build2)
+      override val build2: ghdmzsk = buildImpl(isFenmu = true, numLong = 分母, zero = () => TempVarSelf.build1)
+    }
+
+    tempVar.build1
   }
 
   @tailrec
@@ -75,6 +86,8 @@ object RunTest1 {
     countImpl(num = num, current分子 = 1, current分母 = 1, exceptResult = except, printlnSum = printlnSum, speed = speed)
 
   def main(arr: Array[String]): Unit = {
+
+    println("== start 1 ==")
 
     val 分子1: Long = 17
     val 分母1: Long = 12
