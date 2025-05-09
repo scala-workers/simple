@@ -3,18 +3,24 @@ package net.scalax.simple.codec
 import net.scalax.simple.codec.to_list_generic.SimpleProduct1
 
 trait ReplaceByIndex[F[_[_]]] {
-  def replace[T[_]](index: Int, proValue: Any): F[T] => F[T]
+  def replaceImpl[UX](index: Int, proValue: UX): F[({ type X1[_] = UX })#X1] => F[({ type X1[_] = UX })#X1]
+  def replace[T[_]](index: Int, proValue: Any): F[T] => F[T] = {
+    val func: F[({ type X1[_] = Any })#X1] => F[({ type X1[_] = Any })#X1] = replaceImpl[Any](index = index, proValue = proValue)
+    func.asInstanceOf[F[T] => F[T]]
+  }
 }
 
 object ReplaceByIndex {
 
-  private type MA[H] = (Int, Any, H) => H
-  private val appendMonad: SimpleProduct1.AppendMonad[MA] = new SimpleProduct1.AppendMonad[MA] {
+  private class Helper1[ProType] {
+    type MA[H] = (Int, ProType, H) => H
+  }
+  private def appendMonad[ProType]: SimpleProduct1.AppendMonad[Helper1[ProType]#MA] = new SimpleProduct1.AppendMonad[Helper1[ProType]#MA] {
     override def zip[A1, B1, C1](
       c: SimpleProduct1.ConvertF[A1, B1, C1],
-      ma: (Int, Any, A1) => A1,
-      mb: (Int, Any, B1) => B1
-    ): (Int, Any, C1) => C1 = (index, anyModel, c1) => {
+      ma: (Int, ProType, A1) => A1,
+      mb: (Int, ProType, B1) => B1
+    ): (Int, ProType, C1) => C1 = (index, anyModel, c1) => {
       if (index >= 0) {
         val oldA1: A1 = c.takeHead1(c1)
         val oldB1: B1 = c.takeTail1(c1)
@@ -25,19 +31,22 @@ object ReplaceByIndex {
       } else c1
     }
 
-    @inline override def zero[N1](n1: N1): (Int, Any, N1) => N1 = (_, _, t) => t
+    @inline override def zero[N1](n1: N1): (Int, ProType, N1) => N1 = (_, _, t) => t
   }
 
-  private def funcImpl[T[_]]: SimpleProduct1.TypeGen[MA, T] = new SimpleProduct1.TypeGen[MA, T] {
-    @inline override def apply[X1]: (Int, Any, T[X1]) => T[X1] = (index, anyModel, x1) =>
-      if (index == 0) anyModel.asInstanceOf[T[X1]] else x1
-  }
+  private def funcImpl[ProType]: SimpleProduct1.TypeGen[Helper1[ProType]#MA, ({ type X1[_] = ProType })#X1] =
+    new SimpleProduct1.TypeGen[Helper1[ProType]#MA, ({ type X1[_] = ProType })#X1] {
+      @inline override def apply[X1]: (Int, ProType, ProType) => ProType = (index, anyModel, x1) => if (index == 0) anyModel else x1
+    }
 
   class Builder[F[_[_]]] {
     def derived(fromList: SimpleProduct1.Appender[F]): ReplaceByIndex[F] = new ReplaceByIndex[F] {
-      override def replace[T[_]](index: Int, proValue: Any): F[T] => F[T] = {
-        val fromInt = fromList.toHList1[MA, T](appendMonad)(funcImpl[T])
-        (t: F[T]) => fromInt(index, proValue, t)
+      override def replaceImpl[ProType](
+        index: Int,
+        proValue: ProType
+      ): F[({ type X1[_] = ProType })#X1] => F[({ type X1[_] = ProType })#X1] = {
+        val fromInt = fromList.toHList1[Helper1[ProType]#MA, ({ type X1[_] = ProType })#X1](appendMonad[ProType])(funcImpl[ProType])
+        (t: F[({ type X1[_] = ProType })#X1]) => fromInt(index, proValue, t)
       }
     }
   }

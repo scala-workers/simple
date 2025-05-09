@@ -74,7 +74,7 @@ object PojoInstance {
 
     private def getSelfImpl1(proName: String): Int =
       indexOfPropertyNameImpl1.ofName(proName, CopyAbleSelf.basedInstalled.labelled.modelLabelled)
-    private def getSelfImpl2(index: Int): Any                       = getPropertyByIndexImpl.byIndex(CopyAbleSelf.value, index)
+    private def getSelfImpl2(index: Int): Any                       = getPropertyByIndexImpl.byIndex(index)(CopyAbleSelf.value)
     def getSelfImpl3[MP](proName: String, func: Model => MP): U[MP] = getSelfImpl2(getSelfImpl1(proName)).asInstanceOf[U[MP]]
   }
 
