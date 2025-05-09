@@ -1,11 +1,11 @@
 package net.scalax.simple.codec
 package aa
 
-import net.scalax.simple.codec.to_list_generic.{BasedInstalled, ModelLinkPojo, PojoInstance}
+import net.scalax.simple.codec.to_list_generic.{ModelLinkPojo, PojoInstance}
 import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
 
-case class User2Cat[U[_]](id: U[Int], first: String, last: String, age: Long)
+case class User2Cat[U[_]](id: U[Int], first: String, last: String, nickName: String, age: Long)
 object User2Cat {
   implicit def appender[U[_]]: ModelLinkPojo[User2Cat[U]] = ModelLinkPojo[User2Cat[U]].derived
 }
@@ -50,7 +50,7 @@ class User2CatModel(val slickProfile: JdbcProfile) {
 
   def slickLabelled[U[_]]: SlickLabelled[({ type FModel[X[_]] = PojoInstance[X, User2Cat[U]] })#FModel] =
     SlickLabelled[({ type FModel[X[_]] = PojoInstance[X, User2Cat[U]] })#FModel]
-      .fromLabelled(User2Cat.appender[U].labelled)(_.copy(_.first)("first_name").copy(_.last)("last_name"))
+      .fromLabelled(User2Cat.appender[U].labelled)(_.copy(_.first)("first_name").copy(_.last)("last_name").copy(_.nickName)("nick_name"))
 
   object Query1
       extends TableQuery(cons =>
@@ -91,13 +91,16 @@ object Runner2 {
 
     val db: Database = Database.forURL(url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", user = "sa", password = "", driver = "org.h2.Driver")
     val sql1         = Query1.schema.create
-    val sql2         = Query1.forInsert += User2Cat[Option](id = None, first = "first_name1", last = "last_name1", age = 5201314)
-    val sql3         = Query1.forInsert += User2Cat[Option](id = None, first = "first_name2", last = "last_name2", age = 114514)
-    val sql4         = Query1.forInsert += User2Cat[Option](id = None, first = "first_name3", last = "last_name3", age = 314159)
+    val sql2 =
+      Query1.forInsert += User2Cat[Option](id = None, first = "first_name1", last = "last_name1", nickName = "nick_name1", age = 5201314)
+    val sql3 =
+      Query1.forInsert += User2Cat[Option](id = None, first = "first_name2", last = "last_name2", nickName = "nick_name2", age = 114514)
+    val sql4 =
+      Query1.forInsert += User2Cat[Option](id = None, first = "first_name3", last = "last_name3", nickName = "nick_name3", age = 314159)
 
     val action1 = DBIO.seq(sql1, sql2, sql3, sql4)
-    val action2 = Query1.result
-    val action3 = Query1.filter(s => s(_.last) endsWith "3").filter(s => s(_.first) endsWith "3").result
+    val action2 = Query1.forInsert.result
+    val action3 = Query1.forInsert.filter(s => s(_.last) endsWith "3").filter(s => s(_.first) endsWith "3").result
 
     import scala.concurrent.ExecutionContext.Implicits.global
 

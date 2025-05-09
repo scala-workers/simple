@@ -65,26 +65,17 @@ object PojoInstance {
       override def value: PojoInstance[U, Model] = CopyAbleSelf.copyImpl3(proName = proName, func = func)(data)
       override def basedInstalled: BasedInstalled[({ type F1[T[_]] = PojoInstance[T, Model] })#F1] = CopyAbleSelf.basedInstalled
     }
-
-    private val ge = ToListByTheSameTypeGeneric[({ type U1[X[_]] = PojoInstance[X, Model] })#U1].derived(
-      FoldFGenerc[({ type U1[X[_]] = PojoInstance[X, Model] })#U1].derived(
-        SimpleProduct1[({ type U1[X[_]] = PojoInstance[X, Model] })#U1].derived(CopyAbleSelf.basedInstalled.basedInstalled)
-      )
-    )
+    private val getPropertyByIndexImpl: GetPropertyByIndex[({ type F1[T[_]] = PojoInstance[T, Model] })#F1] =
+      GetPropertyByIndex[({ type F1[T[_]] = PojoInstance[T, Model] })#F1]
+        .derived(SimpleProduct1[({ type F1[T[_]] = PojoInstance[T, Model] })#F1].derived(basedInstalled.basedInstalled))
     private val indexOfPropertyNameImpl1 = IndexOfPropertyName[({ type U1[X[_]] = PojoInstance[X, Model] })#U1].derived(
       SimpleProduct1[({ type U1[X[_]] = PojoInstance[X, Model] })#U1].derived(CopyAbleSelf.basedInstalled.basedInstalled)
     )
-    private def toListAny: List[Any] = ge.toListByTheSameType[Any, List[Any]](List.empty, (t1, t2) => t2 :: t1)(
-      CopyAbleSelf.value.asInstanceOf[PojoInstance[({ type F1[_] = Any })#F1, Model]]
-    )
+
     private def getSelfImpl1(proName: String): Int =
       indexOfPropertyNameImpl1.ofName(proName, CopyAbleSelf.basedInstalled.labelled.modelLabelled)
-    private def getSelfImpl2(proName: String): Any                  = toListAny(getSelfImpl1(proName = proName))
-    def getSelfImpl3[MP](proName: String, func: Model => MP): U[MP] = getSelfImpl2(proName).asInstanceOf[U[MP]]
-
-    /*import scala.language.experimental.macros
-    def copy[MP](expr: Model => MP)(data: U[MP]): CopyAble[U, Model] = macro macrosImpl.NameOfImpl.nameOf[Model, MP, U]
-    def get[MP](expr: Model => MP): U[MP] = macro macrosImpl.NameOfImpl.nameOf2222[Model, MP, U]*/
+    private def getSelfImpl2(index: Int): Any                       = getPropertyByIndexImpl.byIndex(CopyAbleSelf.value, index)
+    def getSelfImpl3[MP](proName: String, func: Model => MP): U[MP] = getSelfImpl2(getSelfImpl1(proName)).asInstanceOf[U[MP]]
   }
 
   implicit def hlistAppendFetch[U[_], T, Tail <: shapeless.HList](implicit

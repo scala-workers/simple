@@ -8,8 +8,8 @@ import ghdmzsk._
 object RunTest1 {
 
   trait TempVar {
-    def build1: ghdmzsk
-    def build2: ghdmzsk
+    val build1: ghdmzsk
+    val build2: ghdmzsk
   }
 
   def build(分子: Long, 分母: Long): ghdmzsk = {
@@ -25,14 +25,19 @@ object RunTest1 {
       }
     }
 
-    // lazy val build1: ghdmzsk = buildImpl(isFenmu = false, numLong = 分子, zero = () => build2)
-    // lazy val build2: ghdmzsk = buildImpl(isFenmu = true, numLong = 分母, zero = () => build1)
+    lazy val build2_1: ghdmzsk = buildImpl(isFenmu = false, numLong = 分子, zero = () => build2_2)
+    lazy val build2_2: ghdmzsk = buildImpl(isFenmu = true, numLong = 分母, zero = () => build2_1)
 
-    val tempVar = new TempVar {
+    val tempVar: TempVar = new TempVar {
       TempVarSelf =>
       override val build1: ghdmzsk = buildImpl(isFenmu = false, numLong = 分子, zero = () => TempVarSelf.build2)
       override val build2: ghdmzsk = buildImpl(isFenmu = true, numLong = 分母, zero = () => TempVarSelf.build1)
     }
+
+    var build1_1: ghdmzsk = null
+    var build1_2: ghdmzsk = null
+    build1_1 = buildImpl(isFenmu = false, numLong = 分子, zero = () => build1_2)
+    build1_2 = buildImpl(isFenmu = true, numLong = 分母, zero = () => build1_1)
 
     tempVar.build1
   }
