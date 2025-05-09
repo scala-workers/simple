@@ -53,10 +53,13 @@ trait ProductType22[Append, AppendPositive[_, _ <: Append] <: Append, AppendZero
       I2,
       AppendPositive[
         I3,
-        AppendPositive[I4, AppendPositive[I5, AppendPositive[
-          I6,
-          AppendPositive[I7, AppendPositive[I8, AppendPositive[I9, AppendPositive[I10, AppendPositive[I11, AppendZero]]]]]
-        ]]]
+        AppendPositive[
+          I4,
+          AppendPositive[I5, AppendPositive[
+            I6,
+            AppendPositive[I7, AppendPositive[I8, AppendPositive[I9, AppendPositive[I10, AppendPositive[I11, AppendZero]]]]]
+          ]]
+        ]
       ]
     ]
   ]
@@ -69,10 +72,13 @@ trait ProductType22[Append, AppendPositive[_, _ <: Append] <: Append, AppendZero
         I3,
         AppendPositive[
           I4,
-          AppendPositive[I5, AppendPositive[I6, AppendPositive[
-            I7,
-            AppendPositive[I8, AppendPositive[I9, AppendPositive[I10, AppendPositive[I11, AppendPositive[I12, AppendZero]]]]]
-          ]]]
+          AppendPositive[
+            I5,
+            AppendPositive[I6, AppendPositive[
+              I7,
+              AppendPositive[I8, AppendPositive[I9, AppendPositive[I10, AppendPositive[I11, AppendPositive[I12, AppendZero]]]]]
+            ]]
+          ]
         ]
       ]
     ]

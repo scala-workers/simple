@@ -329,10 +329,13 @@ trait TypeAdtAliasModelUnapply {
                     I6,
                     RuntimeData[
                       I7,
-                      RuntimeData[I8, RuntimeData[I9, RuntimeData[I10, RuntimeData[
-                        I11,
-                        RuntimeData[I12, RuntimeData[I13, RuntimeData[I14, RuntimeData[I15, RuntimeData[I16, RuntimeNat]]]]]
-                      ]]]]
+                      RuntimeData[
+                        I8,
+                        RuntimeData[I9, RuntimeData[I10, RuntimeData[
+                          I11,
+                          RuntimeData[I12, RuntimeData[I13, RuntimeData[I14, RuntimeData[I15, RuntimeData[I16, RuntimeNat]]]]]
+                        ]]]
+                      ]
                     ]
                   ]
                 ]
@@ -371,10 +374,13 @@ trait TypeAdtAliasModelUnapply {
                       I7,
                       RuntimeData[
                         I8,
-                        RuntimeData[I9, RuntimeData[I10, RuntimeData[I11, RuntimeData[
-                          I12,
-                          RuntimeData[I13, RuntimeData[I14, RuntimeData[I15, RuntimeData[I16, RuntimeData[I17, RuntimeNat]]]]]
-                        ]]]]
+                        RuntimeData[
+                          I9,
+                          RuntimeData[I10, RuntimeData[I11, RuntimeData[
+                            I12,
+                            RuntimeData[I13, RuntimeData[I14, RuntimeData[I15, RuntimeData[I16, RuntimeData[I17, RuntimeNat]]]]]
+                          ]]]
+                        ]
                       ]
                     ]
                   ]

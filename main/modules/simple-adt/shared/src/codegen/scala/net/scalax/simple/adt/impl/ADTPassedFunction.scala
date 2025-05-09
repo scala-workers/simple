@@ -355,10 +355,16 @@ object ADTPassedFunction extends ADTPassedFunctionImpl1 {
                 I5,
                 RuntimeData[
                   I6,
-                  RuntimeData[I7, RuntimeData[I8, RuntimeData[
-                    I9,
-                    RuntimeData[I10, RuntimeData[I11, RuntimeData[I12, RuntimeData[I13, RuntimeData[I14, RuntimeData[I15, RuntimeZero]]]]]]
-                  ]]]
+                  RuntimeData[
+                    I7,
+                    RuntimeData[I8, RuntimeData[
+                      I9,
+                      RuntimeData[
+                        I10,
+                        RuntimeData[I11, RuntimeData[I12, RuntimeData[I13, RuntimeData[I14, RuntimeData[I15, RuntimeZero]]]]]
+                      ]
+                    ]]
+                  ]
                 ]
               ]
             ]
@@ -398,10 +404,13 @@ object ADTPassedFunction extends ADTPassedFunctionImpl1 {
                   I6,
                   RuntimeData[
                     I7,
-                    RuntimeData[I8, RuntimeData[I9, RuntimeData[I10, RuntimeData[
-                      I11,
-                      RuntimeData[I12, RuntimeData[I13, RuntimeData[I14, RuntimeData[I15, RuntimeData[I16, RuntimeZero]]]]]
-                    ]]]]
+                    RuntimeData[
+                      I8,
+                      RuntimeData[I9, RuntimeData[I10, RuntimeData[
+                        I11,
+                        RuntimeData[I12, RuntimeData[I13, RuntimeData[I14, RuntimeData[I15, RuntimeData[I16, RuntimeZero]]]]]
+                      ]]]
+                    ]
                   ]
                 ]
               ]
