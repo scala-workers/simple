@@ -3,12 +3,16 @@ package net.scalax.simple.adt.codegen
 class ParametersCodengen(val index: Int) {
   ParametersCodengenSelf =>
 
+  extension [U](list: Seq[U]) {
+    def mkString(c: Char): String = list.mkString(c.toString)
+  }
+
   class TraitDef(val index: Int) {
     TraitDefSelf =>
 
     val typeParam = for (i1 <- 1 to index) yield s"T$i1"
 
-    val text: String = s"def item$index[${typeParam.mkString(','.toString)}]: M[${typeParam.mkString(','.toString)}]"
+    val text: String = s"def item$index[${typeParam.mkString(',')}]: M[${typeParam.mkString(',')}]"
   }
 
   class TraitBody(val index: Int) {
@@ -18,19 +22,19 @@ class ParametersCodengen(val index: Int) {
 
     val typeParam = for (i1 <- 1 to index) yield s"_"
 
-    val text: String = s"""trait ParameterNatSupport$index[M[${typeParam.mkString(','.toString)}]] {
+    val text: String = s"""trait ParameterNatSupport$index[M[${typeParam.mkString(',')}]] {
       ${traitDef.text}
     }"""
   }
 
-  val preTextContent = for (i <- 1 to index) yield new TraitBody(i).text
+  val preTextContent: Seq[String] = for (i <- 1 to index) yield new TraitBody(i).text
 
   val text: String = s"""
     package net.scalax.simple.adt
     package nat
     package support
 
-    ${preTextContent.mkString('\n'.toString)}
+    ${preTextContent.mkString('\n')}
   """
 
 }
