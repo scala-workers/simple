@@ -3,7 +3,7 @@ package net.scalax.simple.adt.codegen
 class ParametersCodengen(val index: Int) {
   ParametersCodengenSelf =>
 
-  extension [U](list: Seq[U]) {
+  extension (list: Seq[String]) {
     def mkString(c: Char): String = list.mkString(c.toString)
   }
 
