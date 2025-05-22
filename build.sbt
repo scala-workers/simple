@@ -27,6 +27,13 @@ lazy val adtJS: Project               = adt.js dependsOn (`adt-implementionJS`, 
 adtJVM / version := `simple-adt-version`
 adtJS / version  := `simple-adt-version`
 
+val `nat-support/file`                          = `adt/file` / "nat-support"
+val `nat-support`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `nat-support/file`
+lazy val `nat-supportJVM`: Project              = `nat-support`.jvm dependsOn (`test-commonJVM` % Test)
+lazy val `nat-supportJS`: Project               = `nat-support`.js dependsOn (`test-commonJS`   % Test)
+`nat-supportJVM` / version := `simple-adt-version`
+`nat-supportJS` / version  := `simple-adt-version`
+
 val `adt-bridge-support/file`                          = `adt/file` / "bridge-support"
 val `adt-bridge-support`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `adt-bridge-support/file`
 lazy val `adt-bridge-supportJVM`: Project = `adt-bridge-support`.jvm dependsOn (`adt-implementionJVM` % Compile, `test-commonJVM` % Test)
