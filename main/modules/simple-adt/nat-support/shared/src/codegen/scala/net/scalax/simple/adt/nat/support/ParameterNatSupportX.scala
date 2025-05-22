@@ -2,6 +2,9 @@ package net.scalax.simple.adt
 package nat
 package support
 
+trait ParameterNatSupport0[M] {
+  def item0: M
+}
 trait ParameterNatSupport1[M[_]] {
   def item1[T1]: M[T1]
 }

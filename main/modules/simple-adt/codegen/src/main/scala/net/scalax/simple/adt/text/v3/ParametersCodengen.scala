@@ -33,6 +33,9 @@ class ParametersCodengen(val index: Int) {
     package nat
     package support
 
+    trait ParameterNatSupport0[M] {
+      def item0: M
+    }
     ${preTextContent.mkString('\n')}
   """
 
