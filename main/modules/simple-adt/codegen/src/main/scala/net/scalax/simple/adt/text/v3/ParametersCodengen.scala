@@ -20,7 +20,7 @@ class ParametersCodengen(val index: Int) {
 
     val traitDef: TraitDef = new TraitDef(index)
 
-    val typeParam = for (i1 <- 1 to index) yield s"_"
+    val typeParam = for (_ <- 1 to index) yield s"_"
 
     val text: String = s"""trait ParameterNatSupport$index[M[${typeParam.mkString(',')}]] {
       ${traitDef.text}
