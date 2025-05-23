@@ -14,6 +14,10 @@ object CatNameTest3 {
   implicit val modelEncoder: PojoInstance[Encoder, CatNameTest3] = PojoInstance.derived
   implicit val modelDecoder: PojoInstance[Decoder, CatNameTest3] = PojoInstance.derived
 
+  val longOptEncoder = Encoder[Option[String]].contramap((opt: Option[Long]) => for (u <- opt) yield u.toString)
+  implicit def en1: Encoder[CatNameTest3] =
+    Circe.Encoder.Pojo[CatNameTest3].copy(name = _.copy(_.id3)("miaomiao id"), encoder = _.copy(_.uClass3)(longOptEncoder))
+
   def names(model: PojoInstance[({ type M1[_] = String })#M1, CatNameTest3]): List[String] = {
     val ge = ToListByTheSameTypeGeneric[({ type U1[X[_]] = PojoInstance[X, CatNameTest3] })#U1].derived(
       FoldFGenerc[({ type U1[X[_]] = PojoInstance[X, CatNameTest3] })#U1].derived(
@@ -49,7 +53,7 @@ object CatNameTest3TestCase {
   final def main(args: Array[String]): Unit = {
     println(modelInstance.asJson.spaces2)
     println(parser.parse(modelInstance.asJson.spaces2).flatMap(_.as[CatNameTest3]))
-
+    println("// ===")
     val labelled1 = implicitly[ModelLinkPojo[CatNameTest3]].labelled.modelLabelled
     val labelled2 = labelled1.copy(_.name113)("name224")
     println(CatNameTest3.names(labelled1))

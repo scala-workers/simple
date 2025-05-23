@@ -13,6 +13,8 @@ object CatName {
 
   implicit val modelEncoder: CatName[Encoder] = FillIdentity[CatName[Encoder]].derived
   implicit val modelDecoder: CatName[Decoder] = FillIdentity[CatName[Decoder]].derived
+
+  implicit val en1: Encoder[CatName[cats.Id]] = Circe.Encoder.F[CatName].derived
 }
 
 object CirceText1 {

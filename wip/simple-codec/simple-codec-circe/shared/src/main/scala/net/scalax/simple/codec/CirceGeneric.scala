@@ -6,7 +6,7 @@ import io.circe._
 import io.circe.syntax._
 import net.scalax.simple.codec.to_list_generic.SimpleProduct3
 
-object CirceGeneric {
+object CirceGeneric1 {
   type Named[_] = String
 
   def encodeModelImpl[F[_[_]]](model: F[cats.Id], sp3: SimpleProduct3.Appender[F], named: F[Named], g: F[Encoder]): Json = {

@@ -1,19 +1,42 @@
 package net.scalax.simple.codec
 
+import cats.Id
 import io.circe._
 import net.scalax.simple.codec.to_list_generic.{BasedInstalled, ModelLink, PojoInstance, SimpleProduct3}
 import net.scalax.simple.codec.utils.ByNameImplicit
 
+object Circe {
+
+  object Encoder {
+    object F {
+      def apply[F[_[_]]](implicit g: F[Encoder], g1: ModelLink[F, F[cats.Id]]): EncoderWrap[F, F[cats.Id]] =
+        new EncoderWrap[F, F[cats.Id]] {
+          override def applyImplFunc: F[Id] => F[Id]                       = identity
+          override def simpleProduct3: SimpleProduct3.Appender[F]          = SimpleProduct3[F].derived(g1.basedInstalled)
+          override def nameLabelled: F[({ type Named[_] = String })#Named] = g1.labelled.modelLabelled
+          override def encoderModel: F[Encoder]                            = g
+        }
+    }
+    object Pojo {
+      def apply[Model](implicit
+        g1: ModelGetSet[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model],
+        basedInstalled: BasedInstalled[({ type F[X[_]] = PojoInstance[X, Model] })#F],
+        g: ByNameImplicit[PojoInstance[Encoder, Model]]
+      ): EncoderWrap[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model] =
+        new EncoderWrap[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model] {
+          override def applyImplFunc: Model => PojoInstance[Id, Model] = g1.toIdentity
+          override def simpleProduct3: SimpleProduct3.Appender[({ type F[X[_]] = PojoInstance[X, Model] })#F] =
+            SimpleProduct3[({ type F[X[_]] = PojoInstance[X, Model] })#F].derived(basedInstalled.basedInstalled)
+          override def nameLabelled: PojoInstance[({ type Named[_] = String })#Named, Model] = basedInstalled.labelled.modelLabelled
+          override def encoderModel: PojoInstance[Encoder, Model]                            = g.value
+        }
+    }
+  }
+
+}
+
 object CirceGeneric2 {
   type Named[_] = String
-
-  implicit def encodeModel[F[_[_]]](implicit g: F[Encoder], g1: ModelLink[F, F[cats.Id]]): Encoder[F[cats.Id]] =
-    Encoder.instance[F[cats.Id]] { m =>
-      val sp3: SimpleProduct3.Appender[F] = SimpleProduct3[F].derived(g1.basedInstalled)
-      val named: F[Named]                 = g1.labelled.modelLabelled
-
-      CirceGeneric.encodeModelImpl[F](m, sp3, named = named, g)
-    }
 
   implicit def decodeModel[F[_[_]]](implicit g: F[Decoder], g1: ModelLink[F, F[cats.Id]]): Decoder[F[cats.Id]] =
     Decoder.instance[F[cats.Id]] { h =>
@@ -22,18 +45,6 @@ object CirceGeneric2 {
 
       CirceGeneric.decodeModelImpl[F](h, sp3, named, g)
     }
-
-  implicit def encodePojo[Model](implicit
-    g1: ModelGetSet[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model],
-    basedInstalled: BasedInstalled[({ type F[X[_]] = PojoInstance[X, Model] })#F],
-    g: ByNameImplicit[PojoInstance[Encoder, Model]]
-  ): Encoder[Model] = Encoder.instance[Model] { m =>
-    val sp3: SimpleProduct3.Appender[({ type F[X[_]] = PojoInstance[X, Model] })#F] =
-      SimpleProduct3[({ type F[X[_]] = PojoInstance[X, Model] })#F].derived(basedInstalled.basedInstalled)
-    val named: PojoInstance[Named, Model] = basedInstalled.labelled.modelLabelled
-
-    CirceGeneric.encodeModelImpl[({ type F[X[_]] = PojoInstance[X, Model] })#F](g1.toIdentity(m), sp3, named = named, g.value)
-  }
 
   implicit def decodePojo[Model](implicit
     g1: ModelGetSet[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model],

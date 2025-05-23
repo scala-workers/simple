@@ -12,6 +12,8 @@ object CatName {
   implicit val deco2_1: ModelLink[CatName, CatName[cats.Id]]           = ModelLinkCommonF[CatName].derived
   implicit val namedModel_catName2: ModelLink[FAlias, FAlias[cats.Id]] = ToItera[CatName].derived.toModelLink[String](implicitly)
 
+  implicit def en1: Encoder[FAlias[cats.Id]] = Circe.Encoder.F[FAlias].derived
+
   implicit val li1222Encoder: FAlias[Encoder] = {
     val v: BasedInstalled[FAlias]       = implicitly
     val simpleFillE: SimpleFill[FAlias] = SimpleFill[FAlias].derived(v.simpleProduct1)
