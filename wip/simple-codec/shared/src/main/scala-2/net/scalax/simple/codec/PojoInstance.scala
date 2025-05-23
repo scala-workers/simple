@@ -65,17 +65,11 @@ object PojoInstance {
       override def value: PojoInstance[U, Model] = CopyAbleSelf.copyImpl3(proName = proName, func = func)(data)
       override def basedInstalled: BasedInstalled[({ type F1[T[_]] = PojoInstance[T, Model] })#F1] = CopyAbleSelf.basedInstalled
     }
-    private val getPropertyByIndexImpl: GetPropertyByIndex[({ type F1[T[_]] = PojoInstance[T, Model] })#F1] =
-      GetPropertyByIndex[({ type F1[T[_]] = PojoInstance[T, Model] })#F1]
-        .derived(SimpleProduct1[({ type F1[T[_]] = PojoInstance[T, Model] })#F1].derived(basedInstalled.basedInstalled))
-    private val indexOfPropertyNameImpl1 = IndexOfPropertyName[({ type U1[X[_]] = PojoInstance[X, Model] })#U1].derived(
-      SimpleProduct1[({ type U1[X[_]] = PojoInstance[X, Model] })#U1].derived(CopyAbleSelf.basedInstalled.basedInstalled)
-    )
 
-    private def getSelfImpl1(proName: String): Int =
-      indexOfPropertyNameImpl1.ofName(proName, CopyAbleSelf.basedInstalled.labelled.modelLabelled)
-    private def getSelfImpl2(index: Int): Any                       = getPropertyByIndexImpl.byIndex(index)(CopyAbleSelf.value)
-    def getSelfImpl3[MP](proName: String, func: Model => MP): U[MP] = getSelfImpl2(getSelfImpl1(proName)).asInstanceOf[U[MP]]
+    private val getPropertyByPropertyName: GetPropertyByPropertyName[({ type F1[T[_]] = PojoInstance[T, Model] })#F1] =
+      GetPropertyByPropertyName[({ type F1[T[_]] = PojoInstance[T, Model] })#F1].derived(basedInstalled)
+
+    def getSelfImpl3[MP](proName: String, func: Model => MP): U[MP] = getPropertyByPropertyName.getProperty[U, MP](proName)(value)
   }
 
   implicit def hlistAppendFetch[U[_], T, Tail <: shapeless.HList](implicit
