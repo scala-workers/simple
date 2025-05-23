@@ -9,12 +9,16 @@ import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, ModelLi
 case class CatName[F[_]](id1: F[Int], str1: F[Option[String]], uClass1: F[Option[Long]], name1: F[String], namexu1: F[String])
 
 object CatName {
+  type Named[_] = String
+
   implicit val deco2_1: ModelLink[CatName, CatName[cats.Id]] = ModelLinkCommonF[CatName].derived
 
   implicit val modelEncoder: CatName[Encoder] = FillIdentity[CatName[Encoder]].derived
   implicit val modelDecoder: CatName[Decoder] = FillIdentity[CatName[Decoder]].derived
 
-  implicit val en1: Encoder[CatName[cats.Id]] = Circe.Encoder.F[CatName].derived
+  val intOptEncoder: Encoder[Int] = Encoder[String].contramap((u: Int) => u.toString)
+  implicit val en1: Encoder[CatName[cats.Id]] =
+    Circe.Encoder.F[CatName].copy(name = _.copy[Named](id1 = "miaomiao id"), encoder = _.copy(id1 = intOptEncoder))
 }
 
 object CirceText1 {

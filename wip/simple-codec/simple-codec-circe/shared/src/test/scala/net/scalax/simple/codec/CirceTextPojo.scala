@@ -14,7 +14,7 @@ object CatNameTest3 {
   implicit val modelEncoder: PojoInstance[Encoder, CatNameTest3] = PojoInstance.derived
   implicit val modelDecoder: PojoInstance[Decoder, CatNameTest3] = PojoInstance.derived
 
-  val longOptEncoder = Encoder[Option[String]].contramap((opt: Option[Long]) => for (u <- opt) yield u.toString)
+  val longOptEncoder: Encoder[Option[Long]] = Encoder[Option[String]].contramap((opt: Option[Long]) => for (u <- opt) yield u.toString)
   implicit def en1: Encoder[CatNameTest3] =
     Circe.Encoder.Pojo[CatNameTest3].copy(name = _.copy(_.id3)("miaomiao id"), encoder = _.copy(_.uClass3)(longOptEncoder))
 
