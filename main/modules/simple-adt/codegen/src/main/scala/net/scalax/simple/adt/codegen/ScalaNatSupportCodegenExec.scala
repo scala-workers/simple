@@ -1,27 +1,29 @@
 package net.scalax.simple.adt.codegen
 
-import java.io.PrintWriter
-import java.nio.charset.StandardCharsets
-import java.nio.file.{Files, Paths}
-import scala.util.Using
+import net.scalax.simple.adt.text.v3.FAppenderCodengen
 
-object ScalaNatSupportCodegenExec:
+object ScalaNatSupportCodegenExec {
 
-  def main(arr: Array[String]): Unit =
+  def main(arr: Array[String]): Unit = {
 
     val List(rootString) = arr.to(List)
-    val rootPath         = Paths.get(rootString)
-    val writePath        = rootPath.resolve(Paths.get("net", "scalax", "simple", "adt", "nat", "support"))
-    Files.createDirectories(writePath)
+    val rootPath         = os.Path(rootString)
+    val writePath        = rootPath / "net" / "scalax" / "simple" / "adt" / "nat" / "support"
+
+    val parameterSize: Int = 6
 
     locally {
-      val filePath = writePath.resolve("ParameterNatSupportX.scala")
-      Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8.name())) { writer =>
-        val linerContent: String = ParametersCodengen(index = 6).text
-        writer.println(linerContent)
-      }
+      val filePath             = writePath / "ParameterNatSupportX.scala"
+      val linerContent: String = ParametersCodengen(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
     }
 
-  end main
+    locally {
+      val filePath             = writePath / "AppenderNatSupportX.scala"
+      val linerContent: String = FAppenderCodengen(index = parameterSize * 2).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
 
-end ScalaNatSupportCodegenExec
+  }
+
+}

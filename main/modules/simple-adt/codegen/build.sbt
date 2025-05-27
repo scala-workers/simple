@@ -2,6 +2,7 @@ scalaVersion := scalaV.v3
 name         := "simple-adt-codegen"
 
 libraryDependencies ++= libScalax.`commons-io`.value
+libraryDependencies ++= libScalax.`os-lib`.value
 
 val codegenPackageName = "net.scalax.simple.adt.codegen"
 
