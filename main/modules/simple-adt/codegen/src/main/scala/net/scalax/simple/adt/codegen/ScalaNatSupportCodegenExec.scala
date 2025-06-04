@@ -1,6 +1,13 @@
 package net.scalax.simple.adt.codegen
 
-import net.scalax.simple.adt.text.v3.FAppenderCodengen
+import net.scalax.simple.adt.text.v3.{
+  FAppenderCodengen,
+  ParameterSingleNatSupportX,
+  ParametersCodengen,
+  ParametersSimpleCodengen,
+  SimpleAppenderX,
+  TypeGenCodegen
+}
 
 object ScalaNatSupportCodegenExec {
 
@@ -19,8 +26,32 @@ object ScalaNatSupportCodegenExec {
     }
 
     locally {
+      val filePath             = writePath / "ParameterSingleNatSupportX.scala"
+      val linerContent: String = ParameterSingleNatSupportX(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
       val filePath             = writePath / "AppenderNatSupportX.scala"
-      val linerContent: String = FAppenderCodengen(index = parameterSize * 2).text
+      val linerContent: String = FAppenderCodengen(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "TypeGenX.scala"
+      val linerContent: String = TypeGenCodegen(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "SimpleAppenderX.scala"
+      val linerContent: String = SimpleAppenderX(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "ParametersSimpleSupportX.scala"
+      val linerContent: String = ParametersSimpleCodengen(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
     }
 

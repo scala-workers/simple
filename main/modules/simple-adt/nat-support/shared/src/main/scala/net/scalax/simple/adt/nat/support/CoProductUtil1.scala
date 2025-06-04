@@ -2,81 +2,64 @@ package net.scalax.simple.adt
 package nat
 package support
 
-trait CoProductUtil1[HLLike, ApHList[_, _ <: HLLike] <: HLLike, CoLike, ApCoProduct[_, _ <: CoLike] <: CoLike] {
+trait CoProductUtil1[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, ApHList[_, _ <: HLLike] <: HLLike, CoLike3, ApCoProduct3[
+  _,
+  _ <: CoLike3
+] <: CoLike3] {
   CoProductUtil1Self =>
 
-  trait FuncApp[Co1 <: CoLike, H1 <: HLLike, Co2 <: CoLike]
+  private object FuncApp
       extends AppenderNatSupport3[
         ({ type Func3[A, B, C] = (A, B) => C })#Func3,
-        CoLike,
+        CoLike1,
         HLLike,
-        CoLike,
-        ApCoProduct,
+        CoLike3,
+        ApCoProduct1,
         ApHList,
-        ApCoProduct,
-        Co1,
-        H1,
-        Co2
+        ApCoProduct3
       ] {
-    override def current: (Co1, H1) => Co2
-    override def next[T1, T2, T3](f_1: (T1, T2) => T3): FuncApp[ApCoProduct[T1, Co1], ApHList[T2, H1], ApCoProduct[T3, Co2]]
-  }
+    override def append[A, B, C, Co1 <: CoLike1, H1 <: HLLike, Co3 <: CoLike3](
+      p1: (A, B) => C,
+      p2: (Co1, H1) => Co3
+    ): (ApCoProduct1[A, Co1], ApHList[B, H1]) => ApCoProduct3[C, Co3] = (a1: ApCoProduct1[A, Co1], a2: ApHList[B, H1]) => {
+      val b: B   = CoProductUtil1Self.apH2.takeHead(a2)
+      val h1: H1 = CoProductUtil1Self.apH2.takeTail(a2)
 
-  object FuncApp {
-    case class FuncAppImpl[Co1 <: CoLike, H1 <: HLLike, Co2 <: CoLike](override val current: (Co1, H1) => Co2)
-        extends FuncApp[Co1, H1, Co2] {
-      FuncAppSelf =>
+      val forInput = CoProductUtil1Self.apCoH1.fold[A, Co1, ApCoProduct3[C, Co3]](
+        (x1: A) => CoProductUtil1Self.apCoH3.appendLeft(p1(x1, b)),
+        (co1: Co1) => CoProductUtil1Self.apCoH3.appendRight(p2(co1, h1))
+      )
 
-      override def next[T1, T2, T3](f_1: (T1, T2) => T3): FuncAppImpl[ApCoProduct[T1, Co1], ApHList[T2, H1], ApCoProduct[T3, Co2]] = {
-
-        val f1 = (a: ApCoProduct[T1, Co1], b: ApHList[T2, H1]) => {
-          val t2: T2 = CoProductUtil1Self.apH.takeHead[T2, H1](b)
-          val h1: H1 = CoProductUtil1Self.apH.takeTail[T2, H1](b)
-          apCoH.fold[T1, Co1, ApCoProduct[T3, Co2]](
-            h = (t1_1: T1) => CoProductUtil1Self.apCoH.appendLeft(f_1(t1_1, t2)),
-            t = (co1_1: Co1) => CoProductUtil1Self.apCoH.appendRight(FuncAppSelf.current(co1_1, h1))
-          )(a)
-        }
-
-        FuncAppImpl(current = f1)
-
-      }
+      forInput(a1)
     }
-
-    def apply[Co1 <: CoLike, H1 <: HLLike, Co2 <: CoLike](cFunc: (Co1, H1) => Co2): FuncApp[Co1, H1, Co2] = FuncAppImpl(cFunc)
   }
 
-  def apH: HListFunc[HLLike, ApHList]
-  def apCoH: CoProductFunc[CoLike, ApCoProduct]
+  private def nextImpl[A1, A2, Co1 <: CoLike1, H1 <: HLLike, Co2 <: CoLike3](
+    paramHead: (A1, A1 => A2) => A2,
+    paramTail: (Co1, H1) => Co2
+  ): (ApCoProduct1[A1, Co1], ApHList[A1 => A2, H1]) => ApCoProduct3[A2, Co2] =
+    FuncApp.append[A1, A1 => A2, A2, Co1, H1, Co2](paramHead, paramTail)
 
-  trait CoProductFolderAppender[Co1 <: CoLike, H1 <: HLLike, Co2 <: CoLike] {
+  def apH2: HListFunc[HLLike, ApHList]
+  def apCoH1: CoProductFunc[CoLike1, ApCoProduct1]
+  def apCoH3: CoProductFunc[CoLike3, ApCoProduct3]
 
-    def inputFunction: (Co1, H1) => Co2
-    def next[A1, A2](
-      paramTail: (Co1, H1) => Co2
-    ): CoProductFolderAppender[ApCoProduct[A1, Co1], ApHList[A1 => A2, H1], ApCoProduct[A2, Co2]]
+  def next[A1, A2, Co1 <: CoLike1, H1 <: HLLike, Co2 <: CoLike3](
+    paramTail: (Co1, H1) => Co2
+  ): (ApCoProduct1[A1, Co1], ApHList[A1 => A2, H1]) => ApCoProduct3[A2, Co2] = nextImpl((x: A1, y: A1 => A2) => y(x), paramTail)
 
-  }
+}
 
-  object CoProductFolderAppender {
-    case class CoProductFolderAppenderImpl[Co1 <: CoLike, H1 <: HLLike, Co2 <: CoLike](override val inputFunction: (Co1, H1) => Co2)
-        extends CoProductFolderAppender[Co1, H1, Co2] {
+trait CoProductUtil2[CoLike, ApCoProduct[_, _ <: CoLike] <: CoLike, HLLike, ApHList[_, _ <: HLLike] <: HLLike]
+    extends CoProductUtil1[CoLike, ApCoProduct, HLLike, ApHList, CoLike, ApCoProduct] {
 
-      override def next[A1, A2](
-        paramTail: (Co1, H1) => Co2
-      ): CoProductFolderAppenderImpl[ApCoProduct[A1, Co1], ApHList[A1 => A2, H1], ApCoProduct[A2, Co2]] = {
+  override def apCoH1: CoProductFunc[CoLike, ApCoProduct]
+  override def apH2: HListFunc[HLLike, ApHList]
 
-        val fApp: FuncApp[Co1, H1, Co2] = FuncApp[Co1, H1, Co2](paramTail)
-        val nextInputFunction           = fApp.next[A1, A1 => A2, A2]((u1: A1, u2: A1 => A2) => u2(u1))
-        CoProductFolderAppenderImpl(nextInputFunction.current)
+  override def apCoH3: CoProductFunc[CoLike, ApCoProduct] = apCoH1
 
-      }
-
-    }
-
-    def apply[Co1 <: CoLike, H1 <: HLLike, Co2 <: CoLike](inFunc: (Co1, H1) => Co2): CoProductFolderAppender[Co1, H1, Co2] =
-      CoProductFolderAppenderImpl(inFunc)
-
-  }
+  override def next[A1, A2, Co1 <: CoLike, H1 <: HLLike, Co2 <: CoLike](
+    paramTail: (Co1, H1) => Co2
+  ): (ApCoProduct[A1, Co1], ApHList[A1 => A2, H1]) => ApCoProduct[A2, Co2] = super.next[A1, A2, Co1, H1, Co2](paramTail)
 
 }
