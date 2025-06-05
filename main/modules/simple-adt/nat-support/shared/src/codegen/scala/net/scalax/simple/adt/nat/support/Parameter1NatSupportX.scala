@@ -2,30 +2,29 @@ package net.scalax.simple.adt
 package nat
 package support
 
-trait ParameterNatSupport1[
+trait Parameter1NatSupport1[
   M[_],
   N1[_],
   HLLike1,
   APRHLLike1[_, _ <: HLLike1] <: HLLike1
-] extends Parameter1NatSupport1[
+] extends Parameter10NatSupport1[
       M,
-      N1,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N1[U1] })#TypeXM,
       HLLike1,
       APRHLLike1
     ] {
-  ParameterNatSupport1Self =>
+  Parameter1NatSupport1Self =>
 
-  override def append[Item, HCollection1 <: HLLike1](p1: M[HCollection1]): M[APRHLLike1[N1[Item], HCollection1]] =
-    super.append[Item, HCollection1](p1)
+  def append[Item, HCollection1 <: HLLike1](p1: M[HCollection1]): M[APRHLLike1[N1[Item], HCollection1]] =
+    Parameter1NatSupport1Self.append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, HCollection1](p1)
 
   override def content: AppenderNatSupport1[M, HLLike1, APRHLLike1]
 
   override def typeGen: TypeGen1[M, N1]
 
-  def apH1: HListFunc[HLLike1, APRHLLike1]
 }
 
-trait ParameterNatSupport2[
+trait Parameter1NatSupport2[
   M[_, _],
   N1[_],
   N2[_],
@@ -33,30 +32,29 @@ trait ParameterNatSupport2[
   HLLike2,
   APRHLLike1[_, _ <: HLLike1] <: HLLike1,
   APRHLLike2[_, _ <: HLLike2] <: HLLike2
-] extends Parameter1NatSupport2[
+] extends Parameter10NatSupport2[
       M,
-      N1,
-      N2,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N1[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N2[U1] })#TypeXM,
       HLLike1,
       HLLike2,
       APRHLLike1,
       APRHLLike2
     ] {
-  ParameterNatSupport2Self =>
+  Parameter1NatSupport2Self =>
 
-  override def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2](
+  def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2](
     p1: M[HCollection1, HCollection2]
-  ): M[APRHLLike1[N1[Item], HCollection1], APRHLLike2[N2[Item], HCollection2]] = super.append[Item, HCollection1, HCollection2](p1)
+  ): M[APRHLLike1[N1[Item], HCollection1], APRHLLike2[N2[Item], HCollection2]] =
+    Parameter1NatSupport2Self.append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, HCollection1, HCollection2](p1)
 
   override def content: AppenderNatSupport2[M, HLLike1, HLLike2, APRHLLike1, APRHLLike2]
 
   override def typeGen: TypeGen2[M, N1, N2]
 
-  def apH1: HListFunc[HLLike1, APRHLLike1]
-  def apH2: HListFunc[HLLike2, APRHLLike2]
 }
 
-trait ParameterNatSupport3[
+trait Parameter1NatSupport3[
   M[_, _, _],
   N1[_],
   N2[_],
@@ -67,11 +65,11 @@ trait ParameterNatSupport3[
   APRHLLike1[_, _ <: HLLike1] <: HLLike1,
   APRHLLike2[_, _ <: HLLike2] <: HLLike2,
   APRHLLike3[_, _ <: HLLike3] <: HLLike3
-] extends Parameter1NatSupport3[
+] extends Parameter10NatSupport3[
       M,
-      N1,
-      N2,
-      N3,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N1[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N2[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N3[U1] })#TypeXM,
       HLLike1,
       HLLike2,
       HLLike3,
@@ -79,23 +77,20 @@ trait ParameterNatSupport3[
       APRHLLike2,
       APRHLLike3
     ] {
-  ParameterNatSupport3Self =>
+  Parameter1NatSupport3Self =>
 
-  override def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2, HCollection3 <: HLLike3](
+  def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2, HCollection3 <: HLLike3](
     p1: M[HCollection1, HCollection2, HCollection3]
   ): M[APRHLLike1[N1[Item], HCollection1], APRHLLike2[N2[Item], HCollection2], APRHLLike3[N3[Item], HCollection3]] =
-    super.append[Item, HCollection1, HCollection2, HCollection3](p1)
+    Parameter1NatSupport3Self.append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, HCollection1, HCollection2, HCollection3](p1)
 
   override def content: AppenderNatSupport3[M, HLLike1, HLLike2, HLLike3, APRHLLike1, APRHLLike2, APRHLLike3]
 
   override def typeGen: TypeGen3[M, N1, N2, N3]
 
-  def apH1: HListFunc[HLLike1, APRHLLike1]
-  def apH2: HListFunc[HLLike2, APRHLLike2]
-  def apH3: HListFunc[HLLike3, APRHLLike3]
 }
 
-trait ParameterNatSupport4[
+trait Parameter1NatSupport4[
   M[_, _, _, _],
   N1[_],
   N2[_],
@@ -109,12 +104,12 @@ trait ParameterNatSupport4[
   APRHLLike2[_, _ <: HLLike2] <: HLLike2,
   APRHLLike3[_, _ <: HLLike3] <: HLLike3,
   APRHLLike4[_, _ <: HLLike4] <: HLLike4
-] extends Parameter1NatSupport4[
+] extends Parameter10NatSupport4[
       M,
-      N1,
-      N2,
-      N3,
-      N4,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N1[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N2[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N3[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N4[U1] })#TypeXM,
       HLLike1,
       HLLike2,
       HLLike3,
@@ -124,25 +119,22 @@ trait ParameterNatSupport4[
       APRHLLike3,
       APRHLLike4
     ] {
-  ParameterNatSupport4Self =>
+  Parameter1NatSupport4Self =>
 
-  override def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2, HCollection3 <: HLLike3, HCollection4 <: HLLike4](
+  def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2, HCollection3 <: HLLike3, HCollection4 <: HLLike4](
     p1: M[HCollection1, HCollection2, HCollection3, HCollection4]
   ): M[APRHLLike1[N1[Item], HCollection1], APRHLLike2[N2[Item], HCollection2], APRHLLike3[N3[Item], HCollection3], APRHLLike4[N4[
     Item
-  ], HCollection4]] = super.append[Item, HCollection1, HCollection2, HCollection3, HCollection4](p1)
+  ], HCollection4]] = Parameter1NatSupport4Self
+    .append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, HCollection1, HCollection2, HCollection3, HCollection4](p1)
 
   override def content: AppenderNatSupport4[M, HLLike1, HLLike2, HLLike3, HLLike4, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4]
 
   override def typeGen: TypeGen4[M, N1, N2, N3, N4]
 
-  def apH1: HListFunc[HLLike1, APRHLLike1]
-  def apH2: HListFunc[HLLike2, APRHLLike2]
-  def apH3: HListFunc[HLLike3, APRHLLike3]
-  def apH4: HListFunc[HLLike4, APRHLLike4]
 }
 
-trait ParameterNatSupport5[
+trait Parameter1NatSupport5[
   M[_, _, _, _, _],
   N1[_],
   N2[_],
@@ -159,13 +151,13 @@ trait ParameterNatSupport5[
   APRHLLike3[_, _ <: HLLike3] <: HLLike3,
   APRHLLike4[_, _ <: HLLike4] <: HLLike4,
   APRHLLike5[_, _ <: HLLike5] <: HLLike5
-] extends Parameter1NatSupport5[
+] extends Parameter10NatSupport5[
       M,
-      N1,
-      N2,
-      N3,
-      N4,
-      N5,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N1[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N2[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N3[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N4[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N5[U1] })#TypeXM,
       HLLike1,
       HLLike2,
       HLLike3,
@@ -177,9 +169,9 @@ trait ParameterNatSupport5[
       APRHLLike4,
       APRHLLike5
     ] {
-  ParameterNatSupport5Self =>
+  Parameter1NatSupport5Self =>
 
-  override def append[
+  def append[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,
@@ -192,21 +184,17 @@ trait ParameterNatSupport5[
     APRHLLike3[N3[Item], HCollection3],
     APRHLLike4[N4[Item], HCollection4],
     APRHLLike5[N5[Item], HCollection5]
-  ] = super.append[Item, HCollection1, HCollection2, HCollection3, HCollection4, HCollection5](p1)
+  ] = Parameter1NatSupport5Self
+    .append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, HCollection1, HCollection2, HCollection3, HCollection4, HCollection5](p1)
 
   override def content
     : AppenderNatSupport5[M, HLLike1, HLLike2, HLLike3, HLLike4, HLLike5, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4, APRHLLike5]
 
   override def typeGen: TypeGen5[M, N1, N2, N3, N4, N5]
 
-  def apH1: HListFunc[HLLike1, APRHLLike1]
-  def apH2: HListFunc[HLLike2, APRHLLike2]
-  def apH3: HListFunc[HLLike3, APRHLLike3]
-  def apH4: HListFunc[HLLike4, APRHLLike4]
-  def apH5: HListFunc[HLLike5, APRHLLike5]
 }
 
-trait ParameterNatSupport6[
+trait Parameter1NatSupport6[
   M[_, _, _, _, _, _],
   N1[_],
   N2[_],
@@ -226,14 +214,14 @@ trait ParameterNatSupport6[
   APRHLLike4[_, _ <: HLLike4] <: HLLike4,
   APRHLLike5[_, _ <: HLLike5] <: HLLike5,
   APRHLLike6[_, _ <: HLLike6] <: HLLike6
-] extends Parameter1NatSupport6[
+] extends Parameter10NatSupport6[
       M,
-      N1,
-      N2,
-      N3,
-      N4,
-      N5,
-      N6,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N1[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N2[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N3[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N4[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N5[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N6[U1] })#TypeXM,
       HLLike1,
       HLLike2,
       HLLike3,
@@ -247,9 +235,9 @@ trait ParameterNatSupport6[
       APRHLLike5,
       APRHLLike6
     ] {
-  ParameterNatSupport6Self =>
+  Parameter1NatSupport6Self =>
 
-  override def append[
+  def append[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,
@@ -264,7 +252,24 @@ trait ParameterNatSupport6[
     APRHLLike4[N4[Item], HCollection4],
     APRHLLike5[N5[Item], HCollection5],
     APRHLLike6[N6[Item], HCollection6]
-  ] = super.append[Item, HCollection1, HCollection2, HCollection3, HCollection4, HCollection5, HCollection6](p1)
+  ] = Parameter1NatSupport6Self.append10[
+    Item,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    HCollection1,
+    HCollection2,
+    HCollection3,
+    HCollection4,
+    HCollection5,
+    HCollection6
+  ](p1)
 
   override def content: AppenderNatSupport6[
     M,
@@ -284,15 +289,9 @@ trait ParameterNatSupport6[
 
   override def typeGen: TypeGen6[M, N1, N2, N3, N4, N5, N6]
 
-  def apH1: HListFunc[HLLike1, APRHLLike1]
-  def apH2: HListFunc[HLLike2, APRHLLike2]
-  def apH3: HListFunc[HLLike3, APRHLLike3]
-  def apH4: HListFunc[HLLike4, APRHLLike4]
-  def apH5: HListFunc[HLLike5, APRHLLike5]
-  def apH6: HListFunc[HLLike6, APRHLLike6]
 }
 
-trait ParameterNatSupport7[
+trait Parameter1NatSupport7[
   M[_, _, _, _, _, _, _],
   N1[_],
   N2[_],
@@ -315,15 +314,15 @@ trait ParameterNatSupport7[
   APRHLLike5[_, _ <: HLLike5] <: HLLike5,
   APRHLLike6[_, _ <: HLLike6] <: HLLike6,
   APRHLLike7[_, _ <: HLLike7] <: HLLike7
-] extends Parameter1NatSupport7[
+] extends Parameter10NatSupport7[
       M,
-      N1,
-      N2,
-      N3,
-      N4,
-      N5,
-      N6,
-      N7,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N1[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N2[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N3[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N4[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N5[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N6[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N7[U1] })#TypeXM,
       HLLike1,
       HLLike2,
       HLLike3,
@@ -339,9 +338,9 @@ trait ParameterNatSupport7[
       APRHLLike6,
       APRHLLike7
     ] {
-  ParameterNatSupport7Self =>
+  Parameter1NatSupport7Self =>
 
-  override def append[
+  def append[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,
@@ -358,7 +357,25 @@ trait ParameterNatSupport7[
     APRHLLike5[N5[Item], HCollection5],
     APRHLLike6[N6[Item], HCollection6],
     APRHLLike7[N7[Item], HCollection7]
-  ] = super.append[Item, HCollection1, HCollection2, HCollection3, HCollection4, HCollection5, HCollection6, HCollection7](p1)
+  ] = Parameter1NatSupport7Self.append10[
+    Item,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    HCollection1,
+    HCollection2,
+    HCollection3,
+    HCollection4,
+    HCollection5,
+    HCollection6,
+    HCollection7
+  ](p1)
 
   override def content: AppenderNatSupport7[
     M,
@@ -380,16 +397,9 @@ trait ParameterNatSupport7[
 
   override def typeGen: TypeGen7[M, N1, N2, N3, N4, N5, N6, N7]
 
-  def apH1: HListFunc[HLLike1, APRHLLike1]
-  def apH2: HListFunc[HLLike2, APRHLLike2]
-  def apH3: HListFunc[HLLike3, APRHLLike3]
-  def apH4: HListFunc[HLLike4, APRHLLike4]
-  def apH5: HListFunc[HLLike5, APRHLLike5]
-  def apH6: HListFunc[HLLike6, APRHLLike6]
-  def apH7: HListFunc[HLLike7, APRHLLike7]
 }
 
-trait ParameterNatSupport8[
+trait Parameter1NatSupport8[
   M[_, _, _, _, _, _, _, _],
   N1[_],
   N2[_],
@@ -415,16 +425,16 @@ trait ParameterNatSupport8[
   APRHLLike6[_, _ <: HLLike6] <: HLLike6,
   APRHLLike7[_, _ <: HLLike7] <: HLLike7,
   APRHLLike8[_, _ <: HLLike8] <: HLLike8
-] extends Parameter1NatSupport8[
+] extends Parameter10NatSupport8[
       M,
-      N1,
-      N2,
-      N3,
-      N4,
-      N5,
-      N6,
-      N7,
-      N8,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N1[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N2[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N3[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N4[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N5[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N6[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N7[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N8[U1] })#TypeXM,
       HLLike1,
       HLLike2,
       HLLike3,
@@ -442,9 +452,9 @@ trait ParameterNatSupport8[
       APRHLLike7,
       APRHLLike8
     ] {
-  ParameterNatSupport8Self =>
+  Parameter1NatSupport8Self =>
 
-  override def append[
+  def append[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,
@@ -463,7 +473,26 @@ trait ParameterNatSupport8[
     APRHLLike6[N6[Item], HCollection6],
     APRHLLike7[N7[Item], HCollection7],
     APRHLLike8[N8[Item], HCollection8]
-  ] = super.append[Item, HCollection1, HCollection2, HCollection3, HCollection4, HCollection5, HCollection6, HCollection7, HCollection8](p1)
+  ] = Parameter1NatSupport8Self.append10[
+    Item,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    HCollection1,
+    HCollection2,
+    HCollection3,
+    HCollection4,
+    HCollection5,
+    HCollection6,
+    HCollection7,
+    HCollection8
+  ](p1)
 
   override def content: AppenderNatSupport8[
     M,
@@ -487,17 +516,9 @@ trait ParameterNatSupport8[
 
   override def typeGen: TypeGen8[M, N1, N2, N3, N4, N5, N6, N7, N8]
 
-  def apH1: HListFunc[HLLike1, APRHLLike1]
-  def apH2: HListFunc[HLLike2, APRHLLike2]
-  def apH3: HListFunc[HLLike3, APRHLLike3]
-  def apH4: HListFunc[HLLike4, APRHLLike4]
-  def apH5: HListFunc[HLLike5, APRHLLike5]
-  def apH6: HListFunc[HLLike6, APRHLLike6]
-  def apH7: HListFunc[HLLike7, APRHLLike7]
-  def apH8: HListFunc[HLLike8, APRHLLike8]
 }
 
-trait ParameterNatSupport9[
+trait Parameter1NatSupport9[
   M[_, _, _, _, _, _, _, _, _],
   N1[_],
   N2[_],
@@ -526,17 +547,17 @@ trait ParameterNatSupport9[
   APRHLLike7[_, _ <: HLLike7] <: HLLike7,
   APRHLLike8[_, _ <: HLLike8] <: HLLike8,
   APRHLLike9[_, _ <: HLLike9] <: HLLike9
-] extends Parameter1NatSupport9[
+] extends Parameter10NatSupport9[
       M,
-      N1,
-      N2,
-      N3,
-      N4,
-      N5,
-      N6,
-      N7,
-      N8,
-      N9,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N1[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N2[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N3[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N4[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N5[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N6[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N7[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N8[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N9[U1] })#TypeXM,
       HLLike1,
       HLLike2,
       HLLike3,
@@ -556,9 +577,9 @@ trait ParameterNatSupport9[
       APRHLLike8,
       APRHLLike9
     ] {
-  ParameterNatSupport9Self =>
+  Parameter1NatSupport9Self =>
 
-  override def append[
+  def append[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,
@@ -579,8 +600,17 @@ trait ParameterNatSupport9[
     APRHLLike7[N7[Item], HCollection7],
     APRHLLike8[N8[Item], HCollection8],
     APRHLLike9[N9[Item], HCollection9]
-  ] = super.append[
+  ] = Parameter1NatSupport9Self.append10[
     Item,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
     HCollection1,
     HCollection2,
     HCollection3,
@@ -616,18 +646,9 @@ trait ParameterNatSupport9[
 
   override def typeGen: TypeGen9[M, N1, N2, N3, N4, N5, N6, N7, N8, N9]
 
-  def apH1: HListFunc[HLLike1, APRHLLike1]
-  def apH2: HListFunc[HLLike2, APRHLLike2]
-  def apH3: HListFunc[HLLike3, APRHLLike3]
-  def apH4: HListFunc[HLLike4, APRHLLike4]
-  def apH5: HListFunc[HLLike5, APRHLLike5]
-  def apH6: HListFunc[HLLike6, APRHLLike6]
-  def apH7: HListFunc[HLLike7, APRHLLike7]
-  def apH8: HListFunc[HLLike8, APRHLLike8]
-  def apH9: HListFunc[HLLike9, APRHLLike9]
 }
 
-trait ParameterNatSupport10[
+trait Parameter1NatSupport10[
   M[_, _, _, _, _, _, _, _, _, _],
   N1[_],
   N2[_],
@@ -659,18 +680,18 @@ trait ParameterNatSupport10[
   APRHLLike8[_, _ <: HLLike8] <: HLLike8,
   APRHLLike9[_, _ <: HLLike9] <: HLLike9,
   APRHLLike10[_, _ <: HLLike10] <: HLLike10
-] extends Parameter1NatSupport10[
+] extends Parameter10NatSupport10[
       M,
-      N1,
-      N2,
-      N3,
-      N4,
-      N5,
-      N6,
-      N7,
-      N8,
-      N9,
-      N10,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N1[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N2[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N3[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N4[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N5[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N6[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N7[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N8[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N9[U1] })#TypeXM,
+      ({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N10[U1] })#TypeXM,
       HLLike1,
       HLLike2,
       HLLike3,
@@ -692,9 +713,9 @@ trait ParameterNatSupport10[
       APRHLLike9,
       APRHLLike10
     ] {
-  ParameterNatSupport10Self =>
+  Parameter1NatSupport10Self =>
 
-  override def append[
+  def append[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,
@@ -730,8 +751,17 @@ trait ParameterNatSupport10[
     APRHLLike8[N8[Item], HCollection8],
     APRHLLike9[N9[Item], HCollection9],
     APRHLLike10[N10[Item], HCollection10]
-  ] = super.append[
+  ] = Parameter1NatSupport10Self.append10[
     Item,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
+    Any,
     HCollection1,
     HCollection2,
     HCollection3,
@@ -770,14 +800,4 @@ trait ParameterNatSupport10[
 
   override def typeGen: TypeGen10[M, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10]
 
-  def apH1: HListFunc[HLLike1, APRHLLike1]
-  def apH2: HListFunc[HLLike2, APRHLLike2]
-  def apH3: HListFunc[HLLike3, APRHLLike3]
-  def apH4: HListFunc[HLLike4, APRHLLike4]
-  def apH5: HListFunc[HLLike5, APRHLLike5]
-  def apH6: HListFunc[HLLike6, APRHLLike6]
-  def apH7: HListFunc[HLLike7, APRHLLike7]
-  def apH8: HListFunc[HLLike8, APRHLLike8]
-  def apH9: HListFunc[HLLike9, APRHLLike9]
-  def apH10: HListFunc[HLLike10, APRHLLike10]
 }

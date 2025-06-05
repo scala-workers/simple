@@ -239,3 +239,422 @@ trait ParameterSingleNatSupport6[
   override def apH5: HListFunc[HLLike, APRHLLike] = ParameterNatSupport6Self.apH
   override def apH6: HListFunc[HLLike, APRHLLike] = ParameterNatSupport6Self.apH
 }
+
+trait ParameterSingleNatSupport7[
+  M[_, _, _, _, _, _, _],
+  N1[_],
+  N2[_],
+  N3[_],
+  N4[_],
+  N5[_],
+  N6[_],
+  N7[_],
+  HLLike,
+  APRHLLike[_, _ <: HLLike] <: HLLike
+] extends ParameterSimpleSupport7[
+      M,
+      N1,
+      N2,
+      N3,
+      N4,
+      N5,
+      N6,
+      N7,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike
+    ] {
+  ParameterNatSupport7Self =>
+
+  override def append[
+    Item,
+    HCollection1 <: HLLike,
+    HCollection2 <: HLLike,
+    HCollection3 <: HLLike,
+    HCollection4 <: HLLike,
+    HCollection5 <: HLLike,
+    HCollection6 <: HLLike,
+    HCollection7 <: HLLike
+  ](p1: M[HCollection1, HCollection2, HCollection3, HCollection4, HCollection5, HCollection6, HCollection7]): M[
+    APRHLLike[N1[Item], HCollection1],
+    APRHLLike[N2[Item], HCollection2],
+    APRHLLike[N3[Item], HCollection3],
+    APRHLLike[N4[Item], HCollection4],
+    APRHLLike[N5[Item], HCollection5],
+    APRHLLike[N6[Item], HCollection6],
+    APRHLLike[N7[Item], HCollection7]
+  ] = super.append(p1)
+
+  override def content: AppenderNatSupport7[
+    M,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike
+  ] = super.content
+
+  override def typeGen: TypeGen7[M, N1, N2, N3, N4, N5, N6, N7]
+
+  override def simpleAppender: SimpleAppender7[M]
+  def apH: HListFunc[HLLike, APRHLLike]
+
+  override def apH1: HListFunc[HLLike, APRHLLike] = ParameterNatSupport7Self.apH
+  override def apH2: HListFunc[HLLike, APRHLLike] = ParameterNatSupport7Self.apH
+  override def apH3: HListFunc[HLLike, APRHLLike] = ParameterNatSupport7Self.apH
+  override def apH4: HListFunc[HLLike, APRHLLike] = ParameterNatSupport7Self.apH
+  override def apH5: HListFunc[HLLike, APRHLLike] = ParameterNatSupport7Self.apH
+  override def apH6: HListFunc[HLLike, APRHLLike] = ParameterNatSupport7Self.apH
+  override def apH7: HListFunc[HLLike, APRHLLike] = ParameterNatSupport7Self.apH
+}
+
+trait ParameterSingleNatSupport8[
+  M[_, _, _, _, _, _, _, _],
+  N1[_],
+  N2[_],
+  N3[_],
+  N4[_],
+  N5[_],
+  N6[_],
+  N7[_],
+  N8[_],
+  HLLike,
+  APRHLLike[_, _ <: HLLike] <: HLLike
+] extends ParameterSimpleSupport8[
+      M,
+      N1,
+      N2,
+      N3,
+      N4,
+      N5,
+      N6,
+      N7,
+      N8,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike
+    ] {
+  ParameterNatSupport8Self =>
+
+  override def append[
+    Item,
+    HCollection1 <: HLLike,
+    HCollection2 <: HLLike,
+    HCollection3 <: HLLike,
+    HCollection4 <: HLLike,
+    HCollection5 <: HLLike,
+    HCollection6 <: HLLike,
+    HCollection7 <: HLLike,
+    HCollection8 <: HLLike
+  ](p1: M[HCollection1, HCollection2, HCollection3, HCollection4, HCollection5, HCollection6, HCollection7, HCollection8]): M[
+    APRHLLike[N1[Item], HCollection1],
+    APRHLLike[N2[Item], HCollection2],
+    APRHLLike[N3[Item], HCollection3],
+    APRHLLike[N4[Item], HCollection4],
+    APRHLLike[N5[Item], HCollection5],
+    APRHLLike[N6[Item], HCollection6],
+    APRHLLike[N7[Item], HCollection7],
+    APRHLLike[N8[Item], HCollection8]
+  ] = super.append(p1)
+
+  override def content: AppenderNatSupport8[
+    M,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike
+  ] = super.content
+
+  override def typeGen: TypeGen8[M, N1, N2, N3, N4, N5, N6, N7, N8]
+
+  override def simpleAppender: SimpleAppender8[M]
+  def apH: HListFunc[HLLike, APRHLLike]
+
+  override def apH1: HListFunc[HLLike, APRHLLike] = ParameterNatSupport8Self.apH
+  override def apH2: HListFunc[HLLike, APRHLLike] = ParameterNatSupport8Self.apH
+  override def apH3: HListFunc[HLLike, APRHLLike] = ParameterNatSupport8Self.apH
+  override def apH4: HListFunc[HLLike, APRHLLike] = ParameterNatSupport8Self.apH
+  override def apH5: HListFunc[HLLike, APRHLLike] = ParameterNatSupport8Self.apH
+  override def apH6: HListFunc[HLLike, APRHLLike] = ParameterNatSupport8Self.apH
+  override def apH7: HListFunc[HLLike, APRHLLike] = ParameterNatSupport8Self.apH
+  override def apH8: HListFunc[HLLike, APRHLLike] = ParameterNatSupport8Self.apH
+}
+
+trait ParameterSingleNatSupport9[
+  M[_, _, _, _, _, _, _, _, _],
+  N1[_],
+  N2[_],
+  N3[_],
+  N4[_],
+  N5[_],
+  N6[_],
+  N7[_],
+  N8[_],
+  N9[_],
+  HLLike,
+  APRHLLike[_, _ <: HLLike] <: HLLike
+] extends ParameterSimpleSupport9[
+      M,
+      N1,
+      N2,
+      N3,
+      N4,
+      N5,
+      N6,
+      N7,
+      N8,
+      N9,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike
+    ] {
+  ParameterNatSupport9Self =>
+
+  override def append[
+    Item,
+    HCollection1 <: HLLike,
+    HCollection2 <: HLLike,
+    HCollection3 <: HLLike,
+    HCollection4 <: HLLike,
+    HCollection5 <: HLLike,
+    HCollection6 <: HLLike,
+    HCollection7 <: HLLike,
+    HCollection8 <: HLLike,
+    HCollection9 <: HLLike
+  ](p1: M[HCollection1, HCollection2, HCollection3, HCollection4, HCollection5, HCollection6, HCollection7, HCollection8, HCollection9]): M[
+    APRHLLike[N1[Item], HCollection1],
+    APRHLLike[N2[Item], HCollection2],
+    APRHLLike[N3[Item], HCollection3],
+    APRHLLike[N4[Item], HCollection4],
+    APRHLLike[N5[Item], HCollection5],
+    APRHLLike[N6[Item], HCollection6],
+    APRHLLike[N7[Item], HCollection7],
+    APRHLLike[N8[Item], HCollection8],
+    APRHLLike[N9[Item], HCollection9]
+  ] = super.append(p1)
+
+  override def content: AppenderNatSupport9[
+    M,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike
+  ] = super.content
+
+  override def typeGen: TypeGen9[M, N1, N2, N3, N4, N5, N6, N7, N8, N9]
+
+  override def simpleAppender: SimpleAppender9[M]
+  def apH: HListFunc[HLLike, APRHLLike]
+
+  override def apH1: HListFunc[HLLike, APRHLLike] = ParameterNatSupport9Self.apH
+  override def apH2: HListFunc[HLLike, APRHLLike] = ParameterNatSupport9Self.apH
+  override def apH3: HListFunc[HLLike, APRHLLike] = ParameterNatSupport9Self.apH
+  override def apH4: HListFunc[HLLike, APRHLLike] = ParameterNatSupport9Self.apH
+  override def apH5: HListFunc[HLLike, APRHLLike] = ParameterNatSupport9Self.apH
+  override def apH6: HListFunc[HLLike, APRHLLike] = ParameterNatSupport9Self.apH
+  override def apH7: HListFunc[HLLike, APRHLLike] = ParameterNatSupport9Self.apH
+  override def apH8: HListFunc[HLLike, APRHLLike] = ParameterNatSupport9Self.apH
+  override def apH9: HListFunc[HLLike, APRHLLike] = ParameterNatSupport9Self.apH
+}
+
+trait ParameterSingleNatSupport10[
+  M[_, _, _, _, _, _, _, _, _, _],
+  N1[_],
+  N2[_],
+  N3[_],
+  N4[_],
+  N5[_],
+  N6[_],
+  N7[_],
+  N8[_],
+  N9[_],
+  N10[_],
+  HLLike,
+  APRHLLike[_, _ <: HLLike] <: HLLike
+] extends ParameterSimpleSupport10[
+      M,
+      N1,
+      N2,
+      N3,
+      N4,
+      N5,
+      N6,
+      N7,
+      N8,
+      N9,
+      N10,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      HLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike,
+      APRHLLike
+    ] {
+  ParameterNatSupport10Self =>
+
+  override def append[
+    Item,
+    HCollection1 <: HLLike,
+    HCollection2 <: HLLike,
+    HCollection3 <: HLLike,
+    HCollection4 <: HLLike,
+    HCollection5 <: HLLike,
+    HCollection6 <: HLLike,
+    HCollection7 <: HLLike,
+    HCollection8 <: HLLike,
+    HCollection9 <: HLLike,
+    HCollection10 <: HLLike
+  ](
+    p1: M[
+      HCollection1,
+      HCollection2,
+      HCollection3,
+      HCollection4,
+      HCollection5,
+      HCollection6,
+      HCollection7,
+      HCollection8,
+      HCollection9,
+      HCollection10
+    ]
+  ): M[
+    APRHLLike[N1[Item], HCollection1],
+    APRHLLike[N2[Item], HCollection2],
+    APRHLLike[N3[Item], HCollection3],
+    APRHLLike[N4[Item], HCollection4],
+    APRHLLike[N5[Item], HCollection5],
+    APRHLLike[N6[Item], HCollection6],
+    APRHLLike[N7[Item], HCollection7],
+    APRHLLike[N8[Item], HCollection8],
+    APRHLLike[N9[Item], HCollection9],
+    APRHLLike[N10[Item], HCollection10]
+  ] = super.append(p1)
+
+  override def content: AppenderNatSupport10[
+    M,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    HLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike,
+    APRHLLike
+  ] = super.content
+
+  override def typeGen: TypeGen10[M, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10]
+
+  override def simpleAppender: SimpleAppender10[M]
+  def apH: HListFunc[HLLike, APRHLLike]
+
+  override def apH1: HListFunc[HLLike, APRHLLike]  = ParameterNatSupport10Self.apH
+  override def apH2: HListFunc[HLLike, APRHLLike]  = ParameterNatSupport10Self.apH
+  override def apH3: HListFunc[HLLike, APRHLLike]  = ParameterNatSupport10Self.apH
+  override def apH4: HListFunc[HLLike, APRHLLike]  = ParameterNatSupport10Self.apH
+  override def apH5: HListFunc[HLLike, APRHLLike]  = ParameterNatSupport10Self.apH
+  override def apH6: HListFunc[HLLike, APRHLLike]  = ParameterNatSupport10Self.apH
+  override def apH7: HListFunc[HLLike, APRHLLike]  = ParameterNatSupport10Self.apH
+  override def apH8: HListFunc[HLLike, APRHLLike]  = ParameterNatSupport10Self.apH
+  override def apH9: HListFunc[HLLike, APRHLLike]  = ParameterNatSupport10Self.apH
+  override def apH10: HListFunc[HLLike, APRHLLike] = ParameterNatSupport10Self.apH
+}

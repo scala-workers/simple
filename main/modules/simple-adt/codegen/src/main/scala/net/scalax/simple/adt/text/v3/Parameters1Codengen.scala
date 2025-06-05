@@ -1,6 +1,6 @@
 package net.scalax.simple.adt.text.v3
 
-class ParametersCodengen(val index: Int) {
+class Parameter1sCodengen(val index: Int) {
 
   extension (list: Seq[String]) {
     def mkString(c: Char): String = list.mkString(c.toString)
@@ -23,9 +23,9 @@ class ParametersCodengen(val index: Int) {
     val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1 <: HLLike$i1"
 
     val text: String = s"""
-      override def append[Item, ${typeParam8.mkString(',')}](p1: M[${typeParam2.mkString(',')}]): M[${typeParam3.mkString(
+      def append[Item, ${typeParam8.mkString(',')}](p1: M[${typeParam2.mkString(',')}]): M[${typeParam3.mkString(
         ','
-      )}] = super.append[Item, ${typeParam2.mkString(',')}](p1)
+      )}] = Parameter1NatSupport${index}Self.append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, ${typeParam2.mkString(',')}](p1)
     """
 
   }
@@ -47,35 +47,32 @@ class ParametersCodengen(val index: Int) {
     val traitContentDef: TraitContentDef = new TraitContentDef(index)
     val typeGenTrait: TypeGenTrait       = new TypeGenTrait(index)
 
-    val appenderH: Seq[String] = for (i1 <- 1 to index) yield s"def apH$i1: HListFunc[HLLike$i1, APRHLLike$i1]"
-
     val typeParam1: Seq[String] = for (_ <- 1 to index) yield s"_"
     val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[_]"
-    val typeParam7: Seq[String] = for (i1 <- 1 to index) yield s"N$i1"
+    val typeParam7: Seq[String] = for (i1 <- 1 to index) yield s"({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N$i1[U1] })#TypeXM"
 
     val typeParam4: Seq[String] = for (i1 <- 1 to index) yield s"HLLike$i1"
     val typeParam6: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[_, _ <: HLLike$i1] <: HLLike$i1"
     val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1"
 
     val text: String = s"""
-      trait ParameterNatSupport$index[
+      trait Parameter1NatSupport$index[
         M[${typeParam1.mkString(',')}],
         ${typeParam3.mkString(',')},
         ${typeParam4.mkString(',')},
         ${typeParam6.mkString(',')}
-      ] extends Parameter1NatSupport$index[
+      ] extends Parameter10NatSupport$index[
         M,
         ${typeParam7.mkString(',')},
         ${typeParam4.mkString(',')},
         ${typeParam8.mkString(',')}
       ] {
-        ParameterNatSupport${index}Self =>
+        Parameter1NatSupport${index}Self =>
 
         ${traitDef.text}
 
         ${traitContentDef.text}
         ${typeGenTrait.text}
-        ${appenderH.mkString('\n')}
       }"""
 
   }
