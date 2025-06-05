@@ -1,0 +1,257 @@
+package net.scalax.simple.adt
+package nat
+package support
+
+trait Parameter10NatSupport1[
+  M[_],
+  N1[_, _, _, _, _, _, _, _, _, _],
+  HLLike1,
+  APRHLLike1[_, _ <: HLLike1] <: HLLike1
+] {
+  Parameter10NatSupport1Self =>
+
+  def append10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10, HCollection1 <: HLLike1](
+    p1: M[HCollection1]
+  ): M[APRHLLike1[N1[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection1]] =
+    Parameter10NatSupport1Self.content
+      .append(Parameter10NatSupport1Self.typeGen.gen10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], p1)
+
+  def content: AppenderNatSupport1[M, HLLike1, APRHLLike1]
+
+  def typeGen: Type10Gen1[M, N1]
+
+}
+
+trait Parameter10NatSupport2[
+  M[_, _],
+  N1[_, _, _, _, _, _, _, _, _, _],
+  N2[_, _, _, _, _, _, _, _, _, _],
+  HLLike1,
+  HLLike2,
+  APRHLLike1[_, _ <: HLLike1] <: HLLike1,
+  APRHLLike2[_, _ <: HLLike2] <: HLLike2
+] {
+  Parameter10NatSupport2Self =>
+
+  def append10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10, HCollection1 <: HLLike1, HCollection2 <: HLLike2](
+    p1: M[HCollection1, HCollection2]
+  ): M[
+    APRHLLike1[N1[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection1],
+    APRHLLike2[N2[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection2]
+  ] = Parameter10NatSupport2Self.content
+    .append(Parameter10NatSupport2Self.typeGen.gen10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], p1)
+
+  def content: AppenderNatSupport2[M, HLLike1, HLLike2, APRHLLike1, APRHLLike2]
+
+  def typeGen: Type10Gen2[M, N1, N2]
+
+}
+
+trait Parameter10NatSupport3[
+  M[_, _, _],
+  N1[_, _, _, _, _, _, _, _, _, _],
+  N2[_, _, _, _, _, _, _, _, _, _],
+  N3[_, _, _, _, _, _, _, _, _, _],
+  HLLike1,
+  HLLike2,
+  HLLike3,
+  APRHLLike1[_, _ <: HLLike1] <: HLLike1,
+  APRHLLike2[_, _ <: HLLike2] <: HLLike2,
+  APRHLLike3[_, _ <: HLLike3] <: HLLike3
+] {
+  Parameter10NatSupport3Self =>
+
+  def append10[
+    Item1,
+    Item2,
+    Item3,
+    Item4,
+    Item5,
+    Item6,
+    Item7,
+    Item8,
+    Item9,
+    Item10,
+    HCollection1 <: HLLike1,
+    HCollection2 <: HLLike2,
+    HCollection3 <: HLLike3
+  ](p1: M[HCollection1, HCollection2, HCollection3]): M[
+    APRHLLike1[N1[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection1],
+    APRHLLike2[N2[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection2],
+    APRHLLike3[N3[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection3]
+  ] = Parameter10NatSupport3Self.content
+    .append(Parameter10NatSupport3Self.typeGen.gen10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], p1)
+
+  def content: AppenderNatSupport3[M, HLLike1, HLLike2, HLLike3, APRHLLike1, APRHLLike2, APRHLLike3]
+
+  def typeGen: Type10Gen3[M, N1, N2, N3]
+
+}
+
+trait Parameter10NatSupport4[
+  M[_, _, _, _],
+  N1[_, _, _, _, _, _, _, _, _, _],
+  N2[_, _, _, _, _, _, _, _, _, _],
+  N3[_, _, _, _, _, _, _, _, _, _],
+  N4[_, _, _, _, _, _, _, _, _, _],
+  HLLike1,
+  HLLike2,
+  HLLike3,
+  HLLike4,
+  APRHLLike1[_, _ <: HLLike1] <: HLLike1,
+  APRHLLike2[_, _ <: HLLike2] <: HLLike2,
+  APRHLLike3[_, _ <: HLLike3] <: HLLike3,
+  APRHLLike4[_, _ <: HLLike4] <: HLLike4
+] {
+  Parameter10NatSupport4Self =>
+
+  def append10[
+    Item1,
+    Item2,
+    Item3,
+    Item4,
+    Item5,
+    Item6,
+    Item7,
+    Item8,
+    Item9,
+    Item10,
+    HCollection1 <: HLLike1,
+    HCollection2 <: HLLike2,
+    HCollection3 <: HLLike3,
+    HCollection4 <: HLLike4
+  ](p1: M[HCollection1, HCollection2, HCollection3, HCollection4]): M[
+    APRHLLike1[N1[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection1],
+    APRHLLike2[N2[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection2],
+    APRHLLike3[N3[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection3],
+    APRHLLike4[N4[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection4]
+  ] = Parameter10NatSupport4Self.content
+    .append(Parameter10NatSupport4Self.typeGen.gen10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], p1)
+
+  def content: AppenderNatSupport4[M, HLLike1, HLLike2, HLLike3, HLLike4, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4]
+
+  def typeGen: Type10Gen4[M, N1, N2, N3, N4]
+
+}
+
+trait Parameter10NatSupport5[
+  M[_, _, _, _, _],
+  N1[_, _, _, _, _, _, _, _, _, _],
+  N2[_, _, _, _, _, _, _, _, _, _],
+  N3[_, _, _, _, _, _, _, _, _, _],
+  N4[_, _, _, _, _, _, _, _, _, _],
+  N5[_, _, _, _, _, _, _, _, _, _],
+  HLLike1,
+  HLLike2,
+  HLLike3,
+  HLLike4,
+  HLLike5,
+  APRHLLike1[_, _ <: HLLike1] <: HLLike1,
+  APRHLLike2[_, _ <: HLLike2] <: HLLike2,
+  APRHLLike3[_, _ <: HLLike3] <: HLLike3,
+  APRHLLike4[_, _ <: HLLike4] <: HLLike4,
+  APRHLLike5[_, _ <: HLLike5] <: HLLike5
+] {
+  Parameter10NatSupport5Self =>
+
+  def append10[
+    Item1,
+    Item2,
+    Item3,
+    Item4,
+    Item5,
+    Item6,
+    Item7,
+    Item8,
+    Item9,
+    Item10,
+    HCollection1 <: HLLike1,
+    HCollection2 <: HLLike2,
+    HCollection3 <: HLLike3,
+    HCollection4 <: HLLike4,
+    HCollection5 <: HLLike5
+  ](p1: M[HCollection1, HCollection2, HCollection3, HCollection4, HCollection5]): M[
+    APRHLLike1[N1[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection1],
+    APRHLLike2[N2[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection2],
+    APRHLLike3[N3[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection3],
+    APRHLLike4[N4[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection4],
+    APRHLLike5[N5[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection5]
+  ] = Parameter10NatSupport5Self.content
+    .append(Parameter10NatSupport5Self.typeGen.gen10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], p1)
+
+  def content
+    : AppenderNatSupport5[M, HLLike1, HLLike2, HLLike3, HLLike4, HLLike5, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4, APRHLLike5]
+
+  def typeGen: Type10Gen5[M, N1, N2, N3, N4, N5]
+
+}
+
+trait Parameter10NatSupport6[
+  M[_, _, _, _, _, _],
+  N1[_, _, _, _, _, _, _, _, _, _],
+  N2[_, _, _, _, _, _, _, _, _, _],
+  N3[_, _, _, _, _, _, _, _, _, _],
+  N4[_, _, _, _, _, _, _, _, _, _],
+  N5[_, _, _, _, _, _, _, _, _, _],
+  N6[_, _, _, _, _, _, _, _, _, _],
+  HLLike1,
+  HLLike2,
+  HLLike3,
+  HLLike4,
+  HLLike5,
+  HLLike6,
+  APRHLLike1[_, _ <: HLLike1] <: HLLike1,
+  APRHLLike2[_, _ <: HLLike2] <: HLLike2,
+  APRHLLike3[_, _ <: HLLike3] <: HLLike3,
+  APRHLLike4[_, _ <: HLLike4] <: HLLike4,
+  APRHLLike5[_, _ <: HLLike5] <: HLLike5,
+  APRHLLike6[_, _ <: HLLike6] <: HLLike6
+] {
+  Parameter10NatSupport6Self =>
+
+  def append10[
+    Item1,
+    Item2,
+    Item3,
+    Item4,
+    Item5,
+    Item6,
+    Item7,
+    Item8,
+    Item9,
+    Item10,
+    HCollection1 <: HLLike1,
+    HCollection2 <: HLLike2,
+    HCollection3 <: HLLike3,
+    HCollection4 <: HLLike4,
+    HCollection5 <: HLLike5,
+    HCollection6 <: HLLike6
+  ](p1: M[HCollection1, HCollection2, HCollection3, HCollection4, HCollection5, HCollection6]): M[
+    APRHLLike1[N1[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection1],
+    APRHLLike2[N2[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection2],
+    APRHLLike3[N3[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection3],
+    APRHLLike4[N4[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection4],
+    APRHLLike5[N5[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection5],
+    APRHLLike6[N6[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection6]
+  ] = Parameter10NatSupport6Self.content
+    .append(Parameter10NatSupport6Self.typeGen.gen10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], p1)
+
+  def content: AppenderNatSupport6[
+    M,
+    HLLike1,
+    HLLike2,
+    HLLike3,
+    HLLike4,
+    HLLike5,
+    HLLike6,
+    APRHLLike1,
+    APRHLLike2,
+    APRHLLike3,
+    APRHLLike4,
+    APRHLLike5,
+    APRHLLike6
+  ]
+
+  def typeGen: Type10Gen6[M, N1, N2, N3, N4, N5, N6]
+
+}

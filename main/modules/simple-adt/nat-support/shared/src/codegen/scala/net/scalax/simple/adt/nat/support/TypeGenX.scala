@@ -2,26 +2,75 @@ package net.scalax.simple.adt
 package nat
 package support
 
-trait TypeGen1[M[_], N1[_]] {
+trait TypeGen1[M[_], N1[_]] extends Type10Gen1[M, ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N1[M1] })#TypeX] {
+  TypeGen1Self =>
   def gen[T]: M[N1[T]]
+  override def gen10[T, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10]: M[N1[T]] = TypeGen1Self.gen[T]
 }
 
-trait TypeGen2[M[_, _], N1[_], N2[_]] {
+trait TypeGen2[M[_, _], N1[_], N2[_]]
+    extends Type10Gen2[
+      M,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N1[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N2[M1] })#TypeX
+    ] {
+  TypeGen2Self =>
   def gen[T]: M[N1[T], N2[T]]
+  override def gen10[T, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10]: M[N1[T], N2[T]] = TypeGen2Self.gen[T]
 }
 
-trait TypeGen3[M[_, _, _], N1[_], N2[_], N3[_]] {
+trait TypeGen3[M[_, _, _], N1[_], N2[_], N3[_]]
+    extends Type10Gen3[
+      M,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N1[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N2[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N3[M1] })#TypeX
+    ] {
+  TypeGen3Self =>
   def gen[T]: M[N1[T], N2[T], N3[T]]
+  override def gen10[T, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10]: M[N1[T], N2[T], N3[T]] = TypeGen3Self.gen[T]
 }
 
-trait TypeGen4[M[_, _, _, _], N1[_], N2[_], N3[_], N4[_]] {
+trait TypeGen4[M[_, _, _, _], N1[_], N2[_], N3[_], N4[_]]
+    extends Type10Gen4[
+      M,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N1[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N2[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N3[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N4[M1] })#TypeX
+    ] {
+  TypeGen4Self =>
   def gen[T]: M[N1[T], N2[T], N3[T], N4[T]]
+  override def gen10[T, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10]: M[N1[T], N2[T], N3[T], N4[T]] = TypeGen4Self.gen[T]
 }
 
-trait TypeGen5[M[_, _, _, _, _], N1[_], N2[_], N3[_], N4[_], N5[_]] {
+trait TypeGen5[M[_, _, _, _, _], N1[_], N2[_], N3[_], N4[_], N5[_]]
+    extends Type10Gen5[
+      M,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N1[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N2[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N3[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N4[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N5[M1] })#TypeX
+    ] {
+  TypeGen5Self =>
   def gen[T]: M[N1[T], N2[T], N3[T], N4[T], N5[T]]
+  override def gen10[T, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10]: M[N1[T], N2[T], N3[T], N4[T], N5[T]] =
+    TypeGen5Self.gen[T]
 }
 
-trait TypeGen6[M[_, _, _, _, _, _], N1[_], N2[_], N3[_], N4[_], N5[_], N6[_]] {
+trait TypeGen6[M[_, _, _, _, _, _], N1[_], N2[_], N3[_], N4[_], N5[_], N6[_]]
+    extends Type10Gen6[
+      M,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N1[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N2[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N3[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N4[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N5[M1] })#TypeX,
+      ({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N6[M1] })#TypeX
+    ] {
+  TypeGen6Self =>
   def gen[T]: M[N1[T], N2[T], N3[T], N4[T], N5[T], N6[T]]
+  override def gen10[T, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10]: M[N1[T], N2[T], N3[T], N4[T], N5[T], N6[T]] =
+    TypeGen6Self.gen[T]
 }

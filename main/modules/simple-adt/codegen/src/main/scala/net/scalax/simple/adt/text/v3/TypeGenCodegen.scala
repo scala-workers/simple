@@ -20,10 +20,15 @@ class TypeGenCodegen(val index: Int) {
 
     val typeParam1: Seq[String] = for (_ <- 1 to index) yield s"_"
     val typeParam2: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[_]"
+    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N$i1[M1] })#TypeX"
 
     val text: String = s"""
-      trait TypeGen$index[M[${typeParam1.mkString(',')}], ${typeParam2.mkString(',')}] {
+      trait TypeGen$index[M[${typeParam1.mkString(',')}], ${typeParam2.mkString(',')}] extends Type10Gen$index[M, ${typeParam3.mkString(
+        ','
+      )}] {
+        TypeGen${index}Self =>
         def gen[T]: ${param1Def.text}
+        override def gen10[T, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10]: ${param1Def.text} = TypeGen${index}Self.gen[T]
       }
     """
 

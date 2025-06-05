@@ -1,6 +1,6 @@
 package net.scalax.simple.adt.text.v3
 
-class ParametersCodengen(val index: Int) {
+class Parameters10Codengen(val index: Int) {
 
   extension (list: Seq[String]) {
     def mkString(c: Char): String = list.mkString(c.toString)
@@ -11,7 +11,7 @@ class ParametersCodengen(val index: Int) {
     val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"N$i1"
 
     val text: String = s"""
-      override def typeGen: TypeGen$index[M, ${typeParam1.mkString(',')}]
+      def typeGen: Type10Gen$index[M, ${typeParam1.mkString(',')}]
     """
 
   }
@@ -19,13 +19,16 @@ class ParametersCodengen(val index: Int) {
   class TraitDef(val index: Int) {
 
     val typeParam2: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1"
-    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[N$i1[Item], HCollection$i1]"
+    val typeParam3: Seq[String] =
+      for (i1 <- 1 to index)
+        yield s"APRHLLike$i1[N$i1[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection$i1]"
     val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1 <: HLLike$i1"
 
     val text: String = s"""
-      def append[Item, ${typeParam8.mkString(',')}](p1: M[${typeParam2.mkString(',')}]): M[${typeParam3.mkString(
+      def append10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10, ${typeParam8.mkString(',')}](p1: M[${typeParam2
+        .mkString(',')}]): M[${typeParam3.mkString(
         ','
-      )}] = ParameterNatSupport${index}Self.append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, ${typeParam2.mkString(',')}](p1)
+      )}] = Parameter10NatSupport${index}Self.content.append(Parameter10NatSupport${index}Self.typeGen.gen10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], p1)
     """
 
   }
@@ -47,35 +50,25 @@ class ParametersCodengen(val index: Int) {
     val traitContentDef: TraitContentDef = new TraitContentDef(index)
     val typeGenTrait: TypeGenTrait       = new TypeGenTrait(index)
 
-    val appenderH: Seq[String] = for (i1 <- 1 to index) yield s"def apH$i1: HListFunc[HLLike$i1, APRHLLike$i1]"
-
     val typeParam1: Seq[String] = for (_ <- 1 to index) yield s"_"
-    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[_]"
-    val typeParam7: Seq[String] = for (i1 <- 1 to index) yield s"({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N$i1[U1] })#TypeXM"
+    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[_, _, _, _, _, _, _, _, _, _]"
 
     val typeParam4: Seq[String] = for (i1 <- 1 to index) yield s"HLLike$i1"
     val typeParam6: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[_, _ <: HLLike$i1] <: HLLike$i1"
-    val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1"
 
     val text: String = s"""
-      trait ParameterNatSupport$index[
+      trait Parameter10NatSupport$index[
         M[${typeParam1.mkString(',')}],
         ${typeParam3.mkString(',')},
         ${typeParam4.mkString(',')},
         ${typeParam6.mkString(',')}
-      ] extends Parameter10NatSupport$index[
-        M,
-        ${typeParam7.mkString(',')},
-        ${typeParam4.mkString(',')},
-        ${typeParam8.mkString(',')}
       ] {
-        ParameterNatSupport${index}Self =>
+        Parameter10NatSupport${index}Self =>
 
         ${traitDef.text}
 
         ${traitContentDef.text}
         ${typeGenTrait.text}
-        ${appenderH.mkString('\n')}
       }"""
 
   }
