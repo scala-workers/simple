@@ -1,20 +1,9 @@
 package net.scalax.simple.adt.text.v3
 
-class SimpleAppenderX(val index: Int) {
+class SimpleAppenderPositiveX(val index: Int) {
 
   extension (list: Seq[String]) {
     def mkString(c: Char): String = list.mkString(c.toString)
-  }
-
-  class ZeroDef(val index: Int) {
-
-    val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"N$i1"
-    val typeParam2: Seq[String] = for (i1 <- 1 to index) yield s"p$i1: N$i1"
-
-    val text: String = s"""
-      override def zero[${typeParam1.mkString(',')}](${typeParam2.mkString(',')}): M[${typeParam1.mkString(',')}]
-    """
-
   }
 
   class AppenderDef(val index: Int) {
@@ -25,27 +14,23 @@ class SimpleAppenderX(val index: Int) {
     val typeParam4: Seq[String] = for (i1 <- 1 to index) yield s"f$i1: ABCFunc[A$i1, B$i1, C$i1]"
 
     val text: String = s"""
-       override def append[${typeParam1.mkString(',')}, ${typeParam2.mkString(',')}, ${typeParam3.mkString(',')}]
-         (${typeParam4.mkString(',')})
-         (a: M[${typeParam1.mkString(',')}], b: M[${typeParam2.mkString(',')}])
-         : M[${typeParam3.mkString(',')}]
-     """
+      def append[${typeParam1.mkString(',')}, ${typeParam2.mkString(',')}, ${typeParam3.mkString(',')}]
+        (${typeParam4.mkString(',')})
+        (a: M[${typeParam1.mkString(',')}], b: M[${typeParam2.mkString(',')}])
+        : M[${typeParam3.mkString(',')}]
+    """
 
   }
 
   class TraitBody(val index: Int) {
 
     val appenderDef: AppenderDef = new AppenderDef(index)
-    val zeroDef: ZeroDef         = new ZeroDef(index)
 
     val typeParam1: Seq[String] = for (_ <- 1 to index) yield s"_"
 
     val text: String = s"""
-      trait SimpleAppender$index[M[${typeParam1.mkString(
-        ','
-      )}]] extends SimpleAppender${index}Positive[M] with SimpleAppender${index}Zero[M] {
+      trait SimpleAppender${index}Positive[M[${typeParam1.mkString(',')}]] {
         ${appenderDef.text}
-        ${zeroDef.text}
       }
     """
 

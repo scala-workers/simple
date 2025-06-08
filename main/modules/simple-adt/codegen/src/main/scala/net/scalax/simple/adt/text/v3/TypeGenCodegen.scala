@@ -28,7 +28,7 @@ class TypeGenCodegen(val index: Int) {
       )}] {
         TypeGen${index}Self =>
         def gen[T]: ${param1Def.text}
-        override def gen10[T, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10]: ${param1Def.text} = TypeGen${index}Self.gen[T]
+        override final def gen10[T, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10]: ${param1Def.text} = TypeGen${index}Self.gen[T]
       }
     """
 

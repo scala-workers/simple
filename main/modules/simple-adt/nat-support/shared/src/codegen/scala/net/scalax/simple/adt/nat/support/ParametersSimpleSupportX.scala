@@ -10,8 +10,6 @@ trait ParameterSimpleSupport1[
 ] extends ParameterNatSupport1[M, N1, HLLike1, APRHLLike1] {
   ParameterSimpleSupport1Self =>
 
-  override def append[Item, HCollection1 <: HLLike1](p1: M[HCollection1]): M[APRHLLike1[N1[Item], HCollection1]] = super.append(p1)
-
   override def content: AppenderNatSupport1[M, HLLike1, APRHLLike1] =
     new AppenderNatSupport1[M, HLLike1, APRHLLike1] {
       override def append[I1, H1 <: HLLike1](p1: M[I1], p2: M[H1]): M[APRHLLike1[I1, H1]] =
@@ -24,7 +22,7 @@ trait ParameterSimpleSupport1[
         )(p1, p2)
     }
 
-  def simpleAppender: SimpleAppender1[M]
+  def simpleAppender: SimpleAppender1Positive[M]
 
   override def typeGen: TypeGen1[M, N1]
 
@@ -41,10 +39,6 @@ trait ParameterSimpleSupport2[
   APRHLLike2[_, _ <: HLLike2] <: HLLike2
 ] extends ParameterNatSupport2[M, N1, N2, HLLike1, HLLike2, APRHLLike1, APRHLLike2] {
   ParameterSimpleSupport2Self =>
-
-  override def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2](
-    p1: M[HCollection1, HCollection2]
-  ): M[APRHLLike1[N1[Item], HCollection1], APRHLLike2[N2[Item], HCollection2]] = super.append(p1)
 
   override def content: AppenderNatSupport2[M, HLLike1, HLLike2, APRHLLike1, APRHLLike2] =
     new AppenderNatSupport2[M, HLLike1, HLLike2, APRHLLike1, APRHLLike2] {
@@ -63,7 +57,7 @@ trait ParameterSimpleSupport2[
         )(p1, p2)
     }
 
-  def simpleAppender: SimpleAppender2[M]
+  def simpleAppender: SimpleAppender2Positive[M]
 
   override def typeGen: TypeGen2[M, N1, N2]
 
@@ -84,10 +78,6 @@ trait ParameterSimpleSupport3[
   APRHLLike3[_, _ <: HLLike3] <: HLLike3
 ] extends ParameterNatSupport3[M, N1, N2, N3, HLLike1, HLLike2, HLLike3, APRHLLike1, APRHLLike2, APRHLLike3] {
   ParameterSimpleSupport3Self =>
-
-  override def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2, HCollection3 <: HLLike3](
-    p1: M[HCollection1, HCollection2, HCollection3]
-  ): M[APRHLLike1[N1[Item], HCollection1], APRHLLike2[N2[Item], HCollection2], APRHLLike3[N3[Item], HCollection3]] = super.append(p1)
 
   override def content: AppenderNatSupport3[M, HLLike1, HLLike2, HLLike3, APRHLLike1, APRHLLike2, APRHLLike3] =
     new AppenderNatSupport3[M, HLLike1, HLLike2, HLLike3, APRHLLike1, APRHLLike2, APRHLLike3] {
@@ -113,7 +103,7 @@ trait ParameterSimpleSupport3[
       )(p1, p2)
     }
 
-  def simpleAppender: SimpleAppender3[M]
+  def simpleAppender: SimpleAppender3Positive[M]
 
   override def typeGen: TypeGen3[M, N1, N2, N3]
 
@@ -138,12 +128,6 @@ trait ParameterSimpleSupport4[
   APRHLLike4[_, _ <: HLLike4] <: HLLike4
 ] extends ParameterNatSupport4[M, N1, N2, N3, N4, HLLike1, HLLike2, HLLike3, HLLike4, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4] {
   ParameterSimpleSupport4Self =>
-
-  override def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2, HCollection3 <: HLLike3, HCollection4 <: HLLike4](
-    p1: M[HCollection1, HCollection2, HCollection3, HCollection4]
-  ): M[APRHLLike1[N1[Item], HCollection1], APRHLLike2[N2[Item], HCollection2], APRHLLike3[N3[Item], HCollection3], APRHLLike4[N4[
-    Item
-  ], HCollection4]] = super.append(p1)
 
   override def content: AppenderNatSupport4[M, HLLike1, HLLike2, HLLike3, HLLike4, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4] =
     new AppenderNatSupport4[M, HLLike1, HLLike2, HLLike3, HLLike4, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4] {
@@ -175,7 +159,7 @@ trait ParameterSimpleSupport4[
         )(p1, p2)
     }
 
-  def simpleAppender: SimpleAppender4[M]
+  def simpleAppender: SimpleAppender4Positive[M]
 
   override def typeGen: TypeGen4[M, N1, N2, N3, N4]
 
@@ -222,21 +206,6 @@ trait ParameterSimpleSupport5[
     ] {
   ParameterSimpleSupport5Self =>
 
-  override def append[
-    Item,
-    HCollection1 <: HLLike1,
-    HCollection2 <: HLLike2,
-    HCollection3 <: HLLike3,
-    HCollection4 <: HLLike4,
-    HCollection5 <: HLLike5
-  ](p1: M[HCollection1, HCollection2, HCollection3, HCollection4, HCollection5]): M[
-    APRHLLike1[N1[Item], HCollection1],
-    APRHLLike2[N2[Item], HCollection2],
-    APRHLLike3[N3[Item], HCollection3],
-    APRHLLike4[N4[Item], HCollection4],
-    APRHLLike5[N5[Item], HCollection5]
-  ] = super.append(p1)
-
   override def content
     : AppenderNatSupport5[M, HLLike1, HLLike2, HLLike3, HLLike4, HLLike5, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4, APRHLLike5] =
     new AppenderNatSupport5[M, HLLike1, HLLike2, HLLike3, HLLike4, HLLike5, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4, APRHLLike5] {
@@ -273,7 +242,7 @@ trait ParameterSimpleSupport5[
         )(p1, p2)
     }
 
-  def simpleAppender: SimpleAppender5[M]
+  def simpleAppender: SimpleAppender5Positive[M]
 
   override def typeGen: TypeGen5[M, N1, N2, N3, N4, N5]
 
@@ -326,23 +295,6 @@ trait ParameterSimpleSupport6[
       APRHLLike6
     ] {
   ParameterSimpleSupport6Self =>
-
-  override def append[
-    Item,
-    HCollection1 <: HLLike1,
-    HCollection2 <: HLLike2,
-    HCollection3 <: HLLike3,
-    HCollection4 <: HLLike4,
-    HCollection5 <: HLLike5,
-    HCollection6 <: HLLike6
-  ](p1: M[HCollection1, HCollection2, HCollection3, HCollection4, HCollection5, HCollection6]): M[
-    APRHLLike1[N1[Item], HCollection1],
-    APRHLLike2[N2[Item], HCollection2],
-    APRHLLike3[N3[Item], HCollection3],
-    APRHLLike4[N4[Item], HCollection4],
-    APRHLLike5[N5[Item], HCollection5],
-    APRHLLike6[N6[Item], HCollection6]
-  ] = super.append(p1)
 
   override def content: AppenderNatSupport6[
     M,
@@ -412,7 +364,7 @@ trait ParameterSimpleSupport6[
         )(p1, p2)
     }
 
-  def simpleAppender: SimpleAppender6[M]
+  def simpleAppender: SimpleAppender6Positive[M]
 
   override def typeGen: TypeGen6[M, N1, N2, N3, N4, N5, N6]
 
@@ -472,25 +424,6 @@ trait ParameterSimpleSupport7[
       APRHLLike7
     ] {
   ParameterSimpleSupport7Self =>
-
-  override def append[
-    Item,
-    HCollection1 <: HLLike1,
-    HCollection2 <: HLLike2,
-    HCollection3 <: HLLike3,
-    HCollection4 <: HLLike4,
-    HCollection5 <: HLLike5,
-    HCollection6 <: HLLike6,
-    HCollection7 <: HLLike7
-  ](p1: M[HCollection1, HCollection2, HCollection3, HCollection4, HCollection5, HCollection6, HCollection7]): M[
-    APRHLLike1[N1[Item], HCollection1],
-    APRHLLike2[N2[Item], HCollection2],
-    APRHLLike3[N3[Item], HCollection3],
-    APRHLLike4[N4[Item], HCollection4],
-    APRHLLike5[N5[Item], HCollection5],
-    APRHLLike6[N6[Item], HCollection6],
-    APRHLLike7[N7[Item], HCollection7]
-  ] = super.append(p1)
 
   override def content: AppenderNatSupport7[
     M,
@@ -584,7 +517,7 @@ trait ParameterSimpleSupport7[
         )(p1, p2)
     }
 
-  def simpleAppender: SimpleAppender7[M]
+  def simpleAppender: SimpleAppender7Positive[M]
 
   override def typeGen: TypeGen7[M, N1, N2, N3, N4, N5, N6, N7]
 
@@ -651,27 +584,6 @@ trait ParameterSimpleSupport8[
       APRHLLike8
     ] {
   ParameterSimpleSupport8Self =>
-
-  override def append[
-    Item,
-    HCollection1 <: HLLike1,
-    HCollection2 <: HLLike2,
-    HCollection3 <: HLLike3,
-    HCollection4 <: HLLike4,
-    HCollection5 <: HLLike5,
-    HCollection6 <: HLLike6,
-    HCollection7 <: HLLike7,
-    HCollection8 <: HLLike8
-  ](p1: M[HCollection1, HCollection2, HCollection3, HCollection4, HCollection5, HCollection6, HCollection7, HCollection8]): M[
-    APRHLLike1[N1[Item], HCollection1],
-    APRHLLike2[N2[Item], HCollection2],
-    APRHLLike3[N3[Item], HCollection3],
-    APRHLLike4[N4[Item], HCollection4],
-    APRHLLike5[N5[Item], HCollection5],
-    APRHLLike6[N6[Item], HCollection6],
-    APRHLLike7[N7[Item], HCollection7],
-    APRHLLike8[N8[Item], HCollection8]
-  ] = super.append(p1)
 
   override def content: AppenderNatSupport8[
     M,
@@ -776,7 +688,7 @@ trait ParameterSimpleSupport8[
         )(p1, p2)
     }
 
-  def simpleAppender: SimpleAppender8[M]
+  def simpleAppender: SimpleAppender8Positive[M]
 
   override def typeGen: TypeGen8[M, N1, N2, N3, N4, N5, N6, N7, N8]
 
@@ -850,29 +762,6 @@ trait ParameterSimpleSupport9[
       APRHLLike9
     ] {
   ParameterSimpleSupport9Self =>
-
-  override def append[
-    Item,
-    HCollection1 <: HLLike1,
-    HCollection2 <: HLLike2,
-    HCollection3 <: HLLike3,
-    HCollection4 <: HLLike4,
-    HCollection5 <: HLLike5,
-    HCollection6 <: HLLike6,
-    HCollection7 <: HLLike7,
-    HCollection8 <: HLLike8,
-    HCollection9 <: HLLike9
-  ](p1: M[HCollection1, HCollection2, HCollection3, HCollection4, HCollection5, HCollection6, HCollection7, HCollection8, HCollection9]): M[
-    APRHLLike1[N1[Item], HCollection1],
-    APRHLLike2[N2[Item], HCollection2],
-    APRHLLike3[N3[Item], HCollection3],
-    APRHLLike4[N4[Item], HCollection4],
-    APRHLLike5[N5[Item], HCollection5],
-    APRHLLike6[N6[Item], HCollection6],
-    APRHLLike7[N7[Item], HCollection7],
-    APRHLLike8[N8[Item], HCollection8],
-    APRHLLike9[N9[Item], HCollection9]
-  ] = super.append(p1)
 
   override def content: AppenderNatSupport9[
     M,
@@ -994,7 +883,7 @@ trait ParameterSimpleSupport9[
       )(p1, p2)
     }
 
-  def simpleAppender: SimpleAppender9[M]
+  def simpleAppender: SimpleAppender9Positive[M]
 
   override def typeGen: TypeGen9[M, N1, N2, N3, N4, N5, N6, N7, N8, N9]
 
@@ -1075,44 +964,6 @@ trait ParameterSimpleSupport10[
       APRHLLike10
     ] {
   ParameterSimpleSupport10Self =>
-
-  override def append[
-    Item,
-    HCollection1 <: HLLike1,
-    HCollection2 <: HLLike2,
-    HCollection3 <: HLLike3,
-    HCollection4 <: HLLike4,
-    HCollection5 <: HLLike5,
-    HCollection6 <: HLLike6,
-    HCollection7 <: HLLike7,
-    HCollection8 <: HLLike8,
-    HCollection9 <: HLLike9,
-    HCollection10 <: HLLike10
-  ](
-    p1: M[
-      HCollection1,
-      HCollection2,
-      HCollection3,
-      HCollection4,
-      HCollection5,
-      HCollection6,
-      HCollection7,
-      HCollection8,
-      HCollection9,
-      HCollection10
-    ]
-  ): M[
-    APRHLLike1[N1[Item], HCollection1],
-    APRHLLike2[N2[Item], HCollection2],
-    APRHLLike3[N3[Item], HCollection3],
-    APRHLLike4[N4[Item], HCollection4],
-    APRHLLike5[N5[Item], HCollection5],
-    APRHLLike6[N6[Item], HCollection6],
-    APRHLLike7[N7[Item], HCollection7],
-    APRHLLike8[N8[Item], HCollection8],
-    APRHLLike9[N9[Item], HCollection9],
-    APRHLLike10[N10[Item], HCollection10]
-  ] = super.append(p1)
 
   override def content: AppenderNatSupport10[
     M,
@@ -1246,7 +1097,7 @@ trait ParameterSimpleSupport10[
       )(p1, p2)
     }
 
-  def simpleAppender: SimpleAppender10[M]
+  def simpleAppender: SimpleAppender10Positive[M]
 
   override def typeGen: TypeGen10[M, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10]
 

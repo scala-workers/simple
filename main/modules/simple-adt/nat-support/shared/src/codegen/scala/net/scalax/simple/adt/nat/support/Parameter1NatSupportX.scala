@@ -15,7 +15,7 @@ trait Parameter1NatSupport1[
     ] {
   Parameter1NatSupport1Self =>
 
-  def append[Item, HCollection1 <: HLLike1](p1: M[HCollection1]): M[APRHLLike1[N1[Item], HCollection1]] =
+  final def append1[Item, HCollection1 <: HLLike1](p1: M[HCollection1]): M[APRHLLike1[N1[Item], HCollection1]] =
     Parameter1NatSupport1Self.append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, HCollection1](p1)
 
   override def content: AppenderNatSupport1[M, HLLike1, APRHLLike1]
@@ -43,7 +43,7 @@ trait Parameter1NatSupport2[
     ] {
   Parameter1NatSupport2Self =>
 
-  def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2](
+  final def append1[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2](
     p1: M[HCollection1, HCollection2]
   ): M[APRHLLike1[N1[Item], HCollection1], APRHLLike2[N2[Item], HCollection2]] =
     Parameter1NatSupport2Self.append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, HCollection1, HCollection2](p1)
@@ -79,7 +79,7 @@ trait Parameter1NatSupport3[
     ] {
   Parameter1NatSupport3Self =>
 
-  def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2, HCollection3 <: HLLike3](
+  final def append1[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2, HCollection3 <: HLLike3](
     p1: M[HCollection1, HCollection2, HCollection3]
   ): M[APRHLLike1[N1[Item], HCollection1], APRHLLike2[N2[Item], HCollection2], APRHLLike3[N3[Item], HCollection3]] =
     Parameter1NatSupport3Self.append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, HCollection1, HCollection2, HCollection3](p1)
@@ -121,7 +121,7 @@ trait Parameter1NatSupport4[
     ] {
   Parameter1NatSupport4Self =>
 
-  def append[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2, HCollection3 <: HLLike3, HCollection4 <: HLLike4](
+  final def append1[Item, HCollection1 <: HLLike1, HCollection2 <: HLLike2, HCollection3 <: HLLike3, HCollection4 <: HLLike4](
     p1: M[HCollection1, HCollection2, HCollection3, HCollection4]
   ): M[APRHLLike1[N1[Item], HCollection1], APRHLLike2[N2[Item], HCollection2], APRHLLike3[N3[Item], HCollection3], APRHLLike4[N4[
     Item
@@ -171,7 +171,7 @@ trait Parameter1NatSupport5[
     ] {
   Parameter1NatSupport5Self =>
 
-  def append[
+  final def append1[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,
@@ -237,7 +237,7 @@ trait Parameter1NatSupport6[
     ] {
   Parameter1NatSupport6Self =>
 
-  def append[
+  final def append1[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,
@@ -340,7 +340,7 @@ trait Parameter1NatSupport7[
     ] {
   Parameter1NatSupport7Self =>
 
-  def append[
+  final def append1[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,
@@ -454,7 +454,7 @@ trait Parameter1NatSupport8[
     ] {
   Parameter1NatSupport8Self =>
 
-  def append[
+  final def append1[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,
@@ -579,7 +579,7 @@ trait Parameter1NatSupport9[
     ] {
   Parameter1NatSupport9Self =>
 
-  def append[
+  final def append1[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,
@@ -715,7 +715,7 @@ trait Parameter1NatSupport10[
     ] {
   Parameter1NatSupport10Self =>
 
-  def append[
+  final def append1[
     Item,
     HCollection1 <: HLLike1,
     HCollection2 <: HLLike2,

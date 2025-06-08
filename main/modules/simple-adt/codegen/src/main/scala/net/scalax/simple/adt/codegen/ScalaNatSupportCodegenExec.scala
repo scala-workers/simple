@@ -7,7 +7,9 @@ import net.scalax.simple.adt.text.v3.{
   Parameters10Codengen,
   ParametersCodengen,
   ParametersSimpleCodengen,
+  SimpleAppenderPositiveX,
   SimpleAppenderX,
+  SimpleAppenderZeroX,
   TypeGen10Codegen,
   TypeGenCodegen
 }
@@ -49,6 +51,18 @@ object ScalaNatSupportCodegenExec {
     locally {
       val filePath             = writePath / "SimpleAppenderX.scala"
       val linerContent: String = SimpleAppenderX(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "SimpleAppenderPositiveX.scala"
+      val linerContent: String = SimpleAppenderPositiveX(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "SimpleAppenderZeroX.scala"
+      val linerContent: String = SimpleAppenderZeroX(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
     }
 

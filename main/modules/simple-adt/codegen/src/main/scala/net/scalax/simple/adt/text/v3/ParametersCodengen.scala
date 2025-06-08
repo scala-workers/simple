@@ -16,20 +16,6 @@ class ParametersCodengen(val index: Int) {
 
   }
 
-  class TraitDef(val index: Int) {
-
-    val typeParam2: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1"
-    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[N$i1[Item], HCollection$i1]"
-    val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1 <: HLLike$i1"
-
-    val text: String = s"""
-      override def append[Item, ${typeParam8.mkString(',')}](p1: M[${typeParam2.mkString(',')}]): M[${typeParam3.mkString(
-        ','
-      )}] = super.append[Item, ${typeParam2.mkString(',')}](p1)
-    """
-
-  }
-
   class TraitContentDef(val index: Int) {
 
     val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"HLLike$i1"
@@ -43,7 +29,6 @@ class ParametersCodengen(val index: Int) {
 
   class TraitBody(val index: Int) {
 
-    val traitDef: TraitDef               = new TraitDef(index)
     val traitContentDef: TraitContentDef = new TraitContentDef(index)
     val typeGenTrait: TypeGenTrait       = new TypeGenTrait(index)
 
@@ -70,8 +55,6 @@ class ParametersCodengen(val index: Int) {
         ${typeParam8.mkString(',')}
       ] {
         ParameterNatSupport${index}Self =>
-
-        ${traitDef.text}
 
         ${traitContentDef.text}
         ${typeGenTrait.text}

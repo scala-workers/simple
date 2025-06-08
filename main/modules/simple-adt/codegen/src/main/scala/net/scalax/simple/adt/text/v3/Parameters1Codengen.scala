@@ -23,7 +23,7 @@ class Parameter1sCodengen(val index: Int) {
     val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1 <: HLLike$i1"
 
     val text: String = s"""
-      def append[Item, ${typeParam8.mkString(',')}](p1: M[${typeParam2.mkString(',')}]): M[${typeParam3.mkString(
+      final def append1[Item, ${typeParam8.mkString(',')}](p1: M[${typeParam2.mkString(',')}]): M[${typeParam3.mkString(
         ','
       )}] = Parameter1NatSupport${index}Self.append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, ${typeParam2.mkString(',')}](p1)
     """
