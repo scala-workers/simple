@@ -11,9 +11,9 @@ trait CoProductUtil1[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, 
   private object FuncApp
       extends Parameter10NatSupport3[
         ({ type Func3[A, B, C] = (A, B) => C })#Func3,
-        ({ type FuncXM1[A, B, _, _, _, _, _, _, _, _] = A })#FuncXM1,
-        ({ type FuncXM1[A, B, _, _, _, _, _, _, _, _] = A => B })#FuncXM1,
-        ({ type FuncXM1[A, B, _, _, _, _, _, _, _, _] = B })#FuncXM1,
+        ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A })#FuncXM1,
+        ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A => B })#FuncXM1,
+        ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = B })#FuncXM1,
         CoLike1,
         HLLike,
         CoLike3,
@@ -50,14 +50,14 @@ trait CoProductUtil1[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, 
 
     override val typeGen: Type10Gen3[
       ({ type Func3[A, B, C] = (A, B) => C })#Func3,
-      ({ type FuncXM1[A, B, _, _, _, _, _, _, _, _] = A })#FuncXM1,
-      ({ type FuncXM1[A, B, _, _, _, _, _, _, _, _] = A => B })#FuncXM1,
-      ({ type FuncXM1[A, B, _, _, _, _, _, _, _, _] = B })#FuncXM1
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A })#FuncXM1,
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A => B })#FuncXM1,
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = B })#FuncXM1
     ] = new Type10Gen3[
       ({ type Func3[A, B, C] = (A, B) => C })#Func3,
-      ({ type FuncXM1[A, B, _, _, _, _, _, _, _, _] = A })#FuncXM1,
-      ({ type FuncXM1[A, B, _, _, _, _, _, _, _, _] = A => B })#FuncXM1,
-      ({ type FuncXM1[A, B, _, _, _, _, _, _, _, _] = B })#FuncXM1
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A })#FuncXM1,
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A => B })#FuncXM1,
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = B })#FuncXM1
     ] {
       override def gen10[A, B, C1, C2, C3, C4, C5, C6, C7, C8]: (A, A => B) => B = (a: A, aToB: A => B) => aToB(a)
     }

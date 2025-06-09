@@ -10,7 +10,7 @@ trait ParameterSimpleSupport1[
 ] extends ParameterNatSupport1[M, N1, HLLike1, APRHLLike1] {
   ParameterSimpleSupport1Self =>
 
-  override def content: AppenderNatSupport1[M, HLLike1, APRHLLike1] =
+  override final def content: AppenderNatSupport1[M, HLLike1, APRHLLike1] =
     new AppenderNatSupport1[M, HLLike1, APRHLLike1] {
       override def append[I1, H1 <: HLLike1](p1: M[I1], p2: M[H1]): M[APRHLLike1[I1, H1]] =
         ParameterSimpleSupport1Self.simpleAppender.append(
@@ -40,7 +40,7 @@ trait ParameterSimpleSupport2[
 ] extends ParameterNatSupport2[M, N1, N2, HLLike1, HLLike2, APRHLLike1, APRHLLike2] {
   ParameterSimpleSupport2Self =>
 
-  override def content: AppenderNatSupport2[M, HLLike1, HLLike2, APRHLLike1, APRHLLike2] =
+  override final def content: AppenderNatSupport2[M, HLLike1, HLLike2, APRHLLike1, APRHLLike2] =
     new AppenderNatSupport2[M, HLLike1, HLLike2, APRHLLike1, APRHLLike2] {
       override def append[I1, I2, H1 <: HLLike1, H2 <: HLLike2](p1: M[I1, I2], p2: M[H1, H2]): M[APRHLLike1[I1, H1], APRHLLike2[I2, H2]] =
         ParameterSimpleSupport2Self.simpleAppender.append(
@@ -79,7 +79,7 @@ trait ParameterSimpleSupport3[
 ] extends ParameterNatSupport3[M, N1, N2, N3, HLLike1, HLLike2, HLLike3, APRHLLike1, APRHLLike2, APRHLLike3] {
   ParameterSimpleSupport3Self =>
 
-  override def content: AppenderNatSupport3[M, HLLike1, HLLike2, HLLike3, APRHLLike1, APRHLLike2, APRHLLike3] =
+  override final def content: AppenderNatSupport3[M, HLLike1, HLLike2, HLLike3, APRHLLike1, APRHLLike2, APRHLLike3] =
     new AppenderNatSupport3[M, HLLike1, HLLike2, HLLike3, APRHLLike1, APRHLLike2, APRHLLike3] {
       override def append[I1, I2, I3, H1 <: HLLike1, H2 <: HLLike2, H3 <: HLLike3](
         p1: M[I1, I2, I3],
@@ -129,7 +129,7 @@ trait ParameterSimpleSupport4[
 ] extends ParameterNatSupport4[M, N1, N2, N3, N4, HLLike1, HLLike2, HLLike3, HLLike4, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4] {
   ParameterSimpleSupport4Self =>
 
-  override def content: AppenderNatSupport4[M, HLLike1, HLLike2, HLLike3, HLLike4, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4] =
+  override final def content: AppenderNatSupport4[M, HLLike1, HLLike2, HLLike3, HLLike4, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4] =
     new AppenderNatSupport4[M, HLLike1, HLLike2, HLLike3, HLLike4, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4] {
       override def append[I1, I2, I3, I4, H1 <: HLLike1, H2 <: HLLike2, H3 <: HLLike3, H4 <: HLLike4](
         p1: M[I1, I2, I3, I4],
@@ -206,7 +206,7 @@ trait ParameterSimpleSupport5[
     ] {
   ParameterSimpleSupport5Self =>
 
-  override def content
+  override final def content
     : AppenderNatSupport5[M, HLLike1, HLLike2, HLLike3, HLLike4, HLLike5, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4, APRHLLike5] =
     new AppenderNatSupport5[M, HLLike1, HLLike2, HLLike3, HLLike4, HLLike5, APRHLLike1, APRHLLike2, APRHLLike3, APRHLLike4, APRHLLike5] {
       override def append[I1, I2, I3, I4, I5, H1 <: HLLike1, H2 <: HLLike2, H3 <: HLLike3, H4 <: HLLike4, H5 <: HLLike5](
@@ -296,7 +296,7 @@ trait ParameterSimpleSupport6[
     ] {
   ParameterSimpleSupport6Self =>
 
-  override def content: AppenderNatSupport6[
+  override final def content: AppenderNatSupport6[
     M,
     HLLike1,
     HLLike2,
@@ -425,7 +425,7 @@ trait ParameterSimpleSupport7[
     ] {
   ParameterSimpleSupport7Self =>
 
-  override def content: AppenderNatSupport7[
+  override final def content: AppenderNatSupport7[
     M,
     HLLike1,
     HLLike2,
@@ -585,7 +585,7 @@ trait ParameterSimpleSupport8[
     ] {
   ParameterSimpleSupport8Self =>
 
-  override def content: AppenderNatSupport8[
+  override final def content: AppenderNatSupport8[
     M,
     HLLike1,
     HLLike2,
@@ -763,7 +763,7 @@ trait ParameterSimpleSupport9[
     ] {
   ParameterSimpleSupport9Self =>
 
-  override def content: AppenderNatSupport9[
+  override final def content: AppenderNatSupport9[
     M,
     HLLike1,
     HLLike2,
@@ -965,7 +965,7 @@ trait ParameterSimpleSupport10[
     ] {
   ParameterSimpleSupport10Self =>
 
-  override def content: AppenderNatSupport10[
+  override final def content: AppenderNatSupport10[
     M,
     HLLike1,
     HLLike2,

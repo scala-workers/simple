@@ -1,6 +1,7 @@
 package net.scalax.simple.adt.text.v3
 
 class Parameter1sCodengen(val index: Int) {
+  Parameter1sCodengenSelf =>
 
   extension (list: Seq[String]) {
     def mkString(c: Char): String = list.mkString(c.toString)
@@ -49,7 +50,8 @@ class Parameter1sCodengen(val index: Int) {
 
     val typeParam1: Seq[String] = for (_ <- 1 to index) yield s"_"
     val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[_]"
-    val typeParam7: Seq[String] = for (i1 <- 1 to index) yield s"({ type TypeXM[U1, _, _, _, _, _, _, _, _, _] = N$i1[U1] })#TypeXM"
+    val typeParam9: Seq[String] = for (i1 <- 1 to Parameter1sCodengenSelf.index) yield s"U$i1"
+    val typeParam7: Seq[String] = for (i1 <- 1 to index) yield s"({ type TypeXM[${typeParam9.mkString(',')}] = N$i1[U1] })#TypeXM"
 
     val typeParam4: Seq[String] = for (i1 <- 1 to index) yield s"HLLike$i1"
     val typeParam6: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[_, _ <: HLLike$i1] <: HLLike$i1"

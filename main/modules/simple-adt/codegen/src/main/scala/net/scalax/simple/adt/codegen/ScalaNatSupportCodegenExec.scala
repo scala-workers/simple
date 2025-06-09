@@ -1,6 +1,7 @@
 package net.scalax.simple.adt.codegen
 
 import net.scalax.simple.adt.text.v3.{
+  ExtractProductX,
   FAppenderCodengen,
   Parameter1sCodengen,
   ParameterSingleNatSupportX,
@@ -10,6 +11,8 @@ import net.scalax.simple.adt.text.v3.{
   SimpleAppenderPositiveX,
   SimpleAppenderX,
   SimpleAppenderZeroX,
+  SimpleProductContextX,
+  SimpleProductX,
   TypeGen10Codegen,
   TypeGenCodegen
 }
@@ -67,6 +70,12 @@ object ScalaNatSupportCodegenExec {
     }
 
     locally {
+      val filePath             = writePath / "SimpleProductX.scala"
+      val linerContent: String = SimpleProductX(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
       val filePath             = writePath / "ParametersSimpleSupportX.scala"
       val linerContent: String = ParametersSimpleCodengen(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
@@ -87,6 +96,18 @@ object ScalaNatSupportCodegenExec {
     locally {
       val filePath             = writePath / "Parameter1NatSupportX.scala"
       val linerContent: String = Parameter1sCodengen(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "ExtractProductX.scala"
+      val linerContent: String = ExtractProductX(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "SimpleProductContextX.scala"
+      val linerContent: String = SimpleProductContextX(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
     }
 

@@ -36,7 +36,7 @@ class ParametersSimpleCodengen(val index: Int) {
     }
 
     val text: String = s"""
-      override def content: AppenderNatSupport$index[M, ${typeParam1.mkString(',')}, ${typeParam4.mkString(',')}] =
+      override final def content: AppenderNatSupport$index[M, ${typeParam1.mkString(',')}, ${typeParam4.mkString(',')}] =
         new AppenderNatSupport$index[M, ${typeParam1.mkString(',')}, ${typeParam4.mkString(',')}] {
           override def append[${typeParam5.mkString(',')}, ${typeParam6.mkString(',')}](p1: M[${typeParam5.mkString(
         ','
@@ -53,10 +53,9 @@ class ParametersSimpleCodengen(val index: Int) {
     val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"HLLike$i1"
     val typeParam4: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1"
 
-    val text: String =
-      s"""
-        def simpleAppender: SimpleAppender${index}Positive[M]
-      """
+    val text: String = s"""
+      def simpleAppender: SimpleAppender${index}Positive[M]
+    """
 
   }
 

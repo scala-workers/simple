@@ -16,21 +16,9 @@ class ParameterSingleNatSupportX(val index: Int) {
 
   }
 
-  class TraitContentDef(val index: Int) {
-
-    val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"HLLike"
-    val typeParam4: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike"
-
-    val text: String = s"""
-      override def content: AppenderNatSupport$index[M, ${typeParam1.mkString(',')}, ${typeParam4.mkString(',')}] = super.content
-    """
-
-  }
-
   class TraitBody(val index: Int) {
 
-    val traitContentDef: TraitContentDef = new TraitContentDef(index)
-    val typeGenTrait: TypeGenTrait       = new TypeGenTrait(index)
+    val typeGenTrait: TypeGenTrait = new TypeGenTrait(index)
 
     val appenderH: Seq[String] =
       for (i1 <- 1 to index) yield s"override final def apH$i1: HListFunc[HLLike, APRHLLike] = ParameterNatSupport${index}Self.apH"
@@ -51,14 +39,14 @@ class ParameterSingleNatSupportX(val index: Int) {
       ] extends ParameterSimpleSupport$index[M, ${typeParam2.mkString(',')}, ${typeParam4.mkString(',')}, ${typeParam6.mkString(',')}] {
         ParameterNatSupport${index}Self =>
 
-        ${traitContentDef.text}
         ${typeGenTrait.text}
 
         override def simpleAppender: SimpleAppender${index}Positive[M]
         def apH: HListFunc[HLLike, APRHLLike]
 
         ${appenderH.mkString('\n')}
-      }"""
+      }
+    """
 
   }
 

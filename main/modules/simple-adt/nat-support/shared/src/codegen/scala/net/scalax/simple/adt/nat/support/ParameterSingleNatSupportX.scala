@@ -10,8 +10,6 @@ trait ParameterSingleNatSupport1[
 ] extends ParameterSimpleSupport1[M, N1, HLLike, APRHLLike] {
   ParameterNatSupport1Self =>
 
-  override def content: AppenderNatSupport1[M, HLLike, APRHLLike] = super.content
-
   override def typeGen: TypeGen1[M, N1]
 
   override def simpleAppender: SimpleAppender1Positive[M]
@@ -28,8 +26,6 @@ trait ParameterSingleNatSupport2[
   APRHLLike[_, _ <: HLLike] <: HLLike
 ] extends ParameterSimpleSupport2[M, N1, N2, HLLike, HLLike, APRHLLike, APRHLLike] {
   ParameterNatSupport2Self =>
-
-  override def content: AppenderNatSupport2[M, HLLike, HLLike, APRHLLike, APRHLLike] = super.content
 
   override def typeGen: TypeGen2[M, N1, N2]
 
@@ -49,8 +45,6 @@ trait ParameterSingleNatSupport3[
   APRHLLike[_, _ <: HLLike] <: HLLike
 ] extends ParameterSimpleSupport3[M, N1, N2, N3, HLLike, HLLike, HLLike, APRHLLike, APRHLLike, APRHLLike] {
   ParameterNatSupport3Self =>
-
-  override def content: AppenderNatSupport3[M, HLLike, HLLike, HLLike, APRHLLike, APRHLLike, APRHLLike] = super.content
 
   override def typeGen: TypeGen3[M, N1, N2, N3]
 
@@ -72,8 +66,6 @@ trait ParameterSingleNatSupport4[
   APRHLLike[_, _ <: HLLike] <: HLLike
 ] extends ParameterSimpleSupport4[M, N1, N2, N3, N4, HLLike, HLLike, HLLike, HLLike, APRHLLike, APRHLLike, APRHLLike, APRHLLike] {
   ParameterNatSupport4Self =>
-
-  override def content: AppenderNatSupport4[M, HLLike, HLLike, HLLike, HLLike, APRHLLike, APRHLLike, APRHLLike, APRHLLike] = super.content
 
   override def typeGen: TypeGen4[M, N1, N2, N3, N4]
 
@@ -114,9 +106,6 @@ trait ParameterSingleNatSupport5[
       APRHLLike
     ] {
   ParameterNatSupport5Self =>
-
-  override def content
-    : AppenderNatSupport5[M, HLLike, HLLike, HLLike, HLLike, HLLike, APRHLLike, APRHLLike, APRHLLike, APRHLLike, APRHLLike] = super.content
 
   override def typeGen: TypeGen5[M, N1, N2, N3, N4, N5]
 
@@ -162,22 +151,6 @@ trait ParameterSingleNatSupport6[
       APRHLLike
     ] {
   ParameterNatSupport6Self =>
-
-  override def content: AppenderNatSupport6[
-    M,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike
-  ] = super.content
 
   override def typeGen: TypeGen6[M, N1, N2, N3, N4, N5, N6]
 
@@ -228,24 +201,6 @@ trait ParameterSingleNatSupport7[
       APRHLLike
     ] {
   ParameterNatSupport7Self =>
-
-  override def content: AppenderNatSupport7[
-    M,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike
-  ] = super.content
 
   override def typeGen: TypeGen7[M, N1, N2, N3, N4, N5, N6, N7]
 
@@ -301,26 +256,6 @@ trait ParameterSingleNatSupport8[
       APRHLLike
     ] {
   ParameterNatSupport8Self =>
-
-  override def content: AppenderNatSupport8[
-    M,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike
-  ] = super.content
 
   override def typeGen: TypeGen8[M, N1, N2, N3, N4, N5, N6, N7, N8]
 
@@ -381,28 +316,6 @@ trait ParameterSingleNatSupport9[
       APRHLLike
     ] {
   ParameterNatSupport9Self =>
-
-  override def content: AppenderNatSupport9[
-    M,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike
-  ] = super.content
 
   override def typeGen: TypeGen9[M, N1, N2, N3, N4, N5, N6, N7, N8, N9]
 
@@ -468,30 +381,6 @@ trait ParameterSingleNatSupport10[
       APRHLLike
     ] {
   ParameterNatSupport10Self =>
-
-  override def content: AppenderNatSupport10[
-    M,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    HLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike,
-    APRHLLike
-  ] = super.content
 
   override def typeGen: TypeGen10[M, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10]
 

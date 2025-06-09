@@ -1,6 +1,7 @@
 package net.scalax.simple.adt.text.v3
 
 class TypeGenCodegen(val index: Int) {
+  TypeGenCodegenSelf =>
 
   extension (list: Seq[String]) {
     def mkString(c: Char): String = list.mkString(c.toString)
@@ -20,7 +21,8 @@ class TypeGenCodegen(val index: Int) {
 
     val typeParam1: Seq[String] = for (_ <- 1 to index) yield s"_"
     val typeParam2: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[_]"
-    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"({ type TypeX[M1, _, _, _, _, _, _, _, _, _] = N$i1[M1] })#TypeX"
+    val typeParam4: Seq[String] = for (i1 <- 1 to TypeGenCodegenSelf.index) yield s"M$i1"
+    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"({ type TypeX[${typeParam4.mkString(',')}] = N$i1[M1] })#TypeX"
 
     val text: String = s"""
       trait TypeGen$index[M[${typeParam1.mkString(',')}], ${typeParam2.mkString(',')}] extends Type10Gen$index[M, ${typeParam3.mkString(
