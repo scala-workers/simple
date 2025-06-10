@@ -31,8 +31,12 @@ val `nat-support/file`                          = `adt/file` / "nat-support"
 val `nat-support`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `nat-support/file`
 lazy val `nat-supportJVM`: Project              = `nat-support`.jvm dependsOn (`test-commonJVM` % Test)
 lazy val `nat-supportJS`: Project               = `nat-support`.js dependsOn (`test-commonJS`   % Test)
-`nat-supportJVM` / version := `simple-adt-version`
-`nat-supportJS` / version  := `simple-adt-version`
+`nat-supportJVM` / version            := `simple-adt-version`
+`nat-supportJS` / version             := `simple-adt-version`
+`nat-supportJVM` / scalaVersion       := scalaV.v213
+`nat-supportJVM` / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
+`nat-supportJS` / scalaVersion        := scalaV.v213
+`nat-supportJS` / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
 val `adt-bridge-support/file`                          = `adt/file` / "bridge-support"
 val `adt-bridge-support`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `adt-bridge-support/file`
@@ -70,8 +74,8 @@ lazy val `wire-web-app` = project in `wire-web-app/file`
 
 val `codec/file`  = `wip/file` / "simple-codec"
 val codec         = crossProject(JSPlatform, JVMPlatform) in `codec/file`
-lazy val codecJVM = codec.jvm dependsOn (ghdmzskJVM, `test-commonJVM` % Test) aggregate ghdmzskJVM
-lazy val codecJS  = codec.js dependsOn (ghdmzskJS, `test-commonJS`    % Test) aggregate ghdmzskJS
+lazy val codecJVM = codec.jvm dependsOn (ghdmzskJVM, `nat-supportJVM`, `test-commonJVM` % Test) aggregate ghdmzskJVM
+lazy val codecJS  = codec.js dependsOn (ghdmzskJS, `nat-supportJS`, `test-commonJS`     % Test) aggregate ghdmzskJS
 codecJVM / scalaVersion       := scalaV.v213
 codecJVM / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 codecJS / scalaVersion        := scalaV.v213
