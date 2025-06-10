@@ -1,6 +1,6 @@
 package net.scalax.simple.codec
 
-import to_list_generic.SimpleProduct1
+import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1, SimpleProductContextX}
 
 trait IndexOfPropertyName[F[_[_]]] {
   def ofName(input1: String, model: F[({ type T1[_] = String })#T1]): Int
@@ -24,15 +24,14 @@ object IndexOfPropertyName {
     def input(str: T): Either[ListLike, ListLike => ListLike]
   }
 
-  val appendMonad: SimpleProduct1.AppendMonad[ContainsString] = new SimpleProduct1.AppendMonad[ContainsString] {
-    override def zip[A1, B1, C1](
-      c: SimpleProduct1.ConvertF[A1, B1, C1],
+  val appendMonad: SimpleProduct1.SimpleAppender[ContainsString] = new SimpleProduct1.SimpleAppender[ContainsString] {
+    override def append[A1, B1, C1](c: ABCFunc[A1, B1, C1])(
       ma: ContainsString[A1],
       mb: ContainsString[B1]
     ): ContainsString[C1] = new ContainsString[C1] {
       override def input(pro: C1): Either[ListLike, ListLike => ListLike] = {
-        def head1: A1 = c.takeHead1(pro)
-        def tail1: B1 = c.takeTail1(pro)
+        def head1: A1 = c.takeHead(pro)
+        def tail1: B1 = c.takeTail(pro)
 
         ma.input(head1)
           .fold(
@@ -54,7 +53,7 @@ object IndexOfPropertyName {
 
   def toNamed(proNameToFind: String): SimpleProduct1.TypeGen[ContainsString, ({ type T1[_] = String })#T1] =
     new SimpleProduct1.TypeGen[ContainsString, ({ type T1[_] = String })#T1] {
-      override def apply[T]: ContainsString[String] = new ContainsString[String] {
+      override def gen[T]: ContainsString[String] = new ContainsString[String] {
         override def input(str: String): Either[ListLike, ListLike => ListLike] = {
           if (str == proNameToFind) Left(ZeroListLike) else Right(t => PositiveListLike(t))
         }
@@ -62,9 +61,9 @@ object IndexOfPropertyName {
     }
 
   class Builder[F[_[_]]] {
-    def derived(appender1: SimpleProduct1.Appender[F]): IndexOfPropertyName[F] = new IndexOfPropertyName[F] {
+    def derived(appender1: SimpleProduct1.ProductAdapter[F]): IndexOfPropertyName[F] = new IndexOfPropertyName[F] {
       override def ofName(input1: String, model: F[({ type T1[_] = String })#T1]): Int = {
-        val containFunc = appender1.toHList1[ContainsString, ({ type T1[_] = String })#T1](appendMonad)(toNamed(input1))
+        val containFunc = appender1.append[ContainsString, ({ type T1[_] = String })#T1](toNamed(input1), appendMonad)
         containFunc.input(model).left.getOrElse(throw new Exception("Not confirm property name.")).size
       }
     }

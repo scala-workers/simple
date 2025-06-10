@@ -1,6 +1,7 @@
 package net.scalax.simple.codec
 
-import to_list_generic.{BasedInstalled, SimpleProduct1, SimpleProductX}
+import net.scalax.simple.codec.to_list_generic.BasedInstalled
+import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1, SimpleProductContextX}
 
 trait GetPropertyByPropertyName[F[_[_]]] {
   def getPropertyImpl[T[_]](proName: String): F[T] => Any
@@ -18,7 +19,7 @@ object GetPropertyByPropertyName {
   class Builder[F[_[_]]] {
     def derived(appender1: BasedInstalled[F]): GetPropertyByPropertyName[F] = new GetPropertyByPropertyName[F] {
       override def getPropertyImpl[T[_]](proName: String): F[T] => Any = (ft: F[T]) => {
-        val s1 = SimpleProduct1[F].derived(appender1.basedInstalled)
+        val s1 = appender1.basedInstalled.simpleProduct1
 
         val getP = GetPropertyByIndex[F].derived(s1)
         val inP  = IndexOfPropertyName[F].derived(s1)
