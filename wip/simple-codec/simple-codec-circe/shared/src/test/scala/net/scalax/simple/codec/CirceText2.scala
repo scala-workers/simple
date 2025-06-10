@@ -16,7 +16,7 @@ object CatName {
 
   implicit val li1222Encoder: FAlias[Encoder] = {
     val v: BasedInstalled[FAlias]       = implicitly
-    val simpleFillE: SimpleFill[FAlias] = SimpleFill[FAlias].derived(v.simpleProduct1)
+    val simpleFillE: SimpleFill[FAlias] = SimpleFill[FAlias].derived(v.basedInstalled.simpleProduct1)
 
     simpleFillE.fill[({ type E[T] = Encoder[String] })#E](new SimpleFill.FillI[({ type E[T] = Encoder[String] })#E] {
       override def fill[T]: Encoder[String] = Encoder[String]
@@ -25,7 +25,7 @@ object CatName {
 
   implicit val li1222Decoder: FAlias[Decoder] = {
     val v: BasedInstalled[FAlias]       = implicitly
-    val simpleFillE: SimpleFill[FAlias] = SimpleFill[FAlias].derived(v.simpleProduct1)
+    val simpleFillE: SimpleFill[FAlias] = SimpleFill[FAlias].derived(v.basedInstalled.simpleProduct1)
 
     simpleFillE.fill[({ type E[T] = Decoder[String] })#E](new SimpleFill.FillI[({ type E[T] = Decoder[String] })#E] {
       override def fill[T]: Decoder[String] = Decoder[String]

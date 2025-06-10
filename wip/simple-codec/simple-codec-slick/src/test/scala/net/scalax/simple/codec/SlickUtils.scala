@@ -7,10 +7,6 @@ import net.scalax.simple.codec.to_list_generic.{
   ModelLink,
   ModelLinkPojo,
   PojoInstance,
-  SimpleProduct1,
-  SimpleProduct2,
-  SimpleProduct3,
-  SimpleProduct4,
   ToListByTheSameTypeGeneric
 }
 import slick.ast.{ColumnOption, TypedType}
@@ -36,17 +32,14 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
 )(implicit classTag: scala.reflect.ClassTag[Model]) {
   import slickProfile.api._
 
-  val commonAlias: SlickCompatAlias[slickProfile.type]              = SlickCompatAlias.build(slickProfile)
-  val appender1: SimpleProduct1.Appender[F]                         = basedInstalled.simpleProduct1
-  val appender2: SimpleProduct2.Appender[F]                         = SimpleProduct2[F].derived(basedInstalled.basedInstalled)
-  val appender3: SimpleProduct3.Appender[F]                         = SimpleProduct3[F].derived(basedInstalled.basedInstalled)
-  val appender4: SimpleProduct4.Appender[F]                         = SimpleProduct4[F].derived(basedInstalled.basedInstalled)
-  val zip3Generic: Zip3Generic[F]                                   = Zip3Generic[F].derived(appender4)
-  val mapGeneric: MapGenerc[F]                                      = MapGenerc[F].derived(appender2)
-  val folderGeneric: FoldFGenerc[F]                                 = FoldFGenerc[F].derived(appender1)
-  val toListGeneric: ToListByTheSameTypeGeneric[F]                  = ToListByTheSameTypeGeneric[F].derived(folderGeneric)
-  val fromListByTheSameTypeGeneric: FromListByTheSameTypeGeneric[F] = FromListByTheSameTypeGeneric[F].derived(appender1)
-  val indexOfPropertyName: IndexOfPropertyName[F]                   = IndexOfPropertyName[F].derived(appender1)
+  val commonAlias: SlickCompatAlias[slickProfile.type] = SlickCompatAlias.build(slickProfile)
+  val zip3Generic: Zip3Generic[F]                      = Zip3Generic[F].derived(basedInstalled.basedInstalled.simpleProduct4)
+  val mapGeneric: MapGenerc[F]                         = MapGenerc[F].derived(basedInstalled.basedInstalled.simpleProduct2)
+  val folderGeneric: FoldFGenerc[F]                    = FoldFGenerc[F].derived(basedInstalled.basedInstalled.simpleProduct1)
+  val toListGeneric: ToListByTheSameTypeGeneric[F]     = ToListByTheSameTypeGeneric[F].derived(folderGeneric)
+  val fromListByTheSameTypeGeneric: FromListByTheSameTypeGeneric[F] =
+    FromListByTheSameTypeGeneric[F].derived(basedInstalled.basedInstalled.simpleProduct1)
+  val indexOfPropertyName: IndexOfPropertyName[F] = IndexOfPropertyName[F].derived(basedInstalled.basedInstalled.simpleProduct1)
 
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
 
@@ -75,7 +68,7 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
   type OptsFromCol[T] = Seq[commonAlias.SqlColumnOptions => ColumnOption[T]]
 
   def userOptImpl: F[OptsFromCol] = SimpleFill[F]
-    .derived(appender1)
+    .derived(basedInstalled.basedInstalled.simpleProduct1)
     .fill[OptsFromCol](new SimpleFill.FillI[OptsFromCol] {
       override def fill[T]: Seq[commonAlias.SqlColumnOptions => ColumnOption[T]] = Seq.empty
     })

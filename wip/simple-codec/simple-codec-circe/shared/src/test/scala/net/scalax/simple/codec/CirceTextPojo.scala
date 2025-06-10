@@ -2,7 +2,7 @@ package net.scalax.simple.codec
 
 import io.circe._
 import io.circe.syntax._
-import net.scalax.simple.codec.to_list_generic.{FoldFGenerc, ModelLinkPojo, PojoInstance, SimpleProduct1, ToListByTheSameTypeGeneric}
+import net.scalax.simple.codec.to_list_generic.{FoldFGenerc, ModelLinkPojo, PojoInstance, ToListByTheSameTypeGeneric}
 
 case class CatNameTest3(id3: Int, str3: Option[String], uClass3: Option[Long], name113: String, friends: List[CatNameTest3])
 
@@ -20,10 +20,8 @@ object CatNameTest3 {
 
   def names(model: PojoInstance[({ type M1[_] = String })#M1, CatNameTest3]): List[String] = {
     val ge = ToListByTheSameTypeGeneric[({ type U1[X[_]] = PojoInstance[X, CatNameTest3] })#U1].derived(
-      FoldFGenerc[({ type U1[X[_]] = PojoInstance[X, CatNameTest3] })#U1].derived(
-        SimpleProduct1[({ type U1[X[_]] = PojoInstance[X, CatNameTest3] })#U1]
-          .derived(implicitly[ModelLinkPojo[CatNameTest3]].basedInstalled)
-      )
+      FoldFGenerc[({ type U1[X[_]] = PojoInstance[X, CatNameTest3] })#U1]
+        .derived(implicitly[ModelLinkPojo[CatNameTest3]].basedInstalled.simpleProduct1)
     )
 
     ge.toListByTheSameType[String, List[String]](List.empty, (t1, t2) => t2 :: t1)(model)
