@@ -54,7 +54,7 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
 
   def mapShape(shapeModel: F[ShapeF], repModel: F[Rep]): slick.lifted.MappedProjection[Model] = {
     val shapedValue = anyToShapedValue(helperUtil.toRep(repModel))(helperUtil.toShape(shapeModel))
-    shapedValue.<>[Model](
+    shapedValue.<>(
       f = (helperUtil.toModel _).andThen(appenderIn.fromIdentity),
       g = (helperUtil.fromModel _).andThen(t => Some(t)).compose(appenderIn.toIdentity)
     )

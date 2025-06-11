@@ -1,16 +1,15 @@
 package net.scalax.simple.codec
 package to_list_generic
 
+import net.scalax.simple.adt.nat.support.SimpleProductContextX
+
 trait ModelLink[F[_[_]], Model] extends BasedInstalled[F] with ModelGetSet[F, Model] {
   override def toIdentity(t: Model): F[({ type U1[X] = X })#U1]
   override def fromIdentity(t: F[({ type U1[X] = X })#U1]): Model
 
-  override def basedInstalled: SimpleProductX[F]
+  override def basedInstalled: SimpleProductContextX[F]
   override def labelled: ModelLabelled[F]
   override def size: ModelSize[F]
-
-  override def simpleProduct1: SimpleProduct1.Appender[F]                    = super.simpleProduct1
-  override def fromListByTheSameTypeGeneric: FromListByTheSameTypeGeneric[F] = super.fromListByTheSameTypeGeneric
 }
 
 object ModelLink {
