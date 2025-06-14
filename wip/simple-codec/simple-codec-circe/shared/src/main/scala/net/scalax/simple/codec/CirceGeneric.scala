@@ -9,10 +9,11 @@ import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct3, SimpleProduct
 object CirceGeneric1 {
   type Named[_] = String
 
+  private trait EncodeJson[Name, Enc, Model] {
+    def toJson(n: Name, enc: Enc, id: Model, l: List[(String, Json)]): List[(String, Json)]
+  }
+
   def encodeModelImpl[F[_[_]]](model: F[cats.Id], sp3: SimpleProduct3.ProductAdapter[F], named: F[Named], g: F[Encoder]): Json = {
-    trait EncodeJson[Name, Enc, Model] {
-      def toJson(n: Name, enc: Enc, id: Model, l: List[(String, Json)]): List[(String, Json)]
-    }
 
     val appender: SimpleProduct3.SimpleAppender[EncodeJson] = new SimpleProduct3.SimpleAppender[EncodeJson] {
       override def append[A1, A2, A3, B1, B2, B3, C1, C2, C3](
@@ -44,6 +45,11 @@ object CirceGeneric1 {
 
     val list: List[(String, Json)] = encodeFunc.toJson(named, g, model, List.empty)
     Json.fromJsonObject(JsonObject.fromIterable(list))
+
+  }
+
+  private trait DecodeJson[Name, Dec, Model] {
+    def fromJson(n: Name, enc: Dec): Decoder.Result[Model]
   }
 
   def decodeModelImpl[F[_[_]]](
@@ -52,9 +58,6 @@ object CirceGeneric1 {
     named: F[Named],
     g: F[Decoder]
   ): Decoder.Result[F[cats.Id]] = {
-    trait DecodeJson[Name, Dec, Model] {
-      def fromJson(n: Name, enc: Dec): Decoder.Result[Model]
-    }
 
     val appender: SimpleProduct3.SimpleAppender[DecodeJson] = new SimpleProduct3.SimpleAppender[DecodeJson] {
       override def append[A1, A2, A3, B1, B2, B3, C1, C2, C3](
@@ -85,6 +88,7 @@ object CirceGeneric1 {
     val decoderFunc: DecodeJson[F[Named], F[Decoder], F[cats.Id]] = sp3.append(typeGen, appender)
 
     decoderFunc.fromJson(named, g)
+
   }
 
 }
