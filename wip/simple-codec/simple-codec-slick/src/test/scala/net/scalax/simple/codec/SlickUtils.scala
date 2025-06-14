@@ -11,6 +11,7 @@ import net.scalax.simple.codec.to_list_generic.{
 }
 import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
+import slick.lifted.ShapedValue
 
 trait SlickLabelled[F[_[_]]] {
   def slickLabelled: F[({ type X1[_] = String })#X1]
@@ -53,10 +54,17 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
   )
 
   def mapShape(shapeModel: F[ShapeF], repModel: F[Rep]): slick.lifted.MappedProjection[Model] = {
-    val shapedValue = anyToShapedValue(helperUtil.toRep(repModel))(helperUtil.toShape(shapeModel))
-    shapedValue.<>(
-      f = (helperUtil.toModel _).andThen(appenderIn.fromIdentity),
-      g = (helperUtil.fromModel _).andThen(t => Some(t)).compose(appenderIn.toIdentity)
+    import slick.collection.heterogeneous.{HList => SlickHList}
+    val shapedValue: ShapedValue[SlickHList, SlickHList] =
+      anyToShapedValue(helperUtil.toRep(repModel))(helperUtil.toShape(shapeModel))
+
+    val from1: F[({ type IDF[T] = T })#IDF] => SlickHList = helperUtil.fromModel
+    val to1: SlickHList => F[({ type IDF[T] = T })#IDF]   = helperUtil.toModel
+
+    ShapedValueCompat.mapToPro[SlickHList, SlickHList, Model](
+      shapedValue,
+      from1.compose(appenderIn.toIdentity),
+      to1.andThen(appenderIn.fromIdentity)
     )
   }
 
