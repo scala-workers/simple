@@ -13,12 +13,13 @@ object S3CatName {
   given PojoInstance[Encoder, S3CatName] = PojoInstance.derived
   given PojoInstance[Decoder, S3CatName] = PojoInstance.derived
 
-  given Encoder[S3CatName] = Circe.Encoder.Pojo[S3CatName].derived
+  given SimpleJsonCodecLabelled.Pojo[S3CatName]#Target = SimpleJsonCodecLabelled.Pojo[S3CatName].derived
 }
 
 object S3CirceTest1 {
 
   import CirceGeneric2._
+  import CirceGen.Pojo._
 
   val modelInstance: S3CatName = S3CatName(
     id4 = 8594,

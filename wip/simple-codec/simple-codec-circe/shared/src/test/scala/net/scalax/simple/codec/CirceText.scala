@@ -13,17 +13,18 @@ object CatName {
 
   implicit val deco2_1: ModelLink[CatName, CatName[cats.Id]] = ModelLinkCommonF[CatName].derived
 
-  implicit val modelEncoder: CatName[Encoder] = FillIdentity[CatName[Encoder]].derived
+  val intOptEncoder: Encoder[Int]             = Encoder[String].contramap((u: Int) => u.toString)
+  implicit val modelEncoder: CatName[Encoder] = FillIdentity[CatName[Encoder]].derived.copy(id1 = intOptEncoder)
   implicit val modelDecoder: CatName[Decoder] = FillIdentity[CatName[Decoder]].derived
 
-  val intOptEncoder: Encoder[Int] = Encoder[String].contramap((u: Int) => u.toString)
-  implicit val en1: Encoder[CatName[cats.Id]] =
-    Circe.Encoder.F[CatName].copy(name = _.copy[Named](id1 = "miaomiao id"), encoder = _.copy(id1 = intOptEncoder))
+  implicit val jsonLabelled: SimpleJsonCodecLabelled[CatName] =
+    SimpleJsonCodecLabelled.F[CatName].derived.codec.update(_.copy[Named](id1 = "miaomiao id"))
 }
 
 object CirceText1 {
 
   import CirceGeneric2._
+  import CirceGen.F._
 
   val modelInstance: CatName[cats.Id] = CatName[cats.Id](
     id1 = 8594,

@@ -12,7 +12,8 @@ object CatName {
   implicit val deco2_1: ModelLink[CatName, CatName[cats.Id]]           = ModelLinkCommonF[CatName].derived
   implicit val namedModel_catName2: ModelLink[FAlias, FAlias[cats.Id]] = ToItera[CatName].derived.toModelLink[String](implicitly)
 
-  implicit def en1: Encoder[FAlias[cats.Id]] = Circe.Encoder.F[FAlias].derived
+  implicit val jsonLabelled: SimpleJsonCodecLabelled[FAlias] =
+    SimpleJsonCodecLabelled.F[FAlias].fromInstance(implicitly[BasedInstalled[CatName]].labelled.modelLabelled)
 
   implicit val li1222Encoder: FAlias[Encoder] = {
     val v: BasedInstalled[FAlias]       = implicitly
@@ -36,6 +37,8 @@ object CatName {
 object CirceText2 {
 
   type FAlias[UX[_]] = CatName[({ type U1[_] = UX[String] })#U1]
+
+  import CirceGen.F._
 
   val namedMode: FAlias[cats.Id] = ModelLink[FAlias, FAlias[cats.Id]].implicitly.labelled.modelLabelled
 

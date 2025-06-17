@@ -1,14 +1,42 @@
 package net.scalax.simple.codec
 
-import cats.Id
 import io.circe._
 import net.scalax.simple.codec.to_list_generic.{BasedInstalled, ModelLink, PojoInstance}
 import net.scalax.simple.codec.utils.ByNameImplicit
 import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct3, SimpleProductContextX}
 
-object Circe {
+object CirceGen {
 
-  object Encoder {
+  object F {
+    implicit def getCirceEncoderF[F[_[_]]](implicit
+      g: F[Encoder],
+      g1: BasedInstalled[F],
+      sg: SimpleJsonEncodeLabelled[F]
+    ): Encoder[F[({ type AnyF[T] = T })#AnyF]] = Encoder.instance[F[({ type AnyF[T] = T })#AnyF]](
+      new CirceGeneric.encodeModelImpl[F](g1.basedInstalled.simpleProduct3, sg.jsonEncodeLabelled, g)
+    )
+  }
+
+  object Pojo {
+    implicit def getCirceEncoderPojo[Model](implicit
+      g1: ModelGetSet[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model],
+      basedInstalled: BasedInstalled[({ type F[X[_]] = PojoInstance[X, Model] })#F],
+      g3: PojoInstance[Encoder, Model],
+      sg: SimpleJsonEncodeLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F]
+    ): Encoder[Model] = {
+      val en1: Encoder[PojoInstance[({ type IDF[T] = T })#IDF, Model]] = Encoder.instance[PojoInstance[({ type IDF[T] = T })#IDF, Model]](
+        new CirceGeneric.encodeModelImpl[({ type F[X[_]] = PojoInstance[X, Model] })#F](
+          basedInstalled.basedInstalled.simpleProduct3,
+          sg.jsonEncodeLabelled,
+          g3
+        )
+      )
+
+      en1.contramap[Model](g1.toIdentity)
+    }
+  }
+
+  /*object Encoder1 {
     object F {
       def apply[F[_[_]]](implicit g: F[Encoder], g1: ModelLink[F, F[cats.Id]]): EncoderWrap[F, F[cats.Id]] =
         new EncoderWrap[F, F[cats.Id]] {
@@ -32,7 +60,7 @@ object Circe {
           override def encoderModel: PojoInstance[Encoder, Model]                            = g.value
         }
     }
-  }
+  }*/
 
 }
 
