@@ -6,8 +6,9 @@ import net.scalax.simple.adt.nat.support.SimpleProductContextX
 trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model] {
   modelLinkCommonFSelf =>
 
-  override def toIdentity(t: Model): PojoInstance[({ type U1[X] = X })#U1, Model] =
-    PojoInstance.instance[({ type U1[X] = X })#U1, Model](genericTo(t))
+  override def toIdentity(t: Model): PojoInstance[({ type U1[X] = X })#U1, Model] = new PojoInstance[({ type U1[X] = X })#U1, Model] {
+    override def instance: Any = genericTo(t)
+  }
   override def fromIdentity(t: PojoInstance[({ type U1[X] = X })#U1, Model]): Model = genericFrom(t.instance)
 
   override def basedInstalled: SimpleProductContextX[({ type F[X[_]] = PojoInstance[X, Model] })#F] = {
@@ -27,7 +28,9 @@ trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, M
 
   override def labelled: ModelLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F] =
     ModelLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F].instance(
-      PojoInstance.instance[({ type Str[_] = String })#Str, Model](modelLinkCommonFSelf.compatLabelled.compatLabelled)
+      new PojoInstance[({ type Str[_] = String })#Str, Model] {
+        override def instance: Any = modelLinkCommonFSelf.compatLabelled.compatLabelled
+      }
     )
 
   override def size: ModelSize[({ type F[X[_]] = PojoInstance[X, Model] })#F] =

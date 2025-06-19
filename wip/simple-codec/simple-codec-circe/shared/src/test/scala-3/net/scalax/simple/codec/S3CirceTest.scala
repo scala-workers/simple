@@ -10,10 +10,10 @@ case class S3CatName(id4: Int, str4: Option[String], uClass4: Option[Long], name
 object S3CatName {
   given ModelLinkPojo[S3CatName] = ModelLinkPojo[S3CatName].derived
 
-  given PojoInstance[Encoder, S3CatName] = PojoInstance.derived
-  given PojoInstance[Decoder, S3CatName] = PojoInstance.derived
+  given PojoInstance[Encoder, S3CatName] = PojoInstance[Encoder, S3CatName].derived
+  given PojoInstance[Decoder, S3CatName] = PojoInstance[Decoder, S3CatName].derived
 
-  given SimpleJsonCodecLabelled.Pojo[S3CatName]#Target = SimpleJsonCodecLabelled.Pojo[S3CatName].derived
+  given SimpleJsonCodecLabelled.Pojo[S3CatName] = SimpleJsonCodecLabelled.Pojo[S3CatName].derived
 }
 
 object S3CirceTest1 {

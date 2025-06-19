@@ -36,19 +36,21 @@ object PojoInstance {
   import scala.deriving.Mirror
   import shapeless3.deriving.*
 
-  def instance[U[_], Model](n: Any): PojoInstance[U, Model] = new PojoInstance[U, Model] {
-    override val instance: Any = n
+  trait Builder[U[_], Model] {
+    inline def derived(using
+      g: Mirror.ProductOf[Model],
+      inst: K0.ProductInstances[FillIdentity, Tuple.Map[g.MirroredElemTypes, U]]
+    ): PojoInstance[U, Model] = {
+      val fillIdentity: FillIdentity[Tuple.Map[g.MirroredElemTypes, U]] = FillIdentity.monoidGen[Tuple.Map[g.MirroredElemTypes, U]]
+
+      new PojoInstance[U, Model] {
+        override val instance: Any = fillIdentity.value
+      }
+    }
   }
 
-  inline def derived[U[_], Model](using
-    g: Mirror.ProductOf[Model],
-    inst: K0.ProductInstances[FillIdentity, Tuple.Map[g.MirroredElemTypes, U]]
-  ): PojoInstance[U, Model] = {
-    val fillIdentity: FillIdentity[Tuple.Map[g.MirroredElemTypes, U]] = FillIdentity.monoidGen[Tuple.Map[g.MirroredElemTypes, U]]
-
-    new PojoInstance[U, Model] {
-      override val instance: Any = fillIdentity.value
-    }
+  def apply[U[_], Model]: Builder[U, Model] = new Builder[U, Model] {
+    //
   }
 
   private trait ReplaceImpl[Model] {

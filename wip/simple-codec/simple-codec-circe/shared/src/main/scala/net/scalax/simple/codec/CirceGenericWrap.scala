@@ -6,40 +6,6 @@ import io.circe._
 import io.circe.syntax._
 import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct3, SimpleProductContextX}
 
-trait EncoderWrap[F[_[_]], T] extends Encoder[T] {
-  EncoderWrapSelf =>
-
-  def derived: EncoderWrap[F, T] = EncoderWrapSelf
-
-  override def apply(a: T): Json = applyImplFunc.andThen(applyImpl)(a)
-  def applyImplFunc: T => F[cats.Id]
-  def applyImpl: F[cats.Id] => Json =
-    new CirceGeneric.encodeModelImpl[F](EncoderWrapSelf.simpleProduct3, EncoderWrapSelf.nameLabelled, EncoderWrapSelf.encoderModel)
-  def simpleProduct3: SimpleProduct3.ProductAdapter[F]
-  def nameLabelled: F[CirceGeneric.Named]
-  def encoderModel: F[Encoder]
-
-  def toModel[U](u: U => T): EncoderWrap[F, U] = new EncoderWrap[F, U] {
-    override def applyImplFunc: U => F[cats.Id]                   = u.andThen(EncoderWrapSelf.applyImplFunc)
-    override def simpleProduct3: SimpleProduct3.ProductAdapter[F] = EncoderWrapSelf.simpleProduct3
-    override def nameLabelled: F[CirceGeneric.Named]              = EncoderWrapSelf.nameLabelled
-    override def encoderModel: F[Encoder]                         = EncoderWrapSelf.encoderModel
-  }
-
-  def copy(
-    name: F[CirceGeneric.Named] => F[CirceGeneric.Named] = identity,
-    encoder: F[Encoder] => F[Encoder] = identity
-  ): EncoderWrap[F, T] = copyImpl(name = name, encoder = encoder)
-
-  def copyImpl(name: F[CirceGeneric.Named] => F[CirceGeneric.Named], encoder: F[Encoder] => F[Encoder]): EncoderWrap[F, T] =
-    new EncoderWrap[F, T] {
-      override def applyImplFunc: T => F[cats.Id]                   = EncoderWrapSelf.applyImplFunc
-      override def simpleProduct3: SimpleProduct3.ProductAdapter[F] = EncoderWrapSelf.simpleProduct3
-      override def nameLabelled: F[CirceGeneric.Named]              = name(EncoderWrapSelf.nameLabelled)
-      override def encoderModel: F[Encoder]                         = encoder(EncoderWrapSelf.encoderModel)
-    }
-}
-
 object CirceGeneric {
   type Named[_] = String
 
@@ -47,45 +13,42 @@ object CirceGeneric {
     def toJson(n: Name, enc: Enc, id: Model, l: List[(String, Json)]): List[(String, Json)]
   }
 
-  class encodeModelImpl[F[_[_]]](
+  def encodeModelImpl[F[_[_]]](
     simpleProduct3: SimpleProduct3.ProductAdapter[F],
     nameLabelled: F[Named],
-    encoderModel: F[Encoder]
-  ) extends (F[cats.Id] => Json) {
-    override def apply(model: F[cats.Id]): Json = {
-
-      val appender: SimpleProduct3.SimpleAppender[EncodeJson] = new SimpleProduct3.SimpleAppender[EncodeJson] {
-        override def append[A1, A2, A3, B1, B2, B3, C1, C2, C3](
-          cxF1: ABCFunc[A1, B1, C1],
-          cxF2: ABCFunc[A2, B2, C2],
-          cxF3: ABCFunc[A3, B3, C3]
-        )(
-          ma: EncodeJson[A1, A2, A3],
-          mb: EncodeJson[B1, B2, B3]
-        ): EncodeJson[C1, C2, C3] = new EncodeJson[C1, C2, C3] {
-          override def toJson(n: C1, enc: C2, id: C3, l: List[(String, Json)]): List[(String, Json)] = {
-            val list1 = mb.toJson(cxF1.takeTail(n), cxF2.takeTail(enc), cxF3.takeTail(id), l)
-            ma.toJson(cxF1.takeHead(n), cxF2.takeHead(enc), cxF3.takeHead(id), list1)
-          }
+    encoderModel: () => F[Encoder]
+  ): F[({ type IDF[T] = T })#IDF] => Json = (model: F[({ type IDF[T] = T })#IDF]) => {
+    val appender: SimpleProduct3.SimpleAppender[EncodeJson] = new SimpleProduct3.SimpleAppender[EncodeJson] {
+      override def append[A1, A2, A3, B1, B2, B3, C1, C2, C3](
+        cxF1: ABCFunc[A1, B1, C1],
+        cxF2: ABCFunc[A2, B2, C2],
+        cxF3: ABCFunc[A3, B3, C3]
+      )(
+        ma: EncodeJson[A1, A2, A3],
+        mb: EncodeJson[B1, B2, B3]
+      ): EncodeJson[C1, C2, C3] = new EncodeJson[C1, C2, C3] {
+        override def toJson(n: C1, enc: C2, id: C3, l: List[(String, Json)]): List[(String, Json)] = {
+          val list1 = mb.toJson(cxF1.takeTail(n), cxF2.takeTail(enc), cxF3.takeTail(id), l)
+          ma.toJson(cxF1.takeHead(n), cxF2.takeHead(enc), cxF3.takeHead(id), list1)
         }
-        override def zero[N1, N2, N3](n1: N1, n2: N2, n3: N3): EncodeJson[N1, N2, N3] = new EncodeJson[N1, N2, N3] {
-          override def toJson(n: N1, enc: N2, id: N3, l: List[(String, Json)]): List[(String, Json)] = l
+      }
+      override def zero[N1, N2, N3](n1: N1, n2: N2, n3: N3): EncodeJson[N1, N2, N3] = new EncodeJson[N1, N2, N3] {
+        override def toJson(n: N1, enc: N2, id: N3, l: List[(String, Json)]): List[(String, Json)] = l
+      }
+    }
+
+    val typeGen: SimpleProduct3.TypeGen[EncodeJson, Named, Encoder, ({ type IDF[T] = T })#IDF] =
+      new SimpleProduct3.TypeGen[EncodeJson, Named, Encoder, ({ type IDF[T] = T })#IDF] {
+        override def gen[T]: EncodeJson[String, Encoder[T], T] = new EncodeJson[String, Encoder[T], T] {
+          override def toJson(n: String, enc: Encoder[T], id: T, l: List[(String, Json)]): List[(String, Json)] = (n, enc(id)) :: l
         }
       }
 
-      val typeGen: SimpleProduct3.TypeGen[EncodeJson, Named, Encoder, cats.Id] =
-        new SimpleProduct3.TypeGen[EncodeJson, Named, Encoder, cats.Id] {
-          override def gen[T]: EncodeJson[String, Encoder[T], T] = new EncodeJson[String, Encoder[T], T] {
-            override def toJson(n: String, enc: Encoder[T], id: T, l: List[(String, Json)]): List[(String, Json)] = (n, enc(id)) :: l
-          }
-        }
+    val encodeFunc: EncodeJson[F[Named], F[Encoder], F[({ type IDF[T] = T })#IDF]] =
+      simpleProduct3.append[EncodeJson, Named, Encoder, ({ type IDF[T] = T })#IDF](typeGen, appender)
 
-      val encodeFunc: EncodeJson[F[Named], F[Encoder], F[cats.Id]] =
-        simpleProduct3.append[EncodeJson, Named, Encoder, cats.Id](typeGen, appender)
-
-      val list: List[(String, Json)] = encodeFunc.toJson(nameLabelled, encoderModel, model, List.empty)
-      Json.fromJsonObject(JsonObject.fromIterable(list))
-    }
+    val list: List[(String, Json)] = encodeFunc.toJson(nameLabelled, encoderModel(), model, List.empty)
+    Json.fromJsonObject(JsonObject.fromIterable(list))
   }
 
   def decodeModelImpl[F[_[_]]](

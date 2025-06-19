@@ -7,14 +7,17 @@ import net.scalax.simple.adt.nat.support.SimpleProductContextX
 trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model] {
   modelLinkCommonFSelf =>
 
-  override def toIdentity(t: Model): PojoInstance[({ type U1[X] = X })#U1, Model] =
-    PojoInstance.instance[({ type U1[X] = X })#U1, Model](genericTo(t))
+  override def toIdentity(t: Model): PojoInstance[({ type U1[X] = X })#U1, Model] = new PojoInstance[({ type U1[X] = X })#U1, Model] {
+    override def instance: Any = genericTo(t)
+  }
   override def fromIdentity(t: PojoInstance[({ type U1[X] = X })#U1, Model]): Model = genericFrom(t.instance)
 
   override def basedInstalled: SimpleProductContextX[({ type F[X[_]] = PojoInstance[X, Model] })#F] = {
     val fromFunc: GenericAuxFrom[({ type F[X[_]] = PojoInstance[X, Model] })#F] =
       new GenericAuxFrom[({ type F[X[_]] = PojoInstance[X, Model] })#F] {
-        override def fromModel[X[_]](collection: Any): PojoInstance[X, Model] = PojoInstance.instance[X, Model](collection)
+        override def fromModel[X[_]](collection: Any): PojoInstance[X, Model] = new PojoInstance[X, Model] {
+          override def instance: Any = collection
+        }
       }
     val toFunc: GenericAuxTo[({ type F[X[_]] = PojoInstance[X, Model] })#F] =
       new GenericAuxTo[({ type F[X[_]] = PojoInstance[X, Model] })#F] {

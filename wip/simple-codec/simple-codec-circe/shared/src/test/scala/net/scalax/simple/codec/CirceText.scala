@@ -17,7 +17,7 @@ object CatName {
   implicit val modelEncoder: CatName[Encoder] = FillIdentity[CatName[Encoder]].derived.value.copy(id1 = intOptEncoder)
   implicit val modelDecoder: CatName[Decoder] = FillIdentity[CatName[Decoder]].derived.value
 
-  implicit val jsonLabelled: SimpleJsonCodecLabelled[CatName] =
+  implicit val jsonLabelled: SimpleJsonCodecLabelled.F[CatName] =
     SimpleJsonCodecLabelled.F[CatName].derived.codec.update(_.copy[Named](id1 = "miaomiao id"))
 }
 

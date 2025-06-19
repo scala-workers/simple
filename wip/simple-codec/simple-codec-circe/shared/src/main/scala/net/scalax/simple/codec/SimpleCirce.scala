@@ -80,7 +80,7 @@ object SimpleJsonCodecLabelled {
     def update(m: T => T): U
   }
 
-  trait Builder[F[_[_]]] {
+  class Builder[F[_[_]]] {
     type Target = SimpleJsonCodecLabelled[F]
 
     def derived(implicit bi: BasedInstalled[F]): SimpleJsonCodecLabelled[F] = new SimpleJsonCodecLabelled[F] {
@@ -94,16 +94,17 @@ object SimpleJsonCodecLabelled {
     }
   }
 
-  class F[F[_[_]]] extends Builder[F]
+  type F[F[_[_]]] = SimpleJsonCodecLabelled[F]
 
   object F {
-    def apply[ModelF[_[_]]]: Builder[ModelF] = new F[ModelF]
+    def apply[ModelF[_[_]]]: Builder[ModelF] = new Builder[ModelF]
   }
 
-  class Pojo[Model] extends Builder[({ type TR[UMF[_]] = PojoInstance[UMF, Model] })#TR]
+  type Pojo[Model] = SimpleJsonCodecLabelled[({ type TR[UMF[_]] = PojoInstance[UMF, Model] })#TR]
 
   object Pojo {
-    def apply[Model]: Pojo[Model] = new Pojo[Model]
+    def apply[Model]: Builder[({ type TR[UMF[_]] = PojoInstance[UMF, Model] })#TR] =
+      new Builder[({ type TR[UMF[_]] = PojoInstance[UMF, Model] })#TR]
   }
 
 }

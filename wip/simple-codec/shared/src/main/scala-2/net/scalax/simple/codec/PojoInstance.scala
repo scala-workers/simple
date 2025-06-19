@@ -83,14 +83,21 @@ object PojoInstance {
     override val instance: Any = shapeless.HNil
   }
 
-  def instance1[E[_], Model](n: Any): PojoInstance[E, Model] = new PojoInstance[E, Model] {
-    override val instance: Any = n
-  }
-
-  def derived[Model, E[_], H <: shapeless.HList](implicit
+  /*def derived[Model, E[_], H <: shapeless.HList](implicit
     x: shapeless.Generic.Aux[Model, H],
     n: PojoInstance[E, H]
-  ): PojoInstance[E, Model] = n.asInstanceOf[PojoInstance[E, Model]]
+  ): PojoInstance[E, Model] = n.asInstanceOf[PojoInstance[E, Model]]*/
+
+  trait Builder[E[_], Model] {
+    def derived[H <: shapeless.HList](implicit
+      x: shapeless.Generic.Aux[Model, H],
+      n: PojoInstance[E, H]
+    ): PojoInstance[E, Model] = n.asInstanceOf[PojoInstance[E, Model]]
+  }
+
+  def apply[E[_], Model]: Builder[E, Model] = new Builder[E, Model] {
+    //
+  }
 
 }
 

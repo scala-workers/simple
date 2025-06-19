@@ -14,11 +14,11 @@ object CatNameTest3 {
 
   val longOptEncoder: Encoder[Option[Long]] = Encoder[Option[String]].contramap((opt: Option[Long]) => for (u <- opt) yield u.toString)
 
-  def modelEncoderImpl: PojoInstance[Encoder, CatNameTest3]      = PojoInstance.derived
-  implicit def modelEncoder: PojoInstance[Encoder, CatNameTest3] = modelEncoderImpl.copy(_.uClass3)(longOptEncoder)
-  implicit def modelDecoder: PojoInstance[Decoder, CatNameTest3] = PojoInstance.derived
+  implicit def modelEncoder: PojoInstance[Encoder, CatNameTest3] =
+    PojoInstance[Encoder, CatNameTest3].derived.copy(_.uClass3)(longOptEncoder)
+  implicit def modelDecoder: PojoInstance[Decoder, CatNameTest3] = PojoInstance[Decoder, CatNameTest3].derived
 
-  implicit val jsonLabelled: SimpleJsonCodecLabelled.Pojo[CatNameTest3]#Target =
+  implicit val jsonLabelled: SimpleJsonCodecLabelled.Pojo[CatNameTest3] =
     SimpleJsonCodecLabelled.Pojo[CatNameTest3].derived.codec.update(_.copy(_.id3)("miaomiao id"))
 
   def names(model: PojoInstance[({ type M1[_] = String })#M1, CatNameTest3]): List[String] = {
