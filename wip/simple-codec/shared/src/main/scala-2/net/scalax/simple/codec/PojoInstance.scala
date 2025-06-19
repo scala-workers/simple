@@ -1,6 +1,7 @@
 package net.scalax.simple.codec
 package to_list_generic
 
+import net.scalax.simple.codec.utils.ByNameImplicit
 import shapeless.::
 
 trait PojoInstance[U[_], Model] {
@@ -73,16 +74,16 @@ object PojoInstance {
   }
 
   implicit def hlistAppendFetch[U[_], T, Tail <: shapeless.HList](implicit
-    h: U[T],
+    h: ByNameImplicit[U[T]],
     tailInstance: PojoInstance[U, Tail]
   ): PojoInstance[U, T :: Tail] = new PojoInstance[U, T :: Tail] {
-    override val instance: Any = h :: tailInstance.instance.asInstanceOf[shapeless.HList]
+    override def instance: Any = h.value :: tailInstance.instance.asInstanceOf[shapeless.HList]
   }
   implicit def hlistZeroFetch[U[_]]: PojoInstance[U, shapeless.HNil] = new PojoInstance[U, shapeless.HNil] {
     override val instance: Any = shapeless.HNil
   }
 
-  def instance[E[_], Model](n: Any): PojoInstance[E, Model] = new PojoInstance[E, Model] {
+  def instance1[E[_], Model](n: Any): PojoInstance[E, Model] = new PojoInstance[E, Model] {
     override val instance: Any = n
   }
 

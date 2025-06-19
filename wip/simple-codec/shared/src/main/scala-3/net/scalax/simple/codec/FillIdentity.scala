@@ -17,10 +17,7 @@ object FillIdentity {
   }
 
   final class Builder[T] {
-    inline def derived(using generic: K0.ProductGeneric[T]): T = {
-      val fillIdentity: FillIdentity[T] = monoidGen[T]
-      fillIdentity.value
-    }
+    inline def derived(using generic: K0.ProductGeneric[T]): FillIdentity[T] = monoidGen[T]
   }
 
   def apply[T]: Builder[T] = new Builder

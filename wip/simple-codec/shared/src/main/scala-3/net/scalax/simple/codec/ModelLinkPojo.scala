@@ -13,7 +13,9 @@ trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, M
   override def basedInstalled: SimpleProductContextX[({ type F[X[_]] = PojoInstance[X, Model] })#F] = {
     val fromFunc: GenericAuxFrom[({ type F[X[_]] = PojoInstance[X, Model] })#F] =
       new GenericAuxFrom[({ type F[X[_]] = PojoInstance[X, Model] })#F] {
-        override def fromModel[X[_]](collection: Any): PojoInstance[X, Model] = PojoInstance.instance[X, Model](collection)
+        override def fromModel[X[_]](collection: Any): PojoInstance[X, Model] = new PojoInstance[X, Model] {
+          override def instance: Any = collection
+        }
       }
     val toFunc: GenericAuxTo[({ type F[X[_]] = PojoInstance[X, Model] })#F] =
       new GenericAuxTo[({ type F[X[_]] = PojoInstance[X, Model] })#F] {

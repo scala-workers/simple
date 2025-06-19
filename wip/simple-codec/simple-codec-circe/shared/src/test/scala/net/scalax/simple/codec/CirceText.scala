@@ -14,8 +14,8 @@ object CatName {
   implicit val deco2_1: ModelLink[CatName, CatName[cats.Id]] = ModelLinkCommonF[CatName].derived
 
   val intOptEncoder: Encoder[Int]             = Encoder[String].contramap((u: Int) => u.toString)
-  implicit val modelEncoder: CatName[Encoder] = FillIdentity[CatName[Encoder]].derived.copy(id1 = intOptEncoder)
-  implicit val modelDecoder: CatName[Decoder] = FillIdentity[CatName[Decoder]].derived
+  implicit val modelEncoder: CatName[Encoder] = FillIdentity[CatName[Encoder]].derived.value.copy(id1 = intOptEncoder)
+  implicit val modelDecoder: CatName[Decoder] = FillIdentity[CatName[Decoder]].derived.value
 
   implicit val jsonLabelled: SimpleJsonCodecLabelled[CatName] =
     SimpleJsonCodecLabelled.F[CatName].derived.codec.update(_.copy[Named](id1 = "miaomiao id"))

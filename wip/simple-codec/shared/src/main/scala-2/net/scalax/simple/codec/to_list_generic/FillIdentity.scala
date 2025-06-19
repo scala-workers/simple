@@ -1,6 +1,7 @@
 package net.scalax.simple.codec
 package to_list_generic
 
+import net.scalax.simple.codec.utils.ByNameImplicit
 import shapeless.{::, Generic, HList, HNil}
 
 trait FillIdentity[T] {
@@ -9,9 +10,9 @@ trait FillIdentity[T] {
 
 object FillIdentity {
 
-  implicit def hlistImplicit1[T, Tail <: HList](implicit u: T, t1: FillIdentity[Tail]): FillIdentity[T :: Tail] =
+  implicit def hlistImplicit1[T, Tail <: HList](implicit u: ByNameImplicit[T], t1: FillIdentity[Tail]): FillIdentity[T :: Tail] =
     new FillIdentity[T :: Tail] {
-      override val value: T :: Tail = u :: t1.value
+      override def value: T :: Tail = u.value :: t1.value
     }
 
   implicit val hlistHNilImplicit2: FillIdentity[HNil] = new FillIdentity[HNil] {
@@ -19,7 +20,9 @@ object FillIdentity {
   }
 
   final class Builder[T] {
-    def derived[H <: HList](implicit generic: Generic.Aux[T, H], filler: FillIdentity[H]): T = generic.from(filler.value)
+    def derived[H <: HList](implicit generic: Generic.Aux[T, H], filler: FillIdentity[H]): FillIdentity[T] = new FillIdentity[T] {
+      override def value: T = generic.from(filler.value)
+    }
   }
 
   def apply[T]: Builder[T] = new Builder
