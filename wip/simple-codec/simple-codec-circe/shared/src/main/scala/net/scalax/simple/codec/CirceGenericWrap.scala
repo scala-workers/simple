@@ -52,11 +52,10 @@ object CirceGeneric {
   }
 
   def decodeModelImpl[F[_[_]]](
-    hCursor: HCursor,
     sp3: SimpleProduct3.ProductAdapter[F],
     named: F[Named],
-    g: F[Decoder]
-  ): Decoder.Result[F[cats.Id]] = {
+    g: () => F[Decoder]
+  ): HCursor => Decoder.Result[F[cats.Id]] = (hCursor: HCursor) => {
     trait DecodeJson[Name, Dec, Model] {
       def fromJson(n: Name, enc: Dec): Decoder.Result[Model]
     }
@@ -89,7 +88,7 @@ object CirceGeneric {
 
     val decoderFunc: DecodeJson[F[Named], F[Decoder], F[cats.Id]] = sp3.append(typeGen, appender)
 
-    decoderFunc.fromJson(named, g)
+    decoderFunc.fromJson(named, g())
   }
 
 }

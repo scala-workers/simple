@@ -3,7 +3,6 @@ package net.scalax.simple.codec
 import io.circe._
 import io.circe.syntax._
 import net.scalax.simple.codec.to_list_generic.{ModelLinkPojo, PojoInstance}
-import CirceGeneric2._
 
 case class S3CatName(id4: Int, str4: Option[String], uClass4: Option[Long], name114: String, namexu4: String)
 
@@ -18,7 +17,6 @@ object S3CatName {
 
 object S3CirceTest1 {
 
-  import CirceGeneric2._
   import CirceGen.Pojo._
 
   val modelInstance: S3CatName = S3CatName(

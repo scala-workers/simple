@@ -2,14 +2,13 @@ package net.scalax.simple.codec
 
 import io.circe._
 import io.circe.syntax._
-import net.scalax.simple.codec.to_list_generic.{FoldFGenerc, ModelLinkPojo, PojoInstance, ToListByTheSameTypeGeneric}
+import net.scalax.simple.codec.to_list_generic.{Fold1FGenerc, ModelLinkPojo, PojoInstance, ToListByTheSameTypeGeneric}
 
 case class CatNameTest3(id3: Int, str3: Option[String], uClass3: Option[Long], name113: String, friends: List[CatNameTest3])
 
 object CatNameTest3 {
   implicit val deco2_1: ModelLinkPojo[CatNameTest3] = ModelLinkPojo[CatNameTest3].derived
 
-  import CirceGeneric2._
   import CirceGen.Pojo._
 
   val longOptEncoder: Encoder[Option[Long]] = Encoder[Option[String]].contramap((opt: Option[Long]) => for (u <- opt) yield u.toString)
@@ -23,7 +22,7 @@ object CatNameTest3 {
 
   def names(model: PojoInstance[({ type M1[_] = String })#M1, CatNameTest3]): List[String] = {
     val ge = ToListByTheSameTypeGeneric[({ type U1[X[_]] = PojoInstance[X, CatNameTest3] })#U1].derived(
-      FoldFGenerc[({ type U1[X[_]] = PojoInstance[X, CatNameTest3] })#U1]
+      Fold1FGenerc[({ type U1[X[_]] = PojoInstance[X, CatNameTest3] })#U1]
         .derived(implicitly[ModelLinkPojo[CatNameTest3]].basedInstalled.simpleProduct1)
     )
 
@@ -33,7 +32,6 @@ object CatNameTest3 {
 
 object CatNameTest3TestCase {
 
-  import CirceGeneric2._
   import CirceGen.Pojo._
 
   val cat1: CatNameTest3 = CatNameTest3(

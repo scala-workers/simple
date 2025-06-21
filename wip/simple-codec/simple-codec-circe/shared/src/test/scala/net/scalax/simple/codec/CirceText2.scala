@@ -3,7 +3,6 @@ package net.scalax.simple.codec
 import io.circe._
 import io.circe.syntax._
 import net.scalax.simple.codec.to_list_generic.{BasedInstalled, ModelLink, ModelLinkCommonF}
-import CirceGeneric2._
 
 case class CatName[F[_]](id2: F[Int], str2: F[Option[String]], uClass2: F[Option[Long]], name112: F[String], namexu2: F[String])
 

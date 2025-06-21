@@ -3,12 +3,12 @@ package to_list_generic
 
 import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1, SimpleProductContextX}
 
-trait FoldFGenerc[F[_[_]]] {
-  def foldLeft[N[_], SeqType](folder: FoldFGenerc.FoldF[N, SeqType], model: F[N], zero: SeqType): SeqType
-  def foldRight[N[_], SeqType](folder: FoldFGenerc.FoldF[N, SeqType], model: F[N], zero: SeqType): SeqType
+trait Fold1FGenerc[F[_[_]]] {
+  def foldLeft[N[_], SeqType](folder: Fold1FGenerc.FoldF[N, SeqType], model: F[N], zero: SeqType): SeqType
+  def foldRight[N[_], SeqType](folder: Fold1FGenerc.FoldF[N, SeqType], model: F[N], zero: SeqType): SeqType
 }
 
-object FoldFGenerc {
+object Fold1FGenerc {
 
   trait FoldF[N[_], ColType] {
     def fold[T](n: N[T], col: ColType): ColType
@@ -24,7 +24,7 @@ object FoldFGenerc {
       override def append[A1, B1, C1](c: ABCFunc[A1, B1, C1])(
         ma: (A1, SeqType) => SeqType,
         mb: (B1, SeqType) => SeqType
-      ): (C1, SeqType) => SeqType = { (ab, l) =>
+      ): (C1, SeqType) => SeqType = (ab, l) => {
         val rb = mb(c.takeTail(ab), l)
         ma(c.takeHead(ab), rb)
       }
@@ -37,7 +37,7 @@ object FoldFGenerc {
       override def append[A1, B1, C1](c: ABCFunc[A1, B1, C1])(
         ma: (A1, SeqType) => SeqType,
         mb: (B1, SeqType) => SeqType
-      ): (C1, SeqType) => SeqType = { (ab, l) =>
+      ): (C1, SeqType) => SeqType = (ab, l) => {
         val rb = ma(c.takeHead(ab), l)
         mb(c.takeTail(ab), rb)
       }
@@ -46,9 +46,9 @@ object FoldFGenerc {
     }
 
   class Builder[F[_[_]]] {
-    def derived(o1: SimpleProduct1.ProductAdapter[F]): FoldFGenerc[F] = new FoldFGenerc[F] {
+    def derived(o1: SimpleProduct1.ProductAdapter[F]): Fold1FGenerc[F] = new Fold1FGenerc[F] {
       override def foldLeft[N[_], SeqType](
-        folderF: FoldFGenerc.FoldF[N, SeqType],
+        folderF: Fold1FGenerc.FoldF[N, SeqType],
         model: F[N],
         zero: SeqType
       ): SeqType = {
@@ -58,7 +58,7 @@ object FoldFGenerc {
       }
 
       override def foldRight[N[_], SeqType](
-        folderF: FoldFGenerc.FoldF[N, SeqType],
+        folderF: Fold1FGenerc.FoldF[N, SeqType],
         model: F[N],
         zero: SeqType
       ): SeqType = {
