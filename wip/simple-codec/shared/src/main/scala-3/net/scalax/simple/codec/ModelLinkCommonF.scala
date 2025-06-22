@@ -30,7 +30,7 @@ trait ModelLinkCommonF[F[_[_]]] extends ModelLink[F, F[({ type U1[X] = X })#U1]]
   protected def FFromInstance[T[_]](x: Any): F[T]
 }
 
-object ModelLinkCommonF {
+/*object ModelLinkCommonF {
   import scala.deriving.Mirror
 
   def buildUtilImpl[F[_[_]]](cNamed: Any, fromTuple: Any => F[[_] =>> Any]): ModelLinkCommonF[F] = new ModelLinkCommonF[F] {
@@ -49,4 +49,4 @@ object ModelLinkCommonF {
 
   def apply[F[_[_]] <: Product]: Builder[F] = new Builder[F]
 
-}
+}*/

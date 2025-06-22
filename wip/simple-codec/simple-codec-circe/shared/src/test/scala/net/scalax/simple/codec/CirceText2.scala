@@ -8,7 +8,7 @@ case class CatName[F[_]](id2: F[Int], str2: F[Option[String]], uClass2: F[Option
 
 object CatName {
   type FAlias[UX[_]] = CatName[({ type U1[_] = UX[String] })#U1]
-  implicit val deco2_1: ModelLink[CatName, CatName[cats.Id]]           = ModelLinkCommonF[CatName].derived
+  implicit val modelLinkF: ModelLink.F[CatName]                        = ModelLink.F[CatName].derived
   implicit val namedModel_catName2: ModelLink[FAlias, FAlias[cats.Id]] = ToItera[CatName].derived.toModelLink[String](implicitly)
 
   implicit val jsonLabelled: SimpleJsonCodecLabelled.F[FAlias] =
@@ -39,7 +39,7 @@ object CirceText2 {
 
   import CirceGen.F._
 
-  val namedMode: FAlias[cats.Id] = ModelLink[FAlias, FAlias[cats.Id]].implicitly.labelled.modelLabelled
+  val namedMode: FAlias[cats.Id] = ModelLink.F[FAlias].implicitly.labelled.modelLabelled
 
   final def main(args: Array[String]): Unit = {
     println(namedMode.asJson.spaces2)

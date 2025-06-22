@@ -43,7 +43,7 @@ trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, M
   protected def genericTo(t: Model): Any
 }
 
-object ModelLinkPojo {
+/*object ModelLinkPojo {
   import scala.deriving.Mirror
 
   def buildUtilImpl[Model <: Product](cNamed: Any, fromTuple: Any => Model): ModelLinkPojo[Model] = new ModelLinkPojo[Model] {
@@ -61,4 +61,4 @@ object ModelLinkPojo {
 
   def apply[Model <: Product]: Builder[Model] = new Builder[Model]
 
-}
+}*/

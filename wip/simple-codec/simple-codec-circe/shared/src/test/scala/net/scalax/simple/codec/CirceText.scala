@@ -11,7 +11,7 @@ case class CatName[F[_]](id1: F[Int], str1: F[Option[String]], uClass1: F[Option
 object CatName {
   type Named[_] = String
 
-  implicit val deco2_1: ModelLink[CatName, CatName[cats.Id]] = ModelLinkCommonF[CatName].derived
+  implicit val deco2_1: ModelLink.F[CatName] = ModelLink.F[CatName].derived
 
   val intOptEncoder: Encoder[Int]             = Encoder[String].contramap((u: Int) => u.toString)
   implicit val modelEncoder: CatName[Encoder] = FillIdentity[CatName[Encoder]].derived.value.copy(id1 = intOptEncoder)

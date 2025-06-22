@@ -40,7 +40,7 @@ trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, M
   protected def genericTo(t: Model): Any
 }
 
-object ModelLinkPojo {
+/*object ModelLinkPojo {
 
   class Builder[Model] {
     def derived(implicit
@@ -59,4 +59,4 @@ object ModelLinkPojo {
 
   def apply[Model]: Builder[Model] = new Builder[Model]
 
-}
+}*/

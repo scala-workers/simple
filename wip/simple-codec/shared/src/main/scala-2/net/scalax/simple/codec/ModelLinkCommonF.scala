@@ -31,7 +31,7 @@ trait ModelLinkCommonF[F[_[_]]] extends ModelLink[F, F[({ type U1[X] = X })#U1]]
   protected def FFromInstance[T[_]](x: Any): F[T]
 }
 
-object ModelLinkCommonF {
+/*object ModelLinkCommonF {
 
   class Builder[F[_[_]]] {
     def derived(implicit
@@ -50,4 +50,4 @@ object ModelLinkCommonF {
 
   def apply[F[_[_]]]: Builder[F] = new Builder[F]
 
-}
+}*/

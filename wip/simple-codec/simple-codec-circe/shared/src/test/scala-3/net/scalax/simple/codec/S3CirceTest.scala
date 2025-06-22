@@ -2,17 +2,19 @@ package net.scalax.simple.codec
 
 import io.circe._
 import io.circe.syntax._
-import net.scalax.simple.codec.to_list_generic.{ModelLinkPojo, PojoInstance}
+import net.scalax.simple.codec.to_list_generic.{ModelLink, PojoInstance}
 
 case class S3CatName(id4: Int, str4: Option[String], uClass4: Option[Long], name114: String, namexu4: String)
 
 object S3CatName {
-  given ModelLinkPojo[S3CatName] = ModelLinkPojo[S3CatName].derived
+
+  given modelLink: ModelLink.Pojo[S3CatName] = ModelLink.Pojo[S3CatName].derived
+
+  given simpleJsonLabelled: SimpleJsonCodecLabelled.Pojo[S3CatName] = SimpleJsonCodecLabelled.Pojo[S3CatName].derived
 
   given PojoInstance[Encoder, S3CatName] = PojoInstance[Encoder, S3CatName].derived
   given PojoInstance[Decoder, S3CatName] = PojoInstance[Decoder, S3CatName].derived
 
-  given SimpleJsonCodecLabelled.Pojo[S3CatName] = SimpleJsonCodecLabelled.Pojo[S3CatName].derived
 }
 
 object S3CirceTest1 {
