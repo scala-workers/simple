@@ -44,7 +44,7 @@ object PojoInstance {
       val fillIdentity: FillIdentity[Tuple.Map[g.MirroredElemTypes, U]] = FillIdentity.monoidGen[Tuple.Map[g.MirroredElemTypes, U]]
 
       new PojoInstance[U, Model] {
-        override val instance: Any = fillIdentity.value
+        override def instance: Any = fillIdentity.value
       }
     }
   }

@@ -11,7 +11,7 @@ object SimpleFill {
     def fill[T]: S[T]
   }
 
-  class ApplyImpl[F[_[_]]] {
+  class Builder[F[_[_]]] {
     def derived(basedInstalled: SimpleProduct1.ProductAdapter[F]): SimpleFill[F] = new SimpleFill[F] {
       override def fill[S[_]](t: SimpleFill.FillI[S]): F[S] = {
         val a: SimpleProduct1.TypeGen[({ type Id[T] = T })#Id, S] = new SimpleProduct1.TypeGen[({ type Id[T] = T })#Id, S] {
@@ -27,5 +27,5 @@ object SimpleFill {
     }
   }
 
-  def apply[F[_[_]]]: ApplyImpl[F] = new ApplyImpl[F]
+  def apply[F[_[_]]]: Builder[F] = new Builder[F]
 }

@@ -9,7 +9,7 @@ import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct3, SimpleProduct
 object CirceGeneric {
   type Named[_] = String
 
-  trait EncodeJson[Name, Enc, Model] {
+  private trait EncodeJson[Name, Enc, Model] {
     def toJson(n: Name, enc: Enc, id: Model, l: List[(String, Json)]): List[(String, Json)]
   }
 
@@ -51,15 +51,15 @@ object CirceGeneric {
     Json.fromJsonObject(JsonObject.fromIterable(list))
   }
 
+  private trait DecodeJson[Name, Dec, Model] {
+    def fromJson(n: Name, enc: Dec): Decoder.Result[Model]
+  }
+
   def decodeModelImpl[F[_[_]]](
     sp3: SimpleProduct3.ProductAdapter[F],
     named: F[Named],
     g: () => F[Decoder]
   ): HCursor => Decoder.Result[F[cats.Id]] = (hCursor: HCursor) => {
-    trait DecodeJson[Name, Dec, Model] {
-      def fromJson(n: Name, enc: Dec): Decoder.Result[Model]
-    }
-
     val appender: SimpleProduct3.SimpleAppender[DecodeJson] = new SimpleProduct3.SimpleAppender[DecodeJson] {
       override def append[A1, A2, A3, B1, B2, B3, C1, C2, C3](
         cxF1: ABCFunc[A1, B1, C1],

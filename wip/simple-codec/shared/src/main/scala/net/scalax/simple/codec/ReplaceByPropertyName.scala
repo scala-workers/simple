@@ -1,7 +1,7 @@
 package net.scalax.simple.codec
 
 import net.scalax.simple.codec.to_list_generic.BasedInstalled
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1, SimpleProductContextX}
+import net.scalax.simple.adt.nat.support.{SimpleProduct1, SimpleProductContextX}
 
 trait ReplaceByPropertyName[F[_[_]]] {
   def replaceImpl[UX](proName: String, proValue: UX): F[({ type X1[_] = UX })#X1] => F[({ type X1[_] = UX })#X1]

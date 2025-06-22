@@ -12,11 +12,14 @@ case class CatNameTest5(
 )
 
 object CatNameTest5 {
-  implicit val deco2_1: ModelLinkPojo[CatNameTest5] = ModelLinkPojo[CatNameTest5].derived
+
+  implicit val modelLinkPojo: ModelLinkPojo[CatNameTest5] = ModelLinkPojo[CatNameTest5].derived
+
+  implicit val jsonLabelled: SimpleJsonCodecLabelled.Pojo[CatNameTest5] = SimpleJsonCodecLabelled.Pojo[CatNameTest5].derived
 
   import PlayJsonGeneric.Pojo._
-  implicit val jsonLabelled: SimpleJsonCodecLabelled.Pojo[CatNameTest5] = SimpleJsonCodecLabelled.Pojo[CatNameTest5].derived
-  implicit val modelWrites: PojoInstance[Writes, CatNameTest5]          = PojoInstance[Writes, CatNameTest5].derived
+  implicit val modelWrites: PojoInstance[Writes, CatNameTest5] = PojoInstance[Writes, CatNameTest5].derived
+
 }
 
 object PlayJsonTest {
