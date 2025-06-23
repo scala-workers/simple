@@ -4,7 +4,7 @@ package aa
 
 import io.circe._
 import io.circe.syntax._
-import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, ModelLinkCommonF}
+import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink}
 
 case class CatName[F[_]](id1: F[Int], str1: F[Option[String]], uClass1: F[Option[Long]], name1: F[String], namexu1: F[String])
 
@@ -14,8 +14,8 @@ object CatName {
   implicit val deco2_1: ModelLink.F[CatName] = ModelLink.F[CatName].derived
 
   val intOptEncoder: Encoder[Int]             = Encoder[String].contramap((u: Int) => u.toString)
-  implicit val modelEncoder: CatName[Encoder] = FillIdentity[CatName[Encoder]].derived.value.copy(id1 = intOptEncoder)
-  implicit val modelDecoder: CatName[Decoder] = FillIdentity[CatName[Decoder]].derived.value
+  implicit val modelEncoder: CatName[Encoder] = FillIdentity.F[Encoder, CatName].derived.copy(id1 = intOptEncoder)
+  implicit val modelDecoder: CatName[Decoder] = FillIdentity.F[Decoder, CatName].derived
 
   implicit val jsonLabelled: SimpleJsonCodecLabelled.F[CatName] =
     SimpleJsonCodecLabelled.F[CatName].derived.codec.update(_.copy[Named](id1 = "miaomiao id"))

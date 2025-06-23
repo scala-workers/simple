@@ -1,7 +1,6 @@
 package net.scalax.simple.codec
 package to_list_generic
 
-import shapeless.DefaultSymbolicLabelling
 import net.scalax.simple.adt.nat.support.SimpleProductContextX
 
 trait ModelLinkCommonF[F[_[_]]] extends ModelLink[F, F[({ type U1[X] = X })#U1]] {
@@ -30,24 +29,3 @@ trait ModelLinkCommonF[F[_[_]]] extends ModelLink[F, F[({ type U1[X] = X })#U1]]
   protected def FToInstance[T[_]](x: F[T]): Any
   protected def FFromInstance[T[_]](x: Any): F[T]
 }
-
-/*object ModelLinkCommonF {
-
-  class Builder[F[_[_]]] {
-    def derived(implicit
-      compatNamed: DefaultSymbolicLabelling.Aux[F[({ type U1[X] = X })#U1], _ <: shapeless.HList],
-      g: shapeless.Generic.Aux[F[({ type U1[_] = Any })#U1], _ <: shapeless.HList]
-    ): ModelLinkCommonF[F] = {
-      val namedModel = compatNamed.apply()
-
-      new ModelLinkCommonF[F] {
-        override val compatNamed: Any                  = namedModel
-        override def FToInstance[T[_]](x: F[T]): Any   = g.to(x.asInstanceOf[F[({ type U1[_] = Any })#U1]])
-        override def FFromInstance[T[_]](x: Any): F[T] = g.from(x.asInstanceOf[g.Repr]).asInstanceOf[F[T]]
-      }
-    }
-  }
-
-  def apply[F[_[_]]]: Builder[F] = new Builder[F]
-
-}*/

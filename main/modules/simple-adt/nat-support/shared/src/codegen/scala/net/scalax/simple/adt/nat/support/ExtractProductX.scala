@@ -2,9 +2,10 @@ package net.scalax.simple.adt
 package nat
 package support
 
-trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <: HListLike]
-    extends ExtractProductAbstraction[HListLike, AppLike, HZero] {
+trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <: HListLike] {
   ExtractProductSelf =>
+
+  val extraAbstraction: ExtractProductAbstraction[HListLike, AppLike, HZero]
 
   final def genSimpleProduct[F[_[_]]](
     length: Int,
@@ -22,25 +23,27 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
         ): M[F[N1]] = {
           val ap1: ParameterSingleNatSupport1[M, N1, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
             new ParameterSingleNatSupport1[M, N1, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] {
-              override def simpleAppender: SimpleProduct1.SimpleAppender[M]                       = sAppender
-              override def typeGen: SimpleProduct1.TypeGen[M, N1]                                 = tpGen
-              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] = ExtractProductSelf.hListFuncImpl
+              override def simpleAppender: SimpleProduct1.SimpleAppender[M] = sAppender
+              override def typeGen: SimpleProduct1.TypeGen[M, N1]           = tpGen
+              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
+                ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
             }
 
-          val zero1: M[HListLike] = sAppender.zero(ExtractProductSelf.zeroImpl)
+          val zero1: M[HListLike] = sAppender.zero(ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero)
 
           def appendImpl1(len: Int, model: M[HListLike]): M[HListLike] = {
             if (len > 0) appendImpl1(len - 1, ap1.append1[Any, HListLike](model)) else model
           }
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
-            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.hListFuncImpl
+            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
               .takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
               .asInstanceOf[U[Any]]
-            override def takeTail(m: F[U]): HListLike =
-              ExtractProductSelf.hListFuncImpl.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
-            override def append(a: U[Any], b: HListLike): F[U] =
-              toModel(ExtractProductSelf.hListFuncImpl.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
+              .takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
+            override def append(a: U[Any], b: HListLike): F[U] = toModel(
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.append[U[Any], HListLike](a, b)
+            ).asInstanceOf[F[U]]
           }
 
           sAppender.append[
@@ -58,25 +61,30 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
         ): M[F[N1], F[N2]] = {
           val ap1: ParameterSingleNatSupport2[M, N1, N2, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
             new ParameterSingleNatSupport2[M, N1, N2, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] {
-              override def simpleAppender: SimpleProduct2.SimpleAppender[M]                       = sAppender
-              override def typeGen: SimpleProduct2.TypeGen[M, N1, N2]                             = tpGen
-              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] = ExtractProductSelf.hListFuncImpl
+              override def simpleAppender: SimpleProduct2.SimpleAppender[M] = sAppender
+              override def typeGen: SimpleProduct2.TypeGen[M, N1, N2]       = tpGen
+              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
+                ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
             }
 
-          val zero1: M[HListLike, HListLike] = sAppender.zero(ExtractProductSelf.zeroImpl, ExtractProductSelf.zeroImpl)
+          val zero1: M[HListLike, HListLike] = sAppender.zero(
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero
+          )
 
           def appendImpl1(len: Int, model: M[HListLike, HListLike]): M[HListLike, HListLike] = {
             if (len > 0) appendImpl1(len - 1, ap1.append1[Any, HListLike, HListLike](model)) else model
           }
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
-            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.hListFuncImpl
+            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
               .takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
               .asInstanceOf[U[Any]]
-            override def takeTail(m: F[U]): HListLike =
-              ExtractProductSelf.hListFuncImpl.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
-            override def append(a: U[Any], b: HListLike): F[U] =
-              toModel(ExtractProductSelf.hListFuncImpl.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
+              .takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
+            override def append(a: U[Any], b: HListLike): F[U] = toModel(
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.append[U[Any], HListLike](a, b)
+            ).asInstanceOf[F[U]]
           }
 
           sAppender.append[
@@ -97,26 +105,31 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
         ): M[F[N1], F[N2], F[N3]] = {
           val ap1: ParameterSingleNatSupport3[M, N1, N2, N3, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
             new ParameterSingleNatSupport3[M, N1, N2, N3, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] {
-              override def simpleAppender: SimpleProduct3.SimpleAppender[M]                       = sAppender
-              override def typeGen: SimpleProduct3.TypeGen[M, N1, N2, N3]                         = tpGen
-              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] = ExtractProductSelf.hListFuncImpl
+              override def simpleAppender: SimpleProduct3.SimpleAppender[M] = sAppender
+              override def typeGen: SimpleProduct3.TypeGen[M, N1, N2, N3]   = tpGen
+              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
+                ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
             }
 
-          val zero1: M[HListLike, HListLike, HListLike] =
-            sAppender.zero(ExtractProductSelf.zeroImpl, ExtractProductSelf.zeroImpl, ExtractProductSelf.zeroImpl)
+          val zero1: M[HListLike, HListLike, HListLike] = sAppender.zero(
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero
+          )
 
           def appendImpl1(len: Int, model: M[HListLike, HListLike, HListLike]): M[HListLike, HListLike, HListLike] = {
             if (len > 0) appendImpl1(len - 1, ap1.append1[Any, HListLike, HListLike, HListLike](model)) else model
           }
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
-            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.hListFuncImpl
+            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
               .takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
               .asInstanceOf[U[Any]]
-            override def takeTail(m: F[U]): HListLike =
-              ExtractProductSelf.hListFuncImpl.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
-            override def append(a: U[Any], b: HListLike): F[U] =
-              toModel(ExtractProductSelf.hListFuncImpl.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
+              .takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
+            override def append(a: U[Any], b: HListLike): F[U] = toModel(
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.append[U[Any], HListLike](a, b)
+            ).asInstanceOf[F[U]]
           }
 
           sAppender.append[
@@ -140,16 +153,17 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
         ): M[F[N1], F[N2], F[N3], F[N4]] = {
           val ap1: ParameterSingleNatSupport4[M, N1, N2, N3, N4, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
             new ParameterSingleNatSupport4[M, N1, N2, N3, N4, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] {
-              override def simpleAppender: SimpleProduct4.SimpleAppender[M]                       = sAppender
-              override def typeGen: SimpleProduct4.TypeGen[M, N1, N2, N3, N4]                     = tpGen
-              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] = ExtractProductSelf.hListFuncImpl
+              override def simpleAppender: SimpleProduct4.SimpleAppender[M]   = sAppender
+              override def typeGen: SimpleProduct4.TypeGen[M, N1, N2, N3, N4] = tpGen
+              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
+                ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
             }
 
           val zero1: M[HListLike, HListLike, HListLike, HListLike] = sAppender.zero(
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero
           )
 
           def appendImpl1(len: Int, model: M[HListLike, HListLike, HListLike, HListLike]): M[HListLike, HListLike, HListLike, HListLike] = {
@@ -157,13 +171,14 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
           }
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
-            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.hListFuncImpl
+            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
               .takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
               .asInstanceOf[U[Any]]
-            override def takeTail(m: F[U]): HListLike =
-              ExtractProductSelf.hListFuncImpl.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
-            override def append(a: U[Any], b: HListLike): F[U] =
-              toModel(ExtractProductSelf.hListFuncImpl.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
+              .takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
+            override def append(a: U[Any], b: HListLike): F[U] = toModel(
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.append[U[Any], HListLike](a, b)
+            ).asInstanceOf[F[U]]
           }
 
           sAppender.append[
@@ -190,17 +205,18 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
         ): M[F[N1], F[N2], F[N3], F[N4], F[N5]] = {
           val ap1: ParameterSingleNatSupport5[M, N1, N2, N3, N4, N5, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
             new ParameterSingleNatSupport5[M, N1, N2, N3, N4, N5, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] {
-              override def simpleAppender: SimpleProduct5.SimpleAppender[M]                       = sAppender
-              override def typeGen: SimpleProduct5.TypeGen[M, N1, N2, N3, N4, N5]                 = tpGen
-              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] = ExtractProductSelf.hListFuncImpl
+              override def simpleAppender: SimpleProduct5.SimpleAppender[M]       = sAppender
+              override def typeGen: SimpleProduct5.TypeGen[M, N1, N2, N3, N4, N5] = tpGen
+              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
+                ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
             }
 
           val zero1: M[HListLike, HListLike, HListLike, HListLike, HListLike] = sAppender.zero(
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero
           )
 
           def appendImpl1(
@@ -211,13 +227,14 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
           }
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
-            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.hListFuncImpl
+            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
               .takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
               .asInstanceOf[U[Any]]
-            override def takeTail(m: F[U]): HListLike =
-              ExtractProductSelf.hListFuncImpl.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
-            override def append(a: U[Any], b: HListLike): F[U] =
-              toModel(ExtractProductSelf.hListFuncImpl.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
+              .takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
+            override def append(a: U[Any], b: HListLike): F[U] = toModel(
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.append[U[Any], HListLike](a, b)
+            ).asInstanceOf[F[U]]
           }
 
           sAppender.append[
@@ -250,18 +267,19 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
         ): M[F[N1], F[N2], F[N3], F[N4], F[N5], F[N6]] = {
           val ap1: ParameterSingleNatSupport6[M, N1, N2, N3, N4, N5, N6, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
             new ParameterSingleNatSupport6[M, N1, N2, N3, N4, N5, N6, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] {
-              override def simpleAppender: SimpleProduct6.SimpleAppender[M]                       = sAppender
-              override def typeGen: SimpleProduct6.TypeGen[M, N1, N2, N3, N4, N5, N6]             = tpGen
-              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] = ExtractProductSelf.hListFuncImpl
+              override def simpleAppender: SimpleProduct6.SimpleAppender[M]           = sAppender
+              override def typeGen: SimpleProduct6.TypeGen[M, N1, N2, N3, N4, N5, N6] = tpGen
+              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
+                ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
             }
 
           val zero1: M[HListLike, HListLike, HListLike, HListLike, HListLike, HListLike] = sAppender.zero(
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero
           )
 
           def appendImpl1(
@@ -273,13 +291,14 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
           }
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
-            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.hListFuncImpl
+            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
               .takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
               .asInstanceOf[U[Any]]
-            override def takeTail(m: F[U]): HListLike =
-              ExtractProductSelf.hListFuncImpl.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
-            override def append(a: U[Any], b: HListLike): F[U] =
-              toModel(ExtractProductSelf.hListFuncImpl.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
+              .takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
+            override def append(a: U[Any], b: HListLike): F[U] = toModel(
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.append[U[Any], HListLike](a, b)
+            ).asInstanceOf[F[U]]
           }
 
           sAppender.append[
@@ -315,19 +334,20 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
         ): M[F[N1], F[N2], F[N3], F[N4], F[N5], F[N6], F[N7]] = {
           val ap1: ParameterSingleNatSupport7[M, N1, N2, N3, N4, N5, N6, N7, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
             new ParameterSingleNatSupport7[M, N1, N2, N3, N4, N5, N6, N7, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] {
-              override def simpleAppender: SimpleProduct7.SimpleAppender[M]                       = sAppender
-              override def typeGen: SimpleProduct7.TypeGen[M, N1, N2, N3, N4, N5, N6, N7]         = tpGen
-              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] = ExtractProductSelf.hListFuncImpl
+              override def simpleAppender: SimpleProduct7.SimpleAppender[M]               = sAppender
+              override def typeGen: SimpleProduct7.TypeGen[M, N1, N2, N3, N4, N5, N6, N7] = tpGen
+              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
+                ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
             }
 
           val zero1: M[HListLike, HListLike, HListLike, HListLike, HListLike, HListLike, HListLike] = sAppender.zero(
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero
           )
 
           def appendImpl1(
@@ -340,13 +360,14 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
           }
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
-            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.hListFuncImpl
+            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
               .takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
               .asInstanceOf[U[Any]]
-            override def takeTail(m: F[U]): HListLike =
-              ExtractProductSelf.hListFuncImpl.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
-            override def append(a: U[Any], b: HListLike): F[U] =
-              toModel(ExtractProductSelf.hListFuncImpl.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
+              .takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
+            override def append(a: U[Any], b: HListLike): F[U] = toModel(
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.append[U[Any], HListLike](a, b)
+            ).asInstanceOf[F[U]]
           }
 
           sAppender.append[
@@ -385,20 +406,21 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
         ): M[F[N1], F[N2], F[N3], F[N4], F[N5], F[N6], F[N7], F[N8]] = {
           val ap1: ParameterSingleNatSupport8[M, N1, N2, N3, N4, N5, N6, N7, N8, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
             new ParameterSingleNatSupport8[M, N1, N2, N3, N4, N5, N6, N7, N8, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] {
-              override def simpleAppender: SimpleProduct8.SimpleAppender[M]                       = sAppender
-              override def typeGen: SimpleProduct8.TypeGen[M, N1, N2, N3, N4, N5, N6, N7, N8]     = tpGen
-              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] = ExtractProductSelf.hListFuncImpl
+              override def simpleAppender: SimpleProduct8.SimpleAppender[M]                   = sAppender
+              override def typeGen: SimpleProduct8.TypeGen[M, N1, N2, N3, N4, N5, N6, N7, N8] = tpGen
+              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
+                ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
             }
 
           val zero1: M[HListLike, HListLike, HListLike, HListLike, HListLike, HListLike, HListLike, HListLike] = sAppender.zero(
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero
           )
 
           def appendImpl1(
@@ -414,13 +436,14 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
           }
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
-            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.hListFuncImpl
+            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
               .takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
               .asInstanceOf[U[Any]]
-            override def takeTail(m: F[U]): HListLike =
-              ExtractProductSelf.hListFuncImpl.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
-            override def append(a: U[Any], b: HListLike): F[U] =
-              toModel(ExtractProductSelf.hListFuncImpl.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
+              .takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
+            override def append(a: U[Any], b: HListLike): F[U] = toModel(
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.append[U[Any], HListLike](a, b)
+            ).asInstanceOf[F[U]]
           }
 
           sAppender.append[
@@ -471,19 +494,20 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
             new ParameterSingleNatSupport9[M, N1, N2, N3, N4, N5, N6, N7, N8, N9, HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] {
               override def simpleAppender: SimpleProduct9.SimpleAppender[M]                       = sAppender
               override def typeGen: SimpleProduct9.TypeGen[M, N1, N2, N3, N4, N5, N6, N7, N8, N9] = tpGen
-              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] = ExtractProductSelf.hListFuncImpl
+              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
+                ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
             }
 
           val zero1: M[HListLike, HListLike, HListLike, HListLike, HListLike, HListLike, HListLike, HListLike, HListLike] = sAppender.zero(
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl,
-            ExtractProductSelf.zeroImpl
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+            ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero
           )
 
           def appendImpl1(
@@ -499,13 +523,14 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
           }
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
-            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.hListFuncImpl
+            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
               .takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
               .asInstanceOf[U[Any]]
-            override def takeTail(m: F[U]): HListLike =
-              ExtractProductSelf.hListFuncImpl.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
-            override def append(a: U[Any], b: HListLike): F[U] =
-              toModel(ExtractProductSelf.hListFuncImpl.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
+              .takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
+            override def append(a: U[Any], b: HListLike): F[U] = toModel(
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.append[U[Any], HListLike](a, b)
+            ).asInstanceOf[F[U]]
           }
 
           sAppender.append[
@@ -587,21 +612,22 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
             ] {
               override def simpleAppender: SimpleProduct10.SimpleAppender[M]                            = sAppender
               override def typeGen: SimpleProduct10.TypeGen[M, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10] = tpGen
-              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1]       = ExtractProductSelf.hListFuncImpl
+              override def apH: HListFunc[HListLike, ({ type AP1[_, T1 <: HListLike] = T1 })#AP1] =
+                ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
             }
 
           val zero1: M[HListLike, HListLike, HListLike, HListLike, HListLike, HListLike, HListLike, HListLike, HListLike, HListLike] =
             sAppender.zero(
-              ExtractProductSelf.zeroImpl,
-              ExtractProductSelf.zeroImpl,
-              ExtractProductSelf.zeroImpl,
-              ExtractProductSelf.zeroImpl,
-              ExtractProductSelf.zeroImpl,
-              ExtractProductSelf.zeroImpl,
-              ExtractProductSelf.zeroImpl,
-              ExtractProductSelf.zeroImpl,
-              ExtractProductSelf.zeroImpl,
-              ExtractProductSelf.zeroImpl
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero,
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero
             )
 
           def appendImpl1(
@@ -629,13 +655,14 @@ trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <
           }
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
-            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.hListFuncImpl
+            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
               .takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
               .asInstanceOf[U[Any]]
-            override def takeTail(m: F[U]): HListLike =
-              ExtractProductSelf.hListFuncImpl.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
-            override def append(a: U[Any], b: HListLike): F[U] =
-              toModel(ExtractProductSelf.hListFuncImpl.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
+              .takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
+            override def append(a: U[Any], b: HListLike): F[U] = toModel(
+              ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.append[U[Any], HListLike](a, b)
+            ).asInstanceOf[F[U]]
           }
 
           sAppender.append[

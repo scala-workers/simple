@@ -1,21 +1,24 @@
 package net.scalax.simple.codec
 package aa
 
-import net.scalax.simple.codec.to_list_generic.{ModelLinkPojo, PojoInstance}
+import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink}
 import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
 
 case class User2Cat[U[_]](id: U[Int], first: String, last: String, nickName: String, age: Long)
 object User2Cat {
-  implicit def appender[U[_]]: ModelLinkPojo[User2Cat[U]] = ModelLinkPojo[User2Cat[U]].derived
+  implicit def appender[U[_]]: ModelLink.Pojo[User2Cat[U]] = ModelLink.Pojo[User2Cat[U]].derived
 }
 
 class User2CatModel(val slickProfile: JdbcProfile) {
+  class SCtx[U[_]] {
+    type FModel[X[_]] = FillIdentity.Pojo[X, User2Cat[U]]
+  }
 
   import slickProfile.api._
 
   val commonAlias: SlickCompatAlias[slickProfile.type] = SlickCompatAlias.build(slickProfile)
-  def utils[U[_]]: SlickUtils[({ type FModel[X[_]] = PojoInstance[X, User2Cat[U]] })#FModel, User2Cat[U], slickProfile.type] =
+  def utils[U[_]]: SlickUtils[SCtx[U]#FModel, User2Cat[U], slickProfile.type] =
     SlickUtils.withPojo[User2Cat[U]](implicitly).build(slickProfile)
 
   def addElem[T](seq: Seq[T], t: T*): Seq[T] = t ++: seq
@@ -34,12 +37,14 @@ class User2CatModel(val slickProfile: JdbcProfile) {
   type RepFromTable[T] = slickProfile.Table[_] => Rep[T]
   type OptsFromCol[T]  = Seq[commonAlias.SqlColumnOptions => ColumnOption[T]]
 
-  def userTypedTypeGeneric[U[_]](implicit tt12: TypedType[U[Int]]): PojoInstance[TypedType, User2Cat[U]] = PojoInstance.derived
-  def userShapeGeneric[U[_]](implicit tt12: ShapeF[U[Int]]): PojoInstance[ShapeF, User2Cat[U]]           = PojoInstance.derived
+  def userTypedTypeGeneric[U[_]](implicit tt12: TypedType[U[Int]]): FillIdentity.Pojo[TypedType, User2Cat[U]] =
+    FillIdentity.Pojo[TypedType, User2Cat[U]].derived
+  def userShapeGeneric[U[_]](implicit tt12: ShapeF[U[Int]]): FillIdentity.Pojo[ShapeF, User2Cat[U]] =
+    FillIdentity.Pojo[ShapeF, User2Cat[U]].derived
 
-  def userOptImpl[U[_]]: PojoInstance[OptsFromCol, User2Cat[U]] = utils.userOptImpl
+  def userOptImpl[U[_]]: FillIdentity.Pojo[OptsFromCol, User2Cat[U]] = utils.userOptImpl
 
-  def userOpt[U[_]]: PojoInstance[OptsFromCol, User2Cat[U]] = {
+  def userOpt[U[_]]: FillIdentity.Pojo[OptsFromCol, User2Cat[U]] = {
     val impl                      = userOptImpl[U]
     val list: OptsFromCol[U[Int]] = addElem(impl(_.id), _.AutoInc, _.PrimaryKey)
     impl.copy(_.id)(list)
@@ -48,9 +53,8 @@ class User2CatModel(val slickProfile: JdbcProfile) {
   val utils1 = utils[Option]
   val utils2 = utils[Id]
 
-  def slickLabelled[U[_]]: SlickLabelled[({ type FModel[X[_]] = PojoInstance[X, User2Cat[U]] })#FModel] =
-    SlickLabelled[({ type FModel[X[_]] = PojoInstance[X, User2Cat[U]] })#FModel]
-      .fromLabelled(User2Cat.appender[U].labelled)(_.copy(_.first)("first_name").copy(_.last)("last_name").copy(_.nickName)("nick_name"))
+  def slickLabelled[U[_]]: SlickLabelled[SCtx[U]#FModel] = SlickLabelled[SCtx[U]#FModel]
+    .fromLabelled(User2Cat.appender[U].labelled)(_.copy(_.first)("first_name").copy(_.last)("last_name").copy(_.nickName)("nick_name"))
 
   object Query1
       extends TableQuery(cons =>

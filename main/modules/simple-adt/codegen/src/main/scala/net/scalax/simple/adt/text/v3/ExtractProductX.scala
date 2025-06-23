@@ -13,7 +13,7 @@ class ExtractProductX(val index: Int) {
     val typeParam3: Seq[String]  = for (i1 <- 1 to index) yield s"F[N$i1]"
     val typeParam4: Seq[String]  = for (i1 <- 1 to index) yield s"N$i1"
     val typeParam5: Seq[String]  = for (i1 <- 1 to index) yield s"HListLike"
-    val typeParam6: Seq[String]  = for (i1 <- 1 to index) yield s"ExtractProductSelf.zeroImpl"
+    val typeParam6: Seq[String]  = for (i1 <- 1 to index) yield s"ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero"
     val typeParam8: Seq[String]  = for (i1 <- 1 to index) yield s"simpleFunc1[N$i1]"
     val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"N$i1[Any]"
     val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s"F[N$i1]"
@@ -30,7 +30,7 @@ class ExtractProductX(val index: Int) {
             new ParameterSingleNatSupport$index[M, ${typeParam4.mkString(',')}, HListLike, $appendHLStr] {
               override def simpleAppender: SimpleProduct$index.SimpleAppender[M] = sAppender
               override def typeGen: SimpleProduct$index.TypeGen[M, ${typeParam4.mkString(',')}] = tpGen
-              override def apH: HListFunc[HListLike, $appendHLStr] = ExtractProductSelf.hListFuncImpl
+              override def apH: HListFunc[HListLike, $appendHLStr] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc
             }
 
           val zero1: M[${typeParam5.mkString(',')}] = sAppender.zero(${typeParam6.mkString(',')})
@@ -40,9 +40,10 @@ class ExtractProductX(val index: Int) {
           }
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
-            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.hListFuncImpl.takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]])).asInstanceOf[U[Any]]
-            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.hListFuncImpl.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
-            override def append(a: U[Any], b: HListLike): F[U] = toModel(ExtractProductSelf.hListFuncImpl.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+            override def takeHead(m: F[U]): U[Any] = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.takeHead[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]])).asInstanceOf[U[Any]]
+            override def takeTail(m: F[U]): HListLike = ExtractProductSelf.extraAbstraction.hlistSimpleCompat.hListFunc.takeTail[U[Any], HListLike](fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]))
+            override def append(a: U[Any], b: HListLike): F[U] = toModel(ExtractProductSelf.extraAbstraction
+            .hlistSimpleCompat.hListFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
           }
 
           sAppender.append[
@@ -63,20 +64,22 @@ class ExtractProductX(val index: Int) {
     package nat
     package support
 
-    trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <: HListLike] extends ExtractProductAbstraction[HListLike, AppLike, HZero] {
+    trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <: HListLike] {
       ExtractProductSelf =>
 
-        final def genSimpleProduct[F[_[_]]](
-          length: Int,
-          toModel: HListLike => F[({ type AnyF[_] = Any })#AnyF],
-          fromModel: F[({ type AnyF[_] = Any })#AnyF] => HListLike
-        ): SimpleProductContextX[F] = {
-          val autalLen: Int = length - 1
+      def extraAbstraction: ExtractProductAbstraction[HListLike, AppLike, HZero]
 
-          new SimpleProductContextX[F] {
-            ${preTextContent.mkString('\n')}
-          }
+      final def genSimpleProduct[F[_[_]]](
+        length: Int,
+        toModel: HListLike => F[({ type AnyF[_] = Any })#AnyF],
+        fromModel: F[({ type AnyF[_] = Any })#AnyF] => HListLike
+      ): SimpleProductContextX[F] = {
+        val autalLen: Int = length - 1
+
+        new SimpleProductContextX[F] {
+          ${preTextContent.mkString('\n')}
         }
+      }
     }
   """
 

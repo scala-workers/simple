@@ -19,12 +19,24 @@ object FillIdentity {
     override val value: HNil = HNil
   }
 
-  final class Builder[T] {
-    def derived[H <: HList](implicit generic: Generic.Aux[T, H], filler: FillIdentity[H]): FillIdentity[T] = new FillIdentity[T] {
-      override def value: T = generic.from(filler.value)
-    }
+  class ModelFBuilder[T] {
+    def derived[H <: HList](implicit generic: Generic.Aux[T, H], filler: FillIdentity[H]): T = generic.from(filler.value)
+  }
+  class ModelPojoBuilder[E[_], Model] {
+    def derived[H <: shapeless.HList](implicit
+      x: shapeless.Generic.Aux[Model, H],
+      n: PojoInstance[E, H]
+    ): PojoInstance[E, Model] = n.asInstanceOf[PojoInstance[E, Model]]
   }
 
-  def apply[T]: Builder[T] = new Builder
+  object F {
+    def apply[U[_], FMM[_[_]]]: ModelFBuilder[FMM[U]] = new ModelFBuilder[FMM[U]]
+  }
+  type F[U[_], FMM[_[_]]] = FMM[U]
+
+  object Pojo {
+    def apply[U[_], Model]: ModelPojoBuilder[U, Model] = new ModelPojoBuilder[U, Model]
+  }
+  type Pojo[U[_], Model] = PojoInstance[U, Model]
 
 }

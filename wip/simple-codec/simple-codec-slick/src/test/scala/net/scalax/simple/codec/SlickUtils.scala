@@ -1,14 +1,7 @@
 package net.scalax.simple.codec
 package aa
 
-import net.scalax.simple.codec.to_list_generic.{
-  BasedInstalled,
-  FoldFGenerc,
-  ModelLink,
-  ModelLinkPojo,
-  PojoInstance,
-  ToListByTheSameTypeGeneric
-}
+import net.scalax.simple.codec.to_list_generic.{BasedInstalled, Fold1FGenerc, ModelLink, PojoInstance, ToListByTheSameTypeGeneric}
 import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
 import slick.lifted.ShapedValue
@@ -36,7 +29,7 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
   val commonAlias: SlickCompatAlias[slickProfile.type] = SlickCompatAlias.build(slickProfile)
   val zip3Generic: Zip3Generic[F]                      = Zip3Generic[F].derived(basedInstalled.basedInstalled.simpleProduct4)
   val mapGeneric: MapGenerc[F]                         = MapGenerc[F].derived(basedInstalled.basedInstalled.simpleProduct2)
-  val folderGeneric: FoldFGenerc[F]                    = FoldFGenerc[F].derived(basedInstalled.basedInstalled.simpleProduct1)
+  val folderGeneric: Fold1FGenerc[F]                   = Fold1FGenerc[F].derived(basedInstalled.basedInstalled.simpleProduct1)
   val toListGeneric: ToListByTheSameTypeGeneric[F]     = ToListByTheSameTypeGeneric[F].derived(folderGeneric)
   val fromListByTheSameTypeGeneric: FromListByTheSameTypeGeneric[F] =
     FromListByTheSameTypeGeneric[F].derived(basedInstalled.basedInstalled.simpleProduct1)
@@ -116,7 +109,7 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
 
 object SlickUtils {
 
-  def withPojo[M](appender: ModelLinkPojo[M])(implicit
+  def withPojo[M](appender: ModelLink.Pojo[M])(implicit
     classTag: scala.reflect.ClassTag[M]
   ): SlickUtilsApply[({ type U1[XM[_]] = PojoInstance[XM, M] })#U1, M] =
     new SlickUtilsApply[({ type U1[XM[_]] = PojoInstance[XM, M] })#U1, M](appender, appender)(classTag)

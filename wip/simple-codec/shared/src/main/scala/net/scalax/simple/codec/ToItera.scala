@@ -1,7 +1,7 @@
 package net.scalax.simple.codec
 
 import net.scalax.simple.codec.to_list_generic.{BasedInstalled, ModelLink}
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1, SimpleProductContextX}
+import net.scalax.simple.adt.nat.support.{SimpleProduct1, SimpleProductContextX}
 
 trait ToItera[F[_[_]]] {
   toIteraSelf =>

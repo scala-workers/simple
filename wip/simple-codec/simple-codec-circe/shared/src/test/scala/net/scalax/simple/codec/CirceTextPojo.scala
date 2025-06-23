@@ -2,7 +2,7 @@ package net.scalax.simple.codec
 
 import io.circe._
 import io.circe.syntax._
-import net.scalax.simple.codec.to_list_generic.{Fold1FGenerc, ModelLink, PojoInstance, ToListByTheSameTypeGeneric}
+import net.scalax.simple.codec.to_list_generic.{FillIdentity, Fold1FGenerc, ModelLink, PojoInstance, ToListByTheSameTypeGeneric}
 
 case class CatNameTest3(id3: Int, str3: Option[String], uClass3: Option[Long], name113: String, friends: List[CatNameTest3])
 
@@ -16,9 +16,9 @@ object CatNameTest3 {
     SimpleJsonCodecLabelled.Pojo[CatNameTest3].derived.codec.update(_.copy(_.id3)("miaomiao id"))
 
   import CirceGen.Pojo._
-  implicit def modelEncoder: PojoInstance[Encoder, CatNameTest3] =
-    PojoInstance[Encoder, CatNameTest3].derived.copy(_.uClass3)(longOptEncoder)
-  implicit def modelDecoder: PojoInstance[Decoder, CatNameTest3] = PojoInstance[Decoder, CatNameTest3].derived
+  implicit def modelEncoder: FillIdentity.Pojo[Encoder, CatNameTest3] =
+    FillIdentity.Pojo[Encoder, CatNameTest3].derived.copy(_.uClass3)(longOptEncoder)
+  implicit def modelDecoder: FillIdentity.Pojo[Decoder, CatNameTest3] = FillIdentity.Pojo[Decoder, CatNameTest3].derived
 
 }
 

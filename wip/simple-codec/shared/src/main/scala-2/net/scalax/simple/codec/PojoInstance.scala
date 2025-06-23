@@ -87,7 +87,7 @@ object PojoInstance {
     n: PojoInstance[E, H]
   ): PojoInstance[E, Model] = n.asInstanceOf[PojoInstance[E, Model]]*/
 
-  trait Builder[E[_], Model] {
+  /*trait Builder[E[_], Model] {
     def derived[H <: shapeless.HList](implicit
       x: shapeless.Generic.Aux[Model, H],
       n: PojoInstance[E, H]
@@ -96,7 +96,7 @@ object PojoInstance {
 
   def apply[E[_], Model]: Builder[E, Model] = new Builder[E, Model] {
     //
-  }
+  }*/
 
 }
 

@@ -1,21 +1,23 @@
 package net.scalax.simple.codec
 package aa
 
-import net.scalax.simple.codec.to_list_generic.{BasedInstalled, FillIdentity, ModelLink, ModelLinkCommonF}
+import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink}
 import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
 
 case class UserAbs[F[_], U[_]](id: F[U[Int]], first: F[String], last: F[String], age: F[Long])
 
 class Model2(val slickProfile: JdbcProfile) {
+  class SCtx[U[_]] {
+    type FModel[X[_]] = UserAbs[X, U]
+  }
 
   import slickProfile.api._
 
-  implicit def appender[U[_]]: ModelLink[({ type FModel[X[_]] = UserAbs[X, U] })#FModel, UserAbs[({ type U1[T] = T })#U1, U]] =
-    ModelLinkCommonF[({ type FModel[X[_]] = UserAbs[X, U] })#FModel].derived
-  val commonAlias: SlickCompatAlias[slickProfile.type] = SlickCompatAlias.build(slickProfile)
-  def utils[U[_]]: SlickUtils[({ type FModel[X[_]] = UserAbs[X, U] })#FModel, UserAbs[({ type Id1[XV] = XV })#Id1, U], slickProfile.type] =
-    SlickUtils[({ type FModel[X[_]] = UserAbs[X, U] })#FModel](appender).build(slickProfile)
+  implicit def appender[U[_]]: ModelLink.F[SCtx[U]#FModel] = ModelLink.F[SCtx[U]#FModel].derived
+  val commonAlias: SlickCompatAlias[slickProfile.type]     = SlickCompatAlias.build(slickProfile)
+  def utils[U[_]]: SlickUtils[SCtx[U]#FModel, UserAbs[({ type Id1[XV] = XV })#Id1, U], slickProfile.type] =
+    SlickUtils[SCtx[U]#FModel](appender).build(slickProfile)
 
   def addElem[T](seq: Seq[T], t: T*): Seq[T] = t ++: seq
   def colN[T](
@@ -33,8 +35,9 @@ class Model2(val slickProfile: JdbcProfile) {
   type RepFromTable[T] = slickProfile.Table[_] => Rep[T]
   type OptsFromCol[T]  = Seq[commonAlias.SqlColumnOptions => ColumnOption[T]]
 
-  def userTypedTypeGeneric[U[_]](implicit tt12: TypedType[U[Int]]): UserAbs[TypedType, U] = FillIdentity[UserAbs[TypedType, U]].derived
-  def userShapeGeneric[U[_]](implicit tt12: ShapeF[U[Int]]): UserAbs[ShapeF, U]           = FillIdentity[UserAbs[ShapeF, U]].derived
+  def userTypedTypeGeneric[U[_]](implicit tt12: TypedType[U[Int]]): UserAbs[TypedType, U] =
+    FillIdentity.F[TypedType, SCtx[U]#FModel].derived
+  def userShapeGeneric[U[_]](implicit tt12: ShapeF[U[Int]]): UserAbs[ShapeF, U] = FillIdentity.F[ShapeF, SCtx[U]#FModel].derived
 
   def userOptImpl[U[_]]: UserAbs[OptsFromCol, U] = utils.userOptImpl
 

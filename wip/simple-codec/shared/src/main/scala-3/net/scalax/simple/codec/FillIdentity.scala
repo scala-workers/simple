@@ -16,10 +16,34 @@ object FillIdentity {
     override def value: A2 = inst.construct([t] => (ma: FillIdentity[t]) => ma.value)
   }
 
-  final class Builder[T] {
-    inline def derived(using generic: K0.ProductGeneric[T]): FillIdentity[T] = monoidGen[T]
+  class ModelFBuilder[T] {
+    inline def derived(using generic: K0.ProductGeneric[T]): T = {
+      val fillIdentity: FillIdentity[T] = FillIdentity.monoidGen[T]
+      fillIdentity.value
+    }
   }
 
-  def apply[T]: Builder[T] = new Builder
+  class ModelPojoBuilder[E[_], Model] {
+    inline def derived(using
+      g: scala.deriving.Mirror.ProductOf[Model],
+      inst: K0.ProductInstances[FillIdentity, Tuple.Map[g.MirroredElemTypes, E]]
+    ): PojoInstance[E, Model] = {
+      val fillIdentity: FillIdentity[Tuple.Map[g.MirroredElemTypes, E]] = FillIdentity.monoidGen[Tuple.Map[g.MirroredElemTypes, E]]
+
+      new PojoInstance[E, Model] {
+        override def instance: Any = fillIdentity.value
+      }
+    }
+  }
+
+  object F {
+    def apply[U[_], FMM[_[_]]]: ModelFBuilder[FMM[U]] = new ModelFBuilder[FMM[U]]
+  }
+  type F[U[_], FMM[_[_]]] = FMM[U]
+
+  object Pojo {
+    def apply[U[_], Model]: ModelPojoBuilder[U, Model] = new ModelPojoBuilder[U, Model]
+  }
+  type Pojo[U[_], Model] = PojoInstance[U, Model]
 
 }
