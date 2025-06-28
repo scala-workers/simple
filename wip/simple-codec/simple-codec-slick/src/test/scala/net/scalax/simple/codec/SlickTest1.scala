@@ -35,9 +35,9 @@ class Model2(val slickProfile: JdbcProfile) {
   type RepFromTable[T] = slickProfile.Table[_] => Rep[T]
   type OptsFromCol[T]  = Seq[commonAlias.SqlColumnOptions => ColumnOption[T]]
 
-  def userTypedTypeGeneric[U[_]](implicit tt12: TypedType[U[Int]]): UserAbs[TypedType, U] =
+  implicit def userTypedTypeGeneric[U[_]](implicit tt12: TypedType[U[Int]]): UserAbs[TypedType, U] =
     FillIdentity.F[TypedType, SCtx[U]#FModel].derived
-  def userShapeGeneric[U[_]](implicit tt12: ShapeF[U[Int]]): UserAbs[ShapeF, U] = FillIdentity.F[ShapeF, SCtx[U]#FModel].derived
+  implicit def userShapeGeneric[U[_]](implicit tt12: ShapeF[U[Int]]): UserAbs[ShapeF, U] = FillIdentity.F[ShapeF, SCtx[U]#FModel].derived
 
   def userOptImpl[U[_]]: UserAbs[OptsFromCol, U] = utils.userOptImpl
 
@@ -50,28 +50,14 @@ class Model2(val slickProfile: JdbcProfile) {
   val utils1 = utils[Option]
   val utils2 = utils[Id]
 
-  def slickLabelled[U[_]]: SlickLabelled[({ type FModel[X[_]] = UserAbs[X, U] })#FModel] =
-    SlickLabelled[({ type FModel[X[_]] = UserAbs[X, U] })#FModel]
-      .fromLabelled(appender[U].labelled)(_.copy[({ type FModel[_] = String })#FModel, U](first = "first_name", last = "last_name"))
+  implicit def slickLabelled[U[_]]: SlickLabelled.F[SCtx[U]#FModel] =
+    SlickLabelled
+      .F[SCtx[U]#FModel]
+      .derived
+      .update(_.copy[({ type FModel[_] = String })#FModel, U](first = "first_name", last = "last_name"))
 
-  object Query1
-      extends TableQuery(cons =>
-        new utils2.CommonTable(cons)(
-          labelled = slickLabelled[Id],
-          opt = userOpt[Id],
-          typedType = userTypedTypeGeneric[Id],
-          userShapeGeneric = userShapeGeneric[Id]
-        )
-      ) {
-    object forInsert
-        extends TableQuery(cons =>
-          new utils1.CommonTable(cons)(
-            labelled = slickLabelled[Option],
-            opt = userOpt[Option],
-            typedType = userTypedTypeGeneric[Option],
-            userShapeGeneric = userShapeGeneric[Option]
-          )
-        )
+  object Query1 extends TableQuery(cons => new utils2.CommonTable(cons)(opt = userOpt[Id])) {
+    object forInsert extends TableQuery(cons => new utils1.CommonTable(cons)(opt = userOpt[Option]))
   }
 
   println("// ===")

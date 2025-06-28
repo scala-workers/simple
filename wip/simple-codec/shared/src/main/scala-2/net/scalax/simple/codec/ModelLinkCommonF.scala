@@ -21,7 +21,10 @@ trait ModelLinkCommonF[F[_[_]]] extends ModelLink[F, F[({ type U1[X] = X })#U1]]
   }
 
   override def labelled: ModelLabelled[F] =
-    ModelLabelled[F].derived(modelLinkCommonFSelf.compatLabelled, modelLinkCommonFSelf.fromListByTheSameTypeGeneric)
+    ModelLabelled[F].derived(
+      modelLinkCommonFSelf.compatLabelled,
+      FromListByTheSameTypeGeneric[F].derived(modelLinkCommonFSelf.basedInstalled.simpleProduct1)
+    )
   override def size: ModelSize[F] = ModelSize[F].derived(modelLinkCommonFSelf.compatLabelled)
 
   protected def compatLabelled: CompatLabelled[F] = CompatLabelled[F].instance(modelLinkCommonFSelf.compatNamed)

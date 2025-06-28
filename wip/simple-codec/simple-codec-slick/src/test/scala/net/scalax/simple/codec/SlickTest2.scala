@@ -37,9 +37,9 @@ class User2CatModel(val slickProfile: JdbcProfile) {
   type RepFromTable[T] = slickProfile.Table[_] => Rep[T]
   type OptsFromCol[T]  = Seq[commonAlias.SqlColumnOptions => ColumnOption[T]]
 
-  def userTypedTypeGeneric[U[_]](implicit tt12: TypedType[U[Int]]): FillIdentity.Pojo[TypedType, User2Cat[U]] =
+  implicit def userTypedTypeGeneric[U[_]](implicit tt12: TypedType[U[Int]]): FillIdentity.Pojo[TypedType, User2Cat[U]] =
     FillIdentity.Pojo[TypedType, User2Cat[U]].derived
-  def userShapeGeneric[U[_]](implicit tt12: ShapeF[U[Int]]): FillIdentity.Pojo[ShapeF, User2Cat[U]] =
+  implicit def userShapeGeneric[U[_]](implicit tt12: ShapeF[U[Int]]): FillIdentity.Pojo[ShapeF, User2Cat[U]] =
     FillIdentity.Pojo[ShapeF, User2Cat[U]].derived
 
   def userOptImpl[U[_]]: FillIdentity.Pojo[OptsFromCol, User2Cat[U]] = utils.userOptImpl
@@ -53,27 +53,11 @@ class User2CatModel(val slickProfile: JdbcProfile) {
   val utils1 = utils[Option]
   val utils2 = utils[Id]
 
-  def slickLabelled[U[_]]: SlickLabelled[SCtx[U]#FModel] = SlickLabelled[SCtx[U]#FModel]
-    .fromLabelled(User2Cat.appender[U].labelled)(_.copy(_.first)("first_name").copy(_.last)("last_name").copy(_.nickName)("nick_name"))
+  implicit def slickLabelled[U[_]]: SlickLabelled.Pojo[User2Cat[U]] =
+    SlickLabelled.Pojo[User2Cat[U]].derived.update((_.copy(_.first)("first_name").copy(_.last)("last_name").copy(_.nickName)("nick_name")))
 
-  object Query1
-      extends TableQuery(cons =>
-        new utils2.CommonTable(cons)(
-          labelled = slickLabelled[Id],
-          opt = userOpt,
-          typedType = userTypedTypeGeneric,
-          userShapeGeneric = userShapeGeneric
-        )
-      ) {
-    object forInsert
-        extends TableQuery(cons =>
-          new utils1.CommonTable(cons)(
-            labelled = slickLabelled[Option],
-            opt = userOpt,
-            typedType = userTypedTypeGeneric,
-            userShapeGeneric = userShapeGeneric
-          )
-        )
+  object Query1 extends TableQuery(cons => new utils2.CommonTable(cons)(opt = userOpt)) {
+    object forInsert extends TableQuery(cons => new utils1.CommonTable(cons)(opt = userOpt))
   }
 
   println("// ===")

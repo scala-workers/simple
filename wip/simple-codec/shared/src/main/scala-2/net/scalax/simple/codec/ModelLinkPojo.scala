@@ -1,7 +1,6 @@
 package net.scalax.simple.codec
 package to_list_generic
 
-import shapeless.DefaultSymbolicLabelling
 import net.scalax.simple.adt.nat.support.SimpleProductContextX
 
 trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model] {
@@ -27,9 +26,14 @@ trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, M
     SimpleProductX[({ type F[X[_]] = PojoInstance[X, Model] })#F].derived(fromFunc, toFunc, modelLinkCommonFSelf.size)
   }
 
-  override def labelled: ModelLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F] =
-    ModelLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F]
-      .derived(modelLinkCommonFSelf.compatLabelled, modelLinkCommonFSelf.fromListByTheSameTypeGeneric)
+  override def labelled: ModelLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F] = {
+    ModelLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F].derived(
+      modelLinkCommonFSelf.compatLabelled,
+      FromListByTheSameTypeGeneric[({ type F[X[_]] = PojoInstance[X, Model] })#F]
+        .derived(modelLinkCommonFSelf.basedInstalled.simpleProduct1)
+    )
+  }
+
   override def size: ModelSize[({ type F[X[_]] = PojoInstance[X, Model] })#F] =
     ModelSize[({ type F[X[_]] = PojoInstance[X, Model] })#F].derived(modelLinkCommonFSelf.compatLabelled)
 

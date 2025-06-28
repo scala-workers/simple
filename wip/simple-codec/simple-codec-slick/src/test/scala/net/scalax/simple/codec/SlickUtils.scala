@@ -6,19 +6,6 @@ import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
 import slick.lifted.ShapedValue
 
-trait SlickLabelled[F[_[_]]] {
-  def slickLabelled: F[({ type X1[_] = String })#X1]
-}
-object SlickLabelled {
-  class Builder[F[_[_]]] {
-    def fromLabelled(m: ModelLabelled[F])(x: F[({ type X1[_] = String })#X1] => F[({ type X1[_] = String })#X1]): SlickLabelled[F] =
-      new SlickLabelled[F] {
-        override def slickLabelled: F[({ type X1[_] = String })#X1] = x(m.modelLabelled)
-      }
-  }
-  def apply[F[_[_]]]: Builder[F] = new Builder[F]
-}
-
 class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
   val slickProfile: V,
   appenderIn: ModelGetSet[F, Model],
@@ -27,10 +14,11 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
   import slickProfile.api._
 
   val commonAlias: SlickCompatAlias[slickProfile.type] = SlickCompatAlias.build(slickProfile)
-  val zip3Generic: Zip3Generic[F]                      = Zip3Generic[F].derived(basedInstalled.basedInstalled.simpleProduct4)
-  val mapGeneric: MapGenerc[F]                         = MapGenerc[F].derived(basedInstalled.basedInstalled.simpleProduct2)
-  val folderGeneric: Fold1FGenerc[F]                   = Fold1FGenerc[F].derived(basedInstalled.basedInstalled.simpleProduct1)
-  val toListGeneric: ToListByTheSameTypeGeneric[F]     = ToListByTheSameTypeGeneric[F].derived(folderGeneric)
+
+  val zip3Generic: Zip3Generic[F]                  = Zip3Generic[F].derived(basedInstalled.basedInstalled.simpleProduct4)
+  val mapGeneric: MapGenerc[F]                     = MapGenerc[F].derived(basedInstalled.basedInstalled.simpleProduct2)
+  val folderGeneric: Fold1FGenerc[F]               = Fold1FGenerc[F].derived(basedInstalled.basedInstalled.simpleProduct1)
+  val toListGeneric: ToListByTheSameTypeGeneric[F] = ToListByTheSameTypeGeneric[F].derived(folderGeneric)
   val fromListByTheSameTypeGeneric: FromListByTheSameTypeGeneric[F] =
     FromListByTheSameTypeGeneric[F].derived(basedInstalled.basedInstalled.simpleProduct1)
   val indexOfPropertyName: IndexOfPropertyName[F] = IndexOfPropertyName[F].derived(basedInstalled.basedInstalled.simpleProduct1)
@@ -57,7 +45,8 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
     ShapedValueCompat.mapToPro[SlickHList, SlickHList, Model](
       shapedValue,
       from1.compose(appenderIn.toIdentity),
-      to1.andThen(appenderIn.fromIdentity)
+      to1.andThen(appenderIn.fromIdentity),
+      csTag = classTag
     )
   }
 
@@ -75,7 +64,7 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
     })
 
   def userRep(labelled: SlickLabelled[F], opt: F[OptsFromCol], typedType: F[TypedType]): slickProfile.Table[_] => F[Rep] = { tb =>
-    val l1 = labelled.slickLabelled
+    val l1 = labelled.labelled
     val l2 = opt
     val l3 = typedType
 
@@ -91,8 +80,11 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
     mapResult(zipResult1)
   }
 
-  class CommonTable(tag: Tag)(labelled: SlickLabelled[F], opt: F[OptsFromCol], typedType: F[TypedType], userShapeGeneric: F[ShapeF])
-      extends slickProfile.Table[Model](tag, "users") {
+  class CommonTable(tag: Tag)(opt: F[OptsFromCol])(implicit
+    typedType: F[TypedType],
+    userShapeGeneric: F[ShapeF],
+    labelled: SlickLabelled[F]
+  ) extends slickProfile.Table[Model](tag, "users") {
     self =>
     private val repModel: slickProfile.Table[_] => F[Rep] = userRep(labelled, opt, typedType)
     private def __tableInnserRep: F[Rep]                  = repModel(self)
