@@ -7,8 +7,9 @@ object ShapedValueCompat {
     sv: ShapedValue[T, U],
     from: Model => U,
     to: U => Model,
-    csTag: scala.reflect.ClassTag[Model]
+    modelClassTag: scala.reflect.ClassTag[Model]
   ): MappedProjection[Model] = {
-    sv.<>[Model, Some[U]](f = to, g = from.andThen(Some.apply))(using csTag)
+    val toTupleInstance: ToTuple[Some[U], U] = summon[ToTuple[Some[U], U]]
+    sv.<>[Model, Some[U]](f = to, g = from.andThen(Some.apply))(using modelClassTag, tt = toTupleInstance)
   }
 }

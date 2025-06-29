@@ -17,9 +17,8 @@ class User2CatModel(val slickProfile: JdbcProfile) {
 
   import slickProfile.api._
 
-  val commonAlias: SlickCompatAlias[slickProfile.type] = SlickCompatAlias.build(slickProfile)
   def utils[U[_]]: SlickUtils[SCtx[U]#FModel, User2Cat[U], slickProfile.type] =
-    SlickUtils.withPojo[User2Cat[U]](implicitly).build(slickProfile)
+    SlickUtils.Pojo[User2Cat[U]].build(slickProfile)
 
   def addElem[T](seq: Seq[T], t: T*): Seq[T] = t ++: seq
   def colN[T](
@@ -35,7 +34,7 @@ class User2CatModel(val slickProfile: JdbcProfile) {
   type StrAny[T]       = String
   type ShapeF[T]       = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
   type RepFromTable[T] = slickProfile.Table[_] => Rep[T]
-  type OptsFromCol[T]  = Seq[commonAlias.SqlColumnOptions => ColumnOption[T]]
+  type OptsFromCol[T]  = Seq[slickProfile.SqlColumnOptions => ColumnOption[T]]
 
   implicit def userTypedTypeGeneric[U[_]](implicit tt12: TypedType[U[Int]]): FillIdentity.Pojo[TypedType, User2Cat[U]] =
     FillIdentity.Pojo[TypedType, User2Cat[U]].derived

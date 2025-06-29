@@ -15,9 +15,8 @@ class Model2(val slickProfile: JdbcProfile) {
   import slickProfile.api._
 
   implicit def appender[U[_]]: ModelLink.F[SCtx[U]#FModel] = ModelLink.F[SCtx[U]#FModel].derived
-  val commonAlias: SlickCompatAlias[slickProfile.type]     = SlickCompatAlias.build(slickProfile)
   def utils[U[_]]: SlickUtils[SCtx[U]#FModel, UserAbs[({ type Id1[XV] = XV })#Id1, U], slickProfile.type] =
-    SlickUtils[SCtx[U]#FModel](appender).build(slickProfile)
+    SlickUtils.F[SCtx[U]#FModel].build(slickProfile)
 
   def addElem[T](seq: Seq[T], t: T*): Seq[T] = t ++: seq
   def colN[T](
@@ -29,11 +28,10 @@ class Model2(val slickProfile: JdbcProfile) {
     tb.column(name, colsFunc: _*)(tt)
   }
 
-  type Id[T]           = T
-  type StrAny[T]       = String
-  type ShapeF[T]       = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
-  type RepFromTable[T] = slickProfile.Table[_] => Rep[T]
-  type OptsFromCol[T]  = Seq[commonAlias.SqlColumnOptions => ColumnOption[T]]
+  type Id[T]          = T
+  type StrAny[T]      = String
+  type ShapeF[T]      = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
+  type OptsFromCol[T] = Seq[slickProfile.SqlColumnOptions => ColumnOption[T]]
 
   implicit def userTypedTypeGeneric[U[_]](implicit tt12: TypedType[U[Int]]): UserAbs[TypedType, U] =
     FillIdentity.F[TypedType, SCtx[U]#FModel].derived
