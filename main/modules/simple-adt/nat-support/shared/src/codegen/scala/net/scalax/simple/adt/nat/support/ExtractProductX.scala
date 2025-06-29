@@ -5,7 +5,7 @@ package support
 trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <: HListLike] {
   ExtractProductSelf =>
 
-  val extraAbstraction: ExtractProductAbstraction[HListLike, AppLike, HZero]
+  def extraAbstraction: ExtractProductAbstraction[HListLike, AppLike, HZero]
 
   final def genSimpleProduct[F[_[_]]](
     length: Int,

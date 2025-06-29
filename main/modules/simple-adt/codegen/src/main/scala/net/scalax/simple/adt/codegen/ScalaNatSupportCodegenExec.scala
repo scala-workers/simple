@@ -12,6 +12,7 @@ import net.scalax.simple.adt.text.v3.{
   SimpleAppenderX,
   SimpleAppenderZeroX,
   SimpleProductContextX,
+  SimpleProductIt10Codengen,
   SimpleProductX,
   TypeGen10Codegen,
   TypeGenCodegen
@@ -108,6 +109,12 @@ object ScalaNatSupportCodegenExec {
     locally {
       val filePath             = writePath / "SimpleProductContextX.scala"
       val linerContent: String = SimpleProductContextX(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "SimpleProductIt10Codengen.scala"
+      val linerContent: String = SimpleProductIt10Codengen(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
     }
 

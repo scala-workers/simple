@@ -1,12 +1,16 @@
 package net.scalax.simple.codec
 
 import net.scalax.simple.codec.to_list_generic.{BasedInstalled, ModelLink}
-import net.scalax.simple.adt.nat.support.{SimpleProduct1, SimpleProductContextX}
+import net.scalax.simple.adt.nat.support.{SimpleProduct1, SimpleProductContextX, SimpleProductIt10Codengen}
 
 trait ToItera[F[_[_]]] {
   toIteraSelf =>
 
-  def to[T](simpleProductX: SimpleProductContextX[F]): SimpleProductContextX[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1]
+  @inline def to[T](
+    simpleProductX: SimpleProductContextX[F]
+  ): SimpleProductContextX[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
+    SimpleProductIt10Codengen.toItera[F, T](simpleProductX)
+
   def toBasedInstalled[T](oldInstanlled: BasedInstalled[F]): BasedInstalled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
     new BasedInstalled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] {
       override def basedInstalled: SimpleProductContextX[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
@@ -34,20 +38,13 @@ trait ToItera[F[_[_]]] {
 }
 
 object ToItera {
-  @inline private val toIteraImplImpl: ToItera[({ type F1[_[_]] = Any })#F1] = new ToItera[({ type F1[_[_]] = Any })#F1] {
-    @inline def to[T](
-      simpleProductX: SimpleProductContextX[({ type F1[_[_]] = Any })#F1]
-    ): SimpleProductContextX[({ type F1[_[_]] = Any })#F1] =
-      simpleProductX
-  }
-  @inline private def toIteraImpl[F[_[_]]]: ToItera[F] = toIteraImplImpl.asInstanceOf[ToItera[F]]
 
-  @inline private val builderImplImpl                = new Builder[({ type F1[_[_]] = Any })#F1]
-  @inline private def applyImpl[F[_[_]]]: Builder[F] = builderImplImpl.asInstanceOf[Builder[F]]
-
-  // ===
   class Builder[F[_[_]]] {
-    @inline def derived: ToItera[F] = toIteraImpl[F]
+    @inline def derived: ToItera[F] = new ToItera[F] {
+      //
+    }
   }
-  @inline def apply[F[_[_]]]: Builder[F] = applyImpl[F]
+
+  @inline def apply[F[_[_]]]: Builder[F] = new Builder[F]
+
 }
