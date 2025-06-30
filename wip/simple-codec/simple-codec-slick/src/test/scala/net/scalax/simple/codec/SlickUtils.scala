@@ -5,25 +5,14 @@ import net.scalax.simple.codec.to_list_generic.{BasedInstalled, PojoInstance}
 import slick.ast.{ColumnOption, TypedType}
 import slick.jdbc.JdbcProfile
 
-class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
-  val slickProfile: V
-) {
+trait SlickUtils[F[_[_]], Model] {
+  val slickProfile: JdbcProfile
+
   import slickProfile.api._
 
-  private def indexOfPropertyName(bi: BasedInstalled[F]): IndexOfPropertyName[F] =
-    IndexOfPropertyName[F].derived(bi.basedInstalled.simpleProduct1)
+  type OptsFromCol[T] = Seq[ColumnOption[T]]
 
-  def getIndexByName1(n: String)(implicit bi: BasedInstalled[F]): Int = indexOfPropertyName(bi).ofName(n, bi.labelled.modelLabelled)
-
-  type OptsFromCol[T] = Seq[slickProfile.SqlColumnOptions => ColumnOption[T]]
-
-  def userOptImpl(implicit bi: BasedInstalled[F]): F[OptsFromCol] = SimpleFill[F]
-    .derived(bi.basedInstalled.simpleProduct1)
-    .fill[OptsFromCol](new SimpleFill.FillI[OptsFromCol] {
-      override def fill[T]: Seq[slickProfile.SqlColumnOptions => ColumnOption[T]] = Seq.empty
-    })
-
-  class CommonTable(tag: Tag)(opt: F[OptsFromCol])(implicit
+  abstract class CommonTable(tag: Tag)(implicit
     typedType: F[TypedType],
     userShapeGeneric: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, _] })#ShapeF],
     labelled: SlickLabelled[F],
@@ -31,15 +20,23 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
     modelGet: ModelGet[F, Model],
     modelSet: ModelSet[F, Model],
     basedInstalled: BasedInstalled[F]
-  ) extends slickProfile.Table[Model](tag, "users") {
+  ) extends Table[Model](tag, "users") {
     CommonTableSelf =>
 
-    val utilsWrap: UtilsWrap[F, Model, slickProfile.type] =
+    def colOpt: F[({ type PIns[T] = Seq[ColumnOption[T]] })#PIns] = SimpleFill[F]
+      .derived(basedInstalled.basedInstalled.simpleProduct1)
+      .fill[OptsFromCol](new SimpleFill.FillI[OptsFromCol] {
+        override def fill[T]: Seq[ColumnOption[T]] = Seq.empty
+      })
+
+    def columnOption: F[({ type PIns[T] = Seq[ColumnOption[T]] })#PIns]
+
+    private val utilsWrap: UtilsWrap[F, Model, slickProfile.type] =
       new UtilsWrap[F, Model, slickProfile.type](slickProfile, basedInstalled) {
         override val tb: Table[Model] = CommonTableSelf
       }
 
-    private val repModel: F[Rep]         = utilsWrap.userRep(labelled, opt, typedType)
+    private val repModel: F[Rep]         = utilsWrap.userRep(labelled, columnOption, typedType)
     private def __tableInnserRep: F[Rep] = repModel
 
     override def * : slick.lifted.ProvenShape[Model] = utilsWrap.mapShape(userShapeGeneric, __tableInnserRep, classTag, modelGet, modelSet)
@@ -52,25 +49,6 @@ class SlickUtils[F[_[_]], Model, V <: JdbcProfile](
 
 }
 
-object SlickUtils {
+trait SlickF[FMM[_[_]]] extends SlickUtils[FMM, FMM[({ type IDF[T] = T })#IDF]]
 
-  object Pojo {
-    def apply[M]: SlickUtilsApply[({ type U1[XM[_]] = PojoInstance[XM, M] })#U1, M] =
-      new SlickUtilsApply[({ type U1[XM[_]] = PojoInstance[XM, M] })#U1, M]
-  }
-
-  object F {
-    def apply[FMM[_[_]]]: SlickUtilsApply[FMM, FMM[({ type U1[T] = T })#U1]] = new SlickUtilsApplyImpl1[FMM]
-  }
-
-  class SlickUtilsApplyImpl1[FMM[_[_]]] extends SlickUtilsApply[FMM, FMM[({ type U1[T] = T })#U1]] {
-    override def build[V <: JdbcProfile](slickProfile: V): SlickUtils[FMM, FMM[({ type U1[T] = T })#U1], slickProfile.type] =
-      new SlickUtils[FMM, FMM[({ type U1[T] = T })#U1], slickProfile.type](slickProfile)
-  }
-
-  class SlickUtilsApply[FMM[_[_]], Model] {
-    def build[V <: JdbcProfile](slickProfile: V): SlickUtils[FMM, Model, slickProfile.type] =
-      new SlickUtils[FMM, Model, slickProfile.type](slickProfile)
-  }
-
-}
+trait SlickPojo[Model] extends SlickUtils[({ type PIns[U[_]] = PojoInstance[U, Model] })#PIns, Model]

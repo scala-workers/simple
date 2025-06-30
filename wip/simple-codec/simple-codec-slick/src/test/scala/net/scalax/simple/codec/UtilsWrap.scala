@@ -55,16 +55,15 @@ abstract class UtilsWrap[F[_[_]], Model, V <: JdbcProfile](
   }
 
   private def colN[T](name: String, func: OptsFromCol[T], tt: TypedType[T]): Rep[T] = {
-    val colsFunc = for (n <- func) yield n(tb.O)
-    tb.column(name, colsFunc: _*)(tt)
+    tb.column(name, func: _*)(tt)
   }
 
-  type OptsFromCol[T] = Seq[slickProfile.SqlColumnOptions => ColumnOption[T]]
+  type OptsFromCol[T] = Seq[ColumnOption[T]]
 
   def userOptImpl(implicit bi: BasedInstalled[F]): F[OptsFromCol] = SimpleFill[F]
     .derived(bi.basedInstalled.simpleProduct1)
     .fill[OptsFromCol](new SimpleFill.FillI[OptsFromCol] {
-      override def fill[T]: Seq[slickProfile.SqlColumnOptions => ColumnOption[T]] = Seq.empty
+      override def fill[T]: Seq[ColumnOption[T]] = Seq.empty
     })
 
   def userRep(
