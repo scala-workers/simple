@@ -14,7 +14,7 @@ trait SlickUtils[F[_[_]], Model] {
 
   abstract class CommonTable(tag: Tag)(implicit
     typedType: F[TypedType],
-    userShapeGeneric: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, _] })#ShapeF],
+    userShapeGeneric: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF],
     labelled: SlickLabelled[F],
     classTag: scala.reflect.ClassTag[Model],
     modelGet: ModelGet[F, Model],

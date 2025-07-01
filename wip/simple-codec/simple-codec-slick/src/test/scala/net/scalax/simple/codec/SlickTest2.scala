@@ -15,7 +15,7 @@ object User2Cat {
 
   type Id[T]          = T
   type StrAny[T]      = String
-  type ShapeF[T]      = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
+  type ShapeF[T]      = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
   type OptsFromCol[T] = Seq[ColumnOption[T]]
 
   abstract class User2CatTable[U[_]](implicit typedType: TypedType[U[Int]], tt12: ShapeF[U[Int]]) extends SlickPojo[User2Cat[U]] {

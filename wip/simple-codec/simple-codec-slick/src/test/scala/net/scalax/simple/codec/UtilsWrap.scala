@@ -21,7 +21,7 @@ abstract class UtilsWrap[F[_[_]], Model, V <: JdbcProfile](
     FromListByTheSameTypeGeneric[F].derived(bi.basedInstalled.simpleProduct1)
   private val indexOfPropertyName: IndexOfPropertyName[F] = IndexOfPropertyName[F].derived(bi.basedInstalled.simpleProduct1)
 
-  type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
+  type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
 
   def getIndexByName1(n: String)(implicit bi: BasedInstalled[F]): Int = indexOfPropertyName.ofName(n, bi.labelled.modelLabelled)
 
@@ -33,7 +33,7 @@ abstract class UtilsWrap[F[_[_]], Model, V <: JdbcProfile](
   )
 
   def mapShape(
-    shapeModel: F[ShapeF],
+    shapeModel: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF],
     repModel: F[Rep],
     cst: scala.reflect.ClassTag[Model],
     modelGet: ModelGet[F, Model],
@@ -98,7 +98,7 @@ private class helperUtils[V <: JdbcProfile, ModelF[_[_]]](val slickProfile: V)(
 ) {
   import slickProfile.api._
 
-  type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
+  type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
 
   def toShape(t1: ModelF[ShapeF]): SlickHListShape[FlatShapeLevel, SlickHList, SlickHList, SlickHList] = {
     val toListFunc = toListGeneric.toListByTheSameType[Shape[FlatShapeLevel, Any, Any, Any], SlickHListShape[

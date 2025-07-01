@@ -15,7 +15,7 @@ object UserAbs {
 
   type Id[T]          = T
   type StrAny[T]      = String
-  type ShapeF[T]      = Shape[_ <: FlatShapeLevel, Rep[T], T, _]
+  type ShapeF[T]      = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
   type OptsFromCol[T] = Seq[ColumnOption[T]]
 
   implicit def appender[U[_]]: ModelLink.F[SCtx[U]#FModel] = ModelLink.F[SCtx[U]#FModel].derived
