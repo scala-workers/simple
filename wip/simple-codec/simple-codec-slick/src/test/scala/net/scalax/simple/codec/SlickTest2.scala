@@ -32,7 +32,8 @@ object User2Cat {
       SlickLabelled.Pojo[User2Cat[U]].derived.update(_.copy(_.first)("first_name").copy(_.last)("last_name"))
 
     class CommonT(tag: Tag) extends CommonTable(tag) {
-      override def columnOption: FillIdentity.Pojo[OptsFromCol, User2Cat[U]] = colOpt.copy(_.id)(Seq(O.AutoInc, O.PrimaryKey))
+      override def columnOption: FillIdentity.Pojo[OptsFromCol, User2Cat[U]] => FillIdentity.Pojo[OptsFromCol, User2Cat[U]] =
+        _.copy(_.id)(Seq(O.AutoInc, O.PrimaryKey))
     }
 
     def CommonTq: TableQuery[CommonT] = TableQuery(cons => new CommonT(cons))

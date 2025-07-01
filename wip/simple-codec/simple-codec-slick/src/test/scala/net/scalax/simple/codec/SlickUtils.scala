@@ -29,14 +29,14 @@ trait SlickUtils[F[_[_]], Model] {
         override def fill[T]: Seq[ColumnOption[T]] = Seq.empty
       })
 
-    def columnOption: F[({ type PIns[T] = Seq[ColumnOption[T]] })#PIns]
+    def columnOption: F[({ type PIns[T] = Seq[ColumnOption[T]] })#PIns] => F[({ type PIns[T] = Seq[ColumnOption[T]] })#PIns]
 
     private val utilsWrap: UtilsWrap[F, Model, slickProfile.type] =
       new UtilsWrap[F, Model, slickProfile.type](slickProfile, basedInstalled) {
         override val tb: Table[Model] = CommonTableSelf
       }
 
-    private val repModel: F[Rep]         = utilsWrap.userRep(labelled, columnOption, typedType)
+    private val repModel: F[Rep]         = utilsWrap.userRep(labelled, columnOption(colOpt), typedType)
     private def __tableInnserRep: F[Rep] = repModel
 
     override def * : slick.lifted.ProvenShape[Model] = utilsWrap.mapShape(userShapeGeneric, __tableInnserRep, classTag, modelGet, modelSet)
