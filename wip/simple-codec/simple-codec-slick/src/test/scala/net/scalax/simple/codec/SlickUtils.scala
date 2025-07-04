@@ -2,7 +2,7 @@ package net.scalax.simple.codec
 package aa
 
 import net.scalax.simple.codec.to_list_generic.{BasedInstalled, PojoInstance}
-import slick.ast.{ColumnOption, TypedType}
+import slick.ast.TypedType
 import slick.jdbc.JdbcProfile
 
 trait SlickUtils[F[_[_]], Model] {
@@ -10,21 +10,28 @@ trait SlickUtils[F[_[_]], Model] {
 
   import slickProfile.api._
 
-  type OptsFromCol[T] = Seq[ColumnOption[T]]
-
-  abstract class CommonTable(tag: Tag)(implicit
+  abstract class CommonTable(_tableTag: Tag, _schemaName: Option[String], _tableName: String)(implicit
     typedType: F[TypedType],
     userShapeGeneric: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF],
     classTag: scala.reflect.ClassTag[Model],
     modelGet: ModelGet[F, Model],
     modelSet: ModelSet[F, Model],
     basedInstalled: BasedInstalled[F]
-  ) extends Table[Model](tag, "users") {
+  ) extends Table[Model](_tableTag = _tableTag, _schemaName = _schemaName, _tableName = _tableName) {
     CommonTableSelf =>
+
+    def this(_tableTag: Tag, _tableName: String)(implicit
+      typedType: F[TypedType],
+      userShapeGeneric: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF],
+      classTag: scala.reflect.ClassTag[Model],
+      modelGet: ModelGet[F, Model],
+      modelSet: ModelSet[F, Model],
+      basedInstalled: BasedInstalled[F]
+    ) = this(_tableTag = _tableTag, _schemaName = None, _tableName = _tableName)
 
     type ColOpt = F[ColumnOpt]
 
-    def colOpt: F[ColumnOpt] = SimpleFill[F]
+    private def colOpt: F[ColumnOpt] = SimpleFill[F]
       .derived(basedInstalled.basedInstalled.simpleProduct1)
       .fill[ColumnOpt](new SimpleFill.FillI[ColumnOpt] {
         override def fill[T]: ColumnOpt[T] = ColumnOpt.default[T]

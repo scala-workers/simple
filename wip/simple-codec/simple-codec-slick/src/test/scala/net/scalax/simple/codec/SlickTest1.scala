@@ -31,7 +31,7 @@ object UserAbs {
       FillIdentity.F[TypedType, FModel].derived
     implicit def userShapeGeneric: UserAbs[ShapeF, U] = FillIdentity.F[ShapeF, FModel].derived
 
-    class CommonT(tag: Tag) extends CommonTable(tag) {
+    class CommonT(tag: Tag) extends CommonTable(tag, "user") {
       override def columnOption: ColOpt => ColOpt =
         _.copy[ColumnOpt, U](id = _.column(O.AutoInc, O.PrimaryKey), first = _.column("first_name"), last = _.column("last_name"))
     }

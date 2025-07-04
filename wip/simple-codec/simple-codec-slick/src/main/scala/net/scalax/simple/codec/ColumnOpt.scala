@@ -1,7 +1,7 @@
 package net.scalax.simple.codec
 
 import net.scalax.simple.codec.to_list_generic.{BasedInstalled, PojoInstance}
-import slick.ast.ColumnOption
+import slick.ast.{ColumnOption, TypedType}
 
 trait ColumnOpt[T] extends (ColumnOpt.Opt[T] => ColumnOpt.ColumnOptAbs[T]) with ColumnOpt.ColumnOptAbs[T] {
   ColumnOptSelf =>
@@ -18,8 +18,15 @@ object ColumnOpt {
   def default[T]: ColumnOpt[T] = _.column()
 
   trait ColumnOptAbs[TR] {
+    ColumnOptAbsSelf =>
     def name: Option[String]
     def opts: Seq[ColumnOption[TR]]
+    def typedType: Option[TypedType[TR]] = Option.empty
+    def withTypedType(implicit tt: TypedType[TR]): ColumnOptAbs[TR] = new ColumnOptAbs[TR] {
+      override def name: Option[String]             = ColumnOptAbsSelf.name
+      override def opts: Seq[ColumnOption[TR]]      = ColumnOptAbsSelf.opts
+      override def typedType: Option[TypedType[TR]] = Option(tt)
+    }
   }
 
   trait Opt[T] {

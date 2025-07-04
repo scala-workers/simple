@@ -28,7 +28,7 @@ object User2Cat {
     implicit def userTypedTypeGeneric: FillIdentity.Pojo[TypedType, User2Cat[U]] = FillIdentity.Pojo[TypedType, User2Cat[U]].derived
     implicit def userShapeGeneric: FillIdentity.Pojo[ShapeF, User2Cat[U]]        = FillIdentity.Pojo[ShapeF, User2Cat[U]].derived
 
-    class CommonT(tag: Tag) extends CommonTable(tag) {
+    class CommonT(tag: Tag) extends CommonTable(tag, "user") {
       override def columnOption: ColOpt => ColOpt =
         _.copy(_.id)(_.column(O.AutoInc, O.PrimaryKey)).copy(_.first)(_.column("first_name")).copy(_.last)(_.column("last_name"))
     }
