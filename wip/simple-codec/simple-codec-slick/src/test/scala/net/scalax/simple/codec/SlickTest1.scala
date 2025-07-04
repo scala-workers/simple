@@ -31,11 +31,9 @@ object UserAbs {
       FillIdentity.F[TypedType, FModel].derived
     implicit def userShapeGeneric: UserAbs[ShapeF, U] = FillIdentity.F[ShapeF, FModel].derived
 
-    implicit def slickLabelled: SlickLabelled.F[FModel] =
-      SlickLabelled.F[FModel].derived.update(_.copy[StrAny, U](first = "first_name", last = "last_name"))
-
     class CommonT(tag: Tag) extends CommonTable(tag) {
-      override def columnOption: FModel[OptsFromCol] = colOpt.copy[OptsFromCol, U](id = Seq(O.AutoInc, O.PrimaryKey))
+      override def columnOption: ColOpt => ColOpt =
+        _.copy[ColumnOpt, U](id = _.column(O.AutoInc, O.PrimaryKey), first = _.column("first_name"), last = _.column("last_name"))
     }
 
     def CommonTq: TableQuery[CommonT] = TableQuery(cons => new CommonT(cons))

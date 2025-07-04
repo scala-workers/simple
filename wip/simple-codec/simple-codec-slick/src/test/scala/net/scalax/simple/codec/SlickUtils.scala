@@ -15,7 +15,6 @@ trait SlickUtils[F[_[_]], Model] {
   abstract class CommonTable(tag: Tag)(implicit
     typedType: F[TypedType],
     userShapeGeneric: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF],
-    labelled: SlickLabelled[F],
     classTag: scala.reflect.ClassTag[Model],
     modelGet: ModelGet[F, Model],
     modelSet: ModelSet[F, Model],
@@ -23,20 +22,22 @@ trait SlickUtils[F[_[_]], Model] {
   ) extends Table[Model](tag, "users") {
     CommonTableSelf =>
 
-    def colOpt: F[({ type PIns[T] = Seq[ColumnOption[T]] })#PIns] = SimpleFill[F]
+    type ColOpt = F[ColumnOpt]
+
+    def colOpt: F[ColumnOpt] = SimpleFill[F]
       .derived(basedInstalled.basedInstalled.simpleProduct1)
-      .fill[OptsFromCol](new SimpleFill.FillI[OptsFromCol] {
-        override def fill[T]: Seq[ColumnOption[T]] = Seq.empty
+      .fill[ColumnOpt](new SimpleFill.FillI[ColumnOpt] {
+        override def fill[T]: ColumnOpt[T] = ColumnOpt.default[T]
       })
 
-    def columnOption: F[({ type PIns[T] = Seq[ColumnOption[T]] })#PIns] => F[({ type PIns[T] = Seq[ColumnOption[T]] })#PIns]
+    def columnOption: ColOpt => ColOpt
 
     private val utilsWrap: UtilsWrap[F, Model, slickProfile.type] =
       new UtilsWrap[F, Model, slickProfile.type](slickProfile, basedInstalled) {
         override val tb: Table[Model] = CommonTableSelf
       }
 
-    private val repModel: F[Rep]         = utilsWrap.userRep(labelled, columnOption(colOpt), typedType)
+    private val repModel: F[Rep]         = utilsWrap.userRep(basedInstalled, columnOption(colOpt), typedType)
     private def __tableInnserRep: F[Rep] = repModel
 
     override def * : slick.lifted.ProvenShape[Model] = utilsWrap.mapShape(userShapeGeneric, __tableInnserRep, classTag, modelGet, modelSet)

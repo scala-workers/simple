@@ -28,12 +28,9 @@ object User2Cat {
     implicit def userTypedTypeGeneric: FillIdentity.Pojo[TypedType, User2Cat[U]] = FillIdentity.Pojo[TypedType, User2Cat[U]].derived
     implicit def userShapeGeneric: FillIdentity.Pojo[ShapeF, User2Cat[U]]        = FillIdentity.Pojo[ShapeF, User2Cat[U]].derived
 
-    implicit def slickLabelled: SlickLabelled.Pojo[User2Cat[U]] =
-      SlickLabelled.Pojo[User2Cat[U]].derived.update(_.copy(_.first)("first_name").copy(_.last)("last_name"))
-
     class CommonT(tag: Tag) extends CommonTable(tag) {
-      override def columnOption: FillIdentity.Pojo[OptsFromCol, User2Cat[U]] => FillIdentity.Pojo[OptsFromCol, User2Cat[U]] =
-        _.copy(_.id)(Seq(O.AutoInc, O.PrimaryKey))
+      override def columnOption: ColOpt => ColOpt =
+        _.copy(_.id)(_.column(O.AutoInc, O.PrimaryKey)).copy(_.first)(_.column("first_name")).copy(_.last)(_.column("last_name"))
     }
 
     def CommonTq: TableQuery[CommonT] = TableQuery(cons => new CommonT(cons))

@@ -54,35 +54,30 @@ abstract class UtilsWrap[F[_[_]], Model, V <: JdbcProfile](
     )
   }
 
-  private def colN[T](name: String, func: OptsFromCol[T], tt: TypedType[T]): Rep[T] = {
-    tb.column(name, func: _*)(tt)
+  private def colN[T](name: String, func: ColumnOpt[T], tt: TypedType[T]): Rep[T] = {
+    val columnName = func.name.getOrElse(name)
+    tb.column(columnName, func.opts: _*)(tt)
   }
 
   type OptsFromCol[T] = Seq[ColumnOption[T]]
 
-  def userOptImpl(implicit bi: BasedInstalled[F]): F[OptsFromCol] = SimpleFill[F]
-    .derived(bi.basedInstalled.simpleProduct1)
-    .fill[OptsFromCol](new SimpleFill.FillI[OptsFromCol] {
-      override def fill[T]: Seq[ColumnOption[T]] = Seq.empty
-    })
-
   def userRep(
-    labelled: SlickLabelled[F],
-    opt: F[OptsFromCol],
+    labelled: BasedInstalled[F],
+    opt: F[ColumnOpt],
     typedType: F[TypedType]
   ): F[Rep] = {
-    val l1 = labelled.labelled
+    val l1 = labelled.labelled.modelLabelled
     val l2 = opt
     val l3 = typedType
 
-    val zipResult1 = zip3Generic.zip[({ type M1[_] = String })#M1, OptsFromCol, TypedType](l1, l2, l3)
+    val zipResult1 = zip3Generic.zip[({ type M1[_] = String })#M1, ColumnOpt, TypedType](l1, l2, l3)
 
-    val mapFunction: MapGenerc.MapFunction[({ type F1[T] = (String, OptsFromCol[T], TypedType[T]) })#F1, Rep] =
-      new MapGenerc.MapFunction[({ type F1[T] = (String, OptsFromCol[T], TypedType[T]) })#F1, Rep] {
-        override def map[X1](t: (String, OptsFromCol[X1], TypedType[X1])): Rep[X1] = colN(t._1, t._2, t._3)
+    val mapFunction: MapGenerc.MapFunction[({ type F1[T] = (String, ColumnOpt[T], TypedType[T]) })#F1, Rep] =
+      new MapGenerc.MapFunction[({ type F1[T] = (String, ColumnOpt[T], TypedType[T]) })#F1, Rep] {
+        override def map[X1](t: (String, ColumnOpt[X1], TypedType[X1])): Rep[X1] = colN(t._1, t._2, t._3)
       }
 
-    val mapResult = mapGeneric.map[({ type F1[T] = (String, OptsFromCol[T], TypedType[T]) })#F1, Rep](mapFunction)
+    val mapResult = mapGeneric.map[({ type F1[T] = (String, ColumnOpt[T], TypedType[T]) })#F1, Rep](mapFunction)
 
     mapResult(zipResult1)
   }
