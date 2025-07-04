@@ -55,15 +55,15 @@ object Runner2 {
     val db: Database = Database.forURL(url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", user = "sa", password = "", driver = "org.h2.Driver")
     val sql1         = newTB.CommonTq.schema.create
     val sql2 =
-      newOpt.CommonTq += User2Cat[Option](id = None, first = "first_name1", last = "last_name1", nickName = "nick_name1", age = 5201314)
+      newOpt.CommonTq += User2Cat[Option](id = None, first = "first_name1", last = "1_last_name", nickName = "nick_name1", age = 5201314)
     val sql3 =
-      newOpt.CommonTq += User2Cat[Option](id = None, first = "first_name2", last = "last_name2", nickName = "nick_name2", age = 114514)
+      newOpt.CommonTq += User2Cat[Option](id = None, first = "first_name2", last = "2_last_name", nickName = "nick_name2", age = 114514)
     val sql4 =
-      newOpt.CommonTq += User2Cat[Option](id = None, first = "first_name3", last = "last_name3", nickName = "nick_name3", age = 314159)
+      newOpt.CommonTq += User2Cat[Option](id = None, first = "first_name3", last = "3_last_name", nickName = "nick_name3", age = 314159)
 
     val action1 = DBIO.seq(sql1, sql2, sql3, sql4)
     val action2 = newOpt.CommonTq.result
-    val action3 = newOpt.CommonTq.filter(s => s(_.last) endsWith "3").filter(s => s(_.first) endsWith "3").result
+    val action3 = newOpt.CommonTq.filter(_.get(_.first) endsWith "3").filter(_.get(_.last) startsWith "3").result
 
     import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -74,7 +74,7 @@ object Runner2 {
     } yield {
       println(list1)
       println(list2)
-      println("33".repeat(10))
+      println("// ===")
       println(list1.map(x1 => x1.copy(first = "new_new_name")).map(x1 => x1.copy(age = 2121213)))
       println(list1.map(x1 => x1.copy(last = "new_new_name")).map(x1 => x1.copy(age = 114514)))
     }
@@ -83,6 +83,8 @@ object Runner2 {
 
     println(newOpt.CommonTq.result.statements)
     println(newTB.CommonTq.result.statements)
+    println(action2.statements)
+    println(action3.statements)
   }
 
 }

@@ -28,6 +28,10 @@ trait PojoInstance[U[_], Model] {
   transparent inline def apply[MP](inline expr: Model => MP)(implicit
     bInstall: BasedInstalled[({ type F1[XX[_]] = PojoInstance[XX, Model] })#F1]
   ): U[MP] = ${ NameOfImpl.nameOf2('PojoInstanceSelf)('expr)(using 'bInstall) }
+
+  transparent inline def get[MP](inline expr: Model => MP)(implicit
+    bInstall: BasedInstalled[({ type F1[XX[_]] = PojoInstance[XX, Model] })#F1]
+  ): U[MP] = ${ NameOfImpl.nameOf2('PojoInstanceSelf)('expr)(using 'bInstall) }
 }
 
 object PojoInstance {

@@ -30,6 +30,9 @@ trait PojoInstance[U[_], Model] {
   def apply[MP](expr: Model => MP)(implicit
     bInstall: BasedInstalled[({ type F1[XX[_]] = PojoInstance[XX, Model] })#F1]
   ): U[MP] = macro macrosImpl.NameOfImpl.nameOf2222[Model, MP, U]
+  def get[MP](expr: Model => MP)(implicit
+    bInstall: BasedInstalled[({ type F1[XX[_]] = PojoInstance[XX, Model] })#F1]
+  ): U[MP] = macro macrosImpl.NameOfImpl.nameOf2222[Model, MP, U]
 
 }
 
