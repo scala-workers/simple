@@ -5,12 +5,12 @@ import net.scalax.simple.codec.to_list_generic.{BasedInstalled, PojoInstance}
 import slick.ast.TypedType
 import slick.jdbc.JdbcProfile
 
-trait SlickUtils[F[_[_]], Model] {
-  val slickProfile: JdbcProfile
+trait SlickUtils[V <: JdbcProfile] {
+  val slickProfile: V
 
   import slickProfile.api._
 
-  abstract class CommonTable(_tableTag: Tag, _schemaName: Option[String], _tableName: String)(implicit
+  abstract class CommonTable[F[_[_]], Model](_tableTag: Tag, _schemaName: Option[String], _tableName: String)(implicit
     typedType: F[TypedType],
     userShapeGeneric: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF],
     classTag: scala.reflect.ClassTag[Model],
@@ -29,7 +29,8 @@ trait SlickUtils[F[_[_]], Model] {
       basedInstalled: BasedInstalled[F]
     ) = this(_tableTag = _tableTag, _schemaName = None, _tableName = _tableName)
 
-    type ColOpt = F[ColumnOpt]
+    type Columns = F[Rep]
+    type ColOpt  = F[ColumnOpt]
 
     private def colOpt: F[ColumnOpt] = SimpleFill[F]
       .derived(basedInstalled.basedInstalled.simpleProduct1)
@@ -44,19 +45,58 @@ trait SlickUtils[F[_[_]], Model] {
         override val tb: Table[Model] = CommonTableSelf
       }
 
-    private val repModel: F[Rep]         = utilsWrap.userRep(basedInstalled, columnOption(colOpt), typedType)
-    private def __tableInnserRep: F[Rep] = repModel
+    val repModel: Columns = utilsWrap.userRep(basedInstalled, columnOption(colOpt), typedType)
 
-    override def * : slick.lifted.ProvenShape[Model] = utilsWrap.mapShape(userShapeGeneric, __tableInnserRep, classTag, modelGet, modelSet)
+    override def * : slick.lifted.ProvenShape[Model] = utilsWrap.mapShape(userShapeGeneric, repModel, classTag, modelGet, modelSet)
   }
 
-  object CommonTable {
-    import scala.language.implicitConversions
-    implicit def TableUserAbsTableImpl(tb: CommonTable): F[Rep] = tb.__tableInnserRep
+  abstract class CommonTableF[F[_[_]]](_tableTag: Tag, _schemaName: Option[String], _tableName: String)(implicit
+    typedType: F[TypedType],
+    userShapeGeneric: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF],
+    classTag: scala.reflect.ClassTag[F[({ type IDF[XU] = XU })#IDF]],
+    basedInstalled: BasedInstalled[F]
+  ) extends CommonTable[F, F[({ type IDF[XU] = XU })#IDF]](_tableTag = _tableTag, _schemaName = _schemaName, _tableName = _tableName)(
+        typedType = typedType,
+        userShapeGeneric = userShapeGeneric,
+        classTag = classTag,
+        basedInstalled = basedInstalled,
+        modelGet = identity[F[({ type IDF[XU] = XU })#IDF]],
+        modelSet = identity[F[({ type IDF[XU] = XU })#IDF]]
+      ) {
+    CommonTableSelf =>
+
+    def this(_tableTag: Tag, _tableName: String)(implicit
+      typedType: F[TypedType],
+      userShapeGeneric: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF],
+      classTag: scala.reflect.ClassTag[F[({ type IDF[XU] = XU })#IDF]],
+      basedInstalled: BasedInstalled[F]
+    ) = this(_tableTag = _tableTag, _schemaName = None, _tableName = _tableName)
+
+  }
+
+  abstract class CommonTablePojo[Model](_tableTag: Tag, _schemaName: Option[String], _tableName: String)(implicit
+    typedType: PojoInstance[TypedType, Model],
+    userShapeGeneric: PojoInstance[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF, Model],
+    classTag: scala.reflect.ClassTag[Model],
+    modelGet: ModelGet[({ type PojoF[XU[_]] = PojoInstance[XU, Model] })#PojoF, Model],
+    modelSet: ModelSet[({ type PojoF[XU[_]] = PojoInstance[XU, Model] })#PojoF, Model],
+    basedInstalled: BasedInstalled[({ type TypeF[UX[_]] = PojoInstance[UX, Model] })#TypeF]
+  ) extends CommonTable[({ type PojoF[XU[_]] = PojoInstance[XU, Model] })#PojoF, Model](
+        _tableTag = _tableTag,
+        _schemaName = _schemaName,
+        _tableName = _tableName
+      ) {
+    CommonTableSelf =>
+
+    def this(_tableTag: Tag, _tableName: String)(implicit
+      typedType: PojoInstance[TypedType, Model],
+      userShapeGeneric: PojoInstance[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF, Model],
+      classTag: scala.reflect.ClassTag[Model],
+      modelGet: ModelGet[({ type PojoF[XU[_]] = PojoInstance[XU, Model] })#PojoF, Model],
+      modelSet: ModelSet[({ type PojoF[XU[_]] = PojoInstance[XU, Model] })#PojoF, Model],
+      basedInstalled: BasedInstalled[({ type TypeF[UX[_]] = PojoInstance[UX, Model] })#TypeF]
+    ) = this(_tableTag = _tableTag, _schemaName = None, _tableName = _tableName)
+
   }
 
 }
-
-trait SlickF[FMM[_[_]]] extends SlickUtils[FMM, FMM[({ type IDF[T] = T })#IDF]]
-
-trait SlickPojo[Model] extends SlickUtils[({ type PIns[U[_]] = PojoInstance[U, Model] })#PIns, Model]

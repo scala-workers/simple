@@ -2,7 +2,7 @@ package net.scalax.simple.codec
 package aa
 
 import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink}
-import slick.ast.{ColumnOption, TypedType}
+import slick.ast.TypedType
 import slick.jdbc.JdbcProfile
 import slick.lifted.{FlatShapeLevel, Rep, Shape}
 
@@ -13,27 +13,31 @@ object User2Cat {
   }
   implicit def appender[U[_]]: ModelLink.Pojo[User2Cat[U]] = ModelLink.Pojo[User2Cat[U]].derived
 
-  type Id[T]          = T
-  type StrAny[T]      = String
-  type ShapeF[T]      = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
-  type OptsFromCol[T] = Seq[ColumnOption[T]]
+  type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
 
-  abstract class User2CatTable[U[_]](implicit typedType: TypedType[U[Int]], tt12: ShapeF[U[Int]]) extends SlickPojo[User2Cat[U]] {
-    type FModel[X[_]] = FillIdentity.Pojo[X, User2Cat[U]]
-
-    override val slickProfile: JdbcProfile
+  abstract class User2CatTable[V <: JdbcProfile] extends SlickUtils[V] {
+    override val slickProfile: V
 
     import slickProfile.api._
 
-    implicit def userTypedTypeGeneric: FillIdentity.Pojo[TypedType, User2Cat[U]] = FillIdentity.Pojo[TypedType, User2Cat[U]].derived
-    implicit def userShapeGeneric: FillIdentity.Pojo[ShapeF, User2Cat[U]]        = FillIdentity.Pojo[ShapeF, User2Cat[U]].derived
+    implicit def userTypedTypeGeneri[U[_]](implicit typedType: TypedType[U[Int]]): FillIdentity.Pojo[TypedType, User2Cat[U]] =
+      FillIdentity.Pojo[TypedType, User2Cat[U]].derived
+    implicit def userShapeGeneric[U[_]](implicit tt12: ShapeF[U[Int]]): FillIdentity.Pojo[ShapeF, User2Cat[U]] =
+      FillIdentity.Pojo[ShapeF, User2Cat[U]].derived
 
-    class CommonT(tag: Tag) extends CommonTable(tag, "user") {
+    class CommonT[U[_]](tag: Tag)(implicit typedType: TypedType[U[Int]], tt12: ShapeF[U[Int]])
+        extends CommonTablePojo[User2Cat[U]](tag, "user") {
       override def columnOption: ColOpt => ColOpt =
         _.copy(_.id)(_.column(O.AutoInc, O.PrimaryKey)).copy(_.first)(_.column("first_name")).copy(_.last)(_.column("last_name"))
     }
 
-    def CommonTq: TableQuery[CommonT] = TableQuery(cons => new CommonT(cons))
+    object CommonT {
+      import scala.language.implicitConversions
+      implicit def TableUserAbsTableImpl[U[_]](tb: CommonT[U]): CommonT[U]#Columns = tb.repModel
+    }
+
+    def CommonTq[U[_]](implicit typedType: TypedType[U[Int]], tt12: ShapeF[U[Int]]): TableQuery[CommonT[U]] =
+      TableQuery(cons => new CommonT(cons))
   }
 }
 
@@ -45,25 +49,30 @@ object Runner2 {
 
     import p.api._
 
-    object newTB extends User2Cat.User2CatTable[Id] {
-      override val slickProfile = slick.jdbc.MySQLProfile
-    }
-    object newOpt extends User2Cat.User2CatTable[Option] {
-      override val slickProfile = slick.jdbc.MySQLProfile
+    object newTB extends User2Cat.User2CatTable[slick.jdbc.H2Profile] {
+      override val slickProfile = slick.jdbc.H2Profile
     }
 
     val db: Database = Database.forURL(url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", user = "sa", password = "", driver = "org.h2.Driver")
-    val sql1         = newTB.CommonTq.schema.create
+    val sql1         = newTB.CommonTq[Id].schema.create
     val sql2 =
-      newOpt.CommonTq += User2Cat[Option](id = None, first = "first_name1", last = "1_last_name", nickName = "nick_name1", age = 5201314)
+      newTB.CommonTq[Option] += User2Cat[Option](
+        id = None,
+        first = "first_name1",
+        last = "1_last_name",
+        nickName = "nick_name1",
+        age = 5201314
+      )
     val sql3 =
-      newOpt.CommonTq += User2Cat[Option](id = None, first = "first_name2", last = "2_last_name", nickName = "nick_name2", age = 114514)
+      newTB
+        .CommonTq[Option] += User2Cat[Option](id = None, first = "first_name2", last = "2_last_name", nickName = "nick_name2", age = 114514)
     val sql4 =
-      newOpt.CommonTq += User2Cat[Option](id = None, first = "first_name3", last = "3_last_name", nickName = "nick_name3", age = 314159)
+      newTB
+        .CommonTq[Option] += User2Cat[Option](id = None, first = "first_name3", last = "3_last_name", nickName = "nick_name3", age = 314159)
 
     val action1 = DBIO.seq(sql1, sql2, sql3, sql4)
-    val action2 = newOpt.CommonTq.result
-    val action3 = newOpt.CommonTq.filter(_.get(_.first) endsWith "3").filter(_.get(_.last) startsWith "3").result
+    val action2 = newTB.CommonTq[Option].result
+    val action3 = newTB.CommonTq[Option].filter(_.get(_.first) endsWith "3").filter(_.get(_.last) startsWith "3").result
 
     import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -81,8 +90,8 @@ object Runner2 {
 
     scala.concurrent.Await.result(db.run(futureAction), scala.concurrent.duration.Duration.Inf)
 
-    println(newOpt.CommonTq.result.statements)
-    println(newTB.CommonTq.result.statements)
+    println(newTB.CommonTq[Option].result.statements)
+    println(newTB.CommonTq[Id].result.statements)
     println(action2.statements)
     println(action3.statements)
   }

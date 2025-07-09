@@ -1,6 +1,6 @@
 package net.scalax.simple.codec
 
-import net.scalax.simple.codec.aa.SlickPojo
+import net.scalax.simple.codec.aa.SlickUtils
 import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink}
 import slick.ast.TypedType
 import slick.jdbc.JdbcProfile
@@ -12,20 +12,25 @@ object User3Cat {
 
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
 
-  abstract class User3CatTable extends SlickPojo[User3Cat] {
-    override val slickProfile: JdbcProfile
+  abstract class User3CatTable[V <: JdbcProfile] extends SlickUtils[V] {
+    override val slickProfile: V
 
     import slickProfile.api._
 
     implicit def userTypedTypeGeneric: FillIdentity.Pojo[TypedType, User3Cat] = FillIdentity.Pojo[TypedType, User3Cat].derived
     implicit def userShapeGeneric: FillIdentity.Pojo[ShapeF, User3Cat]        = FillIdentity.Pojo[ShapeF, User3Cat].derived
 
-    class CommonT(tag: Tag) extends CommonTable(tag, "person") {
+    class CommonT(tag: Tag) extends CommonTablePojo[User3Cat](tag, "person") {
       override def columnOption: ColOpt => ColOpt =
         _.copy(_.id)(_.column("id", O.AutoInc, O.PrimaryKey))
           .copy(_.first)(_.column("first_name"))
           .copy(_.last)(_.column("last_name"))
           .copy(_.nickName)(_.column("nick_name"))
+    }
+
+    object CommonT {
+      import scala.language.implicitConversions
+      implicit def TableUserAbsTableImpl(tb: CommonT): CommonT#Columns = tb.repModel
     }
 
     def CommonTq: TableQuery[CommonT] = TableQuery(cons => new CommonT(cons))
@@ -40,8 +45,8 @@ object Runner3 {
 
     import p.api._
 
-    object newTB extends User3Cat.User3CatTable {
-      override val slickProfile = slick.jdbc.MySQLProfile
+    object newTB extends User3Cat.User3CatTable[slick.jdbc.H2Profile] {
+      override val slickProfile = slick.jdbc.H2Profile
     }
 
     val db: Database = Database.forURL(url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", user = "sa", password = "", driver = "org.h2.Driver")
