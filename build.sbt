@@ -38,6 +38,17 @@ lazy val `nat-supportJS`: Project               = `nat-support`.js dependsOn (`t
 `nat-supportJS` / scalaVersion        := scalaV.v213
 `nat-supportJS` / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
+val `adt-instance/file`                          = `adt/file` / "adt-instance"
+val `adt-instance`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `adt-instance/file`
+lazy val `adt-instanceJVM`: Project              = `adt-instance`.jvm dependsOn `nat-supportJVM` dependsOn (`test-commonJVM` % Test)
+lazy val `adt-instanceJS`: Project               = `adt-instance`.js dependsOn `nat-supportJS` dependsOn (`test-commonJS`    % Test)
+`adt-instanceJVM` / version            := `simple-adt-version`
+`adt-instanceJS` / version             := `simple-adt-version`
+`adt-instanceJVM` / scalaVersion       := scalaV.v213
+`adt-instanceJVM` / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
+`adt-instanceJS` / scalaVersion        := scalaV.v213
+`adt-instanceJS` / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
+
 val `adt-bridge-support/file`                          = `adt/file` / "bridge-support"
 val `adt-bridge-support`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `adt-bridge-support/file`
 lazy val `adt-bridge-supportJVM`: Project = `adt-bridge-support`.jvm dependsOn (`adt-implementionJVM` % Compile, `test-commonJVM` % Test)

@@ -2,9 +2,10 @@ package net.scalax.simple
 package adt
 
 trait AdtFunction[-In, +Out] extends Any {
+  AdtFunctionSelf =>
   @inline def instance: In <:< Out
-  @inline def higherKindApply[F[+_]](input: F[In]): F[Out] = instance.liftCo[F](input)
-  @inline def adtFunctionApply(input: In): Out             = higherKindApply[({ type IDApply[+T] = T })#IDApply](input)
+  @inline def higherKindApply[F[+_]](input: F[In]): F[Out] = AdtFunctionSelf.instance.liftCo[F](input)
+  @inline def adtFunctionApply(input: In): Out             = AdtFunctionSelf.instance(input)
 }
 
 object AdtFunction {
