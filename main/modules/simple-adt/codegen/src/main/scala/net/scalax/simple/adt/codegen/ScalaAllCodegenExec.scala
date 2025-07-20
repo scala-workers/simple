@@ -46,8 +46,7 @@ object ScalaAllCodegenExec:
       Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8.name()))(_.match
         case writer =>
           val linerContent: String = ADTPassedFunctionCodegen.text4
-          writer.println(linerContent)
-      )
+          writer.println(linerContent))
     }
 
     locally {

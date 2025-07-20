@@ -20,9 +20,7 @@ object ScalaInnerCodegenExec:
         Using.resource(new PrintWriter(filePath.toFile, StandardCharsets.UTF_8.name()))(_.match
           case writer =>
             val linerContent = "package net.scalax.simple.nat.not_used"
-            writer.println(linerContent)
-        )
-    )
+            writer.println(linerContent)))
 
     locally {
       val filePath = writePath.resolve("ProductTypeCodegen.scala")

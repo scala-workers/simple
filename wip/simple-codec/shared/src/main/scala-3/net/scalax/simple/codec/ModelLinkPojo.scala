@@ -42,23 +42,3 @@ trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, M
   protected def genericFrom(t: Any): Model
   protected def genericTo(t: Model): Any
 }
-
-/*object ModelLinkPojo {
-  import scala.deriving.Mirror
-
-  def buildUtilImpl[Model <: Product](cNamed: Any, fromTuple: Any => Model): ModelLinkPojo[Model] = new ModelLinkPojo[Model] {
-    override val compatNamed: Any           = cNamed
-    override def genericTo(x: Model): Any   = Tuple.fromProduct(x.asInstanceOf)
-    override def genericFrom(x: Any): Model = fromTuple(x.asInstanceOf[Tuple]).asInstanceOf[Model]
-  }
-
-  class Builder[Model <: Product] {
-    inline def derived(using g: Mirror.ProductOf[Model]): ModelLinkPojo[Model] = {
-      val namedModel = scala.compiletime.constValueTuple[g.MirroredElemLabels]
-      buildUtilImpl(namedModel, g.fromTuple.asInstanceOf[Any => Model])
-    }
-  }
-
-  def apply[Model <: Product]: Builder[Model] = new Builder[Model]
-
-}*/

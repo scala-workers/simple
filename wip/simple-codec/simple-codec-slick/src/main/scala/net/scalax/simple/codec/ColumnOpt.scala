@@ -1,6 +1,5 @@
 package net.scalax.simple.codec
 
-import net.scalax.simple.codec.to_list_generic.{BasedInstalled, PojoInstance}
 import slick.ast.{ColumnOption, TypedType}
 
 trait ColumnOpt[T] extends (ColumnOpt.Opt[T] => ColumnOpt.ColumnOptAbs[T]) with ColumnOpt.ColumnOptAbs[T] {

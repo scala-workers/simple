@@ -31,24 +31,3 @@ trait ModelLinkCommonF[F[_[_]]] extends ModelLink[F, F[({ type U1[X] = X })#U1]]
   protected def FToInstance[T[_]](x: F[T]): Any
   protected def FFromInstance[T[_]](x: Any): F[T]
 }
-
-/*object ModelLinkCommonF {
-  import scala.deriving.Mirror
-
-  def buildUtilImpl[F[_[_]]](cNamed: Any, fromTuple: Any => F[[_] =>> Any]): ModelLinkCommonF[F] = new ModelLinkCommonF[F] {
-    override val compatNamed: Any                  = cNamed
-    override def FToInstance[T[_]](x: F[T]): Any   = Tuple.fromProduct(x.asInstanceOf)
-    override def FFromInstance[T[_]](x: Any): F[T] = fromTuple(x).asInstanceOf[F[T]]
-  }
-
-  class Builder[F[_[_]] <: Product] {
-
-    inline def derived(using g: Mirror.ProductOf[F[({ type U1[_] = Any })#U1]]): ModelLinkCommonF[F] = {
-      val namedModel = scala.compiletime.constValueTuple[g.MirroredElemLabels]
-      buildUtilImpl(namedModel, g.fromTuple.asInstanceOf[Any => F[[_] =>> Any]])
-    }
-  }
-
-  def apply[F[_[_]] <: Product]: Builder[F] = new Builder[F]
-
-}*/

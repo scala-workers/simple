@@ -77,12 +77,27 @@ scalaNatSupportCodegenExecInputStr := {
   projectRoot.getAbsoluteFile.toString
 }
 
+val scalaAdtInstanceSupportCodegenExecInputStr = settingKey[String]("scalaAdtInstanceSupportCodegenExecInputStr")
+scalaAdtInstanceSupportCodegenExecInputStr := {
+  val projectRoot = rootCodegenPath.value / ".." / ".." / ".." / "adt-instance" / "shared" / "src" / "codegen" / "scala"
+  projectRoot.getAbsoluteFile.toURI.toASCIIString
+}
+
 val scalaNatSupportCodegenExecInputStrMainClass = s"$codegenPackageName.ScalaNatSupportCodegenExec"
 codegenImpl := {
   codegenImpl.evaluated
   (Compile / runMain).inputTaskValue
     .partialInput(s" $scalaNatSupportCodegenExecInputStrMainClass")
     .partialInput(s" ${scalaNatSupportCodegenExecInputStr.value}")
+    .evaluated
+}
+
+val scalaAdtInstanceSupportCodegenExecInputStrMainClass = s"$codegenPackageName.ScalaAdtInstanceSupportCodegenExec"
+codegenImpl := {
+  codegenImpl.evaluated
+  (Compile / runMain).inputTaskValue
+    .partialInput(s" $scalaAdtInstanceSupportCodegenExecInputStrMainClass")
+    .partialInput(s" ${scalaAdtInstanceSupportCodegenExecInputStr.value}")
     .evaluated
 }
 
