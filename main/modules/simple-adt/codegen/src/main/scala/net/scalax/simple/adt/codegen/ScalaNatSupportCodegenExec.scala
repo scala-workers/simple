@@ -26,7 +26,7 @@ object ScalaNatSupportCodegenExec {
     val rootPath         = os.Path(rootString)
     val writePath        = rootPath / "net" / "scalax" / "simple" / "adt" / "nat" / "support"
 
-    val parameterSize: Int = 10
+    val parameterSize: Int = 22
 
     locally {
       val filePath             = writePath / "ParameterNatSupportX.scala"

@@ -1,6 +1,7 @@
 package net.scalax.simple.adt.text.v3
 
 class Parameters10Codengen(val index: Int) {
+  Parameters10CodengenSelf =>
 
   extension (list: Seq[String]) {
     def mkString(c: Char): String = list.mkString(c.toString)
@@ -19,16 +20,16 @@ class Parameters10Codengen(val index: Int) {
   class TraitDef(val index: Int) {
 
     val typeParam2: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1"
-    val typeParam3: Seq[String] =
-      for (i1 <- 1 to index)
-        yield s"APRHLLike$i1[N$i1[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection$i1]"
+    val typeParam9: Seq[String] = for (i1 <- 1 to Parameters10CodengenSelf.index) yield s"Item$i1"
+    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[N$i1[${typeParam9.mkString(',')}], HCollection$i1]"
     val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1 <: HLLike$i1"
 
     val text: String = s"""
-      def append10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10, ${typeParam8.mkString(',')}](p1: M[${typeParam2
-        .mkString(',')}]): M[${typeParam3.mkString(
+      def append10[${typeParam9.mkString(',')}, ${typeParam8.mkString(',')}](p1: M[${typeParam2.mkString(',')}]): M[${typeParam3.mkString(
         ','
-      )}] = Parameter10NatSupport${index}Self.content.append(Parameter10NatSupport${index}Self.typeGen.gen10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], p1)
+      )}] = Parameter10NatSupport${index}Self.content.append(Parameter10NatSupport${index}Self.typeGen.gen10[${typeParam9.mkString(
+        ','
+      )}], p1)
     """
 
   }
@@ -51,7 +52,8 @@ class Parameters10Codengen(val index: Int) {
     val typeGenTrait: TypeGenTrait       = new TypeGenTrait(index)
 
     val typeParam1: Seq[String] = for (_ <- 1 to index) yield s"_"
-    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[_, _, _, _, _, _, _, _, _, _]"
+    val typeParam2: Seq[String] = for (_ <- 1 to Parameters10CodengenSelf.index) yield s"_"
+    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[${typeParam2.mkString(',')}]"
 
     val typeParam4: Seq[String] = for (i1 <- 1 to index) yield s"HLLike$i1"
     val typeParam6: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[_, _ <: HLLike$i1] <: HLLike$i1"

@@ -23,6 +23,7 @@ class TypeGenCodegen(val index: Int) {
     val typeParam2: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[_]"
     val typeParam4: Seq[String] = for (i1 <- 1 to TypeGenCodegenSelf.index) yield s"M$i1"
     val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"({ type TypeX[${typeParam4.mkString(',')}] = N$i1[M1] })#TypeX"
+    val typeParam5: Seq[String] = for (i1 <- 2 to TypeGenCodegenSelf.index) yield s"Item$i1"
 
     val text: String = s"""
       trait TypeGen$index[M[${typeParam1.mkString(',')}], ${typeParam2.mkString(',')}] extends Type10Gen$index[M, ${typeParam3.mkString(
@@ -30,7 +31,7 @@ class TypeGenCodegen(val index: Int) {
       )}] {
         TypeGen${index}Self =>
         def gen[T]: ${param1Def.text}
-        override final def gen10[T, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10]: ${param1Def.text} = TypeGen${index}Self.gen[T]
+        override final def gen10[T, ${typeParam5.mkString(',')}]: ${param1Def.text} = TypeGen${index}Self.gen[T]
       }
     """
 

@@ -8,11 +8,11 @@ trait CoProductUtil1[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, 
 ] <: CoLike3] {
   CoProductUtil1Self =>
 
-  private val FuncApp: Parameter10NatSupport3[
+  private val functionCAppend: Parameter10NatSupport3[
     ({ type Func3[A, B, C] = (A, B) => C })#Func3,
-    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A })#FuncXM1,
-    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A => B })#FuncXM1,
-    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = B })#FuncXM1,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A })#FuncXM1,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A => B })#FuncXM1,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = B })#FuncXM1,
     CoLike1,
     HLLike,
     CoLike3,
@@ -21,9 +21,9 @@ trait CoProductUtil1[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, 
     ApCoProduct3
   ] = new Parameter10NatSupport3[
     ({ type Func3[A, B, C] = (A, B) => C })#Func3,
-    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A })#FuncXM1,
-    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A => B })#FuncXM1,
-    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = B })#FuncXM1,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A })#FuncXM1,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A => B })#FuncXM1,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = B })#FuncXM1,
     CoLike1,
     HLLike,
     CoLike3,
@@ -60,16 +60,17 @@ trait CoProductUtil1[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, 
 
     override val typeGen: Type10Gen3[
       ({ type Func3[A, B, C] = (A, B) => C })#Func3,
-      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A })#FuncXM1,
-      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A => B })#FuncXM1,
-      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = B })#FuncXM1
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A })#FuncXM1,
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A => B })#FuncXM1,
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = B })#FuncXM1
     ] = new Type10Gen3[
       ({ type Func3[A, B, C] = (A, B) => C })#Func3,
-      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A })#FuncXM1,
-      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A => B })#FuncXM1,
-      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = B })#FuncXM1
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A })#FuncXM1,
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A => B })#FuncXM1,
+      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = B })#FuncXM1
     ] {
-      override def gen10[A, B, C1, C2, C3, C4, C5, C6, C7, C8]: (A, A => B) => B = (a: A, aToB: A => B) => aToB(a)
+      override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
+        : (A, A => B) => B = (a: A, aToB: A => B) => aToB(a)
     }
 
   }
@@ -80,8 +81,10 @@ trait CoProductUtil1[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, 
 
   def next[A1, A2, Co1 <: CoLike1, H1 <: HLLike, Co2 <: CoLike3](
     paramTail: (Co1, H1) => Co2
-  ): (ApCoProduct1[A1, Co1], ApHList[A1 => A2, H1]) => ApCoProduct3[A2, Co2] =
-    FuncApp.append10[A1, A2, Any, Any, Any, Any, Any, Any, Any, Any, Co1, H1, Co2](paramTail)
+  ): (ApCoProduct1[A1, Co1], ApHList[A1 => A2, H1]) => ApCoProduct3[A2, Co2] = functionCAppend
+    .append10[A1, A2, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Co1, H1, Co2](
+      paramTail
+    )
 
 }
 

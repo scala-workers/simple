@@ -22,11 +22,12 @@ class Parameter1sCodengen(val index: Int) {
     val typeParam2: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1"
     val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[N$i1[Item], HCollection$i1]"
     val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1 <: HLLike$i1"
+    val typeParam9: Seq[String] = for (i1 <- 1 until Parameter1sCodengenSelf.index) yield s"Any"
 
     val text: String = s"""
       final def append1[Item, ${typeParam8.mkString(',')}](p1: M[${typeParam2.mkString(',')}]): M[${typeParam3.mkString(
         ','
-      )}] = Parameter1NatSupport${index}Self.append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, ${typeParam2.mkString(',')}](p1)
+      )}] = Parameter1NatSupport${index}Self.append10[Item, ${typeParam9.mkString(',')}, ${typeParam2.mkString(',')}](p1)
     """
 
   }
