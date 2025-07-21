@@ -7,9 +7,9 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Paths}
 import scala.util.Using
 
-object ScalaAllCodegenExec:
+object ScalaAllCodegenExec {
 
-  def main(arr: Array[String]): Unit =
+  def main(arr: Array[String]): Unit = {
 
     val List(rootString) = arr.to(List)
     val rootPath         = Paths.get(rootString)
@@ -57,6 +57,6 @@ object ScalaAllCodegenExec:
       }
     }
 
-  end main
+  }
 
-end ScalaAllCodegenExec
+}

@@ -19,9 +19,16 @@ object AdtInstanceFunc {
     override def append[Head, Tail <: AdtHList](h: Head, t: Tail): AdtHList.UsePositive[Head, Tail] = AdtHList.UsePositive.append(h, t)
   }
 
-  val coProductUtil2: CoProductUtil2[AdtCoProduct, AdtCoProduct.UsePositive, AdtHList, AdtHList.UsePositive] =
-    new CoProductUtil2[AdtCoProduct, AdtCoProduct.UsePositive, AdtHList, AdtHList.UsePositive](coProductFunc, hlistFunc)
+  val coProductUtil2
+    : CoProductUtil2[AdtCoProduct, AdtCoProduct.UsePositive, AdtHList, AdtHList.UsePositive, AdtCoProduct, AdtCoProduct.UsePositive] =
+    new CoProductUtil2[AdtCoProduct, AdtCoProduct.UsePositive, AdtHList, AdtHList.UsePositive, AdtCoProduct, AdtCoProduct.UsePositive](
+      coProductFunc,
+      hlistFunc,
+      coProductFunc
+    )
 
-  val appendSimpleAdt: AppendSimpleAdt[AdtCoProduct, AdtCoProduct.UsePositive, AdtHList, AdtHList.UsePositive] = coProductUtil2
+  val appendSimpleAdt
+    : AppendSimpleAdt[AdtCoProduct, AdtCoProduct.UsePositive, AdtHList, AdtHList.UsePositive, AdtCoProduct, AdtCoProduct.UsePositive] =
+    coProductUtil2
 
 }

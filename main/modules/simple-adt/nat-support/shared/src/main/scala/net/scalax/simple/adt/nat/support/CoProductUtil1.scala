@@ -8,19 +8,29 @@ trait CoProductUtil1[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, 
 ] <: CoLike3] {
   CoProductUtil1Self =>
 
-  private object FuncApp
-      extends Parameter10NatSupport3[
-        ({ type Func3[A, B, C] = (A, B) => C })#Func3,
-        ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A })#FuncXM1,
-        ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A => B })#FuncXM1,
-        ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = B })#FuncXM1,
-        CoLike1,
-        HLLike,
-        CoLike3,
-        ApCoProduct1,
-        ApHList,
-        ApCoProduct3
-      ] {
+  private val FuncApp: Parameter10NatSupport3[
+    ({ type Func3[A, B, C] = (A, B) => C })#Func3,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A })#FuncXM1,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A => B })#FuncXM1,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = B })#FuncXM1,
+    CoLike1,
+    HLLike,
+    CoLike3,
+    ApCoProduct1,
+    ApHList,
+    ApCoProduct3
+  ] = new Parameter10NatSupport3[
+    ({ type Func3[A, B, C] = (A, B) => C })#Func3,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A })#FuncXM1,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = A => B })#FuncXM1,
+    ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8] = B })#FuncXM1,
+    CoLike1,
+    HLLike,
+    CoLike3,
+    ApCoProduct1,
+    ApHList,
+    ApCoProduct3
+  ] {
     override val content
       : AppenderNatSupport3[({ type Func3[A, B, C] = (A, B) => C })#Func3, CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3] =
       new AppenderNatSupport3[
@@ -75,19 +85,21 @@ trait CoProductUtil1[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, 
 
 }
 
-trait AppendSimpleAdt[CoLike, ApCoProduct[_, _ <: CoLike] <: CoLike, HLLike, ApHList[_, _ <: HLLike] <: HLLike] {
-  def next[A1, A2, Co1 <: CoLike, H1 <: HLLike, Co2 <: CoLike](
+trait AppendSimpleAdt[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, ApHList[_, _ <: HLLike] <: HLLike, CoLike2, ApCoProduct2[
+  _,
+  _ <: CoLike2
+] <: CoLike2] {
+  def next[A1, A2, Co1 <: CoLike1, H1 <: HLLike, Co2 <: CoLike2](
     paramTail: (Co1, H1) => Co2
-  ): (ApCoProduct[A1, Co1], ApHList[A1 => A2, H1]) => ApCoProduct[A2, Co2]
+  ): (ApCoProduct1[A1, Co1], ApHList[A1 => A2, H1]) => ApCoProduct2[A2, Co2]
 }
 
-class CoProductUtil2[CoLike, ApCoProduct[_, _ <: CoLike] <: CoLike, HLLike, ApHList[_, _ <: HLLike] <: HLLike](
-  override val apCoH1: CoProductFunc[CoLike, ApCoProduct],
-  override val apH2: HListFunc[HLLike, ApHList]
-) extends CoProductUtil1[CoLike, ApCoProduct, HLLike, ApHList, CoLike, ApCoProduct]
-    with AppendSimpleAdt[CoLike, ApCoProduct, HLLike, ApHList] {
-  CoProductUtil2Self =>
-
-  override val apCoH3: CoProductFunc[CoLike, ApCoProduct] = apCoH1
-
-}
+class CoProductUtil2[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, ApHList[_, _ <: HLLike] <: HLLike, CoLike2, ApCoProduct2[
+  _,
+  _ <: CoLike2
+] <: CoLike2](
+  override val apCoH1: CoProductFunc[CoLike1, ApCoProduct1],
+  override val apH2: HListFunc[HLLike, ApHList],
+  override val apCoH3: CoProductFunc[CoLike2, ApCoProduct2]
+) extends CoProductUtil1[CoLike1, ApCoProduct1, HLLike, ApHList, CoLike2, ApCoProduct2]
+    with AppendSimpleAdt[CoLike1, ApCoProduct1, HLLike, ApHList, CoLike2, ApCoProduct2]
