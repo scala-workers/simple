@@ -20,6 +20,12 @@ object ScalaAdtInstanceSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
+    locally {
+      val filePath             = writePath / "ADTMappingAbsX.scala"
+      val linerContent: String = ADTMappingAbsX(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
   }
 
 }

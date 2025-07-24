@@ -1,6 +1,6 @@
 package net.scalax.simple.adt.text.v3
 
-class ADTMappingX(val index: Int) {
+class ADTMappingAbsX(val index: Int) {
 
   extension (list: Seq[String]) {
     def mkString(c: Char): String                      = list.mkString(c.toString)
@@ -25,42 +25,31 @@ class ADTMappingX(val index: Int) {
       if (index <= TraitBodySelf.index) s"APCoProduct3[M3[T$index, N$index], ${typeParam5Impl(index + 1)}]" else "Co3"
     val typeParam5: String = typeParam5Impl(1)
 
-    val typeParam7: Seq[String] = for (i1 <- 2 to index) yield s"T$i1"
-    val typeParam8: Seq[String] = for (i1 <- 2 to index) yield s"N$i1"
-
-    val typeParam9: String = s"""
-      AdtFunctionSupportSelf.appendSimpleAdt[T1, N1, ${typeParam4Impl(2)}, ${typeParam3Impl(2)}, ${typeParam5Impl(2)}](
-        AdtFunctionSupportSelf.inputHList${index - 1}[${typeParam7.mkString(',')}, ${typeParam8.mkString(',')}, Co1, Pro2, Co3](zero)
-      )
-    """
-
     val text: String = s"""
-      override def inputHList$index[
+      def inputHList$index[
         ${typeParam1.mkString(',')}, ${typeParam2.mkString(',')}, Co1 <: CoProduct1, Pro2 <: Product2, Co3 <: CoProduct3
-      ](zero: (Co1, Pro2) => Co3): ($typeParam4, $typeParam3) => $typeParam5 = {
-        $typeParam9
-      }
+      ](zero: (Co1, Pro2) => Co3): ($typeParam4, $typeParam3) => $typeParam5
     """
 
   }
 
-  val preTextContent: Seq[String] = for (i <- 2 to index) yield new TraitBody(i).text
+  val preTextContent: Seq[String] = for (i <- 1 to index) yield new TraitBody(i).text
 
   val text: String = s"""
     package net.scalax.simple.adt
     package instance
     package support
 
-    trait AdtFunctionSupportImpl[
+    trait AdtFunctionSupport[
       M1[_, _],
       M2[_, _],
       M3[_, _],
       CoProduct1, APCoProduct1[_, _ <: CoProduct1] <: CoProduct1,
       Product2, APProduct2[_, _ <: Product2] <: Product2,
       CoProduct3, APCoProduct3[_, _ <: CoProduct3] <: CoProduct3
-    ] extends AdtFunctionSupport[M1, M2, M3, CoProduct1, APCoProduct1, Product2, APProduct2, CoProduct3, APCoProduct3]
-    with AdtInstanceFuncAbs2[M1, M2, M3, CoProduct1, APCoProduct1, Product2, APProduct2, CoProduct3, APCoProduct3] {
-      AdtFunctionSupportSelf =>
+    ] { AdtFunctionSupportSelf =>
+
+      def inputHList0[Co1 <: CoProduct1, Pro2 <: Product2, Co3 <: CoProduct3](zero: (Co1, Pro2) => Co3): (Co1, Pro2) => Co3
 
       ${preTextContent.mkString('\n')}
     }
