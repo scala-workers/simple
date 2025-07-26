@@ -219,7 +219,7 @@ trait SameTypeAdtFunctionSupportBuilder2[M1[_, _], M2[_, _], M3[_, _], CoProduct
   override def coProductFunc: Either[
     (CoProductFunc[CoProduct1, APCoProduct1], CoProductFunc[CoProduct1, APCoProduct1]),
     (HListFunc[CoProduct1, APCoProduct1], HListFunc[CoProduct1, APCoProduct1])
-  ] = SameTypeAdtFunctionSupportBuilder2Self.coProductFuncInstance.fold(s => Left((s, s)), s => Right((s, s)))
+  ] = SameTypeAdtFunctionSupportBuilder2Self.coProductFuncInstance.left.map(s => (s, s)).map(s => (s, s))
 
   def coProductFuncInstance: Either[CoProductFunc[CoProduct1, APCoProduct1], HListFunc[CoProduct1, APCoProduct1]]
   override def hlistFunc: HListFunc[Product2, APProduct2]
