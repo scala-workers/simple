@@ -13,7 +13,7 @@ trait ItemFunc[M1[_, _], M2[_, _], M3[_, _]]
       })#FuncXM1,
       ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M3[A, B] })#FuncXM1
     ] { ItemFuncSelf =>
-  override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
+  final override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
     : (M1[A, B], M2[A, B]) => M3[A, B] = (a1: M1[A, B], a2: M2[A, B]) => ItemFuncSelf.to[A, B](a1, a2)
 
   def to[A1, A2](m1: M1[A1, A2], m2: M2[A1, A2]): M3[A1, A2]
@@ -74,7 +74,7 @@ object CoProductUtilN { CoProductUtil1Self =>
     ApCoProduct3
   ] {
 
-    override val content: AppenderNatSupport3[
+    final override val content: AppenderNatSupport3[
       ({
         type Func3[A, B, C] = (A, B) => C
       })#Func3,
@@ -95,7 +95,7 @@ object CoProductUtilN { CoProductUtil1Self =>
       ApHList,
       ApCoProduct3
     ] {
-      override def append[A, B, C, Co1 <: CoLike1, H1 <: HLLike, Co3 <: CoLike3](
+      final override def append[A, B, C, Co1 <: CoLike1, H1 <: HLLike, Co3 <: CoLike3](
         p1: (A, B) => C,
         p2: (Co1, H1) => Co3
       ): (ApCoProduct1[A, Co1], ApHList[B, H1]) => ApCoProduct3[C, Co3] = (a1: ApCoProduct1[A, Co1], a2: ApHList[B, H1]) => {
@@ -131,7 +131,7 @@ object CoProductUtilN { CoProductUtil1Self =>
       }
     }
 
-    override val typeGen: Type10Gen3[
+    final override val typeGen: Type10Gen3[
       ({
         type Func3[A, B, C] =
           (A, B) => C
