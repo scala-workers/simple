@@ -1,115 +1,45 @@
 package net.scalax.simple.adt.nat.support
 
-trait FoldFunc[TRU]
-    extends Type10Gen1[
-      ({ type Func3[A] = A })#Func3,
-      ({
-        type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A
-      })#FuncXM1
-    ] { ItemFuncSelf =>
-  final override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]: A =
-    ItemFuncSelf.to[A]
-
-  def to[A1]: A1
-}
-
 object FoldCoProductUtilN { FoldCoProductUtilNSelf =>
 
-  def paramSupport[TRU, CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1](
-    compatModelEither: CoProductFunc[CoLike1, ApCoProduct1]
-  ): Parameter10NatSupport1[
-    ({ type Func3[A] = A => TRU })#Func3,
-    ({
-      type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A
-    })#FuncXM1,
+  def paramSupport[TRU, CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, CoLike2, ApCoProduct2[_, _ <: CoLike2] <: CoLike2](
+    model1Compat: HListFunc[CoLike1, ApCoProduct1],
+    model2Compat: CoProductFunc[CoLike2, ApCoProduct2]
+  ): AppenderNatSupport2[
+    ({ type Func3[A, B] = A => B => TRU })#Func3,
     CoLike1,
-    ApCoProduct1
-  ] = new Parameter10NatSupport1[
-    ({ type Func3[A] = A => TRU })#Func3,
-    ({
-      type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A
-    })#FuncXM1,
+    CoLike2,
+    ApCoProduct1,
+    ApCoProduct2
+  ] = new AppenderNatSupport2[
+  ({ type Func3[A, B] = A => B => TRU })#Func3,
     CoLike1,
-    ApCoProduct1
+    CoLike2,
+    ApCoProduct1,
+    ApCoProduct2
   ] {
+    final override def append[A, B, Co1 <: CoLike1, Co2 <: CoLike2](
+      p1: A => B => TRU,
+      p2: Co1 => Co2 => TRU
+    ): ApCoProduct1[A, Co1] => ApCoProduct2[B, Co2] => TRU = (a1: ApCoProduct1[A, Co1]) => {1~
+      val valueA: A     = model1Compat.takeHead[A, Co1](a1)
+      val valueCo1: Co1 = model1Compat.takeTail[A, Co1](a1)
 
-    final override val content: AppenderNatSupport1[
-      ({ type Func3[A] = A => TRU })#Func3,
-      CoLike1,
-      ApCoProduct1
-    ] = new AppenderNatSupport1[
-      ({ type Func3[A] = A => TRU })#Func3,
-      CoLike1,
-      ApCoProduct1
-    ] {
-      final override def append[A, Co1 <: CoLike1](
-        p1: A => TRU,
-        p2: Co1 => TRU
-      ): ApCoProduct1[A, Co1] => TRU = {
-        compatModelEither.fold[A, Co1, TRU](p1, p2)
-      }
+      model2Compat.fold[B, Co2, TRU]((valueB: B) => p1(valueA)(valueB), (valueCo2: Co2) => p2(valueCo1)(valueCo2))
     }
-
-    final override val typeGen: Type10Gen1[
-      ({ type Func3[A] = A => TRU })#Func3,
-      ({
-        type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A
-      })#FuncXM1
-    ] = ???
-
   }
 
-  /*def next[A1, A2, M1[_, _], M2[_, _], M3[_, _], CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, ApHList[
-    _,
-    _ <: HLLike
-  ] <: HLLike, CoLike3, ApCoProduct3[
-    _,
-    _ <: CoLike3
-  ] <: CoLike3, Co1 <: CoLike1, Pro2 <: HLLike, Co3 <: CoLike3](
-    compatModelEither: Either[
-      (CoProductFunc[CoLike1, ApCoProduct1], CoProductFunc[CoLike3, ApCoProduct3]),
-      (HListFunc[CoLike1, ApCoProduct1], HListFunc[CoLike3, ApCoProduct3])
-    ],
-    compatModelHList: HListFunc[HLLike, ApHList],
-    itemFunc: ItemFunc[M1, M2, M3]
-  )(
-    paramTail: (Co1, Pro2) => Co3
-  ): (ApCoProduct1[M1[A1, A2], Co1], ApHList[M2[A1, A2], Pro2]) => ApCoProduct3[M3[A1, A2], Co3] = {
+  /*def next[TRU, A1, CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, Co1 <: CoLike1](
+    model1Compat: CoProductFunc[CoLike1, ApCoProduct1]
+  )(paramTail: A1 => TRU, func: Co1 => TRU): ApCoProduct1[A1, Co1] => TRU = {
     FoldCoProductUtilNSelf
-      .paramSupport[M1, M2, M3, CoLike1, ApCoProduct1, HLLike, ApHList, CoLike3, ApCoProduct3](
-        compatModelEither,
-        compatModelHList,
-        itemFunc
+      .paramSupport[TRU, CoLike1, ApCoProduct1](
+        model1Compat
       )
-      .append10[
+      .append[
         A1,
-        A2,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Co1,
-        Pro2,
-        Co3
-      ](
-        paramTail
-      )
+        Co1
+      ](paramTail, func)
   }*/
 
 }
