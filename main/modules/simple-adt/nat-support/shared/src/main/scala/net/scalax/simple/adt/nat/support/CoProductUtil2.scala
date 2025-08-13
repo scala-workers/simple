@@ -2,24 +2,26 @@ package net.scalax.simple.adt
 package nat
 package support
 
-trait ItemFunc[M1[_, _], M2[_, _], M3[_, _]]
-    extends Type10Gen3[
-      ({ type Func3[A, B, C] = (A, B) => C })#Func3,
-      ({
-        type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M1[A, B]
-      })#FuncXM1,
-      ({
-        type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M2[A, B]
-      })#FuncXM1,
-      ({ type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M3[A, B] })#FuncXM1
-    ] { ItemFuncSelf =>
-  final override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
-    : (M1[A, B], M2[A, B]) => M3[A, B] = (a1: M1[A, B], a2: M2[A, B]) => ItemFuncSelf.to[A, B](a1, a2)
-
-  def to[A1, A2](m1: M1[A1, A2], m2: M2[A1, A2]): M3[A1, A2]
-}
-
 object CoProductUtilN { CoProductUtil1Self =>
+
+  trait ItemFunc[M1[_, _], M2[_, _], M3[_, _]]
+      extends Type10Gen3[
+        ({ type Func3[A, B, C] = (A, B) => C })#Func3,
+        ({
+          type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M1[A, B]
+        })#FuncXM1,
+        ({
+          type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M2[A, B]
+        })#FuncXM1,
+        ({
+          type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M3[A, B]
+        })#FuncXM1
+      ] { ItemFuncSelf =>
+    final override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
+      : (M1[A, B], M2[A, B]) => M3[A, B] = (a1: M1[A, B], a2: M2[A, B]) => ItemFuncSelf.to[A, B](a1, a2)
+
+    def to[A1, A2](m1: M1[A1, A2], m2: M2[A1, A2]): M3[A1, A2]
+  }
 
   def paramSupport[M1[_, _], M2[_, _], M3[_, _], CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, ApHList[
     _,

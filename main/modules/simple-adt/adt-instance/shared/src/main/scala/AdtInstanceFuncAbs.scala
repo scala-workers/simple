@@ -2,7 +2,7 @@ package net.scalax.simple.adt
 package instance
 
 import net.scalax.simple.adt.instance.support.{AdtFunctionSupport, AdtFunctionSupportImpl}
-import net.scalax.simple.adt.nat.support.{CoProductFunc, CoProductUtilN, HListFunc, ItemFunc}
+import net.scalax.simple.adt.nat.support.{CoProductFunc, CoProductUtilN, HListFunc}
 
 trait AdtInstanceFuncAbs[M1[_, _], M2[_, _], M3[_, _], CoProduct1, APCoProduct1[
   _,
@@ -20,7 +20,7 @@ trait AdtInstanceFuncAbs[M1[_, _], M2[_, _], M3[_, _], CoProduct1, APCoProduct1[
 
   def hlistFunc: HListFunc[Product2, APProduct2]
 
-  def itemFunc: ItemFunc[M1, M2, M3]
+  def itemFunc: CoProductUtilN.ItemFunc[M1, M2, M3]
 
   def appendSimpleAdt[A1, A2, Co1 <: CoProduct1, Pro2 <: Product2, Co3 <: CoProduct3](
     param: (Co1, Pro2) => Co3
@@ -106,7 +106,7 @@ trait AdtFunctionSupportBuilder[M1[_, _], M2[_, _], M3[_, _], CoProduct1, APCoPr
     (HListFunc[CoProduct1, APCoProduct1], HListFunc[CoProduct3, APCoProduct3])
   ]
   override def hlistFunc: HListFunc[Product2, APProduct2]
-  override def itemFunc: ItemFunc[M1, M2, M3]
+  override def itemFunc: CoProductUtilN.ItemFunc[M1, M2, M3]
   override def inputHList0: (CoZero1, ProZero2) => CoZero3
 }
 
@@ -159,7 +159,7 @@ trait CoProductAdtFunctionSupportBuilder2[M1[_, _], M2[_, _], M3[_, _], CoProduc
 
   def coProductFuncInstance: (CoProductFunc[CoProduct1, APCoProduct1], CoProductFunc[CoProduct3, APCoProduct3])
   override def hlistFunc: HListFunc[Product2, APProduct2]
-  override def itemFunc: ItemFunc[M1, M2, M3]
+  override def itemFunc: CoProductUtilN.ItemFunc[M1, M2, M3]
   override def inputHList0: (CoZero1, ProZero2) => CoZero3
 }
 
@@ -191,7 +191,7 @@ trait ProductAdtFunctionSupportBuilder2[M1[_, _], M2[_, _], M3[_, _], CoProduct1
 
   def coProductFuncInstance: (HListFunc[CoProduct1, APCoProduct1], HListFunc[CoProduct3, APCoProduct3])
   override def hlistFunc: HListFunc[Product2, APProduct2]
-  override def itemFunc: ItemFunc[M1, M2, M3]
+  override def itemFunc: CoProductUtilN.ItemFunc[M1, M2, M3]
   override def inputHList0: (CoZero1, ProZero2) => CoZero3
 }
 
@@ -223,7 +223,7 @@ trait SameTypeAdtFunctionSupportBuilder2[M1[_, _], M2[_, _], M3[_, _], CoProduct
 
   def coProductFuncInstance: Either[CoProductFunc[CoProduct1, APCoProduct1], HListFunc[CoProduct1, APCoProduct1]]
   override def hlistFunc: HListFunc[Product2, APProduct2]
-  override def itemFunc: ItemFunc[M1, M2, M3]
+  override def itemFunc: CoProductUtilN.ItemFunc[M1, M2, M3]
   override def inputHList0: (CoZero1, ProZero2) => CoZero1
 }
 
@@ -251,7 +251,7 @@ trait SameTypeCoProductAdtFunctionSupportBuilder2[M1[_, _], M2[_, _], M3[_, _], 
 
   def coProductInput: CoProductFunc[CoProduct1, APCoProduct1]
   override def hlistFunc: HListFunc[Product2, APProduct2]
-  override def itemFunc: ItemFunc[M1, M2, M3]
+  override def itemFunc: CoProductUtilN.ItemFunc[M1, M2, M3]
   override def inputHList0: (CoZero1, ProZero2) => CoZero1
 }
 
@@ -279,7 +279,7 @@ trait SameTypeProductAdtFunctionSupportBuilder2[M1[_, _], M2[_, _], M3[_, _], Co
 
   def productInput: HListFunc[CoProduct1, APCoProduct1]
   override def hlistFunc: HListFunc[Product2, APProduct2]
-  override def itemFunc: ItemFunc[M1, M2, M3]
+  override def itemFunc: CoProductUtilN.ItemFunc[M1, M2, M3]
   override def inputHList0: (CoZero1, ProZero2) => CoZero1
 }
 
@@ -292,7 +292,7 @@ class SameTypeCoProductAdtFunctionSupportBuilderImpl[M1[_, _], M2[_, _], M3[_, _
 ] <: Product2, ProZero2 <: Product2](
   override val coProductInput: CoProductFunc[CoProduct1, APCoProduct1],
   override val hlistFunc: HListFunc[Product2, APProduct2],
-  override val itemFunc: ItemFunc[M1, M2, M3]
+  override val itemFunc: CoProductUtilN.ItemFunc[M1, M2, M3]
 ) extends SameTypeCoProductAdtFunctionSupportBuilder2[
       M1,
       M2,
