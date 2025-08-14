@@ -1,11 +1,12 @@
 package net.scalax.simple.adt.nat.support
 
-object FoldCoProductUtilN { FoldCoProductUtilNSelf =>
+trait FoldCoProductUtilN[CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, CoLike2, ApCoProduct2[_, _ <: CoLike2] <: CoLike2] {
+  FoldCoProductUtilNSelf =>
 
-  def paramSupport[TRU, CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, CoLike2, ApCoProduct2[_, _ <: CoLike2] <: CoLike2](
-    model1Compat: HListFunc[CoLike1, ApCoProduct1],
-    model2Compat: CoProductFunc[CoLike2, ApCoProduct2]
-  ): Parameter10NatSupport2[
+  def hlistModelCompat: HListFunc[CoLike1, ApCoProduct1]
+  def coproductModelCompat: CoProductFunc[CoLike2, ApCoProduct2]
+
+  def paramSupport[TRU]: Parameter10NatSupport2[
     ({ type Func3[A, B] = A => B => Option[TRU] })#Func3,
     ({
       type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = A => TRU
@@ -47,10 +48,10 @@ object FoldCoProductUtilN { FoldCoProductUtilNSelf =>
         p1: A => B => Option[TRU],
         p2: Co1 => Co2 => Option[TRU]
       ): ApCoProduct1[A, Co1] => ApCoProduct2[B, Co2] => Option[TRU] = (a1: ApCoProduct1[A, Co1]) => {
-        val valueA: A     = model1Compat.takeHead[A, Co1](a1)
-        val valueCo1: Co1 = model1Compat.takeTail[A, Co1](a1)
+        val valueA: A     = hlistModelCompat.takeHead[A, Co1](a1)
+        val valueCo1: Co1 = hlistModelCompat.takeTail[A, Co1](a1)
 
-        model2Compat.fold[B, Co2, Option[TRU]]((valueB: B) => p1(valueA)(valueB), (valueCo2: Co2) => p2(valueCo1)(valueCo2))
+        coproductModelCompat.fold[B, Co2, Option[TRU]]((valueB: B) => p1(valueA)(valueB), (valueCo2: Co2) => p2(valueCo1)(valueCo2))
       }
     }
 
@@ -76,18 +77,12 @@ object FoldCoProductUtilN { FoldCoProductUtilNSelf =>
     }
   }
 
-  def appendSupport[TRU, NItem, CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, Co1 <: CoLike1, CoLike2, ApCoProduct2[
-    _,
-    _ <: CoLike2
-  ] <: CoLike2, Co2 <: CoLike2](
-    model1Compat: HListFunc[CoLike1, ApCoProduct1],
-    model2Compat: CoProductFunc[CoLike2, ApCoProduct2]
-  )(param1: Co1 => Co2 => Option[TRU]): ApCoProduct1[NItem => TRU, Co1] => ApCoProduct2[NItem, Co2] => Option[TRU] = {
-    FoldCoProductUtilNSelf
-      .paramSupport[TRU, CoLike1, ApCoProduct1, CoLike2, ApCoProduct2](model1Compat, model2Compat)
-      .append10[NItem, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Co1, Co2](
-        param1
-      )
-  }
+  def appendSupport[TRU, NItem, Co1 <: CoLike1, Co2 <: CoLike2](
+    param1: Co1 => Co2 => Option[TRU]
+  ): ApCoProduct1[NItem => TRU, Co1] => ApCoProduct2[NItem, Co2] => Option[TRU] = FoldCoProductUtilNSelf
+    .paramSupport[TRU]
+    .append10[NItem, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Co1, Co2](
+      param1
+    )
 
 }
