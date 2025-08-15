@@ -7,11 +7,9 @@
       Product1, APProduct1[_, _ <: Product1] <: Product1, ProZero1 <: Product1,
       CoProduct2, APCoProduct2[_, _ <: CoProduct2] <: CoProduct2, CoZero2 <: CoProduct2
     ] extends ADTCoProductX1Helper[
-      Product1, APProduct1,
-      CoProduct2, APCoProduct2
+      Product1, APProduct1, ProZero1,
+      CoProduct2, APCoProduct2, CoZero2
     ] { ADTCoProductX1Self =>
-
-      def inputHList0[Target]: ProZero1 => CoZero2 => Option[Target] = (a1: ProZero1) => (b1: CoZero2) => None
 
       
       def inputHList1[

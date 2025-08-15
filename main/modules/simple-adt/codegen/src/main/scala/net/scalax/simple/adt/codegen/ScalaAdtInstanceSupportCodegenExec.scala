@@ -32,6 +32,18 @@ object ScalaAdtInstanceSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
+    locally {
+      val filePath             = writePath / "ADTCoProductX2.scala"
+      val linerContent: String = ADTCoProductX2(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "ADTCoProductX3.scala"
+      val linerContent: String = ADTCoProductX3(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
   }
 
 }

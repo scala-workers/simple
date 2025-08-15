@@ -1,6 +1,6 @@
 package net.scalax.simple.adt.text.v3
 
-class ADTCoProductX1(val index: Int) {
+class ADTCoProductX3(val index: Int) {
 
   extension (list: Seq[String]) {
     def mkString(c: Char): String                      = list.mkString(c.toString)
@@ -10,28 +10,23 @@ class ADTCoProductX1(val index: Int) {
   class TraitBody(val index: Int) {
     TraitBodySelf =>
 
-    val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"T$i1"
+    val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"T$i1 <: Target"
     val typeParam2: Seq[String] = "Target" +: (for (i1 <- 2 to index) yield s"T$i1")
-
-    def typeParam3Impl(index: Int): String =
-      if (index <= TraitBodySelf.index) s"APCoProduct2[T$index, ${typeParam3Impl(index + 1)}]" else "CoZero2"
-    val typeParam3: String = typeParam3Impl(1)
 
     def typeParam4Impl(index: Int): String =
       if (index <= TraitBodySelf.index) s"APProduct1[T$index => Target, ${typeParam4Impl(index + 1)}]" else "ProZero1"
     val typeParam4: String = typeParam4Impl(1)
-
-    val typeParam5: String = typeParam3Impl(2)
-
     val typeParam6: String = typeParam4Impl(2)
+
+    val typeParam5: Seq[String] = for (i1 <- 1 to index) yield s"cv$i1: T$i1 <:< Target"
+    val typeParam7: Seq[String] = for (i1 <- 1 to index) yield s"T$i1"
 
     val text: String = s"""
       def inputHList$index[
         Target,
         ${typeParam1.mkString(',')}
-      ]: $typeParam4 => $typeParam3 => Option[Target] = {
-        ADTCoProductX1Self.util.appendSupport[Target, T1, $typeParam6, $typeParam5](ADTCoProductX1Self.inputHList${index - 1}[${typeParam2
-        .mkString(',')}])
+      ]: $typeParam4 = {
+        ADTCoProductX3Self.supportX2.inputHList$index[Target, ${typeParam7.mkString(',')}]
       }
     """
 
@@ -44,13 +39,8 @@ class ADTCoProductX1(val index: Int) {
     package instance
     package support
 
-    trait ADTCoProductX1[
-      Product1, APProduct1[_, _ <: Product1] <: Product1, ProZero1 <: Product1,
-      CoProduct2, APCoProduct2[_, _ <: CoProduct2] <: CoProduct2, CoZero2 <: CoProduct2
-    ] extends ADTCoProductX1Helper[
-      Product1, APProduct1, ProZero1,
-      CoProduct2, APCoProduct2, CoZero2
-    ] { ADTCoProductX1Self =>
+    trait ADTCoProductX3[Product1, APProduct1[_, _ <: Product1] <: Product1, ProZero1 <: Product1] extends
+      ADTCoProductX3Helper[Product1, APProduct1, ProZero1] { ADTCoProductX3Self =>
 
       ${preTextContent.mkString('\n')}
 
