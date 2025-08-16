@@ -22,6 +22,6 @@ trait ADTCoProductX1Helper[Product1, APProduct1[_, _ <: Product1] <: Product1, P
 }
 
 object ADTCoProductX1Helper {
-  private val inputHList0Impl2: Any => None.type = (b1: Any) => None
-  val inputHList0Impl: Any => Any => None.type   = (a1: Any) => inputHList0Impl2
+  private val inputHList0Impl2: Any => None.type       = (b1: Any) => None
+  private val inputHList0Impl: Any => Any => None.type = (a1: Any) => inputHList0Impl2
 }
