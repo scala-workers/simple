@@ -10,7 +10,11 @@ trait ADTCoProductX4Helper[CoProduct1, APCoProduct1[_, _ <: CoProduct1] <: CoPro
   type APProduct1[_, _ <: Product1] <: Product1
   type ProZero1 <: Product1
 
-  def inputHList0[Target]: CoZero1 => Option[Target] =
+  private def inputHList0Impl1[Target]: CoZero1 => Option[Target] =
     ADTCoProductX4HelperSelf.supportX1.inputHList0[Target](ADTCoProductX4HelperSelf.supportX3.inputHList0[Target])
+
+  private lazy val inputHList0Imp2: CoZero1 => Option[Nothing] = inputHList0Impl1[Nothing]
+
+  def inputHList0[Target]: CoZero1 => Option[Target] = inputHList0Imp2
 
 }
