@@ -2,41 +2,38 @@ package net.scalax.simple.adt
 package nat
 package support
 
-object CoProductUtilN { CoProductUtil1Self =>
+trait ItemFunc[M1[_, _], M2[_, _], M3[_, _]]
+    extends Type10Gen3[
+      ({ type Func3[A, B, C] = (A, B) => C })#Func3,
+      ({
+        type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M1[A, B]
+      })#FuncXM1,
+      ({
+        type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M2[A, B]
+      })#FuncXM1,
+      ({
+        type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M3[A, B]
+      })#FuncXM1
+    ] { ItemFuncSelf =>
+  final override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
+    : (M1[A, B], M2[A, B]) => M3[A, B] = (a1: M1[A, B], a2: M2[A, B]) => ItemFuncSelf.to[A, B](a1, a2)
 
-  trait ItemFunc[M1[_, _], M2[_, _], M3[_, _]]
-      extends Type10Gen3[
-        ({ type Func3[A, B, C] = (A, B) => C })#Func3,
-        ({
-          type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M1[A, B]
-        })#FuncXM1,
-        ({
-          type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M2[A, B]
-        })#FuncXM1,
-        ({
-          type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M3[A, B]
-        })#FuncXM1
-      ] { ItemFuncSelf =>
-    final override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
-      : (M1[A, B], M2[A, B]) => M3[A, B] = (a1: M1[A, B], a2: M2[A, B]) => ItemFuncSelf.to[A, B](a1, a2)
+  def to[A1, A2](m1: M1[A1, A2], m2: M2[A1, A2]): M3[A1, A2]
+}
 
-    def to[A1, A2](m1: M1[A1, A2], m2: M2[A1, A2]): M3[A1, A2]
-  }
+trait CoProductUtilN[M1[_, _], M2[_, _], M3[_, _], CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, ApHList[
+  _,
+  _ <: HLLike
+] <: HLLike, CoLike3, ApCoProduct3[_, _ <: CoLike3] <: CoLike3] { CoProductUtil1Self =>
 
-  def paramSupport[M1[_, _], M2[_, _], M3[_, _], CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, ApHList[
-    _,
-    _ <: HLLike
-  ] <: HLLike, CoLike3, ApCoProduct3[
-    _,
-    _ <: CoLike3
-  ] <: CoLike3](
-    compatModelEither: Either[
-      (CoProductFunc[CoLike1, ApCoProduct1], CoProductFunc[CoLike3, ApCoProduct3]),
-      (HListFunc[CoLike1, ApCoProduct1], HListFunc[CoLike3, ApCoProduct3])
-    ],
-    compatModelHList: HListFunc[HLLike, ApHList],
-    supportFunc: ItemFunc[M1, M2, M3]
-  ): Parameter10NatSupport3[
+  def compatModelEither: Either[
+    (CoProductFunc[CoLike1, ApCoProduct1], CoProductFunc[CoLike3, ApCoProduct3]),
+    (HListFunc[CoLike1, ApCoProduct1], HListFunc[CoLike3, ApCoProduct3])
+  ]
+  def compatModelHList: HListFunc[HLLike, ApHList]
+  def supportFunc: ItemFunc[M1, M2, M3]
+
+  def paramSupport: Parameter10NatSupport3[
     ({
       type Func3[A, B, C] = (A, B) => C
     })#Func3,
@@ -55,28 +52,8 @@ object CoProductUtilN { CoProductUtil1Self =>
     ApCoProduct1,
     ApHList,
     ApCoProduct3
-  ] = new Parameter10NatSupport3[
-    ({
-      type Func3[A, B, C] = (A, B) => C
-    })#Func3,
-    ({
-      type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M1[A, B]
-    })#FuncXM1,
-    ({
-      type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M2[A, B]
-    })#FuncXM1,
-    ({
-      type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M3[A, B]
-    })#FuncXM1,
-    CoLike1,
-    HLLike,
-    CoLike3,
-    ApCoProduct1,
-    ApHList,
-    ApCoProduct3
-  ] {
-
-    final override val content: AppenderNatSupport3[
+  ] = {
+    val contentImpl: AppenderNatSupport3[
       ({
         type Func3[A, B, C] = (A, B) => C
       })#Func3,
@@ -133,10 +110,9 @@ object CoProductUtilN { CoProductUtil1Self =>
       }
     }
 
-    final override val typeGen: Type10Gen3[
+    new Parameter10NatSupport3[
       ({
-        type Func3[A, B, C] =
-          (A, B) => C
+        type Func3[A, B, C] = (A, B) => C
       })#Func3,
       ({
         type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M1[A, B]
@@ -146,60 +122,51 @@ object CoProductUtilN { CoProductUtil1Self =>
       })#FuncXM1,
       ({
         type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M3[A, B]
-      })#FuncXM1
-    ] = supportFunc
+      })#FuncXM1,
+      CoLike1,
+      HLLike,
+      CoLike3,
+      ApCoProduct1,
+      ApHList,
+      ApCoProduct3
+    ] {
 
+      final override val content: AppenderNatSupport3[
+        ({
+          type Func3[A, B, C] = (A, B) => C
+        })#Func3,
+        CoLike1,
+        HLLike,
+        CoLike3,
+        ApCoProduct1,
+        ApHList,
+        ApCoProduct3
+      ] = contentImpl
+
+      final override val typeGen: Type10Gen3[
+        ({
+          type Func3[A, B, C] =
+            (A, B) => C
+        })#Func3,
+        ({
+          type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M1[A, B]
+        })#FuncXM1,
+        ({
+          type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M2[A, B]
+        })#FuncXM1,
+        ({
+          type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M3[A, B]
+        })#FuncXM1
+      ] = supportFunc
+
+    }
   }
 
-  def next[A1, A2, M1[_, _], M2[_, _], M3[_, _], CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, HLLike, ApHList[
-    _,
-    _ <: HLLike
-  ] <: HLLike, CoLike3, ApCoProduct3[
-    _,
-    _ <: CoLike3
-  ] <: CoLike3, Co1 <: CoLike1, Pro2 <: HLLike, Co3 <: CoLike3](
-    compatModelEither: Either[
-      (CoProductFunc[CoLike1, ApCoProduct1], CoProductFunc[CoLike3, ApCoProduct3]),
-      (HListFunc[CoLike1, ApCoProduct1], HListFunc[CoLike3, ApCoProduct3])
-    ],
-    compatModelHList: HListFunc[HLLike, ApHList],
-    itemFunc: ItemFunc[M1, M2, M3]
-  )(
+  def next[A1, A2, Co1 <: CoLike1, Pro2 <: HLLike, Co3 <: CoLike3](
     paramTail: (Co1, Pro2) => Co3
   ): (ApCoProduct1[M1[A1, A2], Co1], ApHList[M2[A1, A2], Pro2]) => ApCoProduct3[M3[A1, A2], Co3] = {
-    CoProductUtil1Self
-      .paramSupport[M1, M2, M3, CoLike1, ApCoProduct1, HLLike, ApHList, CoLike3, ApCoProduct3](
-        compatModelEither,
-        compatModelHList,
-        itemFunc
-      )
-      .append10[
-        A1,
-        A2,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Co1,
-        Pro2,
-        Co3
-      ](
+    CoProductUtil1Self.paramSupport
+      .append10[A1, A2, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Co1, Pro2, Co3](
         paramTail
       )
   }

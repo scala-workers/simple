@@ -29,7 +29,7 @@ class ADTMappingX(val index: Int) {
     val typeParam8: Seq[String] = for (i1 <- 2 to index) yield s"N$i1"
 
     val typeParam9: String = s"""
-      AdtFunctionSupportSelf.appendSimpleAdt[T1, N1, ${typeParam4Impl(2)}, ${typeParam3Impl(2)}, ${typeParam5Impl(2)}](
+      AdtFunctionSupportSelf.coProductFunc.next[T1, N1, ${typeParam4Impl(2)}, ${typeParam3Impl(2)}, ${typeParam5Impl(2)}](
         AdtFunctionSupportSelf.inputHList${index - 1}[${typeParam7.mkString(',')}, ${typeParam8.mkString(',')}]
       )
     """
@@ -58,8 +58,7 @@ class ADTMappingX(val index: Int) {
       CoProduct1, APCoProduct1[_, _ <: CoProduct1] <: CoProduct1, CoZero1 <: CoProduct1,
       Product2, APProduct2[_, _ <: Product2] <: Product2, ProZero2 <: Product2,
       CoProduct3, APCoProduct3[_, _ <: CoProduct3] <: CoProduct3, CoZero3 <: CoProduct3
-    ] extends AdtFunctionSupport[M1, M2, M3, CoProduct1, APCoProduct1, CoZero1, Product2, APProduct2, ProZero2, CoProduct3, APCoProduct3, CoZero3]
-    with AdtInstanceFuncAbs2[M1, M2, M3, CoProduct1, APCoProduct1, CoZero1, Product2, APProduct2, ProZero2, CoProduct3, APCoProduct3, CoZero3] {
+    ] extends AdtFunctionSupportImplHelper[M1, M2, M3, CoProduct1, APCoProduct1, CoZero1, Product2, APProduct2, ProZero2, CoProduct3, APCoProduct3, CoZero3] {
       AdtFunctionSupportSelf =>
 
       ${preTextContent.mkString('\n')}
