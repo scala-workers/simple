@@ -2,37 +2,23 @@ package net.scalax.simple.adt
 package instance
 package support
 
-import net.scalax.simple.adt.nat.support.{CoProductFunc, CoProductUtilN, HListFunc, ItemFunc}
+import net.scalax.simple.adt.nat.support.CoProductUtilN
 
-trait AdtFunctionSupportImplHelper[M1[_, _], M2[_, _], M3[_, _], CoProduct1, APCoProduct1[
+trait AdtFunctionSupportImplHelper[CoProduct1, APCoProduct1[
   _,
   _ <: CoProduct1
 ] <: CoProduct1, CoZero1 <: CoProduct1, Product2, APProduct2[
   _,
   _ <: Product2
 ] <: Product2, ProZero2 <: Product2, CoProduct3, APCoProduct3[_, _ <: CoProduct3] <: CoProduct3, CoZero3 <: CoProduct3]
-    extends AdtFunctionSupport[
-      M1,
-      M2,
-      M3,
-      CoProduct1,
-      APCoProduct1,
-      CoZero1,
-      Product2,
-      APProduct2,
-      ProZero2,
-      CoProduct3,
-      APCoProduct3,
-      CoZero3
-    ] {
+    extends AdtFunctionSupport[CoProduct1, APCoProduct1, CoZero1, Product2, APProduct2, ProZero2, CoProduct3, APCoProduct3, CoZero3] {
   AdtInstanceFuncAbsSelf =>
 
-  def coProductFunc: CoProductUtilN[M1, M2, M3, CoProduct1, APCoProduct1, Product2, APProduct2, CoProduct3, APCoProduct3]
+  def coProductFunc: CoProductUtilN[CoProduct1, APCoProduct1, Product2, APProduct2, CoProduct3, APCoProduct3]
 
   override def inputHList0: (CoZero1, ProZero2) => CoZero3
 
-  override def inputHList1[T1, N1]
-    : (APCoProduct1[M1[T1, N1], CoZero1], APProduct2[M2[T1, N1], ProZero2]) => APCoProduct3[M3[T1, N1], CoZero3] =
+  override def inputHList1[T1, N1]: (APCoProduct1[T1, CoZero1], APProduct2[T1 => N1, ProZero2]) => APCoProduct3[N1, CoZero3] =
     AdtInstanceFuncAbsSelf.coProductFunc.next[T1, N1, CoZero1, ProZero2, CoZero3](AdtInstanceFuncAbsSelf.inputHList0)
 
 }
