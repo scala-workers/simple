@@ -14,15 +14,15 @@ class ADTMappingAbsX(val index: Int) {
     val typeParam2: Seq[String] = for (i1 <- 1 to index) yield s"N$i1"
 
     def typeParam3Impl(index: Int): String =
-      if (index <= TraitBodySelf.index) s"APProduct2[T$index => N$index, ${typeParam3Impl(index + 1)}]" else "ProZero2"
+      if (index <= TraitBodySelf.index) s"APProduct2[M2[T$index, N$index], ${typeParam3Impl(index + 1)}]" else "ProZero2"
     val typeParam3: String = typeParam3Impl(1)
 
     def typeParam4Impl(index: Int): String =
-      if (index <= TraitBodySelf.index) s"APCoProduct1[T$index, ${typeParam4Impl(index + 1)}]" else "CoZero1"
+      if (index <= TraitBodySelf.index) s"APCoProduct1[M1[T$index, N$index], ${typeParam4Impl(index + 1)}]" else "CoZero1"
     val typeParam4: String = typeParam4Impl(1)
 
     def typeParam5Impl(index: Int): String =
-      if (index <= TraitBodySelf.index) s"APCoProduct3[N$index, ${typeParam5Impl(index + 1)}]" else "CoZero3"
+      if (index <= TraitBodySelf.index) s"APCoProduct3[M3[T$index, N$index], ${typeParam5Impl(index + 1)}]" else "CoZero3"
     val typeParam5: String = typeParam5Impl(1)
 
     val text: String = s"""
@@ -41,6 +41,7 @@ class ADTMappingAbsX(val index: Int) {
     package support
 
     trait AdtFunctionSupport[
+      M1[_, _], M2[_, _], M3[_, _],
       CoProduct1, APCoProduct1[_, _ <: CoProduct1] <: CoProduct1, CoZero1 <: CoProduct1,
       Product2, APProduct2[_, _ <: Product2] <: Product2, ProZero2 <: Product2,
       CoProduct3, APCoProduct3[_, _ <: CoProduct3] <: CoProduct3, CoZero3 <: CoProduct3
