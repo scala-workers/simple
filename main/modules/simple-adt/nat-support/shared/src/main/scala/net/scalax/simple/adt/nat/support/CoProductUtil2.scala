@@ -2,6 +2,10 @@ package net.scalax.simple.adt
 package nat
 package support
 
+trait ReverseAbstraction[M1[_, _], M2[_, _]] {
+  def reverse: ReverseAbstraction[M2, M1]
+}
+
 trait ItemFuncPre1[M1[_, _], M2[_, _], M3[_, _]]
     extends Type10Gen3[
       ({ type Func3[A, B, C] = (A, B) => C })#Func3,
@@ -24,11 +28,12 @@ trait ItemFunc[M1[_, _], M2[_, _], M3[_, _]]
       M1,
       M2,
       M3
-    ] { ItemFuncSelf =>
+    ]
+    with ReverseAbstraction[M1, M2] { ItemFuncSelf =>
   override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
     : (M1[A, B], M2[A, B]) => M3[A, B]
 
-  def reverse: ItemFunc[M2, M1, M3]
+  override def reverse: ItemFunc[M2, M1, M3]
 }
 
 trait AppendSupportUtil[CoLike1, HLLike, CoLike3, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, ApHList[
@@ -93,11 +98,12 @@ trait CoProductUtilN[M1[_, _], M2[_, _], M3[_, _], CoLike1, HLLike, CoLike3, ApC
   _,
   _ <: HLLike
 ] <: HLLike, ApCoProduct3[_, _ <: CoLike3] <: CoLike3]
-    extends CoProductUtilNPre1[M1, M2, M3, CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3] { ParamSupportUtilSelf =>
+    extends CoProductUtilNPre1[M1, M2, M3, CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3]
+    with ReverseAbstraction[M1, M2] { ParamSupportUtilSelf =>
   override def content: AppendSupportUtil[CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3]
   override def typeGen: ItemFunc[M1, M2, M3]
 
-  def reverse: CoProductUtilN[M2, M1, M3, CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3] =
+  override def reverse: CoProductUtilN[M2, M1, M3, CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3] =
     new CoProductUtilN[M2, M1, M3, CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3] {
       override def content: AppendSupportUtil[CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3] = ParamSupportUtilSelf.content
       override def typeGen: ItemFunc[M2, M1, M3] = ParamSupportUtilSelf.typeGen.reverse

@@ -2,7 +2,7 @@ package net.scalax.simple.adt
 package instance
 package support
 
-import net.scalax.simple.adt.nat.support.{AppendSupportUtil, CoProductUtilN, CoProductUtilNPre1, ItemFunc}
+import net.scalax.simple.adt.nat.support.{AppendSupportUtil, CoProductUtilN, CoProductUtilNPre1, ItemFunc, ReverseAbstraction}
 
 trait AdtFunctionSupportImplHelper[M1[_, _], M2[_, _], M3[_, _], CoProduct1, APCoProduct1[
   _,
@@ -71,10 +71,11 @@ trait AdtFunctionSupportImplHelper2[M1[_, _], M2[_, _], M3[_, _], CoProduct1, AP
       CoProduct3,
       APCoProduct3,
       CoProduct3
-    ] {
+    ]
+    with ReverseAbstraction[M1, M2] {
   AdtFunctionSupportImplHelper2Self =>
 
-  def reverse: AdtFunctionSupportImplHelper2[
+  override def reverse: AdtFunctionSupportImplHelper2[
     M2,
     M1,
     M3,
@@ -101,8 +102,8 @@ trait AdtFunctionSupportImplHelper2[M1[_, _], M2[_, _], M3[_, _], CoProduct1, AP
     APCoProduct3,
     CoZero3
   ] {
-    override def inputHList0: (CoZero1, Product2) => CoProduct3 = AdtFunctionSupportImplHelper2Self.inputHList0
-    override def coProductFunc: CoProductUtilN[M2, M1, M3, CoProduct1, Product2, CoProduct3, APCoProduct1, APProduct2, APCoProduct3] =
+    override final def inputHList0: (CoZero1, Product2) => CoProduct3 = AdtFunctionSupportImplHelper2Self.inputHList0
+    override final def coProductFunc: CoProductUtilN[M2, M1, M3, CoProduct1, Product2, CoProduct3, APCoProduct1, APProduct2, APCoProduct3] =
       AdtFunctionSupportImplHelper2Self.coProductFunc.reverse
   }
 
@@ -144,7 +145,8 @@ trait AdtFunctionSupportImplHelper3[CoProduct1, APCoProduct1[
       CoProduct3,
       APCoProduct3,
       CoProduct3
-    ] {
+    ]
+    with ReverseAbstraction[({ type Func2[A, B] = A })#Func2, ({ type Func2[A, B] = A => B })#Func2] {
   AdtFunctionSupportImplHelper2Self =>
 
   override def coProductFunc: CoProductUtilNImpl1[CoProduct1, Product2, CoProduct3, APCoProduct1, APProduct2, APCoProduct3]
@@ -170,7 +172,7 @@ trait CoProductUtilNImpl1[CoProduct1, Product2, CoProduct3, APCoProduct1[
       APCoProduct3
     ] {
   override def content: AppendSupportUtil[CoProduct1, Product2, CoProduct3, APCoProduct1, APProduct2, APCoProduct3]
-  override def typeGen: ItemFuncImpl1.type = ItemFuncImpl1
+  override final def typeGen: ItemFuncImpl1.type = ItemFuncImpl1
 }
 
 object ItemFuncImpl1
