@@ -2,7 +2,7 @@ package net.scalax.simple.adt
 package nat
 package support
 
-trait ItemFunc[M1[_, _], M2[_, _], M3[_, _]]
+trait ItemFuncPre1[M1[_, _], M2[_, _], M3[_, _]]
     extends Type10Gen3[
       ({ type Func3[A, B, C] = (A, B) => C })#Func3,
       ({
@@ -14,9 +14,21 @@ trait ItemFunc[M1[_, _], M2[_, _], M3[_, _]]
       ({
         type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M3[A, B]
       })#FuncXM1
+    ] { ItemFuncPre1Self =>
+  override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
+    : (M1[A, B], M2[A, B]) => M3[A, B]
+}
+
+trait ItemFunc[M1[_, _], M2[_, _], M3[_, _]]
+    extends ItemFuncPre1[
+      M1,
+      M2,
+      M3
     ] { ItemFuncSelf =>
   override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
     : (M1[A, B], M2[A, B]) => M3[A, B]
+
+  def reverse: ItemFunc[M2, M1, M3]
 }
 
 trait AppendSupportUtil[CoLike1, HLLike, CoLike3, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, ApHList[
@@ -38,7 +50,7 @@ trait AppendSupportUtil[CoLike1, HLLike, CoLike3, ApCoProduct1[_, _ <: CoLike1] 
   ): (ApCoProduct1[T1, HCollection1], ApHList[T2, HCollection2]) => ApCoProduct3[T3, HCollection3]
 }
 
-trait CoProductUtilN[M1[_, _], M2[_, _], M3[_, _], CoLike1, HLLike, CoLike3, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, ApHList[
+trait CoProductUtilNPre1[M1[_, _], M2[_, _], M3[_, _], CoLike1, HLLike, CoLike3, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, ApHList[
   _,
   _ <: HLLike
 ] <: HLLike, ApCoProduct3[_, _ <: CoLike3] <: CoLike3]
@@ -62,8 +74,9 @@ trait CoProductUtilN[M1[_, _], M2[_, _], M3[_, _], CoLike1, HLLike, CoLike3, ApC
       ApHList,
       ApCoProduct3
     ] { ParamSupportUtilSelf =>
+
   override def content: AppendSupportUtil[CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3]
-  override def typeGen: ItemFunc[M1, M2, M3]
+  override def typeGen: ItemFuncPre1[M1, M2, M3]
 
   def next[A1, A2, Co1 <: CoLike1, Pro2 <: HLLike, Co3 <: CoLike3](
     paramTail: (Co1, Pro2) => Co3
@@ -73,4 +86,21 @@ trait CoProductUtilN[M1[_, _], M2[_, _], M3[_, _], CoLike1, HLLike, CoLike3, ApC
         paramTail
       )
   }
+
+}
+
+trait CoProductUtilN[M1[_, _], M2[_, _], M3[_, _], CoLike1, HLLike, CoLike3, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, ApHList[
+  _,
+  _ <: HLLike
+] <: HLLike, ApCoProduct3[_, _ <: CoLike3] <: CoLike3]
+    extends CoProductUtilNPre1[M1, M2, M3, CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3] { ParamSupportUtilSelf =>
+  override def content: AppendSupportUtil[CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3]
+  override def typeGen: ItemFunc[M1, M2, M3]
+
+  def reverse: CoProductUtilN[M2, M1, M3, CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3] =
+    new CoProductUtilN[M2, M1, M3, CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3] {
+      override def content: AppendSupportUtil[CoLike1, HLLike, CoLike3, ApCoProduct1, ApHList, ApCoProduct3] = ParamSupportUtilSelf.content
+      override def typeGen: ItemFunc[M2, M1, M3] = ParamSupportUtilSelf.typeGen.reverse
+    }
+
 }

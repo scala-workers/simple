@@ -2,7 +2,7 @@ package net.scalax.simple.adt
 package instance
 package support
 
-import net.scalax.simple.adt.nat.support.{AppendSupportUtil, CoProductUtilN, ItemFunc}
+import net.scalax.simple.adt.nat.support.{AppendSupportUtil, CoProductUtilN, CoProductUtilNPre1, ItemFunc}
 
 trait AdtFunctionSupportImplHelper[M1[_, _], M2[_, _], M3[_, _], CoProduct1, APCoProduct1[
   _,
@@ -27,7 +27,7 @@ trait AdtFunctionSupportImplHelper[M1[_, _], M2[_, _], M3[_, _], CoProduct1, APC
     ] {
   AdtInstanceFuncAbsSelf =>
 
-  def coProductFunc: CoProductUtilN[M1, M2, M3, CoProduct1, Product2, CoProduct3, APCoProduct1, APProduct2, APCoProduct3]
+  def coProductFunc: CoProductUtilNPre1[M1, M2, M3, CoProduct1, Product2, CoProduct3, APCoProduct1, APProduct2, APCoProduct3]
 
   override def inputHList0: (CoZero1, ProZero2) => CoZero3
 
@@ -37,7 +37,80 @@ trait AdtFunctionSupportImplHelper[M1[_, _], M2[_, _], M3[_, _], CoProduct1, APC
 
 }
 
-trait AdtFunctionSupportImplHelper2[CoProduct1, APCoProduct1[
+trait AdtFunctionSupportImplHelper2[M1[_, _], M2[_, _], M3[_, _], CoProduct1, APCoProduct1[
+  _,
+  _ <: CoProduct1
+] <: CoProduct1, CoZero1 <: CoProduct1, Product2, APProduct2[
+  _,
+  _ <: Product2
+] <: Product2, ProZero2 <: Product2, CoProduct3, APCoProduct3[_, _ <: CoProduct3] <: CoProduct3, CoZero3 <: CoProduct3]
+    extends AdtFunctionSupportImpl[
+      M1,
+      M2,
+      M3,
+      CoProduct1,
+      APCoProduct1,
+      CoZero1,
+      Product2,
+      APProduct2,
+      Product2,
+      CoProduct3,
+      APCoProduct3,
+      CoProduct3
+    ]
+    with AdtFunctionSupport[
+      M1,
+      M2,
+      M3,
+      CoProduct1,
+      APCoProduct1,
+      CoZero1,
+      Product2,
+      APProduct2,
+      Product2,
+      CoProduct3,
+      APCoProduct3,
+      CoProduct3
+    ] {
+  AdtFunctionSupportImplHelper2Self =>
+
+  def reverse: AdtFunctionSupportImplHelper2[
+    M2,
+    M1,
+    M3,
+    CoProduct1,
+    APCoProduct1,
+    CoZero1,
+    Product2,
+    APProduct2,
+    ProZero2,
+    CoProduct3,
+    APCoProduct3,
+    CoZero3
+  ] = new AdtFunctionSupportImplHelper2[
+    M2,
+    M1,
+    M3,
+    CoProduct1,
+    APCoProduct1,
+    CoZero1,
+    Product2,
+    APProduct2,
+    ProZero2,
+    CoProduct3,
+    APCoProduct3,
+    CoZero3
+  ] {
+    override def inputHList0: (CoZero1, Product2) => CoProduct3 = AdtFunctionSupportImplHelper2Self.inputHList0
+    override def coProductFunc: CoProductUtilN[M2, M1, M3, CoProduct1, Product2, CoProduct3, APCoProduct1, APProduct2, APCoProduct3] =
+      AdtFunctionSupportImplHelper2Self.coProductFunc.reverse
+  }
+
+  override def coProductFunc: CoProductUtilN[M1, M2, M3, CoProduct1, Product2, CoProduct3, APCoProduct1, APProduct2, APCoProduct3]
+
+}
+
+trait AdtFunctionSupportImplHelper3[CoProduct1, APCoProduct1[
   _,
   _ <: CoProduct1
 ] <: CoProduct1, CoZero1 <: CoProduct1, Product2, APProduct2[
@@ -103,6 +176,19 @@ trait CoProductUtilNImpl1[CoProduct1, Product2, CoProduct3, APCoProduct1[
 object ItemFuncImpl1
     extends ItemFunc[({ type Func2[A, B] = A })#Func2, ({ type Func2[A, B] = A => B })#Func2, ({ type Func2[A, B] = B })#Func2] {
   ItemFuncSelf =>
-  override def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]: (A, A => B) => B =
-    (a: A, aToB: A => B) => aToB(a)
+  override final def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
+    : (A, A => B) => B = (a: A, aToB: A => B) => aToB(a)
+
+  override final def reverse
+    : ItemFunc[({ type Func2[A, B] = A => B })#Func2, ({ type Func2[A, B] = A })#Func2, ({ type Func2[A, B] = B })#Func2] = ItemFuncImpl2
+}
+
+object ItemFuncImpl2
+    extends ItemFunc[({ type Func2[A, B] = A => B })#Func2, ({ type Func2[A, B] = A })#Func2, ({ type Func2[A, B] = B })#Func2] {
+  ItemFuncSelf =>
+  override final def gen10[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20]
+    : (A => B, A) => B = (aToB: A => B, a: A) => aToB(a)
+
+  override final def reverse
+    : ItemFunc[({ type Func2[A, B] = A })#Func2, ({ type Func2[A, B] = A => B })#Func2, ({ type Func2[A, B] = B })#Func2] = ItemFuncImpl1
 }
