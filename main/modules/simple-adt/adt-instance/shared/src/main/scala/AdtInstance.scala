@@ -6,9 +6,7 @@ trait AdtHList
 object AdtHList {
   AdtHListSelf =>
 
-  val zero: AdtHList = new AdtHList {
-    //
-  }
+  object zero extends AdtHList
 
   trait Positive[+H, +Tail <: AdtHList] extends AdtHList {
     def head: H
@@ -38,9 +36,7 @@ trait AdtCoProduct
 object AdtCoProduct {
   AdtCoProductSelf =>
 
-  val zero: AdtCoProduct = new AdtCoProduct {
-    //
-  }
+  object zero extends AdtCoProduct
 
   trait Positive[+H, +Tail <: AdtCoProduct] extends AdtCoProduct {
     def fold[TU](hFunc: H => TU, tFunc: Tail => TU): TU
