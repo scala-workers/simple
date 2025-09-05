@@ -5,19 +5,19 @@ package impl2
 
 import net.scalax.simple.adt.nat.support.{AppenderNatSupport2, Parameter10NatSupport2, Type10Gen2}
 
-trait AppendSupportAbs[M1[_, _], M2[_, _], M3[_, _], M4[_, _], CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, CoLike2, ApCoProduct2[
+trait AppendSupportAbs[M2[_, _], CoLike1, ApCoProduct1[_, _ <: CoLike1] <: CoLike1, CoLike2, ApCoProduct2[
   _,
   _ <: CoLike2
 ] <: CoLike2, CoLike3, ApCoProduct3[_, _ <: CoLike3] <: CoLike3, CoLike4, ApCoProduct4[
   _,
   _ <: CoLike4
 ] <: CoLike4] { AppendSupportAbsSelf =>
-  def typeParameterSupport: TypeParameterSupportAbs[M1, M2, M3, M4]
+  def typeParameterSupport: TypeParameterSupportAbs[M2]
   def productAppendSupport
-    : ProductAppendSupportAbs[M1, M2, M3, M4, CoLike1, ApCoProduct1, CoLike2, ApCoProduct2, CoLike3, ApCoProduct3, CoLike4, ApCoProduct4]
+    : ProductAppendSupportAbs[M2, CoLike1, ApCoProduct1, CoLike2, ApCoProduct2, CoLike3, ApCoProduct3, CoLike4, ApCoProduct4]
 
   def contextModel[CTX]: Parameter10NatSupport2[
-    ({ type Func3[A, B] = M1[A, M2[B, CTX]] })#Func3,
+    ({ type Func3[A, B] = A => M2[B, CTX] })#Func3,
     ({
       type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M2[A, CTX]
     })#FuncXM1,
@@ -29,7 +29,7 @@ trait AppendSupportAbs[M1[_, _], M2[_, _], M3[_, _], M4[_, _], CoLike1, ApCoProd
     ApCoProduct1,
     ApCoProduct2
   ] = new Parameter10NatSupport2[
-    ({ type Func3[A, B] = M1[A, M2[B, CTX]] })#Func3,
+    ({ type Func3[A, B] = A => M2[B, CTX] })#Func3,
     ({
       type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M2[A, CTX]
     })#FuncXM1,
@@ -42,7 +42,7 @@ trait AppendSupportAbs[M1[_, _], M2[_, _], M3[_, _], M4[_, _], CoLike1, ApCoProd
     ApCoProduct2
   ] {
     override def content: AppenderNatSupport2[
-      ({ type Func3[A, B] = M1[A, M2[B, CTX]] })#Func3,
+      ({ type Func3[A, B] = A => M2[B, CTX] })#Func3,
       CoLike1,
       CoLike2,
       ApCoProduct1,
@@ -50,7 +50,7 @@ trait AppendSupportAbs[M1[_, _], M2[_, _], M3[_, _], M4[_, _], CoLike1, ApCoProd
     ] = AppendSupportAbsSelf.productAppendSupport.supportTypeParameter[CTX]
 
     override def typeGen: Type10Gen2[
-      ({ type Func3[A, B] = M1[A, M2[B, CTX]] })#Func3,
+      ({ type Func3[A, B] = A => M2[B, CTX] })#Func3,
       ({
         type FuncXM1[A, B, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18, X19, X20] = M2[A, CTX]
       })#FuncXM1,
@@ -60,6 +60,15 @@ trait AppendSupportAbs[M1[_, _], M2[_, _], M3[_, _], M4[_, _], CoLike1, ApCoProd
     ] = AppendSupportAbsSelf.typeParameterSupport.supportTypeParameter[CTX]
   }
 
-  def nextInstance
-    : AppendSupportAbs[M3, M4, M1, M2, CoLike2, ApCoProduct2, CoLike3, ApCoProduct3, CoLike4, ApCoProduct4, CoLike1, ApCoProduct1]
+  def nextInstance: AppendSupportAbs[
+    ({ type NextParam[A, B] = M2[B, A] })#NextParam,
+    CoLike2,
+    ApCoProduct2,
+    CoLike3,
+    ApCoProduct3,
+    CoLike4,
+    ApCoProduct4,
+    CoLike1,
+    ApCoProduct1
+  ]
 }

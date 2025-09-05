@@ -5,7 +5,7 @@ package impl2
 
 import net.scalax.simple.adt.nat.support.AppenderNatSupport2
 
-trait ProductAppendSupportAbs[M1[_, _], M2[_, _], M3[_, _], M4[_, _], CoLike1, ApCoProduct1[
+trait ProductAppendSupportAbs[M2[_, _], CoLike1, ApCoProduct1[
   _,
   _ <: CoLike1
 ] <: CoLike1, CoLike2, ApCoProduct2[
@@ -16,23 +16,29 @@ trait ProductAppendSupportAbs[M1[_, _], M2[_, _], M3[_, _], M4[_, _], CoLike1, A
   _ <: CoLike4
 ] <: CoLike4] {
   def supportTypeParameter[CTX]: AppenderNatSupport2[
-    ({ type Func3[A, B] = M1[A, M2[B, CTX]] })#Func3,
+    ({ type Func3[A, B] = A => M2[B, CTX] })#Func3,
     CoLike1,
     CoLike2,
     ApCoProduct1,
     ApCoProduct2
   ]
 
-  def nextInstance
-    : ProductAppendSupportAbs[M3, M4, M1, M2, CoLike2, ApCoProduct2, CoLike3, ApCoProduct3, CoLike4, ApCoProduct4, CoLike1, ApCoProduct1]
+  def nextInstance: ProductAppendSupportAbs[
+    ({ type NextParam[A, B] = M2[B, A] })#NextParam,
+    CoLike2,
+    ApCoProduct2,
+    CoLike3,
+    ApCoProduct3,
+    CoLike4,
+    ApCoProduct4,
+    CoLike1,
+    ApCoProduct1
+  ]
 }
 
 object ProductAppendSupporImpl1
     extends ProductAppendSupportAbs[
       ({ type Func1[A, B] = A => B })#Func1,
-      ({ type Func1[A, B] = A => B })#Func1,
-      ({ type Func1[A, B] = A => B })#Func1,
-      ({ type Func1[A, B] = B => A })#Func1,
       AdtCoProduct,
       AdtCoProduct.UsePositive,
       AdtHList,
@@ -73,10 +79,7 @@ object ProductAppendSupporImpl1
 
 object ProductAppendSupporImpl2
     extends ProductAppendSupportAbs[
-      ({ type Func1[A, B] = A => B })#Func1,
       ({ type Func1[A, B] = B => A })#Func1,
-      ({ type Func1[A, B] = A => B })#Func1,
-      ({ type Func1[A, B] = A => B })#Func1,
       AdtHList,
       AdtHList.UsePositive,
       AdtHList,
@@ -109,9 +112,6 @@ object ProductAppendSupporImpl2
 object ProductAppendSupporImpl3
     extends ProductAppendSupportAbs[
       ({ type Func1[A, B] = A => B })#Func1,
-      ({ type Func1[A, B] = A => B })#Func1,
-      ({ type Func1[A, B] = A => B })#Func1,
-      ({ type Func1[A, B] = B => A })#Func1,
       AdtHList,
       AdtHList.UsePositive,
       AdtCoProduct,
@@ -152,10 +152,7 @@ object ProductAppendSupporImpl3
 
 object ProductAppendSupporImpl4
     extends ProductAppendSupportAbs[
-      ({ type Func1[A, B] = A => B })#Func1,
       ({ type Func1[A, B] = B => A })#Func1,
-      ({ type Func1[A, B] = A => B })#Func1,
-      ({ type Func1[A, B] = A => B })#Func1,
       AdtCoProduct,
       AdtCoProduct.UsePositive,
       AdtCoProduct,
