@@ -7,8 +7,9 @@ trait FunctionM2Abs[M2[_, _], Nat1, Nat1Positive[_, _ <: Nat1] <: Nat1, Nat2, Na
   _,
   _ <: Nat2
 ] <: Nat2, Nat3, Nat3Positive[_, _ <: Nat3] <: Nat3, Nat4, Nat4Positive[_, _ <: Nat4] <: Nat4] {
-  def functionM2[Item, N1 <: Nat1, N2 <: Nat2, CTX]
-    : (N1 => M2[N2, CTX]) => Nat1Positive[M2[Item, CTX], N1] => M2[Nat2Positive[Item, N2], CTX]
+  def functionM2[Item, N1 <: Nat1, N2 <: Nat2, CTX](
+    param: N1 => M2[N2, CTX]
+  ): Nat1Positive[M2[Item, CTX], N1] => M2[Nat2Positive[Item, N2], CTX]
 
   def nextInstance: FunctionM2Abs[
     ({ type NextParam[A, B] = M2[B, A] })#NextParam,
@@ -49,8 +50,9 @@ trait FunctionM2Abs2[M2[_, _], Nat1, Nat1Positive[_, _ <: Nat1] <: Nat1, Nat2, N
       Nat4,
       Nat4Positive
     ] { FunctionM2Abs2Self =>
-  override def functionM2[Item, N1 <: Nat1, N2 <: Nat2, CTX]
-    : (N1 => M2[N2, CTX]) => (Nat1Positive[M2[Item, CTX], N1] => M2[Nat2Positive[Item, N2], CTX]) = (param: N1 => M2[N2, CTX]) => {
+  override def functionM2[Item, N1 <: Nat1, N2 <: Nat2, CTX](
+    param: N1 => M2[N2, CTX]
+  ): Nat1Positive[M2[Item, CTX], N1] => M2[Nat2Positive[Item, N2], CTX] = {
     FunctionM2Abs2Self
       .contextModel[CTX]
       .append10[Item, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, N1, N2](
@@ -87,9 +89,9 @@ object FunctionM2Impl1
   override lazy val typeParameterSupport: TypeParameterSupportImpl1.type = TypeParameterSupportImpl1
   override lazy val productAppendSupport: ProductAppendSupporImpl1.type  = ProductAppendSupporImpl1
 
-  override def functionM2[Item, N1 <: AdtCoProduct, N2 <: AdtHList, CTX]
-    : (N1 => N2 => CTX) => AdtCoProduct.UsePositive[Item => CTX, N1] => AdtHList.UsePositive[Item, N2] => CTX =
-    super.functionM2[Item, N1, N2, CTX]
+  override def functionM2[Item, N1 <: AdtCoProduct, N2 <: AdtHList, CTX](
+    param: N1 => N2 => CTX
+  ): AdtCoProduct.UsePositive[Item => CTX, N1] => AdtHList.UsePositive[Item, N2] => CTX = super.functionM2[Item, N1, N2, CTX](param)
 
   override lazy val nextInstance: FunctionM2Impl2.type = FunctionM2Impl2
 }
@@ -112,9 +114,9 @@ object FunctionM2Impl2
   override lazy val productAppendSupport: ProductAppendSupporImpl2.type =
     nextInstance.nextInstance.nextInstance.productAppendSupport.nextInstance
 
-  override def functionM2[Item, N1 <: AdtHList, N2 <: AdtHList, CTX]
-    : (N1 => CTX => N2) => AdtHList.UsePositive[CTX => Item, N1] => CTX => AdtHList.UsePositive[Item, N2] =
-    super.functionM2[Item, N1, N2, CTX]
+  override def functionM2[Item, N1 <: AdtHList, N2 <: AdtHList, CTX](
+    param: N1 => CTX => N2
+  ): AdtHList.UsePositive[CTX => Item, N1] => CTX => AdtHList.UsePositive[Item, N2] = super.functionM2[Item, N1, N2, CTX](param)
 
   override lazy val nextInstance: FunctionM2Impl3.type = FunctionM2Impl3
 
@@ -138,9 +140,9 @@ object FunctionM2Impl3
   override lazy val productAppendSupport: ProductAppendSupporImpl3.type =
     nextInstance.nextInstance.nextInstance.productAppendSupport.nextInstance
 
-  override def functionM2[Item, N1 <: AdtHList, N2 <: AdtCoProduct, CTX]
-    : (N1 => N2 => CTX) => AdtHList.UsePositive[Item => CTX, N1] => AdtCoProduct.UsePositive[Item, N2] => CTX =
-    super.functionM2[Item, N1, N2, CTX]
+  override def functionM2[Item, N1 <: AdtHList, N2 <: AdtCoProduct, CTX](
+    param: N1 => N2 => CTX
+  ): AdtHList.UsePositive[Item => CTX, N1] => AdtCoProduct.UsePositive[Item, N2] => CTX = super.functionM2[Item, N1, N2, CTX](param)
 
   override lazy val nextInstance: FunctionM2Impl4.type = FunctionM2Impl4
 
@@ -164,9 +166,9 @@ object FunctionM2Impl4
   override lazy val productAppendSupport: ProductAppendSupporImpl4.type =
     nextInstance.nextInstance.nextInstance.productAppendSupport.nextInstance
 
-  override def functionM2[Item, N1 <: AdtCoProduct, N2 <: AdtCoProduct, CTX]
-    : (N1 => CTX => N2) => AdtCoProduct.UsePositive[CTX => Item, N1] => CTX => AdtCoProduct.UsePositive[Item, N2] =
-    super.functionM2[Item, N1, N2, CTX]
+  override def functionM2[Item, N1 <: AdtCoProduct, N2 <: AdtCoProduct, CTX](
+    param: N1 => CTX => N2
+  ): AdtCoProduct.UsePositive[CTX => Item, N1] => CTX => AdtCoProduct.UsePositive[Item, N2] = super.functionM2[Item, N1, N2, CTX](param)
 
   override lazy val nextInstance: FunctionM2Impl1.type = FunctionM2Impl1
 
