@@ -1,6 +1,7 @@
 package net.scalax.simple.adt.codegen
 
 import net.scalax.simple.adt.text.v3.{
+  ADTTraitBuilder,
   ExtractProductX,
   FAppenderCodengen,
   Parameter1sCodengen,
