@@ -45,10 +45,11 @@ class ADTTraitBuilder(val index: Int) {
         ${typeParam1.mkString(',')}
       ] {
         FoldApplySelf =>
-        def foldValueOpt[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Option[Target$index] = FoldApplySelf.${typeParam5
-        .mkString(
-          '.'
-        )}.valueOpt
+        protected def foldValueOpt[${typeParam2.mkString(',')}](implicit ${typeParam3.mkString(
+        ','
+      )}): Option[Target$index] = FoldApplySelf.${typeParam5.mkString(
+        '.'
+      )}.valueOpt
 
         def apply[TargetOther${index - 1} >: Target0](param1: T1 => TargetOther${index - 1}): ADTFoldApply${index - 1}[${typeParam4
         .mkString(
