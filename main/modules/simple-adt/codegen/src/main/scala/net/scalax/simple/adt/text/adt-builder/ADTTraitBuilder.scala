@@ -32,7 +32,7 @@ class ADTTraitBuilder(val index: Int) {
     } else {
       s"""
         new ADTFoldApply0[TargetOther0] {
-          override def valueOpt: Option[TargetOther0] = FoldApplySelf.foldValueOpt(${typeParam9.mkString(',')})
+          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(${typeParam9.mkString(',')})
         }
       """
     }
@@ -47,9 +47,7 @@ class ADTTraitBuilder(val index: Int) {
         FoldApplySelf =>
         protected def foldValueOpt[${typeParam2.mkString(',')}](implicit ${typeParam3.mkString(
         ','
-      )}): Option[Target$index] = FoldApplySelf.${typeParam5.mkString(
-        '.'
-      )}.valueOpt
+      )}): Target$index = FoldApplySelf.${typeParam5.mkString('.')}.value
 
         def apply[TargetOther${index - 1} >: Target0](param1: T1 => TargetOther${index - 1}): ADTFoldApply${index - 1}[${typeParam4
         .mkString(
@@ -69,8 +67,7 @@ class ADTTraitBuilder(val index: Int) {
 
     trait ADTFoldApply0[Target0] {
       FoldApplySelf =>
-      def value: Target0 = FoldApplySelf.valueOpt.getOrElse(throw new Exception("value not found."))
-      def valueOpt: Option[Target0]
+      def value: Target0
     }
 
     ${preTextContent.mkString('\n')}

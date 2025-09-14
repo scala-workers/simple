@@ -50,7 +50,7 @@ trait CollectionCoProductUtilN[M1[_, _], M2[_, _], M3[_, _]]
 
 }
 
-trait CollectionFunctionSupportImplHelper2[M1[_, _], M2[_, _], M3[_, _]]
+/*trait CollectionFunctionSupportImplHelper2[M1[_, _], M2[_, _], M3[_, _]]
     extends FinalAdtFunctionSupportImplHelper2[
       M1,
       M2,
@@ -68,4 +68,4 @@ trait CollectionFunctionSupportImplHelper2[M1[_, _], M2[_, _], M3[_, _]]
   override val inputHList0: (AdtCoProduct.zero.type, AdtHList.zero.type) => AdtCoProduct.zero.type =
     (a: AdtCoProduct.zero.type, b: AdtHList.zero.type) => a
   override def coProductFunc: CollectionCoProductUtilN[M1, M2, M3]
-}
+}*/

@@ -19,7 +19,7 @@ object ResultCoProductUtilN
       AdtCoProduct.UsePositive
     ]
 
-object ResultAppender
+/*object ResultAppender
     extends CollectionFunctionSupportImplHelper2[
       ({ type Func2[A, B] = A })#Func2,
       ({ type Func2[A, B] = A => B })#Func2,
@@ -60,4 +60,4 @@ object ResultAppender
       ({ type Func2[A, B] = B })#Func2
     ] =
     ResultCoProductUtilN
-}
+}*/

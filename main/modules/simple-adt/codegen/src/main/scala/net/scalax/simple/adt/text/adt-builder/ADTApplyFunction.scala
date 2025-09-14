@@ -17,10 +17,10 @@ class ADTApplyFunction(val index: Int) {
     val typeParam5: Seq[String] = for (i1 <- 1 to index) yield s"apply(param$i1)"
     val typeParam9: Seq[String] = for (i1 <- 1 to index) yield s"param$i1"
 
-    def typeParam6Impl(index: Int): String = if (index <= TraitBodySelf.index) {
+    def typeParam6Impl(index: Int): String = if (index < TraitBodySelf.index) {
       s"""AdtCoProduct.UsePositive[T$index, ${typeParam6Impl(index + 1)}]"""
     } else {
-      s"""AdtCoProduct.zero.type"""
+      s"""AdtCoProduct.UseOne[T$index]"""
     }
 
     val typeParam6: String = typeParam6Impl(1)
@@ -33,7 +33,7 @@ class ADTApplyFunction(val index: Int) {
 
         override protected def foldValueOpt[${typeParam2.mkString(',')}](implicit ${typeParam3.mkString(
         ','
-      )}): Option[Target$index] = ADTBuilderHelperImplicit.ToOptionHelper.target[Target$index].inputHList(param).fetchHList
+      )}): Target$index = ADTBuilderHelperImplicit.ForFetch[Target$index].inputHList(param)
 
       }
     """

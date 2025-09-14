@@ -36,7 +36,8 @@ trait AdtCoProduct
 object AdtCoProduct {
   AdtCoProductSelf =>
 
-  object zero extends AdtCoProduct
+  class One[+T](val value: T)            extends AdtCoProduct
+  class UseOne[T](override val value: T) extends One[T](value = value)
 
   trait Positive[+H, +Tail <: AdtCoProduct] extends AdtCoProduct {
     def fold[TU](hFunc: H => TU, tFunc: Tail => TU): TU
