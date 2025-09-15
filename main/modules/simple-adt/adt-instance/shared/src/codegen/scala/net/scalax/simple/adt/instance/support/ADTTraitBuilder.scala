@@ -14,11 +14,11 @@
         T1
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0](implicit param1: T1 => Target1): Target1 = FoldApplySelf.apply(param1).value
+        def value[Target1 >: Target0](param1: T1 => Target1): Target1 = FoldApplySelf.apply(param1).value
 
         def apply[TargetOther0 >: Target0](param1: T1 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1)
+          override def value: TargetOther0 = FoldApplySelf.value(param1)
         }
       
       }
@@ -29,13 +29,13 @@
         T1,T2
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1](implicit param1: T1 => Target1,param2: T2 => Target2): Target2 = FoldApplySelf.apply(param1).apply(param2).value
+        def value[Target1 >: Target0,Target2 >: Target1](param1: T1 => Target1,param2: T2 => Target2): Target2 = FoldApplySelf.apply(param1).apply(param2).value
 
         def apply[TargetOther1 >: Target0](param1: T1 => TargetOther1): ADTFoldApply1[TargetOther1,T2] = 
         new ADTFoldApply1[TargetOther1,T2] {
           override def apply[TargetOther0 >: TargetOther1](param2: T2 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2)
         }
       
         }
@@ -48,7 +48,7 @@
         T1,T2,T3
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3): Target3 = FoldApplySelf.apply(param1).apply(param2).apply(param3).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3): Target3 = FoldApplySelf.apply(param1).apply(param2).apply(param3).value
 
         def apply[TargetOther2 >: Target0](param1: T1 => TargetOther2): ADTFoldApply2[TargetOther2,T2,T3] = 
         new ADTFoldApply2[TargetOther2,T2,T3] {
@@ -56,7 +56,7 @@
         new ADTFoldApply1[TargetOther1,T3] {
           override def apply[TargetOther0 >: TargetOther1](param3: T3 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3)
         }
       
         }
@@ -71,7 +71,7 @@
         T1,T2,T3,T4
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4): Target4 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4): Target4 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).value
 
         def apply[TargetOther3 >: Target0](param1: T1 => TargetOther3): ADTFoldApply3[TargetOther3,T2,T3,T4] = 
         new ADTFoldApply3[TargetOther3,T2,T3,T4] {
@@ -81,7 +81,7 @@
         new ADTFoldApply1[TargetOther1,T4] {
           override def apply[TargetOther0 >: TargetOther1](param4: T4 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4)
         }
       
         }
@@ -98,7 +98,7 @@
         T1,T2,T3,T4,T5
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5): Target5 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5): Target5 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).value
 
         def apply[TargetOther4 >: Target0](param1: T1 => TargetOther4): ADTFoldApply4[TargetOther4,T2,T3,T4,T5] = 
         new ADTFoldApply4[TargetOther4,T2,T3,T4,T5] {
@@ -110,7 +110,7 @@
         new ADTFoldApply1[TargetOther1,T5] {
           override def apply[TargetOther0 >: TargetOther1](param5: T5 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5)
         }
       
         }
@@ -129,7 +129,7 @@
         T1,T2,T3,T4,T5,T6
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6): Target6 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6): Target6 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).value
 
         def apply[TargetOther5 >: Target0](param1: T1 => TargetOther5): ADTFoldApply5[TargetOther5,T2,T3,T4,T5,T6] = 
         new ADTFoldApply5[TargetOther5,T2,T3,T4,T5,T6] {
@@ -143,7 +143,7 @@
         new ADTFoldApply1[TargetOther1,T6] {
           override def apply[TargetOther0 >: TargetOther1](param6: T6 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6)
         }
       
         }
@@ -164,7 +164,7 @@
         T1,T2,T3,T4,T5,T6,T7
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7): Target7 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7): Target7 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).value
 
         def apply[TargetOther6 >: Target0](param1: T1 => TargetOther6): ADTFoldApply6[TargetOther6,T2,T3,T4,T5,T6,T7] = 
         new ADTFoldApply6[TargetOther6,T2,T3,T4,T5,T6,T7] {
@@ -180,7 +180,7 @@
         new ADTFoldApply1[TargetOther1,T7] {
           override def apply[TargetOther0 >: TargetOther1](param7: T7 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7)
         }
       
         }
@@ -203,7 +203,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8): Target8 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8): Target8 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).value
 
         def apply[TargetOther7 >: Target0](param1: T1 => TargetOther7): ADTFoldApply7[TargetOther7,T2,T3,T4,T5,T6,T7,T8] = 
         new ADTFoldApply7[TargetOther7,T2,T3,T4,T5,T6,T7,T8] {
@@ -221,7 +221,7 @@
         new ADTFoldApply1[TargetOther1,T8] {
           override def apply[TargetOther0 >: TargetOther1](param8: T8 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8)
         }
       
         }
@@ -246,7 +246,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9): Target9 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9): Target9 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).value
 
         def apply[TargetOther8 >: Target0](param1: T1 => TargetOther8): ADTFoldApply8[TargetOther8,T2,T3,T4,T5,T6,T7,T8,T9] = 
         new ADTFoldApply8[TargetOther8,T2,T3,T4,T5,T6,T7,T8,T9] {
@@ -266,7 +266,7 @@
         new ADTFoldApply1[TargetOther1,T9] {
           override def apply[TargetOther0 >: TargetOther1](param9: T9 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9)
         }
       
         }
@@ -293,7 +293,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10): Target10 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10): Target10 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).value
 
         def apply[TargetOther9 >: Target0](param1: T1 => TargetOther9): ADTFoldApply9[TargetOther9,T2,T3,T4,T5,T6,T7,T8,T9,T10] = 
         new ADTFoldApply9[TargetOther9,T2,T3,T4,T5,T6,T7,T8,T9,T10] {
@@ -315,7 +315,7 @@
         new ADTFoldApply1[TargetOther1,T10] {
           override def apply[TargetOther0 >: TargetOther1](param10: T10 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10)
         }
       
         }
@@ -344,7 +344,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11): Target11 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11): Target11 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).value
 
         def apply[TargetOther10 >: Target0](param1: T1 => TargetOther10): ADTFoldApply10[TargetOther10,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11] = 
         new ADTFoldApply10[TargetOther10,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11] {
@@ -368,7 +368,7 @@
         new ADTFoldApply1[TargetOther1,T11] {
           override def apply[TargetOther0 >: TargetOther1](param11: T11 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11)
         }
       
         }
@@ -399,7 +399,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12): Target12 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12): Target12 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).value
 
         def apply[TargetOther11 >: Target0](param1: T1 => TargetOther11): ADTFoldApply11[TargetOther11,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] = 
         new ADTFoldApply11[TargetOther11,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] {
@@ -425,7 +425,7 @@
         new ADTFoldApply1[TargetOther1,T12] {
           override def apply[TargetOther0 >: TargetOther1](param12: T12 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12)
         }
       
         }
@@ -458,7 +458,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13): Target13 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13): Target13 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).value
 
         def apply[TargetOther12 >: Target0](param1: T1 => TargetOther12): ADTFoldApply12[TargetOther12,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] = 
         new ADTFoldApply12[TargetOther12,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] {
@@ -486,7 +486,7 @@
         new ADTFoldApply1[TargetOther1,T13] {
           override def apply[TargetOther0 >: TargetOther1](param13: T13 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13)
         }
       
         }
@@ -521,7 +521,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14): Target14 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14): Target14 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).value
 
         def apply[TargetOther13 >: Target0](param1: T1 => TargetOther13): ADTFoldApply13[TargetOther13,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] = 
         new ADTFoldApply13[TargetOther13,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] {
@@ -551,7 +551,7 @@
         new ADTFoldApply1[TargetOther1,T14] {
           override def apply[TargetOther0 >: TargetOther1](param14: T14 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14)
         }
       
         }
@@ -588,7 +588,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15): Target15 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15): Target15 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).value
 
         def apply[TargetOther14 >: Target0](param1: T1 => TargetOther14): ADTFoldApply14[TargetOther14,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] = 
         new ADTFoldApply14[TargetOther14,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] {
@@ -620,7 +620,7 @@
         new ADTFoldApply1[TargetOther1,T15] {
           override def apply[TargetOther0 >: TargetOther1](param15: T15 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15)
         }
       
         }
@@ -659,7 +659,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16): Target16 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16): Target16 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).value
 
         def apply[TargetOther15 >: Target0](param1: T1 => TargetOther15): ADTFoldApply15[TargetOther15,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] = 
         new ADTFoldApply15[TargetOther15,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] {
@@ -693,7 +693,7 @@
         new ADTFoldApply1[TargetOther1,T16] {
           override def apply[TargetOther0 >: TargetOther1](param16: T16 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16)
         }
       
         }
@@ -734,7 +734,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17): Target17 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17): Target17 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).value
 
         def apply[TargetOther16 >: Target0](param1: T1 => TargetOther16): ADTFoldApply16[TargetOther16,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] = 
         new ADTFoldApply16[TargetOther16,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] {
@@ -770,7 +770,7 @@
         new ADTFoldApply1[TargetOther1,T17] {
           override def apply[TargetOther0 >: TargetOther1](param17: T17 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17)
         }
       
         }
@@ -813,7 +813,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18): Target18 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18): Target18 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).value
 
         def apply[TargetOther17 >: Target0](param1: T1 => TargetOther17): ADTFoldApply17[TargetOther17,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] = 
         new ADTFoldApply17[TargetOther17,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] {
@@ -851,7 +851,7 @@
         new ADTFoldApply1[TargetOther1,T18] {
           override def apply[TargetOther0 >: TargetOther1](param18: T18 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18)
         }
       
         }
@@ -896,7 +896,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19): Target19 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19): Target19 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).value
 
         def apply[TargetOther18 >: Target0](param1: T1 => TargetOther18): ADTFoldApply18[TargetOther18,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] = 
         new ADTFoldApply18[TargetOther18,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] {
@@ -936,7 +936,7 @@
         new ADTFoldApply1[TargetOther1,T19] {
           override def apply[TargetOther0 >: TargetOther1](param19: T19 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19)
         }
       
         }
@@ -983,7 +983,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20): Target20 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).apply(param20).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20): Target20 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).apply(param20).value
 
         def apply[TargetOther19 >: Target0](param1: T1 => TargetOther19): ADTFoldApply19[TargetOther19,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] = 
         new ADTFoldApply19[TargetOther19,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] {
@@ -1025,7 +1025,7 @@
         new ADTFoldApply1[TargetOther1,T20] {
           override def apply[TargetOther0 >: TargetOther1](param20: T20 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20)
         }
       
         }
@@ -1074,7 +1074,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21): Target21 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).apply(param20).apply(param21).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21): Target21 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).apply(param20).apply(param21).value
 
         def apply[TargetOther20 >: Target0](param1: T1 => TargetOther20): ADTFoldApply20[TargetOther20,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] = 
         new ADTFoldApply20[TargetOther20,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] {
@@ -1118,7 +1118,7 @@
         new ADTFoldApply1[TargetOther1,T21] {
           override def apply[TargetOther0 >: TargetOther1](param21: T21 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20,param21)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20,param21)
         }
       
         }
@@ -1169,7 +1169,7 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20,Target22 >: Target21](implicit param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21,param22: T22 => Target22): Target22 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).apply(param20).apply(param21).apply(param22).value
+        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20,Target22 >: Target21](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21,param22: T22 => Target22): Target22 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).apply(param20).apply(param21).apply(param22).value
 
         def apply[TargetOther21 >: Target0](param1: T1 => TargetOther21): ADTFoldApply21[TargetOther21,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] = 
         new ADTFoldApply21[TargetOther21,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] {
@@ -1215,7 +1215,7 @@
         new ADTFoldApply1[TargetOther1,T22] {
           override def apply[TargetOther0 >: TargetOther1](param22: T22 => TargetOther0): ADTFoldApply0[TargetOther0] = 
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20,param21,param22)
+          override def value: TargetOther0 = FoldApplySelf.value(param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20,param21,param22)
         }
       
         }

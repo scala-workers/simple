@@ -32,7 +32,7 @@ class ADTTraitBuilder(val index: Int) {
     } else {
       s"""
         new ADTFoldApply0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.foldValueOpt(${typeParam9.mkString(',')})
+          override def value: TargetOther0 = FoldApplySelf.value(${typeParam9.mkString(',')})
         }
       """
     }
@@ -45,9 +45,7 @@ class ADTTraitBuilder(val index: Int) {
         ${typeParam1.mkString(',')}
       ] {
         FoldApplySelf =>
-        protected def foldValueOpt[${typeParam2.mkString(',')}](implicit ${typeParam3.mkString(
-        ','
-      )}): Target$index = FoldApplySelf.${typeParam5.mkString('.')}.value
+        def value[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = FoldApplySelf.${typeParam5.mkString('.')}.value
 
         def apply[TargetOther${index - 1} >: Target0](param1: T1 => TargetOther${index - 1}): ADTFoldApply${index - 1}[${typeParam4
         .mkString(

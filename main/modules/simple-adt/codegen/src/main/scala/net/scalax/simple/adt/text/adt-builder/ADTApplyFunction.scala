@@ -25,15 +25,18 @@ class ADTApplyFunction(val index: Int) {
 
     val typeParam6: String = typeParam6Impl(1)
 
+    val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"implicit val paramImpl$i1 = param$i1"
+
     val text: String = s"""
       def adtApply$index[
         ${typeParam1.mkString(',')}
       ](param: $typeParam6): ADTFoldApply$index[Nothing,  ${typeParam1.mkString(',')}] = new ADTFoldApply$index[Nothing,  ${typeParam1
         .mkString(',')}] {
 
-        override protected def foldValueOpt[${typeParam2.mkString(',')}](implicit ${typeParam3.mkString(
-        ','
-      )}): Target$index = ADTBuilderHelperImplicit.ForFetch[Target$index].inputHList(param)
+        override def value[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = {
+          ${typeParam10.mkString('\n')}
+          ADTBuilderHelperImplicit.ForFetch[Target$index].inputHList(param)
+        }
 
       }
     """
