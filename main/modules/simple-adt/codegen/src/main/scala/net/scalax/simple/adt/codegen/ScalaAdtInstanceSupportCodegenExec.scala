@@ -62,6 +62,12 @@ object ScalaAdtInstanceSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
+    locally {
+      val filePath             = writePath / "ADTApplyFunction2.scala"
+      val linerContent: String = ADTApplyFunction2(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
   }
 
 }
