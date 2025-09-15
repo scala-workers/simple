@@ -10,12 +10,13 @@ class ADTApplyFunction2(val index: Int) {
   class TraitBody(val index: Int) {
     TraitBodySelf =>
 
-    val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"T$i1"
-    val typeParam2: Seq[String] = "Target1 >: Nothing" +: (for (i1 <- 2 to index) yield s"Target$i1 >: Target${i1 - 1}")
-    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"param$i1: T$i1 => Target$i1"
-    val typeParam4: Seq[String] = s"TargetOther${index - 1}" +: (for (i1 <- 2 to index) yield s"T$i1")
-    val typeParam5: Seq[String] = for (i1 <- 1 to index) yield s"apply(param$i1)"
-    val typeParam9: Seq[String] = for (i1 <- 1 to index) yield s"param$i1"
+    val typeParam1: Seq[String]  = for (i1 <- 1 to index) yield s"T$i1"
+    val typeParam2: Seq[String]  = "Target1 >: Nothing" +: (for (i1 <- 2 to index) yield s"Target$i1 >: Target${i1 - 1}")
+    val typeParam3: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1: T$i1 => Target$i1"
+    val typeParam4: Seq[String]  = s"TargetOther${index - 1}" +: (for (i1 <- 2 to index) yield s"T$i1")
+    val typeParam5: Seq[String]  = for (i1 <- 1 to index) yield s"apply(param$i1)"
+    val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1"
+    val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"AdtFunction[Target, T$i1]"
 
     def typeParam6Impl(index: Int): String = if (index < TraitBodySelf.index) {
       s"""AdtCoProduct.UsePositive[T$index, ${typeParam6Impl(index + 1)}]"""
@@ -34,9 +35,15 @@ class ADTApplyFunction2(val index: Int) {
     val typeParam7: String = typeParam7Impl(1)
 
     val text: String = s"""
-      def adtApply$index[Target, ${typeParam1.mkString(
-        ','
-      )}](target: Target, param: $typeParam7): $typeParam6 = ADTFuncBuilderHelper.inputHList(param, target)
+      trait ADTOptions$index[${typeParam1.mkString(',')}] {
+        def input[Target](target: Target)(implicit param: $typeParam7): ADTFoldApply$index[Nothing, ${typeParam1.mkString(',')}] = {
+          ADTApplyFunction.adtApply$index(ADTFuncBuilderHelper.inputHList(param, target))
+        }
+
+        def typeOnly[Target](implicit param: $typeParam7): ADTFoldApply$index[Nothing, ${typeParam10.mkString(',')}] = {
+          ADTApplyFunction.adtApply$index(param)
+        }
+      }
     """
 
   }
@@ -48,7 +55,7 @@ class ADTApplyFunction2(val index: Int) {
     package instance
     package support
 
-    object ADTApplyFunction2 {
+    trait ADTApplyFunction2 {
       ${preTextContent.mkString('\n')}
     }
   """
