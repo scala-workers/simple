@@ -24,14 +24,14 @@ class ADTTraitBuilder(val index: Int) {
         s"TargetOther${index - 1}" +: (for i1 <- (TraitBodySelf.index - index) + 2 to TraitBodySelf.index yield s"T$i1")
 
       s"""
-        new ADTFoldApply$index[${typeParam7.mkString(',')}] {
-          override def apply[TargetOther${index - 1} >: TargetOther$index](param${(TraitBodySelf.index - index) + 1}: T${(TraitBodySelf.index - index) + 1} => TargetOther${index - 1}): ADTFoldApply${index - 1}[${typeParam8
+        new ADTFoldApplyImpl$index[${typeParam7.mkString(',')}] {
+          override def apply[TargetOther${index - 1} >: TargetOther$index](param${(TraitBodySelf.index - index) + 1}: T${(TraitBodySelf.index - index) + 1} => TargetOther${index - 1}): ADTFoldApplyImpl${index - 1}[${typeParam8
           .mkString(',')}] = ${typeParam6Impl(index - 1)}
         }
       """
     } else {
       s"""
-        new ADTFoldApply0[TargetOther0] {
+        new ADTFoldApplyImpl0[TargetOther0] {
           override def value: TargetOther0 = FoldApplySelf.value(${typeParam9.mkString(',')})
         }
       """
@@ -40,18 +40,20 @@ class ADTTraitBuilder(val index: Int) {
     val typeParam6: String = typeParam6Impl(index - 1)
 
     val text: String = s"""
-      trait ADTFoldApply$index[
+      trait ADTFoldApplyImpl$index[
         Target0,
         ${typeParam1.mkString(',')}
       ] {
         FoldApplySelf =>
         def value[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = FoldApplySelf.${typeParam5.mkString('.')}.value
 
-        def apply[TargetOther${index - 1} >: Target0](param1: T1 => TargetOther${index - 1}): ADTFoldApply${index - 1}[${typeParam4
+        def apply[TargetOther${index - 1} >: Target0](param1: T1 => TargetOther${index - 1}): ADTFoldApplyImpl${index - 1}[${typeParam4
         .mkString(
           ','
         )}] = $typeParam6
       }
+
+      class CoProduct$index[${typeParam1.mkString(',')}](val fold: ADTFoldApplyImpl$index[Nothing, ${typeParam1.mkString(',')}])
     """
 
   }
@@ -63,10 +65,12 @@ class ADTTraitBuilder(val index: Int) {
     package instance
     package support
 
-    trait ADTFoldApply0[Target0] {
+    trait CoProduct0[Target0] {
       FoldApplySelf =>
       def value: Target0
     }
+
+    import net.scalax.simple.adt.instance.support.{CoProduct0 => ADTFoldApplyImpl0}
 
     ${preTextContent.mkString('\n')}
   """

@@ -68,6 +68,18 @@ object ScalaAdtInstanceSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
+    locally {
+      val filePath             = writePath / "ADTUnapplyBuilder.scala"
+      val linerContent: String = ADTUnapplyBuilder(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "ADTTypeAliasBuilder.scala"
+      val linerContent: String = ADTTypeAliasBuilder(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
   }
 
 }

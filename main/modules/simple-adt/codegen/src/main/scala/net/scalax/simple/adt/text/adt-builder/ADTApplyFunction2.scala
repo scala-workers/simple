@@ -35,15 +35,20 @@ class ADTApplyFunction2(val index: Int) {
     val typeParam7: String = typeParam7Impl(1)
 
     val text: String = s"""
-      trait ADTOptions$index[${typeParam1.mkString(',')}] {
-        def input[Target](target: Target)(implicit param: $typeParam7): ADTFoldApply$index[Nothing, ${typeParam1.mkString(',')}] = {
-          ADTApplyFunction.adtApply$index(ADTFuncBuilderHelper.inputHList(param, target))
+      trait CoProduct${index}Apply[${typeParam1.mkString(',')}] extends Self.ADTOptionsUnapply$index {
+        def apply[Target](target: Target)(implicit param: ADTValue[$typeParam7]): CoProduct$index[${typeParam1.mkString(',')}] = {
+          ADTApplyFunction.adtApply$index(ADTFuncBuilderHelper.inputHList(param.value, target))
         }
 
-        def typeOnly[Target](implicit param: $typeParam7): ADTFoldApply$index[Nothing, ${typeParam10.mkString(',')}] = {
-          ADTApplyFunction.adtApply$index(param)
+        def typeOnly[Target](implicit param: ADTValue[$typeParam7]): CoProduct$index[${typeParam10.mkString(',')}] = {
+          ADTApplyFunction.adtApply$index(param.value)
         }
       }
+
+      def CoProduct$index[${typeParam1.mkString(',')}]: CoProduct${index}Apply[${typeParam1.mkString(',')}] =
+        new CoProduct${index}Apply[${typeParam1.mkString(',')}] {
+          //
+        }
     """
 
   }
@@ -56,6 +61,7 @@ class ADTApplyFunction2(val index: Int) {
     package support
 
     trait ADTApplyFunction2 {
+      Self: ADTUnapplyBuilder =>
       ${preTextContent.mkString('\n')}
     }
   """

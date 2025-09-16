@@ -1,7 +1,7 @@
 package net.scalax.simple.adt
 package instance
 
-import net.scalax.simple.adt.instance.support.impl2.FunctionM2Impl1
+import support.impl2.FunctionAbs
 
 object ADTBuilderHelperImplicit {
 
@@ -31,7 +31,7 @@ object ADTBuilderHelperImplicit {
           i: AdtCoProduct.UsePositive[I1, InputCoProduct],
           functionList: AdtHList.UsePositive[I1 => Target, OutHList]
         ): Target = {
-          val funcApply = FunctionM2Impl1.nextInstance.nextInstance.functionM2[I1, OutHList, InputCoProduct, Target]((n1: OutHList) =>
+          val funcApply = FunctionAbs.out.nextInstance.nextInstance.functionM2[I1, OutHList, InputCoProduct, Target]((n1: OutHList) =>
             (n2: InputCoProduct) => c.inputCoProduct(n2, n1)
           )
 

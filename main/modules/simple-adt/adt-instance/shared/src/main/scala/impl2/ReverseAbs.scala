@@ -73,103 +73,121 @@ trait FunctionM2Abs2[M2[_, _], Nat1, Nat1Positive[_, _ <: Nat1] <: Nat1, Nat2, N
   ]
 }
 
-object FunctionM2Impl1
-    extends FunctionM2Abs2[
-      ({ type Func1[A, B] = A => B })#Func1,
-      AdtCoProduct,
-      AdtCoProduct.UsePositive,
-      AdtHList,
-      AdtHList.UsePositive,
-      AdtHList,
-      AdtHList.UsePositive,
-      AdtCoProduct,
-      AdtCoProduct.UsePositive
-    ] {
-
-  override lazy val typeParameterSupport: TypeParameterSupportImpl1.type = TypeParameterSupportImpl1
-  override lazy val productAppendSupport: ProductAppendSupporImpl1.type  = ProductAppendSupporImpl1
-
-  override def functionM2[Item, N1 <: AdtCoProduct, N2 <: AdtHList, CTX](
-    param: N1 => N2 => CTX
-  ): AdtCoProduct.UsePositive[Item => CTX, N1] => AdtHList.UsePositive[Item, N2] => CTX = super.functionM2[Item, N1, N2, CTX](param)
-
-  override lazy val nextInstance: FunctionM2Impl2.type = FunctionM2Impl2
+object FunctionAbs {
+  lazy val out: FunctionM2Abs[
+    ({ type Func1[A, B] = A => B })#Func1,
+    AdtCoProduct,
+    AdtCoProduct.UsePositive,
+    AdtHList,
+    AdtHList.UsePositive,
+    AdtHList,
+    AdtHList.UsePositive,
+    AdtCoProduct,
+    AdtCoProduct.UsePositive
+  ] = private_package.FunctionM2Impl1
 }
 
-object FunctionM2Impl2
-    extends FunctionM2Abs2[
-      ({ type Func1[A, B] = B => A })#Func1,
-      AdtHList,
-      AdtHList.UsePositive,
-      AdtHList,
-      AdtHList.UsePositive,
-      AdtCoProduct,
-      AdtCoProduct.UsePositive,
-      AdtCoProduct,
-      AdtCoProduct.UsePositive
-    ] {
+private object private_package {
 
-  override lazy val typeParameterSupport: TypeParameterSupportImpl2.type =
-    nextInstance.nextInstance.nextInstance.typeParameterSupport.nextInstance
-  override lazy val productAppendSupport: ProductAppendSupporImpl2.type =
-    nextInstance.nextInstance.nextInstance.productAppendSupport.nextInstance
+  object FunctionM2Impl1
+      extends FunctionM2Abs2[
+        ({ type Func1[A, B] = A => B })#Func1,
+        AdtCoProduct,
+        AdtCoProduct.UsePositive,
+        AdtHList,
+        AdtHList.UsePositive,
+        AdtHList,
+        AdtHList.UsePositive,
+        AdtCoProduct,
+        AdtCoProduct.UsePositive
+      ] {
 
-  override def functionM2[Item, N1 <: AdtHList, N2 <: AdtHList, CTX](
-    param: N1 => CTX => N2
-  ): AdtHList.UsePositive[CTX => Item, N1] => CTX => AdtHList.UsePositive[Item, N2] = super.functionM2[Item, N1, N2, CTX](param)
+    override lazy val typeParameterSupport: TypeParameterSupportImpl1.type = TypeParameterSupportImpl1
+    override lazy val productAppendSupport: ProductAppendSupporImpl1.type  = ProductAppendSupporImpl1
 
-  override lazy val nextInstance: FunctionM2Impl3.type = FunctionM2Impl3
+    override def functionM2[Item, N1 <: AdtCoProduct, N2 <: AdtHList, CTX](
+      param: N1 => N2 => CTX
+    ): AdtCoProduct.UsePositive[Item => CTX, N1] => AdtHList.UsePositive[Item, N2] => CTX = super.functionM2[Item, N1, N2, CTX](param)
 
-}
+    override lazy val nextInstance: FunctionM2Impl2.type = FunctionM2Impl2
+  }
 
-object FunctionM2Impl3
-    extends FunctionM2Abs2[
-      ({ type Func1[A, B] = A => B })#Func1,
-      AdtHList,
-      AdtHList.UsePositive,
-      AdtCoProduct,
-      AdtCoProduct.UsePositive,
-      AdtCoProduct,
-      AdtCoProduct.UsePositive,
-      AdtHList,
-      AdtHList.UsePositive
-    ] {
+  object FunctionM2Impl2
+      extends FunctionM2Abs2[
+        ({ type Func1[A, B] = B => A })#Func1,
+        AdtHList,
+        AdtHList.UsePositive,
+        AdtHList,
+        AdtHList.UsePositive,
+        AdtCoProduct,
+        AdtCoProduct.UsePositive,
+        AdtCoProduct,
+        AdtCoProduct.UsePositive
+      ] {
 
-  override lazy val typeParameterSupport: TypeParameterSupportImpl1.type =
-    nextInstance.nextInstance.nextInstance.typeParameterSupport.nextInstance
-  override lazy val productAppendSupport: ProductAppendSupporImpl3.type =
-    nextInstance.nextInstance.nextInstance.productAppendSupport.nextInstance
+    override lazy val typeParameterSupport: TypeParameterSupportImpl2.type =
+      nextInstance.nextInstance.nextInstance.typeParameterSupport.nextInstance
+    override lazy val productAppendSupport: ProductAppendSupporImpl2.type =
+      nextInstance.nextInstance.nextInstance.productAppendSupport.nextInstance
 
-  override def functionM2[Item, N1 <: AdtHList, N2 <: AdtCoProduct, CTX](
-    param: N1 => N2 => CTX
-  ): AdtHList.UsePositive[Item => CTX, N1] => AdtCoProduct.UsePositive[Item, N2] => CTX = super.functionM2[Item, N1, N2, CTX](param)
+    override def functionM2[Item, N1 <: AdtHList, N2 <: AdtHList, CTX](
+      param: N1 => CTX => N2
+    ): AdtHList.UsePositive[CTX => Item, N1] => CTX => AdtHList.UsePositive[Item, N2] = super.functionM2[Item, N1, N2, CTX](param)
 
-  override lazy val nextInstance: FunctionM2Impl4.type = FunctionM2Impl4
+    override lazy val nextInstance: FunctionM2Impl3.type = FunctionM2Impl3
 
-}
+  }
 
-object FunctionM2Impl4
-    extends FunctionM2Abs2[
-      ({ type Func1[A, B] = B => A })#Func1,
-      AdtCoProduct,
-      AdtCoProduct.UsePositive,
-      AdtCoProduct,
-      AdtCoProduct.UsePositive,
-      AdtHList,
-      AdtHList.UsePositive,
-      AdtHList,
-      AdtHList.UsePositive
-    ] {
+  object FunctionM2Impl3
+      extends FunctionM2Abs2[
+        ({ type Func1[A, B] = A => B })#Func1,
+        AdtHList,
+        AdtHList.UsePositive,
+        AdtCoProduct,
+        AdtCoProduct.UsePositive,
+        AdtCoProduct,
+        AdtCoProduct.UsePositive,
+        AdtHList,
+        AdtHList.UsePositive
+      ] {
 
-  override lazy val typeParameterSupport: TypeParameterSupportImpl2.type =
-    nextInstance.nextInstance.nextInstance.typeParameterSupport.nextInstance
-  override lazy val productAppendSupport: ProductAppendSupporImpl4.type =
-    nextInstance.nextInstance.nextInstance.productAppendSupport.nextInstance
+    override lazy val typeParameterSupport: TypeParameterSupportImpl1.type =
+      nextInstance.nextInstance.nextInstance.typeParameterSupport.nextInstance
+    override lazy val productAppendSupport: ProductAppendSupporImpl3.type =
+      nextInstance.nextInstance.nextInstance.productAppendSupport.nextInstance
 
-  override def functionM2[Item, N1 <: AdtCoProduct, N2 <: AdtCoProduct, CTX](
-    param: N1 => CTX => N2
-  ): AdtCoProduct.UsePositive[CTX => Item, N1] => CTX => AdtCoProduct.UsePositive[Item, N2] = super.functionM2[Item, N1, N2, CTX](param)
+    override def functionM2[Item, N1 <: AdtHList, N2 <: AdtCoProduct, CTX](
+      param: N1 => N2 => CTX
+    ): AdtHList.UsePositive[Item => CTX, N1] => AdtCoProduct.UsePositive[Item, N2] => CTX = super.functionM2[Item, N1, N2, CTX](param)
 
-  override lazy val nextInstance: FunctionM2Impl1.type = FunctionM2Impl1
+    override lazy val nextInstance: FunctionM2Impl4.type = FunctionM2Impl4
+
+  }
+
+  object FunctionM2Impl4
+      extends FunctionM2Abs2[
+        ({ type Func1[A, B] = B => A })#Func1,
+        AdtCoProduct,
+        AdtCoProduct.UsePositive,
+        AdtCoProduct,
+        AdtCoProduct.UsePositive,
+        AdtHList,
+        AdtHList.UsePositive,
+        AdtHList,
+        AdtHList.UsePositive
+      ] {
+
+    override lazy val typeParameterSupport: TypeParameterSupportImpl2.type =
+      nextInstance.nextInstance.nextInstance.typeParameterSupport.nextInstance
+    override lazy val productAppendSupport: ProductAppendSupporImpl4.type =
+      nextInstance.nextInstance.nextInstance.productAppendSupport.nextInstance
+
+    override def functionM2[Item, N1 <: AdtCoProduct, N2 <: AdtCoProduct, CTX](
+      param: N1 => CTX => N2
+    ): AdtCoProduct.UsePositive[CTX => Item, N1] => CTX => AdtCoProduct.UsePositive[Item, N2] = super.functionM2[Item, N1, N2, CTX](param)
+
+    override lazy val nextInstance: FunctionM2Impl1.type = FunctionM2Impl1
+
+  }
 
 }

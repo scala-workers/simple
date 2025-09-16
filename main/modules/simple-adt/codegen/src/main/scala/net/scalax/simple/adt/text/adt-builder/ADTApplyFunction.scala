@@ -30,15 +30,16 @@ class ADTApplyFunction(val index: Int) {
     val text: String = s"""
       def adtApply$index[
         ${typeParam1.mkString(',')}
-      ](param: $typeParam6): ADTFoldApply$index[Nothing,  ${typeParam1.mkString(',')}] = new ADTFoldApply$index[Nothing,  ${typeParam1
-        .mkString(',')}] {
+      ](param: $typeParam6): CoProduct$index[${typeParam1.mkString(',')}] =
+        new CoProduct$index(fold = new ADTFoldApplyImpl$index[Nothing,  ${typeParam1.mkString(',')}] {
 
-        override def value[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = {
-          ${typeParam10.mkString('\n')}
-          ADTBuilderHelperImplicit.ForFetch[Target$index].inputHList(param)
+          override def value[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = {
+            ${typeParam10.mkString('\n')}
+            ADTBuilderHelperImplicit.ForFetch[Target$index].inputHList(param)
+          }
         }
 
-      }
+      )
     """
 
   }

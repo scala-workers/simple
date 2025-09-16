@@ -1,7 +1,7 @@
 package net.scalax.simple.adt
 package instance
 
-import net.scalax.simple.adt.instance.support.impl2.FunctionM2Impl1
+import support.impl2.FunctionAbs
 
 object ADTFuncBuilderHelper {
 
@@ -29,7 +29,7 @@ object ADTFuncBuilderHelper {
         i: AdtCoProduct.UsePositive[AdtFunction[Target, I1], InputCoProduct],
         t: Target
       ): AdtCoProduct.UsePositive[I1, OutCoProduct] = {
-        val funcApply = FunctionM2Impl1.nextInstance.nextInstance.nextInstance.functionM2[I1, InputCoProduct, OutCoProduct, Target](
+        val funcApply = FunctionAbs.out.nextInstance.nextInstance.nextInstance.functionM2[I1, InputCoProduct, OutCoProduct, Target](
           (n1: InputCoProduct) => (n2: Target) => c.inputCoProduct(n1, n2)
         )
 
