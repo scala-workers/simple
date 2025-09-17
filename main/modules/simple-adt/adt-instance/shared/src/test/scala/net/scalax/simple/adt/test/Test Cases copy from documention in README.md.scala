@@ -38,7 +38,7 @@ object `Test Cases copy from documention in README.md` {
         import scala.util.Try
 
         def inputAdtDataSimple[T: Adt.CoProducts3[*, Int, String, Double]](t: T): Option[BigDecimal] = {
-          val applyM = Adt.CoProduct3[Int, String, Double](t)
+          val applyM = Adt.CoProduct3[Int, String, Double].instance(t)
           applyM
             .fold(intValue => Some(BigDecimal(intValue)))(strValue => Try(BigDecimal(strValue)).toOption)(doubleValue =>
               Some(BigDecimal(doubleValue))
@@ -58,7 +58,7 @@ object `Test Cases copy from documention in README.md` {
         import scala.util.Try
 
         def inputAdtDataSimple[T: Adt.CoProducts3[*, Int, String, Double]](t: T): Option[BigDecimal] = {
-          val applyM = Adt.CoProduct3[Int, String, Double](t)
+          val applyM = Adt.CoProduct3[Int, String, Double].instance(t)
           applyM match {
             case Adt.CoProduct1(intValue)    => Some(BigDecimal(intValue))
             case Adt.CoProduct2(strValue)    => Try(BigDecimal(strValue)).toOption
@@ -82,7 +82,7 @@ object `Test Cases copy from documention in README.md` {
       import net.scalax.simple.adt.{TypeAdt => Adt}
 
       def inputAdtData[T: Adt.CoProducts3[*, None.type, Some[Int], Option[Int]]](t: T): (String, Int) = {
-        val applyM = Adt.CoProduct3[None.type, Some[Int], Option[Int]](t)
+        val applyM = Adt.CoProduct3[None.type, Some[Int], Option[Int]].instance(t)
         applyM
           .fold(noneValue => ("None", -100))(intSome => ("Some", intSome.get + 1))(intOpt => ("Option", intOpt.map(_ + 2).getOrElse(-500)))
           .value
@@ -99,7 +99,7 @@ object `Test Cases copy from documention in README.md` {
       import net.scalax.simple.adt.{TypeAdt => Adt}
 
       def inputAdtData[T: Adt.CoProducts3[*, None.type, Some[Int], Option[Int]]](t: T): (String, Int) = {
-        val applyM = Adt.CoProduct3[None.type, Some[Int], Option[Int]](t)
+        val applyM = Adt.CoProduct3[None.type, Some[Int], Option[Int]].instance(t)
         applyM match {
           case Adt.CoProduct1(noneValue) => ("None", -100)
           case Adt.CoProduct2(intSome)   => ("Some", intSome.get + 1)
@@ -122,7 +122,7 @@ object `Test Cases copy from documention in README.md` {
     type Options3F[F[_], T, T1, T2, T3] = Adt.CoProducts3[F[T], T1, T2, T3]
 
     def inputAdtData[T: Options3F[Seq, *, Seq[String], Seq[Int], Seq[Option[Long]]]](t: T*): Seq[Long] = {
-      val applyM = Adt.CoProduct3[Seq[String], Seq[Int], Seq[Option[Long]]](t)
+      val applyM = Adt.CoProduct3[Seq[String], Seq[Int], Seq[Option[Long]]].instance(t)
       applyM
         .fold(stringSeq => stringSeq.map(t => t.length.toLong))(intSeq => intSeq.map(t => t.toLong))(longOptSeq =>
           longOptSeq.collect { case Some(s) => s }
@@ -143,13 +143,13 @@ object `Test Cases copy from documention in README.md` {
     type Options2F[F[_], T, T1, T2] = Adt.CoProducts2[F[T], T1, T2]
 
     def countAdtData[T: Options2F[Seq, *, Seq[Option[Int]], Seq[String]]: Adt.CoProducts2[*, Option[Int], String]](t: T*): Int = {
-      def foldableSeq: Adt.CoProduct2[Seq[Option[Int]], Seq[String]] = Adt.CoProduct2[Seq[Option[Int]], Seq[String]](t)
+      def foldableSeq: Adt.CoProduct2[Seq[Option[Int]], Seq[String]] = Adt.CoProduct2[Seq[Option[Int]], Seq[String]].instance(t)
       val applyM: Adt.CoProduct2Apply[Option[Int], String]           = Adt.CoProduct2[Option[Int], String]
 
       t.size match {
         case 0 => foldableSeq.fold(emptyOptIntSeq => -100)(emptyStringSeq => -500).value
         case 1 =>
-          val countValue: Int = applyM(t.head).fold(optInt => optInt.getOrElse(0))(str => str.length).value
+          val countValue: Int = applyM.instance(t.head).fold(optInt => optInt.getOrElse(0))(str => str.length).value
           countValue + 1
         case _ => foldableSeq.fold(optIntSeq => optIntSeq.map(_.getOrElse(0)).sum)(strSeq => strSeq.map(_.length).sum).value
       }
