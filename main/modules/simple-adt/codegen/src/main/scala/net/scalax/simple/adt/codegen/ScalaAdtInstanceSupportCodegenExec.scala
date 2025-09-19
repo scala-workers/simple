@@ -14,7 +14,7 @@ object ScalaAdtInstanceSupportCodegenExec {
 
     val parameterSize: Int = 22
 
-    locally {
+    /*locally {
       val filePath             = writePath / "ADTMappingX.scala"
       val linerContent: String = ADTMappingX(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
@@ -48,7 +48,7 @@ object ScalaAdtInstanceSupportCodegenExec {
       val filePath             = writePath / "ADTCoProductX4.scala"
       val linerContent: String = ADTCoProductX4(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
     locally {
       val filePath             = writePath / "ADTTraitBuilder.scala"
@@ -56,11 +56,11 @@ object ScalaAdtInstanceSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
-    locally {
+    /*locally {
       val filePath             = writePath / "ADTApplyFunction.scala"
       val linerContent: String = ADTApplyFunction(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
     locally {
       val filePath             = writePath / "ADTApplyFunction2.scala"

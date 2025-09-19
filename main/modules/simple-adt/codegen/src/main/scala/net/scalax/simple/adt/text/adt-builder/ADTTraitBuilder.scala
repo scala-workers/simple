@@ -10,12 +10,13 @@ class ADTTraitBuilder(val index: Int) {
   class TraitBody(val index: Int) {
     TraitBodySelf =>
 
-    val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"T$i1"
-    val typeParam2: Seq[String] = for (i1 <- 1 to index) yield s"Target$i1 >: Target${i1 - 1}"
-    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"param$i1: T$i1 => Target$i1"
-    val typeParam4: Seq[String] = s"TargetOther${index - 1}" +: (for (i1 <- 2 to index) yield s"T$i1")
-    val typeParam5: Seq[String] = for (i1 <- 1 to index) yield s"apply(param$i1)"
-    val typeParam9: Seq[String] = for (i1 <- 1 to index) yield s"param$i1"
+    val typeParam1: Seq[String]  = for (i1 <- 1 to index) yield s"T$i1"
+    val typeParam2: Seq[String]  = "Target1" +: (for (i1 <- 2 to index) yield s"Target$i1 >: Target${i1 - 1}")
+    val typeParam3: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1: T$i1 => Target$i1"
+    val typeParam4: Seq[String]  = s"TargetOther${index - 1}" +: (for (i1 <- 2 to index) yield s"T$i1")
+    val typeParam5: Seq[String]  = for (i1 <- 1 to index) yield s"apply(param$i1)"
+    val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1"
+    val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"implicit val paramImpl$i1 = param$i1"
 
     def typeParam6Impl(index: Int): String = if (index > 0) {
       val typeParam7: Seq[String] =
@@ -39,21 +40,36 @@ class ADTTraitBuilder(val index: Int) {
 
     val typeParam6: String = typeParam6Impl(index - 1)
 
+    def typeParam7Impl(index: Int): String = if (index < TraitBodySelf.index) {
+      s"""AdtCoProduct.UsePositive[T$index, ${typeParam7Impl(index + 1)}]"""
+    } else {
+      s"""AdtCoProduct.UseOne[T$index]"""
+    }
+
+    val typeParam7: String = typeParam7Impl(1)
+
     val text: String = s"""
       trait ADTFoldApplyImpl$index[
         Target0,
         ${typeParam1.mkString(',')}
       ] {
         FoldApplySelf =>
-        def value[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = FoldApplySelf.${typeParam5.mkString('.')}.value
 
-        def apply[TargetOther${index - 1} >: Target0](param1: T1 => TargetOther${index - 1}): ADTFoldApplyImpl${index - 1}[${typeParam4
-        .mkString(
-          ','
-        )}] = $typeParam6
+        def apply[TargetOther${index - 1} >: Target0](param1: T1 => TargetOther${index - 1}):
+          ADTFoldApplyImpl${index - 1}[${typeParam4.mkString(',')}]
       }
 
-      class CoProduct$index[${typeParam1.mkString(',')}](val fold: ADTFoldApplyImpl$index[Nothing, ${typeParam1.mkString(',')}])
+      class CoProduct$index[${typeParam1.mkString(',')}](private val foldImpl: $typeParam7) {
+        FoldApplySelf =>
+
+        def value[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = {
+          ${typeParam10.mkString('\n')}
+          ADTBuilderHelperImplicit.ForFetch[Target$index].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther${index - 1}](param1: T1 => TargetOther${index - 1}):
+          ADTFoldApplyImpl${index - 1}[${typeParam4.mkString(',')}] = $typeParam6
+      }
     """
 
   }

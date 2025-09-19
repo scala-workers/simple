@@ -23,7 +23,7 @@ class ADTUnapplyBuilder(val index: Int) {
       val text: String = s"""
         def unapply[${typeParam1.mkString(',')}](
           p: CoProduct$index[${typeParam1.mkString(',')}]
-        ): Option[T${TraitBodySelf.index}] = p.fold.value(${typeParam2.mkString(',')})
+        ): Option[T${TraitBodySelf.index}] = p.value(${typeParam2.mkString(',')})
       """
 
     }

@@ -7,6 +7,7 @@ trait FunctionM2Abs[M2[_, _], Nat1, Nat1Positive[_, _ <: Nat1] <: Nat1, Nat2, Na
   _,
   _ <: Nat2
 ] <: Nat2, Nat3, Nat3Positive[_, _ <: Nat3] <: Nat3, Nat4, Nat4Positive[_, _ <: Nat4] <: Nat4] {
+
   def functionM2[Item, N1 <: Nat1, N2 <: Nat2, CTX](
     param: N1 => M2[N2, CTX]
   ): Nat1Positive[M2[Item, CTX], N1] => M2[Nat2Positive[Item, N2], CTX]
@@ -22,6 +23,7 @@ trait FunctionM2Abs[M2[_, _], Nat1, Nat1Positive[_, _ <: Nat1] <: Nat1, Nat2, Na
     Nat1,
     Nat1Positive
   ]
+
 }
 
 trait FunctionM2Abs2[M2[_, _], Nat1, Nat1Positive[_, _ <: Nat1] <: Nat1, Nat2, Nat2Positive[
@@ -50,6 +52,7 @@ trait FunctionM2Abs2[M2[_, _], Nat1, Nat1Positive[_, _ <: Nat1] <: Nat1, Nat2, N
       Nat4,
       Nat4Positive
     ] { FunctionM2Abs2Self =>
+
   override def functionM2[Item, N1 <: Nat1, N2 <: Nat2, CTX](
     param: N1 => M2[N2, CTX]
   ): Nat1Positive[M2[Item, CTX], N1] => M2[Nat2Positive[Item, N2], CTX] = {
@@ -71,6 +74,7 @@ trait FunctionM2Abs2[M2[_, _], Nat1, Nat1Positive[_, _ <: Nat1] <: Nat1, Nat2, N
     Nat1,
     Nat1Positive
   ]
+
 }
 
 object FunctionAbs {
@@ -110,6 +114,7 @@ private object private_package {
     ): AdtCoProduct.UsePositive[Item => CTX, N1] => AdtHList.UsePositive[Item, N2] => CTX = super.functionM2[Item, N1, N2, CTX](param)
 
     override lazy val nextInstance: FunctionM2Impl2.type = FunctionM2Impl2
+
   }
 
   object FunctionM2Impl2

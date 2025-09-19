@@ -37,16 +37,16 @@ class ADTApplyFunction2(val index: Int) {
     val text: String = s"""
       trait CoProduct${index}Apply[${typeParam1.mkString(',')}] {
         def instance[Target](target: Target)(implicit param: ADTValue[$typeParam7]): CoProduct$index[${typeParam1.mkString(',')}] = {
-          ADTApplyFunction.adtApply$index(ADTFuncBuilderHelper.inputHList(param.value, target))
+          new CoProduct$index(ADTFuncBuilderHelper.inputHList(param.value, target))
         }
 
         def typeOnly[Target](implicit param: ADTValue[$typeParam7]): CoProduct$index[${typeParam10.mkString(',')}] = {
-          ADTApplyFunction.adtApply$index(param.value)
+          new CoProduct$index(param.value)
         }
       }
 
       object CoProduct$index extends Self.ADTOptionsUnapply$index {
-        def apply[${typeParam1.mkString(',')}]:        CoProduct${index}Apply[${typeParam1.mkString(',')}] =
+        def apply[${typeParam1.mkString(',')}]: CoProduct${index}Apply[${typeParam1.mkString(',')}] =
           new CoProduct${index}Apply[${typeParam1.mkString(',')}] {
             //
           }

@@ -16,16 +16,26 @@
         T1
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0](param1: T1 => Target1): Target1 = FoldApplySelf.apply(param1).value
 
-        def apply[TargetOther0 >: Target0](param1: T1 => TargetOther0): ADTFoldApplyImpl0[TargetOther0] = 
+        def apply[TargetOther0 >: Target0](param1: T1 => TargetOther0):
+          ADTFoldApplyImpl0[TargetOther0]
+      }
+
+      class CoProduct1[T1](private val foldImpl: AdtCoProduct.UseOne[T1]) {
+        FoldApplySelf =>
+
+        def value[Target1](param1: T1 => Target1): Target1 = {
+          implicit val paramImpl1 = param1
+          ADTBuilderHelperImplicit.ForFetch[Target1].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther0](param1: T1 => TargetOther0):
+          ADTFoldApplyImpl0[TargetOther0] = 
         new ADTFoldApplyImpl0[TargetOther0] {
           override def value: TargetOther0 = FoldApplySelf.value(param1)
         }
       
       }
-
-      class CoProduct1[T1](val fold: ADTFoldApplyImpl1[Nothing, T1])
     
 
       trait ADTFoldApplyImpl2[
@@ -33,9 +43,22 @@
         T1,T2
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1](param1: T1 => Target1,param2: T2 => Target2): Target2 = FoldApplySelf.apply(param1).apply(param2).value
 
-        def apply[TargetOther1 >: Target0](param1: T1 => TargetOther1): ADTFoldApplyImpl1[TargetOther1,T2] = 
+        def apply[TargetOther1 >: Target0](param1: T1 => TargetOther1):
+          ADTFoldApplyImpl1[TargetOther1,T2]
+      }
+
+      class CoProduct2[T1,T2](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UseOne[T2]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1](param1: T1 => Target1,param2: T2 => Target2): Target2 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+          ADTBuilderHelperImplicit.ForFetch[Target2].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther1](param1: T1 => TargetOther1):
+          ADTFoldApplyImpl1[TargetOther1,T2] = 
         new ADTFoldApplyImpl1[TargetOther1,T2] {
           override def apply[TargetOther0 >: TargetOther1](param2: T2 => TargetOther0): ADTFoldApplyImpl0[TargetOther0] = 
         new ADTFoldApplyImpl0[TargetOther0] {
@@ -45,8 +68,6 @@
         }
       
       }
-
-      class CoProduct2[T1,T2](val fold: ADTFoldApplyImpl2[Nothing, T1,T2])
     
 
       trait ADTFoldApplyImpl3[
@@ -54,9 +75,23 @@
         T1,T2,T3
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3): Target3 = FoldApplySelf.apply(param1).apply(param2).apply(param3).value
 
-        def apply[TargetOther2 >: Target0](param1: T1 => TargetOther2): ADTFoldApplyImpl2[TargetOther2,T2,T3] = 
+        def apply[TargetOther2 >: Target0](param1: T1 => TargetOther2):
+          ADTFoldApplyImpl2[TargetOther2,T2,T3]
+      }
+
+      class CoProduct3[T1,T2,T3](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UseOne[T3]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3): Target3 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+          ADTBuilderHelperImplicit.ForFetch[Target3].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther2](param1: T1 => TargetOther2):
+          ADTFoldApplyImpl2[TargetOther2,T2,T3] = 
         new ADTFoldApplyImpl2[TargetOther2,T2,T3] {
           override def apply[TargetOther1 >: TargetOther2](param2: T2 => TargetOther1): ADTFoldApplyImpl1[TargetOther1,T3] = 
         new ADTFoldApplyImpl1[TargetOther1,T3] {
@@ -70,8 +105,6 @@
         }
       
       }
-
-      class CoProduct3[T1,T2,T3](val fold: ADTFoldApplyImpl3[Nothing, T1,T2,T3])
     
 
       trait ADTFoldApplyImpl4[
@@ -79,9 +112,24 @@
         T1,T2,T3,T4
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4): Target4 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).value
 
-        def apply[TargetOther3 >: Target0](param1: T1 => TargetOther3): ADTFoldApplyImpl3[TargetOther3,T2,T3,T4] = 
+        def apply[TargetOther3 >: Target0](param1: T1 => TargetOther3):
+          ADTFoldApplyImpl3[TargetOther3,T2,T3,T4]
+      }
+
+      class CoProduct4[T1,T2,T3,T4](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UseOne[T4]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4): Target4 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+          ADTBuilderHelperImplicit.ForFetch[Target4].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther3](param1: T1 => TargetOther3):
+          ADTFoldApplyImpl3[TargetOther3,T2,T3,T4] = 
         new ADTFoldApplyImpl3[TargetOther3,T2,T3,T4] {
           override def apply[TargetOther2 >: TargetOther3](param2: T2 => TargetOther2): ADTFoldApplyImpl2[TargetOther2,T3,T4] = 
         new ADTFoldApplyImpl2[TargetOther2,T3,T4] {
@@ -99,8 +147,6 @@
         }
       
       }
-
-      class CoProduct4[T1,T2,T3,T4](val fold: ADTFoldApplyImpl4[Nothing, T1,T2,T3,T4])
     
 
       trait ADTFoldApplyImpl5[
@@ -108,9 +154,25 @@
         T1,T2,T3,T4,T5
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5): Target5 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).value
 
-        def apply[TargetOther4 >: Target0](param1: T1 => TargetOther4): ADTFoldApplyImpl4[TargetOther4,T2,T3,T4,T5] = 
+        def apply[TargetOther4 >: Target0](param1: T1 => TargetOther4):
+          ADTFoldApplyImpl4[TargetOther4,T2,T3,T4,T5]
+      }
+
+      class CoProduct5[T1,T2,T3,T4,T5](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UseOne[T5]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5): Target5 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+          ADTBuilderHelperImplicit.ForFetch[Target5].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther4](param1: T1 => TargetOther4):
+          ADTFoldApplyImpl4[TargetOther4,T2,T3,T4,T5] = 
         new ADTFoldApplyImpl4[TargetOther4,T2,T3,T4,T5] {
           override def apply[TargetOther3 >: TargetOther4](param2: T2 => TargetOther3): ADTFoldApplyImpl3[TargetOther3,T3,T4,T5] = 
         new ADTFoldApplyImpl3[TargetOther3,T3,T4,T5] {
@@ -132,8 +194,6 @@
         }
       
       }
-
-      class CoProduct5[T1,T2,T3,T4,T5](val fold: ADTFoldApplyImpl5[Nothing, T1,T2,T3,T4,T5])
     
 
       trait ADTFoldApplyImpl6[
@@ -141,9 +201,26 @@
         T1,T2,T3,T4,T5,T6
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6): Target6 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).value
 
-        def apply[TargetOther5 >: Target0](param1: T1 => TargetOther5): ADTFoldApplyImpl5[TargetOther5,T2,T3,T4,T5,T6] = 
+        def apply[TargetOther5 >: Target0](param1: T1 => TargetOther5):
+          ADTFoldApplyImpl5[TargetOther5,T2,T3,T4,T5,T6]
+      }
+
+      class CoProduct6[T1,T2,T3,T4,T5,T6](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UseOne[T6]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6): Target6 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+          ADTBuilderHelperImplicit.ForFetch[Target6].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther5](param1: T1 => TargetOther5):
+          ADTFoldApplyImpl5[TargetOther5,T2,T3,T4,T5,T6] = 
         new ADTFoldApplyImpl5[TargetOther5,T2,T3,T4,T5,T6] {
           override def apply[TargetOther4 >: TargetOther5](param2: T2 => TargetOther4): ADTFoldApplyImpl4[TargetOther4,T3,T4,T5,T6] = 
         new ADTFoldApplyImpl4[TargetOther4,T3,T4,T5,T6] {
@@ -169,8 +246,6 @@
         }
       
       }
-
-      class CoProduct6[T1,T2,T3,T4,T5,T6](val fold: ADTFoldApplyImpl6[Nothing, T1,T2,T3,T4,T5,T6])
     
 
       trait ADTFoldApplyImpl7[
@@ -178,9 +253,27 @@
         T1,T2,T3,T4,T5,T6,T7
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7): Target7 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).value
 
-        def apply[TargetOther6 >: Target0](param1: T1 => TargetOther6): ADTFoldApplyImpl6[TargetOther6,T2,T3,T4,T5,T6,T7] = 
+        def apply[TargetOther6 >: Target0](param1: T1 => TargetOther6):
+          ADTFoldApplyImpl6[TargetOther6,T2,T3,T4,T5,T6,T7]
+      }
+
+      class CoProduct7[T1,T2,T3,T4,T5,T6,T7](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UseOne[T7]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7): Target7 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+          ADTBuilderHelperImplicit.ForFetch[Target7].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther6](param1: T1 => TargetOther6):
+          ADTFoldApplyImpl6[TargetOther6,T2,T3,T4,T5,T6,T7] = 
         new ADTFoldApplyImpl6[TargetOther6,T2,T3,T4,T5,T6,T7] {
           override def apply[TargetOther5 >: TargetOther6](param2: T2 => TargetOther5): ADTFoldApplyImpl5[TargetOther5,T3,T4,T5,T6,T7] = 
         new ADTFoldApplyImpl5[TargetOther5,T3,T4,T5,T6,T7] {
@@ -210,8 +303,6 @@
         }
       
       }
-
-      class CoProduct7[T1,T2,T3,T4,T5,T6,T7](val fold: ADTFoldApplyImpl7[Nothing, T1,T2,T3,T4,T5,T6,T7])
     
 
       trait ADTFoldApplyImpl8[
@@ -219,9 +310,28 @@
         T1,T2,T3,T4,T5,T6,T7,T8
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8): Target8 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).value
 
-        def apply[TargetOther7 >: Target0](param1: T1 => TargetOther7): ADTFoldApplyImpl7[TargetOther7,T2,T3,T4,T5,T6,T7,T8] = 
+        def apply[TargetOther7 >: Target0](param1: T1 => TargetOther7):
+          ADTFoldApplyImpl7[TargetOther7,T2,T3,T4,T5,T6,T7,T8]
+      }
+
+      class CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UseOne[T8]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8): Target8 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+          ADTBuilderHelperImplicit.ForFetch[Target8].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther7](param1: T1 => TargetOther7):
+          ADTFoldApplyImpl7[TargetOther7,T2,T3,T4,T5,T6,T7,T8] = 
         new ADTFoldApplyImpl7[TargetOther7,T2,T3,T4,T5,T6,T7,T8] {
           override def apply[TargetOther6 >: TargetOther7](param2: T2 => TargetOther6): ADTFoldApplyImpl6[TargetOther6,T3,T4,T5,T6,T7,T8] = 
         new ADTFoldApplyImpl6[TargetOther6,T3,T4,T5,T6,T7,T8] {
@@ -255,8 +365,6 @@
         }
       
       }
-
-      class CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8](val fold: ADTFoldApplyImpl8[Nothing, T1,T2,T3,T4,T5,T6,T7,T8])
     
 
       trait ADTFoldApplyImpl9[
@@ -264,9 +372,29 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9): Target9 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).value
 
-        def apply[TargetOther8 >: Target0](param1: T1 => TargetOther8): ADTFoldApplyImpl8[TargetOther8,T2,T3,T4,T5,T6,T7,T8,T9] = 
+        def apply[TargetOther8 >: Target0](param1: T1 => TargetOther8):
+          ADTFoldApplyImpl8[TargetOther8,T2,T3,T4,T5,T6,T7,T8,T9]
+      }
+
+      class CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UseOne[T9]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9): Target9 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+          ADTBuilderHelperImplicit.ForFetch[Target9].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther8](param1: T1 => TargetOther8):
+          ADTFoldApplyImpl8[TargetOther8,T2,T3,T4,T5,T6,T7,T8,T9] = 
         new ADTFoldApplyImpl8[TargetOther8,T2,T3,T4,T5,T6,T7,T8,T9] {
           override def apply[TargetOther7 >: TargetOther8](param2: T2 => TargetOther7): ADTFoldApplyImpl7[TargetOther7,T3,T4,T5,T6,T7,T8,T9] = 
         new ADTFoldApplyImpl7[TargetOther7,T3,T4,T5,T6,T7,T8,T9] {
@@ -304,8 +432,6 @@
         }
       
       }
-
-      class CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9](val fold: ADTFoldApplyImpl9[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9])
     
 
       trait ADTFoldApplyImpl10[
@@ -313,9 +439,30 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10): Target10 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).value
 
-        def apply[TargetOther9 >: Target0](param1: T1 => TargetOther9): ADTFoldApplyImpl9[TargetOther9,T2,T3,T4,T5,T6,T7,T8,T9,T10] = 
+        def apply[TargetOther9 >: Target0](param1: T1 => TargetOther9):
+          ADTFoldApplyImpl9[TargetOther9,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+      }
+
+      class CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UseOne[T10]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10): Target10 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+          ADTBuilderHelperImplicit.ForFetch[Target10].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther9](param1: T1 => TargetOther9):
+          ADTFoldApplyImpl9[TargetOther9,T2,T3,T4,T5,T6,T7,T8,T9,T10] = 
         new ADTFoldApplyImpl9[TargetOther9,T2,T3,T4,T5,T6,T7,T8,T9,T10] {
           override def apply[TargetOther8 >: TargetOther9](param2: T2 => TargetOther8): ADTFoldApplyImpl8[TargetOther8,T3,T4,T5,T6,T7,T8,T9,T10] = 
         new ADTFoldApplyImpl8[TargetOther8,T3,T4,T5,T6,T7,T8,T9,T10] {
@@ -357,8 +504,6 @@
         }
       
       }
-
-      class CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](val fold: ADTFoldApplyImpl10[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10])
     
 
       trait ADTFoldApplyImpl11[
@@ -366,9 +511,31 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11): Target11 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).value
 
-        def apply[TargetOther10 >: Target0](param1: T1 => TargetOther10): ADTFoldApplyImpl10[TargetOther10,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11] = 
+        def apply[TargetOther10 >: Target0](param1: T1 => TargetOther10):
+          ADTFoldApplyImpl10[TargetOther10,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+      }
+
+      class CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UseOne[T11]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11): Target11 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+          ADTBuilderHelperImplicit.ForFetch[Target11].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther10](param1: T1 => TargetOther10):
+          ADTFoldApplyImpl10[TargetOther10,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11] = 
         new ADTFoldApplyImpl10[TargetOther10,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11] {
           override def apply[TargetOther9 >: TargetOther10](param2: T2 => TargetOther9): ADTFoldApplyImpl9[TargetOther9,T3,T4,T5,T6,T7,T8,T9,T10,T11] = 
         new ADTFoldApplyImpl9[TargetOther9,T3,T4,T5,T6,T7,T8,T9,T10,T11] {
@@ -414,8 +581,6 @@
         }
       
       }
-
-      class CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](val fold: ADTFoldApplyImpl11[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11])
     
 
       trait ADTFoldApplyImpl12[
@@ -423,9 +588,32 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12): Target12 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).value
 
-        def apply[TargetOther11 >: Target0](param1: T1 => TargetOther11): ADTFoldApplyImpl11[TargetOther11,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] = 
+        def apply[TargetOther11 >: Target0](param1: T1 => TargetOther11):
+          ADTFoldApplyImpl11[TargetOther11,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+      }
+
+      class CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UseOne[T12]]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12): Target12 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+implicit val paramImpl12 = param12
+          ADTBuilderHelperImplicit.ForFetch[Target12].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther11](param1: T1 => TargetOther11):
+          ADTFoldApplyImpl11[TargetOther11,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] = 
         new ADTFoldApplyImpl11[TargetOther11,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] {
           override def apply[TargetOther10 >: TargetOther11](param2: T2 => TargetOther10): ADTFoldApplyImpl10[TargetOther10,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] = 
         new ADTFoldApplyImpl10[TargetOther10,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] {
@@ -475,8 +663,6 @@
         }
       
       }
-
-      class CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](val fold: ADTFoldApplyImpl12[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12])
     
 
       trait ADTFoldApplyImpl13[
@@ -484,9 +670,33 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13): Target13 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).value
 
-        def apply[TargetOther12 >: Target0](param1: T1 => TargetOther12): ADTFoldApplyImpl12[TargetOther12,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] = 
+        def apply[TargetOther12 >: Target0](param1: T1 => TargetOther12):
+          ADTFoldApplyImpl12[TargetOther12,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+      }
+
+      class CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UseOne[T13]]]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13): Target13 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+implicit val paramImpl12 = param12
+implicit val paramImpl13 = param13
+          ADTBuilderHelperImplicit.ForFetch[Target13].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther12](param1: T1 => TargetOther12):
+          ADTFoldApplyImpl12[TargetOther12,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] = 
         new ADTFoldApplyImpl12[TargetOther12,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] {
           override def apply[TargetOther11 >: TargetOther12](param2: T2 => TargetOther11): ADTFoldApplyImpl11[TargetOther11,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] = 
         new ADTFoldApplyImpl11[TargetOther11,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] {
@@ -540,8 +750,6 @@
         }
       
       }
-
-      class CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](val fold: ADTFoldApplyImpl13[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13])
     
 
       trait ADTFoldApplyImpl14[
@@ -549,9 +757,34 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14): Target14 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).value
 
-        def apply[TargetOther13 >: Target0](param1: T1 => TargetOther13): ADTFoldApplyImpl13[TargetOther13,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] = 
+        def apply[TargetOther13 >: Target0](param1: T1 => TargetOther13):
+          ADTFoldApplyImpl13[TargetOther13,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+      }
+
+      class CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UseOne[T14]]]]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14): Target14 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+implicit val paramImpl12 = param12
+implicit val paramImpl13 = param13
+implicit val paramImpl14 = param14
+          ADTBuilderHelperImplicit.ForFetch[Target14].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther13](param1: T1 => TargetOther13):
+          ADTFoldApplyImpl13[TargetOther13,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] = 
         new ADTFoldApplyImpl13[TargetOther13,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] {
           override def apply[TargetOther12 >: TargetOther13](param2: T2 => TargetOther12): ADTFoldApplyImpl12[TargetOther12,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] = 
         new ADTFoldApplyImpl12[TargetOther12,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] {
@@ -609,8 +842,6 @@
         }
       
       }
-
-      class CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](val fold: ADTFoldApplyImpl14[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14])
     
 
       trait ADTFoldApplyImpl15[
@@ -618,9 +849,35 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15): Target15 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).value
 
-        def apply[TargetOther14 >: Target0](param1: T1 => TargetOther14): ADTFoldApplyImpl14[TargetOther14,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] = 
+        def apply[TargetOther14 >: Target0](param1: T1 => TargetOther14):
+          ADTFoldApplyImpl14[TargetOther14,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+      }
+
+      class CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UseOne[T15]]]]]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15): Target15 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+implicit val paramImpl12 = param12
+implicit val paramImpl13 = param13
+implicit val paramImpl14 = param14
+implicit val paramImpl15 = param15
+          ADTBuilderHelperImplicit.ForFetch[Target15].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther14](param1: T1 => TargetOther14):
+          ADTFoldApplyImpl14[TargetOther14,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] = 
         new ADTFoldApplyImpl14[TargetOther14,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] {
           override def apply[TargetOther13 >: TargetOther14](param2: T2 => TargetOther13): ADTFoldApplyImpl13[TargetOther13,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] = 
         new ADTFoldApplyImpl13[TargetOther13,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] {
@@ -682,8 +939,6 @@
         }
       
       }
-
-      class CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](val fold: ADTFoldApplyImpl15[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15])
     
 
       trait ADTFoldApplyImpl16[
@@ -691,9 +946,36 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16): Target16 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).value
 
-        def apply[TargetOther15 >: Target0](param1: T1 => TargetOther15): ADTFoldApplyImpl15[TargetOther15,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] = 
+        def apply[TargetOther15 >: Target0](param1: T1 => TargetOther15):
+          ADTFoldApplyImpl15[TargetOther15,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+      }
+
+      class CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UseOne[T16]]]]]]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16): Target16 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+implicit val paramImpl12 = param12
+implicit val paramImpl13 = param13
+implicit val paramImpl14 = param14
+implicit val paramImpl15 = param15
+implicit val paramImpl16 = param16
+          ADTBuilderHelperImplicit.ForFetch[Target16].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther15](param1: T1 => TargetOther15):
+          ADTFoldApplyImpl15[TargetOther15,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] = 
         new ADTFoldApplyImpl15[TargetOther15,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] {
           override def apply[TargetOther14 >: TargetOther15](param2: T2 => TargetOther14): ADTFoldApplyImpl14[TargetOther14,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] = 
         new ADTFoldApplyImpl14[TargetOther14,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] {
@@ -759,8 +1041,6 @@
         }
       
       }
-
-      class CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](val fold: ADTFoldApplyImpl16[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16])
     
 
       trait ADTFoldApplyImpl17[
@@ -768,9 +1048,37 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17): Target17 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).value
 
-        def apply[TargetOther16 >: Target0](param1: T1 => TargetOther16): ADTFoldApplyImpl16[TargetOther16,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] = 
+        def apply[TargetOther16 >: Target0](param1: T1 => TargetOther16):
+          ADTFoldApplyImpl16[TargetOther16,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+      }
+
+      class CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UseOne[T17]]]]]]]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17): Target17 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+implicit val paramImpl12 = param12
+implicit val paramImpl13 = param13
+implicit val paramImpl14 = param14
+implicit val paramImpl15 = param15
+implicit val paramImpl16 = param16
+implicit val paramImpl17 = param17
+          ADTBuilderHelperImplicit.ForFetch[Target17].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther16](param1: T1 => TargetOther16):
+          ADTFoldApplyImpl16[TargetOther16,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] = 
         new ADTFoldApplyImpl16[TargetOther16,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] {
           override def apply[TargetOther15 >: TargetOther16](param2: T2 => TargetOther15): ADTFoldApplyImpl15[TargetOther15,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] = 
         new ADTFoldApplyImpl15[TargetOther15,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] {
@@ -840,8 +1148,6 @@
         }
       
       }
-
-      class CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](val fold: ADTFoldApplyImpl17[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17])
     
 
       trait ADTFoldApplyImpl18[
@@ -849,9 +1155,38 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18): Target18 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).value
 
-        def apply[TargetOther17 >: Target0](param1: T1 => TargetOther17): ADTFoldApplyImpl17[TargetOther17,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] = 
+        def apply[TargetOther17 >: Target0](param1: T1 => TargetOther17):
+          ADTFoldApplyImpl17[TargetOther17,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+      }
+
+      class CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UseOne[T18]]]]]]]]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18): Target18 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+implicit val paramImpl12 = param12
+implicit val paramImpl13 = param13
+implicit val paramImpl14 = param14
+implicit val paramImpl15 = param15
+implicit val paramImpl16 = param16
+implicit val paramImpl17 = param17
+implicit val paramImpl18 = param18
+          ADTBuilderHelperImplicit.ForFetch[Target18].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther17](param1: T1 => TargetOther17):
+          ADTFoldApplyImpl17[TargetOther17,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] = 
         new ADTFoldApplyImpl17[TargetOther17,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] {
           override def apply[TargetOther16 >: TargetOther17](param2: T2 => TargetOther16): ADTFoldApplyImpl16[TargetOther16,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] = 
         new ADTFoldApplyImpl16[TargetOther16,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] {
@@ -925,8 +1260,6 @@
         }
       
       }
-
-      class CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](val fold: ADTFoldApplyImpl18[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18])
     
 
       trait ADTFoldApplyImpl19[
@@ -934,9 +1267,39 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19): Target19 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).value
 
-        def apply[TargetOther18 >: Target0](param1: T1 => TargetOther18): ADTFoldApplyImpl18[TargetOther18,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] = 
+        def apply[TargetOther18 >: Target0](param1: T1 => TargetOther18):
+          ADTFoldApplyImpl18[TargetOther18,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+      }
+
+      class CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UseOne[T19]]]]]]]]]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19): Target19 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+implicit val paramImpl12 = param12
+implicit val paramImpl13 = param13
+implicit val paramImpl14 = param14
+implicit val paramImpl15 = param15
+implicit val paramImpl16 = param16
+implicit val paramImpl17 = param17
+implicit val paramImpl18 = param18
+implicit val paramImpl19 = param19
+          ADTBuilderHelperImplicit.ForFetch[Target19].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther18](param1: T1 => TargetOther18):
+          ADTFoldApplyImpl18[TargetOther18,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] = 
         new ADTFoldApplyImpl18[TargetOther18,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] {
           override def apply[TargetOther17 >: TargetOther18](param2: T2 => TargetOther17): ADTFoldApplyImpl17[TargetOther17,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] = 
         new ADTFoldApplyImpl17[TargetOther17,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] {
@@ -1014,8 +1377,6 @@
         }
       
       }
-
-      class CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](val fold: ADTFoldApplyImpl19[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19])
     
 
       trait ADTFoldApplyImpl20[
@@ -1023,9 +1384,40 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20): Target20 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).apply(param20).value
 
-        def apply[TargetOther19 >: Target0](param1: T1 => TargetOther19): ADTFoldApplyImpl19[TargetOther19,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] = 
+        def apply[TargetOther19 >: Target0](param1: T1 => TargetOther19):
+          ADTFoldApplyImpl19[TargetOther19,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+      }
+
+      class CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UseOne[T20]]]]]]]]]]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20): Target20 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+implicit val paramImpl12 = param12
+implicit val paramImpl13 = param13
+implicit val paramImpl14 = param14
+implicit val paramImpl15 = param15
+implicit val paramImpl16 = param16
+implicit val paramImpl17 = param17
+implicit val paramImpl18 = param18
+implicit val paramImpl19 = param19
+implicit val paramImpl20 = param20
+          ADTBuilderHelperImplicit.ForFetch[Target20].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther19](param1: T1 => TargetOther19):
+          ADTFoldApplyImpl19[TargetOther19,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] = 
         new ADTFoldApplyImpl19[TargetOther19,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] {
           override def apply[TargetOther18 >: TargetOther19](param2: T2 => TargetOther18): ADTFoldApplyImpl18[TargetOther18,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] = 
         new ADTFoldApplyImpl18[TargetOther18,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] {
@@ -1107,8 +1499,6 @@
         }
       
       }
-
-      class CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](val fold: ADTFoldApplyImpl20[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20])
     
 
       trait ADTFoldApplyImpl21[
@@ -1116,9 +1506,41 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21): Target21 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).apply(param20).apply(param21).value
 
-        def apply[TargetOther20 >: Target0](param1: T1 => TargetOther20): ADTFoldApplyImpl20[TargetOther20,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] = 
+        def apply[TargetOther20 >: Target0](param1: T1 => TargetOther20):
+          ADTFoldApplyImpl20[TargetOther20,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+      }
+
+      class CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UseOne[T21]]]]]]]]]]]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21): Target21 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+implicit val paramImpl12 = param12
+implicit val paramImpl13 = param13
+implicit val paramImpl14 = param14
+implicit val paramImpl15 = param15
+implicit val paramImpl16 = param16
+implicit val paramImpl17 = param17
+implicit val paramImpl18 = param18
+implicit val paramImpl19 = param19
+implicit val paramImpl20 = param20
+implicit val paramImpl21 = param21
+          ADTBuilderHelperImplicit.ForFetch[Target21].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther20](param1: T1 => TargetOther20):
+          ADTFoldApplyImpl20[TargetOther20,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] = 
         new ADTFoldApplyImpl20[TargetOther20,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] {
           override def apply[TargetOther19 >: TargetOther20](param2: T2 => TargetOther19): ADTFoldApplyImpl19[TargetOther19,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] = 
         new ADTFoldApplyImpl19[TargetOther19,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] {
@@ -1204,8 +1626,6 @@
         }
       
       }
-
-      class CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](val fold: ADTFoldApplyImpl21[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21])
     
 
       trait ADTFoldApplyImpl22[
@@ -1213,9 +1633,42 @@
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22
       ] {
         FoldApplySelf =>
-        def value[Target1 >: Target0,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20,Target22 >: Target21](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21,param22: T22 => Target22): Target22 = FoldApplySelf.apply(param1).apply(param2).apply(param3).apply(param4).apply(param5).apply(param6).apply(param7).apply(param8).apply(param9).apply(param10).apply(param11).apply(param12).apply(param13).apply(param14).apply(param15).apply(param16).apply(param17).apply(param18).apply(param19).apply(param20).apply(param21).apply(param22).value
 
-        def apply[TargetOther21 >: Target0](param1: T1 => TargetOther21): ADTFoldApplyImpl21[TargetOther21,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] = 
+        def apply[TargetOther21 >: Target0](param1: T1 => TargetOther21):
+          ADTFoldApplyImpl21[TargetOther21,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+      }
+
+      class CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UsePositive[T21, AdtCoProduct.UseOne[T22]]]]]]]]]]]]]]]]]]]]]]) {
+        FoldApplySelf =>
+
+        def value[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20,Target22 >: Target21](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21,param22: T22 => Target22): Target22 = {
+          implicit val paramImpl1 = param1
+implicit val paramImpl2 = param2
+implicit val paramImpl3 = param3
+implicit val paramImpl4 = param4
+implicit val paramImpl5 = param5
+implicit val paramImpl6 = param6
+implicit val paramImpl7 = param7
+implicit val paramImpl8 = param8
+implicit val paramImpl9 = param9
+implicit val paramImpl10 = param10
+implicit val paramImpl11 = param11
+implicit val paramImpl12 = param12
+implicit val paramImpl13 = param13
+implicit val paramImpl14 = param14
+implicit val paramImpl15 = param15
+implicit val paramImpl16 = param16
+implicit val paramImpl17 = param17
+implicit val paramImpl18 = param18
+implicit val paramImpl19 = param19
+implicit val paramImpl20 = param20
+implicit val paramImpl21 = param21
+implicit val paramImpl22 = param22
+          ADTBuilderHelperImplicit.ForFetch[Target22].inputHList(foldImpl)
+        }
+
+        def fold[TargetOther21](param1: T1 => TargetOther21):
+          ADTFoldApplyImpl21[TargetOther21,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] = 
         new ADTFoldApplyImpl21[TargetOther21,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] {
           override def apply[TargetOther20 >: TargetOther21](param2: T2 => TargetOther20): ADTFoldApplyImpl20[TargetOther20,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] = 
         new ADTFoldApplyImpl20[TargetOther20,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] {
@@ -1305,7 +1758,5 @@
         }
       
       }
-
-      class CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](val fold: ADTFoldApplyImpl22[Nothing, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22])
     
   
