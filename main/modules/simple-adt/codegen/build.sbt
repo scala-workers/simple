@@ -29,7 +29,7 @@ codegenImpl := {
   (Compile / runMain).inputTaskValue.partialInput(s" $scala3RunMainClass").partialInput(s" ${scala3RunMainInputStr.value}").evaluated
 }
 
-val scalaAllRunMainInputStr = settingKey[String]("scalaAllRunMainInputStr")
+/*val scalaAllRunMainInputStr = settingKey[String]("scalaAllRunMainInputStr")
 scalaAllRunMainInputStr := {
   val projectRoot = rootCodegenPath.value / "scala"
   projectRoot.getAbsoluteFile.toString
@@ -39,7 +39,7 @@ val scalaAllRunMainClass = s"$codegenPackageName.ScalaAllCodegenExec"
 codegenImpl := {
   codegenImpl.evaluated
   (Compile / runMain).inputTaskValue.partialInput(s" $scalaAllRunMainClass").partialInput(s" ${scalaAllRunMainInputStr.value}").evaluated
-}
+}*/
 
 val scalaInnerRunMainInputStr = settingKey[String]("scalaInnerRunMainInputStr")
 scalaInnerRunMainInputStr := {

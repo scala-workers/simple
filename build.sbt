@@ -21,11 +21,12 @@ ghdmzskJVM / version := `simple-adt-version`
 ghdmzskJS / version  := `simple-adt-version`
 
 val `adt/file`                        = `modules/file` / "simple-adt"
-val adt: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `adt/file`
+
+/*val adt: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `adt/file`
 lazy val adtJVM: Project              = adt.jvm dependsOn (`adt-implementionJVM`, `test-commonJVM` % Test) aggregate `adt-implementionJVM`
 lazy val adtJS: Project               = adt.js dependsOn (`adt-implementionJS`, `test-commonJS`    % Test) aggregate `adt-implementionJS`
 adtJVM / version := `simple-adt-version`
-adtJS / version  := `simple-adt-version`
+adtJS / version  := `simple-adt-version`*/
 
 val `nat-support/file`                          = `adt/file` / "nat-support"
 val `nat-support`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `nat-support/file`
@@ -39,7 +40,7 @@ lazy val `nat-supportJS`: Project               = `nat-support`.js dependsOn (`t
 `nat-supportJS` / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
 val `adt-instance/file`                          = `adt/file` / "adt-instance"
-val `adt-instance`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `adt-instance/file`
+val `adt-instance`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `adt-instance/file` dependsOn `nat-support` dependsOn (`test-common` % Test)
 lazy val `adt-instanceJVM`: Project              = `adt-instance`.jvm dependsOn `nat-supportJVM` dependsOn (`test-commonJVM` % Test)
 lazy val `adt-instanceJS`: Project               = `adt-instance`.js dependsOn `nat-supportJS` dependsOn (`test-commonJS`    % Test)
 `adt-instanceJVM` / version            := `simple-adt-version`
@@ -120,7 +121,7 @@ val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPl
 lazy val `test-commonJVM`: Project              = `test-common`.jvm
 lazy val `test-commonJS`: Project               = `test-common`.js
 
-`adt-codegen` / rootCodegenPath   := (adtJVM / baseDirectory).value / ".." / "shared" / "src" / "codegen"
+`adt-codegen` / rootCodegenPath   := (`adt-instanceJVM` / baseDirectory).value / ".."/".." / "shared" / "src" / "codegen"
 `codec-codegen` / rootCodegenPath := (codecJVM / baseDirectory).value / ".." / "shared" / "src" / "codegen"
 
 addCommandAlias("adtCodegen", s"; ++${scalaV.v3}; adt-codegen/preCodegenImpl; adt-codegen/codegenImpl")
