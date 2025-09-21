@@ -95,7 +95,7 @@ private class helperUtils[V <: JdbcProfile, ModelF[_[_]]](val slickProfile: V)(
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
 
   def toShape(t1: ModelF[ShapeF]): SlickHListShape[FlatShapeLevel, SlickHList, SlickHList, SlickHList] = {
-    val toListFunc = toListGeneric.toListByTheSameType[ShapeF, Any, SlickHListShape[
+    val toListFunc = toListGeneric.toListByTheSameType[ShapeF[Any], SlickHListShape[
       FlatShapeLevel,
       SlickHList,
       SlickHList,
@@ -125,7 +125,7 @@ private class helperUtils[V <: JdbcProfile, ModelF[_[_]]](val slickProfile: V)(
   }
 
   def toRep(t1: ModelF[Rep]): SlickHList = {
-    val toListFunc = toListGeneric.toListByTheSameType[Rep, Any, SlickHList](
+    val toListFunc = toListGeneric.toListByTheSameType[Rep[Any], SlickHList](
       SlickHNil,
       (sum, each) => each :: sum
     )
@@ -136,7 +136,7 @@ private class helperUtils[V <: JdbcProfile, ModelF[_[_]]](val slickProfile: V)(
   }
 
   def fromModel(m: ModelF[({ type IdImpl[T] = T })#IdImpl]): SlickHList = {
-    val toListFunc = toListGeneric.toListByTheSameType[({ type IdImpl[T] = T })#IdImpl, Any, SlickHList](
+    val toListFunc = toListGeneric.toListByTheSameType[Any, SlickHList](
       SlickHNil,
       (sum, each) => each :: sum
     )

@@ -6,7 +6,7 @@ libraryDependencies ++= libScalax.`os-lib`.value
 
 val codegenPackageName = "net.scalax.simple.adt.codegen"
 
-val scala2RunMainInputStr = settingKey[String]("scala2RunMainInputStr")
+/*val scala2RunMainInputStr = settingKey[String]("scala2RunMainInputStr")
 scala2RunMainInputStr := {
   val projectRoot = rootCodegenPath.value / "scala-2"
   projectRoot.getAbsoluteFile.toString
@@ -15,9 +15,9 @@ scala2RunMainInputStr := {
 val scala2RunMainClass = s"$codegenPackageName.Scala2CodegenExec"
 codegenImpl := {
   (Compile / runMain).inputTaskValue.partialInput(s" $scala2RunMainClass").partialInput(s" ${scala2RunMainInputStr.value}").evaluated
-}
+}*/
 
-val scala3RunMainInputStr = settingKey[String]("scala3RunMainInputStr")
+/*val scala3RunMainInputStr = settingKey[String]("scala3RunMainInputStr")
 scala3RunMainInputStr := {
   val projectRoot = rootCodegenPath.value / "scala-3"
   projectRoot.getAbsoluteFile.toString
@@ -27,7 +27,7 @@ val scala3RunMainClass = s"$codegenPackageName.Scala3CodegenExec"
 codegenImpl := {
   codegenImpl.evaluated
   (Compile / runMain).inputTaskValue.partialInput(s" $scala3RunMainClass").partialInput(s" ${scala3RunMainInputStr.value}").evaluated
-}
+}*/
 
 /*val scalaAllRunMainInputStr = settingKey[String]("scalaAllRunMainInputStr")
 scalaAllRunMainInputStr := {
@@ -41,7 +41,7 @@ codegenImpl := {
   (Compile / runMain).inputTaskValue.partialInput(s" $scalaAllRunMainClass").partialInput(s" ${scalaAllRunMainInputStr.value}").evaluated
 }*/
 
-val scalaInnerRunMainInputStr = settingKey[String]("scalaInnerRunMainInputStr")
+/*val scalaInnerRunMainInputStr = settingKey[String]("scalaInnerRunMainInputStr")
 scalaInnerRunMainInputStr := {
   val projectRoot = rootCodegenPath.value / ".." / ".." / ".." / "implemention" / "shared" / "src" / "codegen" / "scala"
   projectRoot.getAbsoluteFile.toString
@@ -54,9 +54,9 @@ codegenImpl := {
     .partialInput(s" $scalaInnerRunMainClass")
     .partialInput(s" ${scalaInnerRunMainInputStr.value}")
     .evaluated
-}
+}*/
 
-val scalaOuterRunMainInputStr = settingKey[String]("scalaOuterRunMainInputStr")
+/*val scalaOuterRunMainInputStr = settingKey[String]("scalaOuterRunMainInputStr")
 scalaOuterRunMainInputStr := {
   val projectRoot = rootCodegenPath.value / ".." / ".." / ".." / "bridge-support" / "shared" / "src" / "codegen"
   projectRoot.getAbsoluteFile.toString
@@ -69,7 +69,7 @@ codegenImpl := {
     .partialInput(s" $scalaOuterRunMainClass")
     .partialInput(s" ${scalaOuterRunMainInputStr.value}")
     .evaluated
-}
+}*/
 
 val scalaNatSupportCodegenExecInputStr = settingKey[String]("scalaNatSupportCodegenExecInputStr")
 scalaNatSupportCodegenExecInputStr := {
@@ -85,7 +85,6 @@ scalaAdtInstanceSupportCodegenExecInputStr := {
 
 val scalaNatSupportCodegenExecInputStrMainClass = s"$codegenPackageName.ScalaNatSupportCodegenExec"
 codegenImpl := {
-  codegenImpl.evaluated
   (Compile / runMain).inputTaskValue
     .partialInput(s" $scalaNatSupportCodegenExecInputStrMainClass")
     .partialInput(s" ${scalaNatSupportCodegenExecInputStr.value}")
@@ -101,10 +100,10 @@ codegenImpl := {
     .evaluated
 }
 
-val preGenMainClass = s"$codegenPackageName.PreCodegen"
+/*val preGenMainClass = s"$codegenPackageName.PreCodegen"
 preCodegenImpl := (Compile / runMain).inputTaskValue
   .partialInput(s" $preGenMainClass")
   .partialInput(s" ${rootCodegenPath.value.getAbsoluteFile.toString}")
-  .evaluated
+  .evaluated*/
 
 scalafmtOnCompile := true
