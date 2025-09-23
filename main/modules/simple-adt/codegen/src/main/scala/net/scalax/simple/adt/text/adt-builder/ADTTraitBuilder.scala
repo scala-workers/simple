@@ -32,9 +32,7 @@ class ADTTraitBuilder(val index: Int) {
       """
     } else {
       s"""
-        new ADTFoldApplyImpl0[TargetOther0] {
-          override def value: TargetOther0 = FoldApplySelf.value(${typeParam9.mkString(',')})
-        }
+        FoldApplySelf.fold(${typeParam9.mkString(',')})
       """
     }
 
@@ -62,9 +60,13 @@ class ADTTraitBuilder(val index: Int) {
       class CoProduct$index[${typeParam1.mkString(',')}](private val foldImpl: $typeParam7) {
         FoldApplySelf =>
 
-        def value[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = {
-          ${typeParam10.mkString('\n')}
-          ADTBuilderHelperImplicit.ForFetch[Target$index].inputHList(foldImpl)
+        def fold[${typeParam2.mkString(',')}](${typeParam3.mkString(
+        ','
+      )}): ADTFoldApplyImpl0[Target$index] = new ADTFoldApplyImpl0[Target$index] {
+          override def value: Target$index = {
+            ${typeParam10.mkString('\n')}
+            ADTBuilderHelperImplicit.ForFetch[Target$index].inputHList(foldImpl)
+          }
         }
 
         def fold[TargetOther${index - 1}](param1: T1 => TargetOther${index - 1}):
@@ -74,7 +76,7 @@ class ADTTraitBuilder(val index: Int) {
 
   }
 
-  val preTextContent: Seq[String] = for (i <- 1 to index) yield new TraitBody(i).text
+  val preTextContent: Seq[String] = for (i <- 2 to index) yield new TraitBody(i).text
 
   val text: String = s"""
     package net.scalax.simple.adt
@@ -87,6 +89,25 @@ class ADTTraitBuilder(val index: Int) {
     }
 
     import net.scalax.simple.adt.instance.support.{CoProduct0 => ADTFoldApplyImpl0}
+
+    trait ADTFoldApplyImpl1[Target0, T1] {
+      FoldApplySelf =>
+
+      def apply[TargetOther0 >: Target0](param1: T1 => TargetOther0): ADTFoldApplyImpl0[TargetOther0]
+    }
+
+    class CoProduct1[T1](private val foldImpl: AdtCoProduct.UseOne[T1]) {
+      FoldApplySelf =>
+
+      def fold[TargetOther0](param1: T1 => TargetOther0): ADTFoldApplyImpl0[TargetOther0] =
+        new ADTFoldApplyImpl0[TargetOther0] {
+          override def value: TargetOther0 = {
+            implicit val paramImpl1 = param1
+            ADTBuilderHelperImplicit.ForFetch[TargetOther0].inputHList(foldImpl)
+          }
+        }
+
+    }
 
     ${preTextContent.mkString('\n')}
   """

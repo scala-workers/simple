@@ -28,6 +28,8 @@ lazy val `nat-support`: sbtcrossproject.CrossProject =
 `nat-support`.js / scalaVersion := scalaV.v213
 `nat-support`.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `nat-support`.js / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
+`nat-support`.jvm / publishTo := localStaging.value
+`nat-support`.js / publishTo := localStaging.value
 
 val `adt-main/file` = `adt/file` / "adt-main"
 lazy val `adt-main`: sbtcrossproject.CrossProject =
@@ -38,6 +40,8 @@ lazy val `adt-main`: sbtcrossproject.CrossProject =
 `adt-main`.js / scalaVersion := scalaV.v213
 `adt-main`.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `adt-main`.js / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
+`adt-main`.jvm / publishTo := localStaging.value
+`adt-main`.js / publishTo := localStaging.value
 
 val `adt-codegen/file` = `adt/file` / "codegen"
 val `adt-codegen`      = project in `adt-codegen/file`
@@ -89,10 +93,8 @@ lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, 
 `codec-codegen` / rootCodegenPath := (codec.jvm / baseDirectory).value / ".." / "shared" / "src" / "codegen"
 
 addCommandAlias("adtCodegen", s"; ++${scalaV.v3}; adt-codegen/codegenImpl;")
-addCommandAlias("releaseSimple", "; +adtJVM/test; +adtJS/test; +adtJVM/publishSigned; +adtJS/publishSigned;")
+addCommandAlias("releaseSimple", "; +adt-mainJVM/test; +adt-mainJS/test; +nat-supportJVM/publishSigned; +nat-supportJS/publishSigned; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned;")
 addCommandAlias("releaseCodecLocal", "; +codecJVM/publishLocal ; +codecJS/publishLocal ;")
 
-addCommandAlias("releaseBridgeLocal", "; +adt-bridge-supportJVM/publishLocal ; +adt-bridge-supportJS/publishLocal ;")
-addCommandAlias("releaseBridge", "; +adt-bridge-supportJVM/publishSigned ; +adt-bridge-supportJS/publishSigned ;")
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
