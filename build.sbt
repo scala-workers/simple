@@ -88,6 +88,8 @@ nat.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
 val `test-common/file`                               = `test/file` / "test-common"
 lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `test-common/file`
+`test-common`.jvm / version := `simple-adt-version`
+`test-common`.js / version  := `simple-adt-version`
 
 `adt-codegen` / rootCodegenPath   := (`adt-main`.jvm / baseDirectory).value / ".." / ".." / "shared" / "src" / "codegen"
 `codec-codegen` / rootCodegenPath := (codec.jvm / baseDirectory).value / ".." / "shared" / "src" / "codegen"
@@ -95,7 +97,10 @@ lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, 
 addCommandAlias("adtCodegen", s"; ++${scalaV.v3}; adt-codegen/codegenImpl;")
 addCommandAlias("cleanSimpleAdt", "; clean; nat-supportJVM/clean; nat-supportJS/clean; adt-mainJVM/clean; adt-mainJS/clean;")
 addCommandAlias("releaseSimpleAdt", "; +adt-mainJVM/test; +adt-mainJS/test; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned;")
-addCommandAlias("releaseSimpleAdt1", "; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned; +nat-supportJVM/publishSigned; +nat-supportJS/publishSigned; sonaBundle;")
+addCommandAlias(
+  "releaseSimpleAdtWithOutTest",
+  "; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned; +nat-supportJVM/publishSigned; +nat-supportJS/publishSigned; sonaBundle;"
+)
 addCommandAlias("releaseCodecLocal", "; +codecJVM/publishLocal ; +codecJS/publishLocal ;")
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
