@@ -1,5 +1,4 @@
-scalaVersion := scalaV.v3
-name         := "simple-adt-codegen"
+name := "simple-adt-codegen"
 
 libraryDependencies ++= libScalax.`commons-io`.value
 libraryDependencies ++= libScalax.`os-lib`.value
@@ -79,7 +78,7 @@ scalaNatSupportCodegenExecInputStr := {
 
 val scalaAdtInstanceSupportCodegenExecInputStr = settingKey[String]("scalaAdtInstanceSupportCodegenExecInputStr")
 scalaAdtInstanceSupportCodegenExecInputStr := {
-  val projectRoot = rootCodegenPath.value / ".." / ".." / ".." / "adt-instance" / "shared" / "src" / "codegen" / "scala"
+  val projectRoot = rootCodegenPath.value / ".." / ".." / ".." / "adt-main" / "shared" / "src" / "codegen" / "scala"
   projectRoot.getAbsoluteFile.toURI.toASCIIString
 }
 

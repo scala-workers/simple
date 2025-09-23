@@ -25,22 +25,23 @@ lazy val `nat-support`: sbtcrossproject.CrossProject =
 `nat-support`.jvm / version := `simple-adt-version`
 `nat-support`.js / version := `simple-adt-version`
 `nat-support`.jvm / scalaVersion := scalaV.v213
-`nat-support`.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `nat-support`.js / scalaVersion := scalaV.v213
+`nat-support`.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `nat-support`.js / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
-val `adt-instance/file` = `adt/file` / "adt-instance"
-lazy val `adt-instance`: sbtcrossproject.CrossProject =
-  crossProject(JSPlatform, JVMPlatform) in `adt-instance/file` dependsOn (`nat-support`, `test-common` % Test)
-`adt-instance`.jvm / version := `simple-adt-version`
-`adt-instance`.js / version := `simple-adt-version`
-`adt-instance`.jvm / scalaVersion := scalaV.v213
-`adt-instance`.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
-`adt-instance`.js / scalaVersion := scalaV.v213
-`adt-instance`.js / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
+val `adt-main/file` = `adt/file` / "adt-main"
+lazy val `adt-main`: sbtcrossproject.CrossProject =
+  crossProject(JSPlatform, JVMPlatform) in `adt-main/file` dependsOn (`nat-support`, `test-common` % Test)
+`adt-main`.jvm / version := `simple-adt-version`
+`adt-main`.js / version := `simple-adt-version`
+`adt-main`.jvm / scalaVersion := scalaV.v213
+`adt-main`.js / scalaVersion := scalaV.v213
+`adt-main`.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
+`adt-main`.js / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
 val `adt-codegen/file` = `adt/file` / "codegen"
 val `adt-codegen`      = project in `adt-codegen/file`
+`adt-codegen` / scalaVersion := scalaV.v3
 
 val `list/file` = `wip/file` / "simple-list"
 lazy val list   = crossProject(JSPlatform, JVMPlatform) in `list/file` dependsOn (ghdmzsk, `test-common` % Test) aggregate ghdmzsk
@@ -54,8 +55,8 @@ val `codec/file` = `wip/file` / "simple-codec"
 lazy val codec =
   crossProject(JSPlatform, JVMPlatform) in `codec/file` dependsOn (ghdmzsk, `nat-support`, `test-common` % Test) aggregate ghdmzsk
 codec.jvm / scalaVersion := scalaV.v213
-codec.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 codec.js / scalaVersion := scalaV.v213
+codec.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 codec.js / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
 val `codec-codegen/file` = `codec/file` / "codegen"
@@ -70,17 +71,21 @@ lazy val `codec-slick` = project in `codec-slick/file` dependsOn (codec.jvm, `te
 val `codec-circe/file` = `codec/file` / "simple-codec-circe"
 lazy val `codec-circe` = crossProject(JSPlatform, JVMPlatform) in `codec-circe/file` dependsOn (codec, `test-common` % Test) aggregate codec
 `codec-circe`.jvm / scalaVersion       := scalaV.v213
-`codec-circe`.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `codec-circe`.js / scalaVersion        := scalaV.v213
+`codec-circe`.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `codec-circe`.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
 val `nat/file` = `impractical/file` / "simple-nat"
 lazy val nat   = crossProject(JSPlatform, JVMPlatform) in `nat/file`
+nat.jvm / scalaVersion       := scalaV.v213
+nat.js / scalaVersion        := scalaV.v213
+nat.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
+nat.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
 val `test-common/file`                               = `test/file` / "test-common"
 lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `test-common/file`
 
-`adt-codegen` / rootCodegenPath   := (`adt-instance`.jvm / baseDirectory).value / ".." / ".." / "shared" / "src" / "codegen"
+`adt-codegen` / rootCodegenPath   := (`adt-main`.jvm / baseDirectory).value / ".." / ".." / "shared" / "src" / "codegen"
 `codec-codegen` / rootCodegenPath := (codec.jvm / baseDirectory).value / ".." / "shared" / "src" / "codegen"
 
 addCommandAlias("adtCodegen", s"; ++${scalaV.v3}; adt-codegen/codegenImpl;")
