@@ -95,6 +95,7 @@ lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, 
 addCommandAlias("adtCodegen", s"; ++${scalaV.v3}; adt-codegen/codegenImpl;")
 addCommandAlias("cleanSimpleAdt", "; clean; nat-supportJVM/clean; nat-supportJS/clean; adt-mainJVM/clean; adt-mainJS/clean;")
 addCommandAlias("releaseSimpleAdt", "; +adt-mainJVM/test; +adt-mainJS/test; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned;")
+addCommandAlias("releaseSimpleAdt1", "; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned; +nat-supportJVM/publishSigned; +nat-supportJS/publishSigned; sonaBundle;")
 addCommandAlias("releaseCodecLocal", "; +codecJVM/publishLocal ; +codecJS/publishLocal ;")
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
