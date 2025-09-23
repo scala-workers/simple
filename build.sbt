@@ -1,4 +1,4 @@
-val `simple-adt-version` = "0.0.2-M21"
+val `simple-adt-version` = "0.0.2-M22"
 
 scalaVersion := scalaV.v213
 name         := "simple"
@@ -93,8 +93,8 @@ lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, 
 `codec-codegen` / rootCodegenPath := (codec.jvm / baseDirectory).value / ".." / "shared" / "src" / "codegen"
 
 addCommandAlias("adtCodegen", s"; ++${scalaV.v3}; adt-codegen/codegenImpl;")
-addCommandAlias("releaseSimple", "; +adt-mainJVM/test; +adt-mainJS/test; +nat-supportJVM/publishSigned; +nat-supportJS/publishSigned; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned;")
+addCommandAlias("cleanSimpleAdt", "; clean; nat-supportJVM/clean; nat-supportJS/clean; adt-mainJVM/clean; adt-mainJS/clean;")
+addCommandAlias("releaseSimpleAdt", "; +adt-mainJVM/test; +adt-mainJS/test; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned;")
 addCommandAlias("releaseCodecLocal", "; +codecJVM/publishLocal ; +codecJS/publishLocal ;")
-
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
