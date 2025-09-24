@@ -39,11 +39,11 @@ object `Test Cases copy from documention in README.md` {
 
         def inputAdtDataSimple[T: Adt.CoProducts3[*, Int, String, Double]](t: T): Option[BigDecimal] = {
           val applyM = Adt.CoProduct3[Int, String, Double].instance(t)
+
           applyM
-            .fold(intValue => Some(BigDecimal(intValue)))(strValue => Try(BigDecimal(strValue)).toOption)(doubleValue =>
-              Some(BigDecimal(doubleValue))
-            )
-            .value
+            .fold3(intValue => Some(BigDecimal(intValue)))
+            .fold2(strValue => Try(BigDecimal(strValue)).toOption)
+            .fold1(doubleValue => Some(BigDecimal(doubleValue)))
         }
 
         assert(inputAdtDataSimple(2).get == BigDecimal("2"))
@@ -84,8 +84,9 @@ object `Test Cases copy from documention in README.md` {
       def inputAdtData[T: Adt.CoProducts3[*, None.type, Some[Int], Option[Int]]](t: T): (String, Int) = {
         val applyM = Adt.CoProduct3[None.type, Some[Int], Option[Int]].instance(t)
         applyM
-          .fold(noneValue => ("None", -100))(intSome => ("Some", intSome.get + 1))(intOpt => ("Option", intOpt.map(_ + 2).getOrElse(-500)))
-          .value
+          .fold3(noneValue => ("None", -100))
+          .fold2(intSome => ("Some", intSome.get + 1))
+          .fold1(intOpt => ("Option", intOpt.map(_ + 2).getOrElse(-500)))
       }
 
       assert(inputAdtData(None) == ("None", -100))
@@ -123,11 +124,11 @@ object `Test Cases copy from documention in README.md` {
 
     def inputAdtData[T: Options3F[Seq, *, Seq[String], Seq[Int], Seq[Option[Long]]]](t: T*): Seq[Long] = {
       val applyM = Adt.CoProduct3[Seq[String], Seq[Int], Seq[Option[Long]]].instance(t)
+
       applyM
-        .fold(stringSeq => stringSeq.map(t => t.length.toLong))(intSeq => intSeq.map(t => t.toLong))(longOptSeq =>
-          longOptSeq.collect { case Some(s) => s }
-        )
-        .value
+        .fold3(stringSeq => stringSeq.map(t => t.length.toLong))
+        .fold2(intSeq => intSeq.map(t => t.toLong))
+        .fold1(longOptSeq => longOptSeq.collect { case Some(s) => s })
     }
 
     assert(inputAdtData("abc", "aabbcc", "aabbbcc") == List("abc".length: Long, "aabbcc".length: Long, "aabbbcc".length: Long))
@@ -147,11 +148,11 @@ object `Test Cases copy from documention in README.md` {
       val applyM: Adt.CoProduct2Apply[Option[Int], String]           = Adt.CoProduct2[Option[Int], String]
 
       t.size match {
-        case 0 => foldableSeq.fold(emptyOptIntSeq => -100)(emptyStringSeq => -500).value
+        case 0 => foldableSeq.fold2(emptyOptIntSeq => -100).fold1(emptyStringSeq => -500)
         case 1 =>
-          val countValue: Int = applyM.instance(t.head).fold(optInt => optInt.getOrElse(0))(str => str.length).value
+          val countValue: Int = applyM.instance(t.head).fold2(optInt => optInt.getOrElse(0)).fold1(str => str.length)
           countValue + 1
-        case _ => foldableSeq.fold(optIntSeq => optIntSeq.map(_.getOrElse(0)).sum)(strSeq => strSeq.map(_.length).sum).value
+        case _ => foldableSeq.fold2(optIntSeq => optIntSeq.map(_.getOrElse(0)).sum).fold1(strSeq => strSeq.map(_.length).sum)
       }
     }
 
@@ -179,13 +180,13 @@ object `Test Cases copy from documention in README.md` {
       val inputList = t.to(List)
 
       funcApplyM
-        .fold(func1 =>
+        .fold2(func1 =>
           for (tItem <- inputList) yield {
             val tempVar: Option[Int] = func1.adtFunctionApply(tItem)
             tempVar.map(_ + 100).getOrElse(-100)
           }
-        )(func2 => for (tItem <- inputList) yield func2.adtFunctionApply(tItem).length)
-        .value
+        )
+        .fold1(func2 => for (tItem <- inputList) yield func2.adtFunctionApply(tItem).length)
     }
 
     assert(countAdtData("abc", "aabbcc", "aabbbcc") == List("abc".length, "aabbcc".length, "aabbbcc".length))

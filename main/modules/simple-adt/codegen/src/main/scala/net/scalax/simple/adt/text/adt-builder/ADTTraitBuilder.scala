@@ -13,26 +13,29 @@ class ADTTraitBuilder(val index: Int) {
     val typeParam1: Seq[String]  = for (i1 <- 1 to index) yield s"T$i1"
     val typeParam2: Seq[String]  = "Target1" +: (for (i1 <- 2 to index) yield s"Target$i1 >: Target${i1 - 1}")
     val typeParam3: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1: T$i1 => Target$i1"
-    val typeParam4: Seq[String]  = s"TargetOther${index - 1}" +: (for (i1 <- 2 to index) yield s"T$i1")
+    val typeParam4: Seq[String]  = s"TargetOther$index" +: (for (i1 <- 2 to index) yield s"T$i1")
     val typeParam5: Seq[String]  = for (i1 <- 1 to index) yield s"apply(param$i1)"
     val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1"
     val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"implicit val paramImpl$i1 = param$i1"
 
-    def typeParam6Impl(index: Int): String = if (index > 0) {
+    def typeParam6Impl(index: Int): String = if (index > 1) {
       val typeParam7: Seq[String] =
-        s"TargetOther$index" +: (for (i1 <- (TraitBodySelf.index - index) + 1 to TraitBodySelf.index) yield s"T$i1")
+        s"TargetOther${index + 1}" +: (for (i1 <- (TraitBodySelf.index - index) + 1 to TraitBodySelf.index) yield s"T$i1")
       val typeParam8: Seq[String] =
-        s"TargetOther${index - 1}" +: (for i1 <- (TraitBodySelf.index - index) + 2 to TraitBodySelf.index yield s"T$i1")
+        s"TargetOther$index" +: (for i1 <- (TraitBodySelf.index - index) + 2 to TraitBodySelf.index yield s"T$i1")
 
       s"""
         new ADTFoldApplyImpl$index[${typeParam7.mkString(',')}] {
-          override def apply[TargetOther${index - 1} >: TargetOther$index](param${(TraitBodySelf.index - index) + 1}: T${(TraitBodySelf.index - index) + 1} => TargetOther${index - 1}): ADTFoldApplyImpl${index - 1}[${typeParam8
+          override def fold$index[TargetOther$index >: TargetOther${index + 1}](param${(TraitBodySelf.index - index) + 1}: T${(TraitBodySelf.index - index) + 1} => TargetOther$index): ADTFoldApplyImpl${index - 1}[${typeParam8
           .mkString(',')}] = ${typeParam6Impl(index - 1)}
         }
       """
     } else {
       s"""
-        FoldApplySelf.fold(${typeParam9.mkString(',')})
+        new ADTFoldApplyImpl1[TargetOther2, T${TraitBodySelf.index}] {
+          override def fold1[TargetOther1 >: TargetOther2](param${TraitBodySelf.index}: T${TraitBodySelf.index} => TargetOther1): TargetOther1 =
+            FoldApplySelf.fold(${typeParam9.mkString(',')})
+        }
       """
     }
 
@@ -53,23 +56,19 @@ class ADTTraitBuilder(val index: Int) {
       ] {
         FoldApplySelf =>
 
-        def apply[TargetOther${index - 1} >: Target0](param1: T1 => TargetOther${index - 1}):
+        def fold$index[TargetOther$index >: Target0](param1: T1 => TargetOther$index):
           ADTFoldApplyImpl${index - 1}[${typeParam4.mkString(',')}]
       }
 
       class CoProduct$index[${typeParam1.mkString(',')}](private val foldImpl: $typeParam7) {
         FoldApplySelf =>
 
-        def fold[${typeParam2.mkString(',')}](${typeParam3.mkString(
-        ','
-      )}): ADTFoldApplyImpl0[Target$index] = new ADTFoldApplyImpl0[Target$index] {
-          override def value: Target$index = {
-            ${typeParam10.mkString('\n')}
-            ADTBuilderHelperImplicit.ForFetch[Target$index].inputHList(foldImpl)
-          }
+        def fold[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = {
+          ${typeParam10.mkString('\n')}
+          ADTBuilderHelperImplicit.ForFetch[Target$index].inputHList(foldImpl)
         }
 
-        def fold[TargetOther${index - 1}](param1: T1 => TargetOther${index - 1}):
+        def fold$index[TargetOther${index}](param1: T1 => TargetOther${index}):
           ADTFoldApplyImpl${index - 1}[${typeParam4.mkString(',')}] = $typeParam6
       }
     """
@@ -83,29 +82,23 @@ class ADTTraitBuilder(val index: Int) {
     package instance
     package support
 
-    trait CoProduct0[Target0] {
-      FoldApplySelf =>
-      def value: Target0
-    }
-
-    import net.scalax.simple.adt.instance.support.{CoProduct0 => ADTFoldApplyImpl0}
-
     trait ADTFoldApplyImpl1[Target0, T1] {
       FoldApplySelf =>
 
-      def apply[TargetOther0 >: Target0](param1: T1 => TargetOther0): ADTFoldApplyImpl0[TargetOther0]
+      def fold1[TargetOther0 >: Target0](param1: T1 => TargetOther0): TargetOther0
     }
 
     class CoProduct1[T1](private val foldImpl: AdtCoProduct.UseOne[T1]) {
       FoldApplySelf =>
 
-      def fold[TargetOther0](param1: T1 => TargetOther0): ADTFoldApplyImpl0[TargetOther0] =
-        new ADTFoldApplyImpl0[TargetOther0] {
-          override def value: TargetOther0 = {
-            implicit val paramImpl1 = param1
-            ADTBuilderHelperImplicit.ForFetch[TargetOther0].inputHList(foldImpl)
-          }
-        }
+      def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
+        implicit val paramImpl1 = param1
+        ADTBuilderHelperImplicit.ForFetch[TargetOther0].inputHList(foldImpl)
+      }
+
+      def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
+        fold(param1)
+      }
 
     }
 

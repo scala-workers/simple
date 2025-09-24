@@ -17,7 +17,8 @@ object TestCase4 extends ZIOSpecDefault {
 
   def inputAdtData[T: TypeOpt](t: T*): Seq[Option[Long]] = {
     val applyM = Adt.CoProduct3[Seq[String], Seq[Int], Seq[Option[Long]]].instance(t)
-    applyM.fold(t1 => t1.map(t => Some(t.length.toLong)))(t2 => t2.map(t => Some(t.toLong)))(t3 => t3).value
+
+    applyM.fold3(t1 => t1.map(t => Some(t.length.toLong))).fold2(t2 => t2.map(t => Some(t.toLong))).fold1(t3 => t3)
   }
 
   override def spec: Spec[TestEnvironment with Scope, Any] = suite("Test case created by MarchLiu")(
