@@ -1,4 +1,4 @@
-val `simple-adt-version` = "0.0.2-M22"
+val `simple-adt-version` = "0.0.2-M23"
 
 scalaVersion := scalaV.v213
 name         := "simple"
@@ -96,7 +96,7 @@ lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, 
 
 addCommandAlias("adtCodegen", s"; ++${scalaV.v3}; adt-codegen/codegenImpl;")
 addCommandAlias("cleanSimpleAdt", "; clean; nat-supportJVM/clean; nat-supportJS/clean; adt-mainJVM/clean; adt-mainJS/clean;")
-addCommandAlias("releaseSimpleAdt", "; +adt-mainJVM/test; +adt-mainJS/test; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned;")
+addCommandAlias("testSimpleAdt", "; +adt-mainJVM/test; +adt-mainJS/test;")
 addCommandAlias(
   "releaseSimpleAdtWithOutTest",
   "; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned; +nat-supportJVM/publishSigned; +nat-supportJS/publishSigned; sonaBundle;"
