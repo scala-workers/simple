@@ -85,7 +85,8 @@ trait SlickUtils[V <: JdbcProfile] {
         _tableTag = _tableTag,
         _schemaName = _schemaName,
         _tableName = _tableName
-      ) {
+      )
+      with PojoInstance[Rep, Model] {
     CommonTableSelf =>
 
     def this(_tableTag: Tag, _tableName: String)(implicit
@@ -96,6 +97,8 @@ trait SlickUtils[V <: JdbcProfile] {
       modelSet: ModelSet[({ type PojoF[XU[_]] = PojoInstance[XU, Model] })#PojoF, Model],
       basedInstalled: BasedInstalled[({ type TypeF[UX[_]] = PojoInstance[UX, Model] })#TypeF]
     ) = this(_tableTag = _tableTag, _schemaName = None, _tableName = _tableName)
+
+    override def instance: Any = CommonTableSelf.repModel.instance
 
   }
 

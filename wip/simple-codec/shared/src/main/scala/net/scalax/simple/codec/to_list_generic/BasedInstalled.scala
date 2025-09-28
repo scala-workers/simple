@@ -7,5 +7,4 @@ trait BasedInstalled[F[_[_]]] {
   def basedInstalled: SimpleProductContextX[F]
   def labelled: ModelLabelled[F]
   def size: ModelSize[F]
-
 }

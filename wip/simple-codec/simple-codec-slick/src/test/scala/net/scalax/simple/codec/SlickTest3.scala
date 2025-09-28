@@ -28,11 +28,6 @@ object User3Cat {
           .copy(_.nickName)(_.column("nick_name"))
     }
 
-    object CommonT {
-      import scala.language.implicitConversions
-      implicit def TableUserAbsTableImpl(tb: CommonT): CommonT#Columns = tb.repModel
-    }
-
     def CommonTq: TableQuery[CommonT] = TableQuery(cons => new CommonT(cons))
   }
 }
