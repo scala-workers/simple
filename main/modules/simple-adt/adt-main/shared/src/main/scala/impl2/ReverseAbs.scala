@@ -3,6 +3,8 @@ package instance
 package support
 package impl2
 
+
+
 trait FunctionM2Abs[M2[_, _], Nat1, Nat1Positive[_, _ <: Nat1] <: Nat1, Nat2, Nat2Positive[
   _,
   _ <: Nat2

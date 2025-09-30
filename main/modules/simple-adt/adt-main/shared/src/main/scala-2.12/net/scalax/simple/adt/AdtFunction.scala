@@ -1,7 +1,7 @@
 package net.scalax.simple
 package adt
 
-trait AdtFunction[-In, +Out] extends Any {
+trait AdtFunction[In, Out] extends Any {
   AdtFunctionSelf =>
   @inline def instance: In <:< Out
   @inline def higherKindApply[F[+_]](input: F[In]): F[Out]
@@ -10,9 +10,9 @@ trait AdtFunction[-In, +Out] extends Any {
 
 object AdtFunction {
 
-  @inline implicit def contextImplicitApply[In]: AdtFunction[In, In] = new AdtFunction[In, In] {
-    @inline override def instance: In <:< In                         = implicitly[In <:< In]
-    @inline override def higherKindApply[F[+_]](input: F[In]): F[In] = input
+  @inline implicit def contextImplicitApply[In, Out >: In]: AdtFunction[In, Out] = new AdtFunction[In, Out] {
+    @inline override def instance: In <:< Out                         = implicitly[In <:< Out]
+    @inline override def higherKindApply[F[+_]](input: F[In]): F[Out] = input
   }
 
 }
