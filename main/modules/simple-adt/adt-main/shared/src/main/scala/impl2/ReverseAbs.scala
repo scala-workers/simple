@@ -3,8 +3,6 @@ package instance
 package support
 package impl2
 
-
-
 trait FunctionM2Abs[M2[_, _], Nat1, Nat1Positive[_, _ <: Nat1] <: Nat1, Nat2, Nat2Positive[
   _,
   _ <: Nat2
@@ -80,7 +78,19 @@ trait FunctionM2Abs2[M2[_, _], Nat1, Nat1Positive[_, _ <: Nat1] <: Nat1, Nat2, N
 }
 
 object FunctionAbs {
-  lazy val out: FunctionM2Abs[
+  @inline def out: FunctionM2Abs[
+    ({ type Func1[A, B] = A => B })#Func1,
+    AdtCoProduct,
+    AdtCoProduct.UsePositive,
+    AdtHList,
+    AdtHList.UsePositive,
+    AdtHList,
+    AdtHList.UsePositive,
+    AdtCoProduct,
+    AdtCoProduct.UsePositive
+  ] = privateOutImpl
+
+  private lazy val privateOutImpl: FunctionM2Abs[
     ({ type Func1[A, B] = A => B })#Func1,
     AdtCoProduct,
     AdtCoProduct.UsePositive,
