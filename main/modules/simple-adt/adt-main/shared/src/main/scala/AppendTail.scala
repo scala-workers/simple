@@ -56,4 +56,13 @@ object AppendTail {
       }
     }
 
+  val zero: AppendContent1[({ type X1[U <: AdtCoProduct] = U })#X1] = new AppendContent1[({ type X1[U <: AdtCoProduct] = U })#X1] {
+    override def appendTail[Head, Zero](
+      co: AdtCoProduct.UsePositive[Head, AdtCoProduct.UseOne[Zero]]
+    ): AdtCoProduct.UsePositive[Zero, AdtCoProduct.UseOne[Head]] = co.fold[AdtCoProduct.UsePositive[Zero, AdtCoProduct.UseOne[Head]]](
+      (head: Head) => AdtCoProduct.UsePositive.right[Zero, AdtCoProduct.UseOne[Head]](new AdtCoProduct.UseOne(head)),
+      (zero: AdtCoProduct.UseOne[Zero]) => AdtCoProduct.UsePositive.left[Zero, AdtCoProduct.UseOne[Head]](zero.value)
+    )
+  }
+
 }
