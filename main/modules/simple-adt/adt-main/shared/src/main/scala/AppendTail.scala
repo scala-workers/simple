@@ -1,7 +1,9 @@
 package net.scalax.simple.adt
 package instance
+package support
 
 object AppendTail {
+  AppendTailSelf =>
 
   trait AppendContent1[Content[_ <: AdtCoProduct] <: AdtCoProduct] {
     AppendContent1Self =>
@@ -22,6 +24,9 @@ object AppendTail {
 
       AppendContent1Self.appendTail[Target, Zero](newCo)
     }
+
+    def append[H1]: AppendContent1[({ type C1[U1 <: AdtCoProduct] = AdtCoProduct.UsePositive[H1, Content[U1]] })#C1] =
+      AppendTailSelf.append[H1, Content](AppendContent1Self)
   }
 
   def append[H1, Content[_ <: AdtCoProduct] <: AdtCoProduct](
