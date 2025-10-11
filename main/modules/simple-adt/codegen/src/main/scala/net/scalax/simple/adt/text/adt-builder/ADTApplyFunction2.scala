@@ -17,6 +17,7 @@ class ADTApplyFunction2(val index: Int) {
     val typeParam5: Seq[String]  = for (i1 <- 1 to index) yield s"apply(param$i1)"
     val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1"
     val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"AdtFunction[Target, T$i1]"
+    val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s".foldLeft(_.adtFunctionApply(target))"
 
     def typeParam6Impl(index: Int): String = if (index < TraitBodySelf.index) {
       s"""AdtCoProduct.UsePositive[T$index, ${typeParam6Impl(index + 1)}]"""
@@ -36,8 +37,9 @@ class ADTApplyFunction2(val index: Int) {
 
     val text: String = s"""
       trait CoProduct${index}Apply[${typeParam1.mkString(',')}] {
+        CoProduct${index}ApplySelf =>
         def instance[Target](target: Target)(implicit param: ADTValue[$typeParam7]): CoProduct$index[${typeParam1.mkString(',')}] = {
-          new CoProduct$index(ADTFuncBuilderHelper.inputHList(param.value, target))
+          CoProduct${index}ApplySelf.typeOnly[Target]${typeParam11.mkString("")}
         }
 
         def typeOnly[Target](implicit param: ADTValue[$typeParam7]): CoProduct$index[${typeParam10.mkString(',')}] = {

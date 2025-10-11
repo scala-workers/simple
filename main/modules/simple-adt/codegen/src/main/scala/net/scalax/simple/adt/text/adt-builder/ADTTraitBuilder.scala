@@ -19,6 +19,7 @@ class ADTTraitBuilder(val index: Int) {
     val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"implicit val paramImpl$i1 = param$i1"
     val typeParam11: Seq[String] = for (i1 <- index to (1, -1)) yield s".append[T$i1]"
     val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s".foldLeft(param$i1)"
+    val typeParam13: Seq[String] = for (i1 <- 1 to index) yield s"_ <: T"
 
     def typeParam6Impl(index: Int): String = if (index > 1) {
       val typeParam7: Seq[String] =
@@ -37,7 +38,7 @@ class ADTTraitBuilder(val index: Int) {
         new ADTFoldApplyImpl1[TargetOther2, T${TraitBodySelf.index}] {
           override def fold1[TargetOther1 >: TargetOther2](param${TraitBodySelf.index}: T${TraitBodySelf.index} => TargetOther1): TargetOther1 = {
             val v1 = FoldApplySelf${typeParam12.mkString("")}
-            ADTBuilderHelperImplicit.NeedCoProduct[TargetOther1].input(v1.foldImpl)
+            CoProduct${TraitBodySelf.index}.run[TargetOther1](v1)
           }
         }
       """
@@ -75,11 +76,15 @@ class ADTTraitBuilder(val index: Int) {
 
         def fold[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = {
           val v1 = FoldApplySelf${typeParam12.mkString("")}
-          ADTBuilderHelperImplicit.NeedCoProduct[Target$index].input(v1.foldImpl)
+          CoProduct$index.run[Target$index](v1)
         }
 
         def fold$index[TargetOther${index}](param1: T1 => TargetOther${index}):
           ADTFoldApplyImpl${index - 1}[${typeParam4.mkString(',')}] = $typeParam6
+      }
+
+      object CoProduct$index {
+        def run[T](m: CoProduct$index[${typeParam13.mkString(',')}]): T = ADTBuilderHelperImplicit.NeedCoProduct[T].input(m.foldImpl)
       }
     """
 
@@ -106,14 +111,19 @@ class ADTTraitBuilder(val index: Int) {
       }
 
       def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
-        implicit val paramImpl1 = param1
-        ADTBuilderHelperImplicit.ForFetch[TargetOther0].inputHList(foldImpl)
+        val v1 = FoldApplySelf.foldLeft(param1)
+        CoProduct1.run[TargetOther0](v1)
       }
 
       def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
-        fold(param1)
+        val v1 = FoldApplySelf.foldLeft(param1)
+        CoProduct1.run[TargetOther0](v1)
       }
 
+    }
+
+    object CoProduct1 {
+      def run[T](m: CoProduct1[_ <: T]): T = ADTBuilderHelperImplicit.NeedCoProduct[T].input(m.foldImpl)
     }
 
     ${preTextContent.mkString('\n')}
