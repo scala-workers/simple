@@ -5,69 +5,68 @@ package support
 object AppendTail {
   AppendTailSelf =>
 
-  trait AppendContent1[Content[_ <: AdtCoProduct] <: AdtCoProduct] {
-    AppendContent1Self =>
-
-    def appendTail[Head, Zero](
-      co: AdtCoProduct.UsePositive[Head, Content[AdtCoProduct.UseOne[Zero]]]
-    ): Content[AdtCoProduct.UsePositive[Zero, AdtCoProduct.UseOne[Head]]]
-
-    def appendWithFunction[Head, Zero, Target](
-      co: AdtCoProduct.UsePositive[Head, Content[AdtCoProduct.UseOne[Zero]]],
-      func: Head => Target
-    ): Content[AdtCoProduct.UsePositive[Zero, AdtCoProduct.UseOne[Target]]] = {
-      val newCo: AdtCoProduct.UsePositive[Target, Content[AdtCoProduct.UseOne[Zero]]] =
-        co.fold[AdtCoProduct.UsePositive[Target, Content[AdtCoProduct.UseOne[Zero]]]](
-          (head: Head) => AdtCoProduct.UsePositive.left[Target, Content[AdtCoProduct.UseOne[Zero]]](func(head)),
-          (t: Content[AdtCoProduct.UseOne[Zero]]) => AdtCoProduct.UsePositive.right[Target, Content[AdtCoProduct.UseOne[Zero]]](t)
-        )
-
-      AppendContent1Self.appendTail[Target, Zero](newCo)
-    }
-
-    def append[H1]: AppendContent1[({ type C1[U1 <: AdtCoProduct] = AdtCoProduct.UsePositive[H1, Content[U1]] })#C1] =
-      AppendTailSelf.append[H1, Content](AppendContent1Self)
+  trait AppenderAdtAbsAbs[Zero, Adt1, Adt2] {
+    def inputAbsAbs: Either[Zero, Adt1] => Adt2
   }
 
-  def append[H1, Content[_ <: AdtCoProduct] <: AdtCoProduct](
-    content: AppendContent1[Content]
-  ): AppendContent1[({ type C1[U1 <: AdtCoProduct] = AdtCoProduct.UsePositive[H1, Content[U1]] })#C1] =
-    new AppendContent1[({ type C1[U1 <: AdtCoProduct] = AdtCoProduct.UsePositive[H1, Content[U1]] })#C1] {
-      override def appendTail[Head, Zero](
-        co: AdtCoProduct.UsePositive[Head, AdtCoProduct.UsePositive[H1, Content[AdtCoProduct.UseOne[Zero]]]]
-      ): AdtCoProduct.UsePositive[H1, Content[AdtCoProduct.UsePositive[Zero, AdtCoProduct.UseOne[Head]]]] = {
-        val newCo: AdtCoProduct.UsePositive[H1, AdtCoProduct.UsePositive[Head, Content[AdtCoProduct.UseOne[Zero]]]] =
-          co.fold[AdtCoProduct.UsePositive[H1, AdtCoProduct.UsePositive[Head, Content[AdtCoProduct.UseOne[Zero]]]]](
-            (head: Head) =>
-              AdtCoProduct.UsePositive.right[H1, AdtCoProduct.UsePositive[Head, Content[AdtCoProduct.UseOne[Zero]]]](
-                AdtCoProduct.UsePositive.left[Head, Content[AdtCoProduct.UseOne[Zero]]](head)
-              ),
-            (c: AdtCoProduct.UsePositive[H1, Content[AdtCoProduct.UseOne[Zero]]]) =>
-              c.fold[AdtCoProduct.UsePositive[H1, AdtCoProduct.UsePositive[Head, Content[AdtCoProduct.UseOne[Zero]]]]](
-                (h1: H1) => AdtCoProduct.UsePositive.left[H1, AdtCoProduct.UsePositive[Head, Content[AdtCoProduct.UseOne[Zero]]]](h1),
-                (aitem: Content[AdtCoProduct.UseOne[Zero]]) =>
-                  AdtCoProduct.UsePositive.right[H1, AdtCoProduct.UsePositive[Head, Content[AdtCoProduct.UseOne[Zero]]]](
-                    AdtCoProduct.UsePositive.right[Head, Content[AdtCoProduct.UseOne[Zero]]](aitem)
-                  )
+  trait AppenderAdtAbs[Zero, Adt1, Adt2] extends AppenderAdtAbsAbs[Zero, Adt1, Adt2] {
+    AppenderAdtAbsSelf =>
+    override def inputAbsAbs: Either[Zero, Adt1] => Adt2 = AppenderAdtAbsSelf.inputAbs[Zero](identity[Zero])
+    def inputAbs[U1](func: U1 => Zero): Either[U1, Adt1] => Adt2 = (param: Either[U1, Adt1]) => {
+      val i1 = for (t1 <- param.left) yield func(t1)
+      inputAbsAbs(i1)
+    }
+  }
+
+  trait AppenderAdt[Zero, Adt1 <: AdtCoProduct, Adt2 <: AdtCoProduct] extends AppenderAdtAbs[Zero, Adt1, Adt2] {
+    AppenderAdtSelf =>
+
+    override def inputAbs[U1](func: U1 => Zero): Either[U1, Adt1] => Adt2 = (param: Either[U1, Adt1]) => {
+      val outFunc: AdtCoProduct.UsePositive[U1, Adt1] => Adt2 = AppenderAdtSelf.input[U1](func)
+      val m: AdtCoProduct.UsePositive[U1, Adt1] = param.fold[AdtCoProduct.UsePositive[U1, Adt1]](
+        (a1: U1) => AdtCoProduct.UsePositive.left[U1, Adt1](a1),
+        (a1: Adt1) => AdtCoProduct.UsePositive.right[U1, Adt1](a1)
+      )
+      outFunc(m)
+    }
+
+    def input[S1](func: S1 => Zero): AdtCoProduct.UsePositive[S1, Adt1] => Adt2 = (param: AdtCoProduct.UsePositive[S1, Adt1]) => {
+      val outFunc: Either[S1, Adt1] => Adt2 = AppenderAdtSelf.inputAbs[S1](func)
+      val m: Either[S1, Adt1]               = param.fold[Either[S1, Adt1]]((a1: S1) => Left(a1), (a1: Adt1) => Right(a1))
+      outFunc(m)
+    }
+
+    def append[Item]: AppenderAdt[Zero, AdtCoProduct.UsePositive[Item, Adt1], AdtCoProduct.UsePositive[Item, Adt2]] =
+      new AppenderAdt[Zero, AdtCoProduct.UsePositive[Item, Adt1], AdtCoProduct.UsePositive[Item, Adt2]] {
+        override def inputAbsAbs: Either[Zero, AdtCoProduct.UsePositive[Item, Adt1]] => AdtCoProduct.UsePositive[Item, Adt2] = {
+          (iparam: Either[Zero, AdtCoProduct.UsePositive[Item, Adt1]]) =>
+            {
+              val i1: Either[Item, Either[Zero, Adt1]] = iparam.fold[Either[Item, Either[Zero, Adt1]]](
+                (a1: Zero) => Right(Left(a1)),
+                (a1: AdtCoProduct.UsePositive[Item, Adt1]) =>
+                  a1.fold[Either[Item, Either[Zero, Adt1]]]((a2: Item) => Left(a2), (a2: Adt1) => Right(Right(a2)))
               )
-          )
 
-        newCo.fold[AdtCoProduct.UsePositive[H1, Content[AdtCoProduct.UsePositive[Zero, AdtCoProduct.UseOne[Head]]]]](
-          (h1: H1) => AdtCoProduct.UsePositive.left[H1, Content[AdtCoProduct.UsePositive[Zero, AdtCoProduct.UseOne[Head]]]](h1),
-          (c: AdtCoProduct.UsePositive[Head, Content[AdtCoProduct.UseOne[Zero]]]) =>
-            AdtCoProduct.UsePositive
-              .right[H1, Content[AdtCoProduct.UsePositive[Zero, AdtCoProduct.UseOne[Head]]]](content.appendTail[Head, Zero](c))
-        )
+              val i2: Either[Item, Adt2] = for (t1 <- i1) yield AppenderAdtSelf.inputAbsAbs(t1)
+
+              i2.fold[AdtCoProduct.UsePositive[Item, Adt2]](
+                (a1: Item) => AdtCoProduct.UsePositive.left[Item, Adt2](a1),
+                (a1: Adt2) => AdtCoProduct.UsePositive.right[Item, Adt2](a1)
+              )
+            }
+        }
       }
-    }
-
-  val zero: AppendContent1[({ type X1[U <: AdtCoProduct] = U })#X1] = new AppendContent1[({ type X1[U <: AdtCoProduct] = U })#X1] {
-    override def appendTail[Head, Zero](
-      co: AdtCoProduct.UsePositive[Head, AdtCoProduct.UseOne[Zero]]
-    ): AdtCoProduct.UsePositive[Zero, AdtCoProduct.UseOne[Head]] = co.fold[AdtCoProduct.UsePositive[Zero, AdtCoProduct.UseOne[Head]]](
-      (head: Head) => AdtCoProduct.UsePositive.right[Zero, AdtCoProduct.UseOne[Head]](new AdtCoProduct.UseOne(head)),
-      (zero: AdtCoProduct.UseOne[Zero]) => AdtCoProduct.UsePositive.left[Zero, AdtCoProduct.UseOne[Head]](zero.value)
-    )
   }
+
+  def zeroAppender[Zero, Item1]: AppenderAdt[Zero, AdtCoProduct.UseOne[Item1], AdtCoProduct.UsePositive[Item1, AdtCoProduct.UseOne[Zero]]] =
+    new AppenderAdt[Zero, AdtCoProduct.UseOne[Item1], AdtCoProduct.UsePositive[Item1, AdtCoProduct.UseOne[Zero]]] {
+      override def inputAbsAbs: Either[Zero, AdtCoProduct.UseOne[Item1]] => AdtCoProduct.UsePositive[Item1, AdtCoProduct.UseOne[Zero]] =
+        (param: Either[Zero, AdtCoProduct.UseOne[Item1]]) => {
+          param.fold[AdtCoProduct.UsePositive[Item1, AdtCoProduct.UseOne[Zero]]](
+            (a1: Zero) => AdtCoProduct.UsePositive.right[Item1, AdtCoProduct.UseOne[Zero]](new AdtCoProduct.UseOne[Zero](a1)),
+            (a1: AdtCoProduct.UseOne[Item1]) => AdtCoProduct.UsePositive.left[Item1, AdtCoProduct.UseOne[Zero]](a1.value)
+          )
+        }
+    }
 
 }

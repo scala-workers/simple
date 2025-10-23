@@ -69,8 +69,8 @@ class ADTTraitBuilder(val index: Int) {
         FoldApplySelf =>
 
         def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct$index[${typeParam1.drop(1).mkString(',')}, TargetOther0] = {
-          val appendSupport = AppendTail.zero${typeParam11.drop(1).dropRight(1).mkString("")}
-          val valueR = appendSupport.appendWithFunction[T1, T$index, TargetOther0](foldImpl, param)
+          val appendSupport = AppendTail.zeroAppender[TargetOther0, T$index]${typeParam11.drop(1).dropRight(1).mkString("")}
+          val valueR = appendSupport.input[T1](param)(foldImpl)
           new CoProduct$index[${typeParam1.drop(1).mkString(',')}, TargetOther0](valueR)
         }
 
