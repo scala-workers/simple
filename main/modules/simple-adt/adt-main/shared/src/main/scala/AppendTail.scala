@@ -21,15 +21,6 @@ object AppendTail {
   trait AppenderAdt[Zero, Adt1 <: AdtCoProduct, Adt2 <: AdtCoProduct] extends AppenderAdtAbs[Zero, Adt1, Adt2] {
     AppenderAdtSelf =>
 
-    override def inputAbs[U1](func: U1 => Zero): Either[U1, Adt1] => Adt2 = (param: Either[U1, Adt1]) => {
-      val outFunc: AdtCoProduct.UsePositive[U1, Adt1] => Adt2 = AppenderAdtSelf.input[U1](func)
-      val m: AdtCoProduct.UsePositive[U1, Adt1] = param.fold[AdtCoProduct.UsePositive[U1, Adt1]](
-        (a1: U1) => AdtCoProduct.UsePositive.left[U1, Adt1](a1),
-        (a1: Adt1) => AdtCoProduct.UsePositive.right[U1, Adt1](a1)
-      )
-      outFunc(m)
-    }
-
     def input[S1](func: S1 => Zero): AdtCoProduct.UsePositive[S1, Adt1] => Adt2 = (param: AdtCoProduct.UsePositive[S1, Adt1]) => {
       val outFunc: Either[S1, Adt1] => Adt2 = AppenderAdtSelf.inputAbs[S1](func)
       val m: Either[S1, Adt1]               = param.fold[Either[S1, Adt1]]((a1: S1) => Left(a1), (a1: Adt1) => Right(a1))

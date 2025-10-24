@@ -18,12 +18,12 @@ class ADTUnapplyBuilder(val index: Int) {
       EachObjectSelf =>
 
       val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"T$i1"
-      val typeParam2: Seq[String] = for (i1 <- 1 to index) yield if (i1 == TraitBodySelf.index) s"t => Some(t)" else "_ => None"
+      val typeParam2: Seq[String] = for (i1 <- 2 to TraitBodySelf.index) yield ".tail"
 
       val text: String = s"""
         def unapply[${typeParam1.mkString(',')}](
           p: CoProduct$index[${typeParam1.mkString(',')}]
-        ): Option[T${TraitBodySelf.index}] = p.fold(${typeParam2.mkString(',')})
+        ): Option[T${TraitBodySelf.index}] = p${typeParam2.mkString}.headOption
       """
 
     }

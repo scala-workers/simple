@@ -12,19 +12,21 @@
     class CoProduct1[T1](private val foldImpl: AdtCoProduct.UseOne[T1]) {
       FoldApplySelf =>
 
-      def foldLeft[TargetOther0](param1: T1 => TargetOther0): CoProduct1[TargetOther0] = {
-        new CoProduct1[TargetOther0](new AdtCoProduct.UseOne(param1(foldImpl.value)))
+      def headOption: Option[T1] = Some(foldImpl.value)
+
+      def headTo[U1](func: T1 => U1): CoProduct1[U1] = {
+        val valueR = new AdtCoProduct.UseOne[U1](func(foldImpl.value))
+        new CoProduct1[U1](valueR)
       }
+
+      def tail: CoProduct1[T1] = FoldApplySelf
 
       def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
-        val v1 = FoldApplySelf.foldLeft(param1)
+        val v1 = FoldApplySelf.headTo(param1)
         CoProduct1.run[TargetOther0](v1)
       }
 
-      def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
-        val v1 = FoldApplySelf.foldLeft(param1)
-        CoProduct1.run[TargetOther0](v1)
-      }
+      def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = FoldApplySelf.fold(param1)
 
     }
 
@@ -46,14 +48,21 @@
       class CoProduct2[T1,T2](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UseOne[T2]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct2[T2, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct2[T2, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct2[U1, T2] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct2[U1, T2](valueR)
+        }
+
+        def tail: CoProduct2[T2, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct2[T2, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1](param1: T1 => Target1,param2: T2 => Target2): Target2 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail
           CoProduct2.run[Target2](v1)
         }
 
@@ -61,7 +70,7 @@
           ADTFoldApplyImpl1[TargetOther2,T2] = 
         new ADTFoldApplyImpl1[TargetOther2, T2] {
           override def fold1[TargetOther1 >: TargetOther2](param2: T2 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail
             CoProduct2.run[TargetOther1](v1)
           }
         }
@@ -86,14 +95,21 @@
       class CoProduct3[T1,T2,T3](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UseOne[T3]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct3[T2,T3, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct3[T2,T3, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct3[U1, T2,T3] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct3[U1, T2,T3](valueR)
+        }
+
+        def tail: CoProduct3[T2,T3, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct3[T2,T3, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3): Target3 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail
           CoProduct3.run[Target3](v1)
         }
 
@@ -103,7 +119,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param2: T2 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T3] = 
         new ADTFoldApplyImpl1[TargetOther2, T3] {
           override def fold1[TargetOther1 >: TargetOther2](param3: T3 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail
             CoProduct3.run[TargetOther1](v1)
           }
         }
@@ -130,14 +146,21 @@
       class CoProduct4[T1,T2,T3,T4](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UseOne[T4]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct4[T2,T3,T4, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct4[T2,T3,T4, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct4[U1, T2,T3,T4] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct4[U1, T2,T3,T4](valueR)
+        }
+
+        def tail: CoProduct4[T2,T3,T4, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct4[T2,T3,T4, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4): Target4 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail
           CoProduct4.run[Target4](v1)
         }
 
@@ -149,7 +172,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param3: T3 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T4] = 
         new ADTFoldApplyImpl1[TargetOther2, T4] {
           override def fold1[TargetOther1 >: TargetOther2](param4: T4 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail
             CoProduct4.run[TargetOther1](v1)
           }
         }
@@ -178,14 +201,21 @@
       class CoProduct5[T1,T2,T3,T4,T5](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UseOne[T5]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct5[T2,T3,T4,T5, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct5[T2,T3,T4,T5, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct5[U1, T2,T3,T4,T5] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct5[U1, T2,T3,T4,T5](valueR)
+        }
+
+        def tail: CoProduct5[T2,T3,T4,T5, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct5[T2,T3,T4,T5, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5): Target5 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail
           CoProduct5.run[Target5](v1)
         }
 
@@ -199,7 +229,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param4: T4 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T5] = 
         new ADTFoldApplyImpl1[TargetOther2, T5] {
           override def fold1[TargetOther1 >: TargetOther2](param5: T5 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail
             CoProduct5.run[TargetOther1](v1)
           }
         }
@@ -230,14 +260,21 @@
       class CoProduct6[T1,T2,T3,T4,T5,T6](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UseOne[T6]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct6[T2,T3,T4,T5,T6, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct6[T2,T3,T4,T5,T6, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct6[U1, T2,T3,T4,T5,T6] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct6[U1, T2,T3,T4,T5,T6](valueR)
+        }
+
+        def tail: CoProduct6[T2,T3,T4,T5,T6, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct6[T2,T3,T4,T5,T6, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6): Target6 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail
           CoProduct6.run[Target6](v1)
         }
 
@@ -253,7 +290,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param5: T5 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T6] = 
         new ADTFoldApplyImpl1[TargetOther2, T6] {
           override def fold1[TargetOther1 >: TargetOther2](param6: T6 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail
             CoProduct6.run[TargetOther1](v1)
           }
         }
@@ -286,14 +323,21 @@
       class CoProduct7[T1,T2,T3,T4,T5,T6,T7](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UseOne[T7]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct7[T2,T3,T4,T5,T6,T7, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct7[T2,T3,T4,T5,T6,T7, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct7[U1, T2,T3,T4,T5,T6,T7] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct7[U1, T2,T3,T4,T5,T6,T7](valueR)
+        }
+
+        def tail: CoProduct7[T2,T3,T4,T5,T6,T7, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct7[T2,T3,T4,T5,T6,T7, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7): Target7 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail
           CoProduct7.run[Target7](v1)
         }
 
@@ -311,7 +355,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param6: T6 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T7] = 
         new ADTFoldApplyImpl1[TargetOther2, T7] {
           override def fold1[TargetOther1 >: TargetOther2](param7: T7 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail
             CoProduct7.run[TargetOther1](v1)
           }
         }
@@ -346,14 +390,21 @@
       class CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UseOne[T8]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct8[T2,T3,T4,T5,T6,T7,T8, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct8[T2,T3,T4,T5,T6,T7,T8, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct8[U1, T2,T3,T4,T5,T6,T7,T8] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct8[U1, T2,T3,T4,T5,T6,T7,T8](valueR)
+        }
+
+        def tail: CoProduct8[T2,T3,T4,T5,T6,T7,T8, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct8[T2,T3,T4,T5,T6,T7,T8, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8): Target8 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail
           CoProduct8.run[Target8](v1)
         }
 
@@ -373,7 +424,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param7: T7 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T8] = 
         new ADTFoldApplyImpl1[TargetOther2, T8] {
           override def fold1[TargetOther1 >: TargetOther2](param8: T8 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail
             CoProduct8.run[TargetOther1](v1)
           }
         }
@@ -410,14 +461,21 @@
       class CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UseOne[T9]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct9[T2,T3,T4,T5,T6,T7,T8,T9, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct9[T2,T3,T4,T5,T6,T7,T8,T9, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct9[U1, T2,T3,T4,T5,T6,T7,T8,T9] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct9[U1, T2,T3,T4,T5,T6,T7,T8,T9](valueR)
+        }
+
+        def tail: CoProduct9[T2,T3,T4,T5,T6,T7,T8,T9, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct9[T2,T3,T4,T5,T6,T7,T8,T9, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9): Target9 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail
           CoProduct9.run[Target9](v1)
         }
 
@@ -439,7 +497,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param8: T8 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T9] = 
         new ADTFoldApplyImpl1[TargetOther2, T9] {
           override def fold1[TargetOther1 >: TargetOther2](param9: T9 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail
             CoProduct9.run[TargetOther1](v1)
           }
         }
@@ -478,14 +536,21 @@
       class CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UseOne[T10]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct10[T2,T3,T4,T5,T6,T7,T8,T9,T10, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct10[T2,T3,T4,T5,T6,T7,T8,T9,T10, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct10[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct10[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10](valueR)
+        }
+
+        def tail: CoProduct10[T2,T3,T4,T5,T6,T7,T8,T9,T10, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct10[T2,T3,T4,T5,T6,T7,T8,T9,T10, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10): Target10 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail
           CoProduct10.run[Target10](v1)
         }
 
@@ -509,7 +574,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param9: T9 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T10] = 
         new ADTFoldApplyImpl1[TargetOther2, T10] {
           override def fold1[TargetOther1 >: TargetOther2](param10: T10 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail
             CoProduct10.run[TargetOther1](v1)
           }
         }
@@ -550,14 +615,21 @@
       class CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UseOne[T11]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct11[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct11[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct11[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct11[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](valueR)
+        }
+
+        def tail: CoProduct11[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct11[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11): Target11 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail
           CoProduct11.run[Target11](v1)
         }
 
@@ -583,7 +655,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param10: T10 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T11] = 
         new ADTFoldApplyImpl1[TargetOther2, T11] {
           override def fold1[TargetOther1 >: TargetOther2](param11: T11 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail
             CoProduct11.run[TargetOther1](v1)
           }
         }
@@ -626,14 +698,21 @@
       class CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UseOne[T12]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct12[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct12[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct12[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct12[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](valueR)
+        }
+
+        def tail: CoProduct12[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct12[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12): Target12 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail
           CoProduct12.run[Target12](v1)
         }
 
@@ -661,7 +740,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param11: T11 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T12] = 
         new ADTFoldApplyImpl1[TargetOther2, T12] {
           override def fold1[TargetOther1 >: TargetOther2](param12: T12 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail
             CoProduct12.run[TargetOther1](v1)
           }
         }
@@ -706,14 +785,21 @@
       class CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UseOne[T13]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct13[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct13[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct13[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct13[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](valueR)
+        }
+
+        def tail: CoProduct13[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct13[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13): Target13 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail
           CoProduct13.run[Target13](v1)
         }
 
@@ -743,7 +829,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param12: T12 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T13] = 
         new ADTFoldApplyImpl1[TargetOther2, T13] {
           override def fold1[TargetOther1 >: TargetOther2](param13: T13 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail
             CoProduct13.run[TargetOther1](v1)
           }
         }
@@ -790,14 +876,21 @@
       class CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UseOne[T14]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct14[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct14[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct14[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct14[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](valueR)
+        }
+
+        def tail: CoProduct14[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct14[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14): Target14 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail
           CoProduct14.run[Target14](v1)
         }
 
@@ -829,7 +922,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param13: T13 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T14] = 
         new ADTFoldApplyImpl1[TargetOther2, T14] {
           override def fold1[TargetOther1 >: TargetOther2](param14: T14 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail
             CoProduct14.run[TargetOther1](v1)
           }
         }
@@ -878,14 +971,21 @@
       class CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UseOne[T15]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct15[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct15[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct15[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct15[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](valueR)
+        }
+
+        def tail: CoProduct15[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct15[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15): Target15 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail
           CoProduct15.run[Target15](v1)
         }
 
@@ -919,7 +1019,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param14: T14 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T15] = 
         new ADTFoldApplyImpl1[TargetOther2, T15] {
           override def fold1[TargetOther1 >: TargetOther2](param15: T15 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail
             CoProduct15.run[TargetOther1](v1)
           }
         }
@@ -970,14 +1070,21 @@
       class CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UseOne[T16]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct16[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct16[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct16[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct16[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](valueR)
+        }
+
+        def tail: CoProduct16[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct16[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16): Target16 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail
           CoProduct16.run[Target16](v1)
         }
 
@@ -1013,7 +1120,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param15: T15 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T16] = 
         new ADTFoldApplyImpl1[TargetOther2, T16] {
           override def fold1[TargetOther1 >: TargetOther2](param16: T16 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail
             CoProduct16.run[TargetOther1](v1)
           }
         }
@@ -1066,14 +1173,21 @@
       class CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UseOne[T17]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct17[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct17[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct17[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct17[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](valueR)
+        }
+
+        def tail: CoProduct17[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct17[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17): Target17 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail
           CoProduct17.run[Target17](v1)
         }
 
@@ -1111,7 +1225,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param16: T16 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T17] = 
         new ADTFoldApplyImpl1[TargetOther2, T17] {
           override def fold1[TargetOther1 >: TargetOther2](param17: T17 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail
             CoProduct17.run[TargetOther1](v1)
           }
         }
@@ -1166,14 +1280,21 @@
       class CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UseOne[T18]]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct18[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct18[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct18[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct18[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](valueR)
+        }
+
+        def tail: CoProduct18[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct18[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18): Target18 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17).foldLeft(param18)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail.headTo(param18).tail
           CoProduct18.run[Target18](v1)
         }
 
@@ -1213,7 +1334,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param17: T17 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T18] = 
         new ADTFoldApplyImpl1[TargetOther2, T18] {
           override def fold1[TargetOther1 >: TargetOther2](param18: T18 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17).foldLeft(param18)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail.headTo(param18).tail
             CoProduct18.run[TargetOther1](v1)
           }
         }
@@ -1270,14 +1391,21 @@
       class CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UseOne[T19]]]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct19[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct19[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct19[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct19[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](valueR)
+        }
+
+        def tail: CoProduct19[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct19[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19): Target19 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17).foldLeft(param18).foldLeft(param19)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail.headTo(param18).tail.headTo(param19).tail
           CoProduct19.run[Target19](v1)
         }
 
@@ -1319,7 +1447,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param18: T18 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T19] = 
         new ADTFoldApplyImpl1[TargetOther2, T19] {
           override def fold1[TargetOther1 >: TargetOther2](param19: T19 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17).foldLeft(param18).foldLeft(param19)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail.headTo(param18).tail.headTo(param19).tail
             CoProduct19.run[TargetOther1](v1)
           }
         }
@@ -1378,14 +1506,21 @@
       class CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UseOne[T20]]]]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct20[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T20].append[T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct20[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct20[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct20[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](valueR)
+        }
+
+        def tail: CoProduct20[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T20].append[T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct20[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20): Target20 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17).foldLeft(param18).foldLeft(param19).foldLeft(param20)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail.headTo(param18).tail.headTo(param19).tail.headTo(param20).tail
           CoProduct20.run[Target20](v1)
         }
 
@@ -1429,7 +1564,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param19: T19 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T20] = 
         new ADTFoldApplyImpl1[TargetOther2, T20] {
           override def fold1[TargetOther1 >: TargetOther2](param20: T20 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17).foldLeft(param18).foldLeft(param19).foldLeft(param20)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail.headTo(param18).tail.headTo(param19).tail.headTo(param20).tail
             CoProduct20.run[TargetOther1](v1)
           }
         }
@@ -1490,14 +1625,21 @@
       class CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UseOne[T21]]]]]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct21[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T21].append[T20].append[T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct21[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct21[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct21[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](valueR)
+        }
+
+        def tail: CoProduct21[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T21].append[T20].append[T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct21[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21): Target21 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17).foldLeft(param18).foldLeft(param19).foldLeft(param20).foldLeft(param21)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail.headTo(param18).tail.headTo(param19).tail.headTo(param20).tail.headTo(param21).tail
           CoProduct21.run[Target21](v1)
         }
 
@@ -1543,7 +1685,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param20: T20 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T21] = 
         new ADTFoldApplyImpl1[TargetOther2, T21] {
           override def fold1[TargetOther1 >: TargetOther2](param21: T21 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17).foldLeft(param18).foldLeft(param19).foldLeft(param20).foldLeft(param21)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail.headTo(param18).tail.headTo(param19).tail.headTo(param20).tail.headTo(param21).tail
             CoProduct21.run[TargetOther1](v1)
           }
         }
@@ -1606,14 +1748,21 @@
       class CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UsePositive[T21, AdtCoProduct.UseOne[T22]]]]]]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct22[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T22].append[T21].append[T20].append[T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct22[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct22[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct22[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](valueR)
+        }
+
+        def tail: CoProduct22[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T22].append[T21].append[T20].append[T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct22[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22, T1](valueR)
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20,Target22 >: Target21](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21,param22: T22 => Target22): Target22 = {
-          val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17).foldLeft(param18).foldLeft(param19).foldLeft(param20).foldLeft(param21).foldLeft(param22)
+          val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail.headTo(param18).tail.headTo(param19).tail.headTo(param20).tail.headTo(param21).tail.headTo(param22).tail
           CoProduct22.run[Target22](v1)
         }
 
@@ -1661,7 +1810,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param21: T21 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T22] = 
         new ADTFoldApplyImpl1[TargetOther2, T22] {
           override def fold1[TargetOther1 >: TargetOther2](param22: T22 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.foldLeft(param1).foldLeft(param2).foldLeft(param3).foldLeft(param4).foldLeft(param5).foldLeft(param6).foldLeft(param7).foldLeft(param8).foldLeft(param9).foldLeft(param10).foldLeft(param11).foldLeft(param12).foldLeft(param13).foldLeft(param14).foldLeft(param15).foldLeft(param16).foldLeft(param17).foldLeft(param18).foldLeft(param19).foldLeft(param20).foldLeft(param21).foldLeft(param22)
+            val v1 = FoldApplySelf.headTo(param1).tail.headTo(param2).tail.headTo(param3).tail.headTo(param4).tail.headTo(param5).tail.headTo(param6).tail.headTo(param7).tail.headTo(param8).tail.headTo(param9).tail.headTo(param10).tail.headTo(param11).tail.headTo(param12).tail.headTo(param13).tail.headTo(param14).tail.headTo(param15).tail.headTo(param16).tail.headTo(param17).tail.headTo(param18).tail.headTo(param19).tail.headTo(param20).tail.headTo(param21).tail.headTo(param22).tail
             CoProduct22.run[TargetOther1](v1)
           }
         }

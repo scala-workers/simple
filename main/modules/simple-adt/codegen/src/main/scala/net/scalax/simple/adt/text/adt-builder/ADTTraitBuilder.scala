@@ -18,7 +18,7 @@ class ADTTraitBuilder(val index: Int) {
     val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1"
     val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"implicit val paramImpl$i1 = param$i1"
     val typeParam11: Seq[String] = for (i1 <- index to (1, -1)) yield s".append[T$i1]"
-    val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s".foldLeft(param$i1)"
+    val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s".headTo(param$i1).tail"
     val typeParam13: Seq[String] = for (i1 <- 1 to index) yield s"_ <: T"
 
     def typeParam6Impl(index: Int): String = if (index > 1) {
@@ -68,10 +68,17 @@ class ADTTraitBuilder(val index: Int) {
       class CoProduct$index[${typeParam1.mkString(',')}](private val foldImpl: $typeParam7) {
         FoldApplySelf =>
 
-        def foldLeft[TargetOther0](param: T1 => TargetOther0): CoProduct$index[${typeParam1.drop(1).mkString(',')}, TargetOther0] = {
-          val appendSupport = AppendTail.zeroAppender[TargetOther0, T$index]${typeParam11.drop(1).dropRight(1).mkString("")}
-          val valueR = appendSupport.input[T1](param)(foldImpl)
-          new CoProduct$index[${typeParam1.drop(1).mkString(',')}, TargetOther0](valueR)
+        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+
+        def headTo[U1](func: T1 => U1): CoProduct$index[U1, ${typeParam1.drop(1).mkString(',')}] = {
+          val valueR = AppendTail3.mapHead(foldImpl)(func)
+          new CoProduct$index[U1, ${typeParam1.drop(1).mkString(',')}](valueR)
+        }
+
+        def tail: CoProduct$index[${typeParam1.drop(1).mkString(',')}, T1] = {
+          val appendSupport = AppendTail2.zeroAppender[T1, T$index]${typeParam11.drop(1).dropRight(1).mkString("")}
+          val valueR = appendSupport.inputAbs(foldImpl)
+          new CoProduct$index[${typeParam1.drop(1).mkString(',')}, T1](valueR)
         }
 
         def fold[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = {
@@ -106,19 +113,21 @@ class ADTTraitBuilder(val index: Int) {
     class CoProduct1[T1](private val foldImpl: AdtCoProduct.UseOne[T1]) {
       FoldApplySelf =>
 
-      def foldLeft[TargetOther0](param1: T1 => TargetOther0): CoProduct1[TargetOther0] = {
-        new CoProduct1[TargetOther0](new AdtCoProduct.UseOne(param1(foldImpl.value)))
+      def headOption: Option[T1] = Some(foldImpl.value)
+
+      def headTo[U1](func: T1 => U1): CoProduct1[U1] = {
+        val valueR = new AdtCoProduct.UseOne[U1](func(foldImpl.value))
+        new CoProduct1[U1](valueR)
       }
+
+      def tail: CoProduct1[T1] = FoldApplySelf
 
       def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
-        val v1 = FoldApplySelf.foldLeft(param1)
+        val v1 = FoldApplySelf.headTo(param1)
         CoProduct1.run[TargetOther0](v1)
       }
 
-      def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
-        val v1 = FoldApplySelf.foldLeft(param1)
-        CoProduct1.run[TargetOther0](v1)
-      }
+      def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = FoldApplySelf.fold(param1)
 
     }
 
