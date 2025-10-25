@@ -17,7 +17,7 @@ class ADTApplyFunction2(val index: Int) {
     val typeParam5: Seq[String]  = for (i1 <- 1 to index) yield s"apply(param$i1)"
     val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1"
     val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"AdtFunction[Target, T$i1]"
-    val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s".headTo(_.adtFunctionApply(target)).tail"
+    val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s".headMapTo(_.adtFunctionApply(target)).tail"
 
     def typeParam6Impl(index: Int): String = if (index < TraitBodySelf.index) {
       s"""AdtCoProduct.UsePositive[T$index, ${typeParam6Impl(index + 1)}]"""

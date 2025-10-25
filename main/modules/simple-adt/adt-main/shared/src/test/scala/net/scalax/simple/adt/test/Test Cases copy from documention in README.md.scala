@@ -115,6 +115,32 @@ object `Test Cases copy from documention in README.md` {
     }
   }
 
+  def `Usage of @djx314 Point 2`[T](body: => T): T = body
+
+  `Usage of @djx314 Point 2` {
+    import net.scalax.simple.adt.{TypeAdt => Adt}
+
+    def inputAdtData(t: (Adt.CoProduct3Apply[String, Int, Option[Long]] => Adt.CoProduct3[String, Int, Option[Long]])*): Seq[Long] = {
+      val seq1 = for (u <- t) yield {
+        val applyM = u(Adt.CoProduct3[String, Int, Option[Long]])
+        applyM.fold3(t => Some(t.length.toLong)).fold2(t => Some(t.toLong)).fold1(identity)
+      }
+
+      seq1.collect { case Some(t) => t }
+    }
+
+    assert(inputAdtData(_.instance(2), _.instance("aabbcc"), _.instance(Option(4L))) == List(2L, 6L, 4L))
+
+    assert(
+      inputAdtData(_.instance(2), _.instance("aabbcc"), _.instance("aabbbcc")) == List(
+        2: Long,
+        "aabbcc".length: Long,
+        "aabbbcc".length: Long
+      )
+    )
+    assert(inputAdtData(_.instance(Some(2L)), _.instance(Some(3L)), _.instance(Some(4L))) == List(2L, 3L, 4L))
+  }
+
   def `Usage of @MarchLiu Point 1`[T](body: => T): T = body
 
   `Usage of @MarchLiu Point 1` {
