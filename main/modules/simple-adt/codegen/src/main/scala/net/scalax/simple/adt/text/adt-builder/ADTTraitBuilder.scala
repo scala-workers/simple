@@ -17,7 +17,7 @@ class ADTTraitBuilder(val index: Int) {
     val typeParam5: Seq[String]  = for (i1 <- 1 to index) yield s"apply(param$i1)"
     val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1"
     val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"implicit val paramImpl$i1 = param$i1"
-    val typeParam11: Seq[String] = for (i1 <- index to (1, -1)) yield s".append[T$i1]"
+    // val typeParam11: Seq[String] = for (i1 <- index to (1, -1)) yield s".append[T$i1]"
     val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s".headMapTo(param$i1).tail"
     val typeParam13: Seq[String] = for (i1 <- 1 to index) yield s"_ <: T"
 
@@ -76,8 +76,7 @@ class ADTTraitBuilder(val index: Int) {
         }
 
         def tail: CoProduct$index[${typeParam1.drop(1).mkString(',')}, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T$index]${typeParam11.drop(1).dropRight(1).mkString("")}
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct$index[${typeParam1.drop(1).mkString(',')}, T1](valueR)
         }
 
@@ -88,6 +87,7 @@ class ADTTraitBuilder(val index: Int) {
 
         def fold$index[TargetOther${index}](param1: T1 => TargetOther${index}):
           ADTFoldApplyImpl${index - 1}[${typeParam4.mkString(',')}] = $typeParam6
+
       }
 
       object CoProduct$index {

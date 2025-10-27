@@ -56,8 +56,7 @@
         }
 
         def tail: CoProduct2[T2, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct2[T2, T1](valueR)
         }
 
@@ -75,6 +74,7 @@
           }
         }
       
+
       }
 
       object CoProduct2 {
@@ -103,8 +103,7 @@
         }
 
         def tail: CoProduct3[T2,T3, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct3[T2,T3, T1](valueR)
         }
 
@@ -126,6 +125,7 @@
       
         }
       
+
       }
 
       object CoProduct3 {
@@ -154,8 +154,7 @@
         }
 
         def tail: CoProduct4[T2,T3,T4, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct4[T2,T3,T4, T1](valueR)
         }
 
@@ -181,6 +180,7 @@
       
         }
       
+
       }
 
       object CoProduct4 {
@@ -209,8 +209,7 @@
         }
 
         def tail: CoProduct5[T2,T3,T4,T5, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct5[T2,T3,T4,T5, T1](valueR)
         }
 
@@ -240,6 +239,7 @@
       
         }
       
+
       }
 
       object CoProduct5 {
@@ -268,8 +268,7 @@
         }
 
         def tail: CoProduct6[T2,T3,T4,T5,T6, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct6[T2,T3,T4,T5,T6, T1](valueR)
         }
 
@@ -303,6 +302,7 @@
       
         }
       
+
       }
 
       object CoProduct6 {
@@ -331,8 +331,7 @@
         }
 
         def tail: CoProduct7[T2,T3,T4,T5,T6,T7, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct7[T2,T3,T4,T5,T6,T7, T1](valueR)
         }
 
@@ -370,6 +369,7 @@
       
         }
       
+
       }
 
       object CoProduct7 {
@@ -398,8 +398,7 @@
         }
 
         def tail: CoProduct8[T2,T3,T4,T5,T6,T7,T8, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct8[T2,T3,T4,T5,T6,T7,T8, T1](valueR)
         }
 
@@ -441,6 +440,7 @@
       
         }
       
+
       }
 
       object CoProduct8 {
@@ -469,8 +469,7 @@
         }
 
         def tail: CoProduct9[T2,T3,T4,T5,T6,T7,T8,T9, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct9[T2,T3,T4,T5,T6,T7,T8,T9, T1](valueR)
         }
 
@@ -516,6 +515,7 @@
       
         }
       
+
       }
 
       object CoProduct9 {
@@ -544,8 +544,7 @@
         }
 
         def tail: CoProduct10[T2,T3,T4,T5,T6,T7,T8,T9,T10, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct10[T2,T3,T4,T5,T6,T7,T8,T9,T10, T1](valueR)
         }
 
@@ -595,6 +594,7 @@
       
         }
       
+
       }
 
       object CoProduct10 {
@@ -623,8 +623,7 @@
         }
 
         def tail: CoProduct11[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct11[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11, T1](valueR)
         }
 
@@ -678,6 +677,7 @@
       
         }
       
+
       }
 
       object CoProduct11 {
@@ -706,8 +706,7 @@
         }
 
         def tail: CoProduct12[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct12[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12, T1](valueR)
         }
 
@@ -765,6 +764,7 @@
       
         }
       
+
       }
 
       object CoProduct12 {
@@ -793,8 +793,7 @@
         }
 
         def tail: CoProduct13[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct13[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13, T1](valueR)
         }
 
@@ -856,6 +855,7 @@
       
         }
       
+
       }
 
       object CoProduct13 {
@@ -884,8 +884,7 @@
         }
 
         def tail: CoProduct14[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct14[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14, T1](valueR)
         }
 
@@ -951,6 +950,7 @@
       
         }
       
+
       }
 
       object CoProduct14 {
@@ -979,8 +979,7 @@
         }
 
         def tail: CoProduct15[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct15[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15, T1](valueR)
         }
 
@@ -1050,6 +1049,7 @@
       
         }
       
+
       }
 
       object CoProduct15 {
@@ -1078,8 +1078,7 @@
         }
 
         def tail: CoProduct16[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct16[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16, T1](valueR)
         }
 
@@ -1153,6 +1152,7 @@
       
         }
       
+
       }
 
       object CoProduct16 {
@@ -1181,8 +1181,7 @@
         }
 
         def tail: CoProduct17[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct17[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17, T1](valueR)
         }
 
@@ -1260,6 +1259,7 @@
       
         }
       
+
       }
 
       object CoProduct17 {
@@ -1288,8 +1288,7 @@
         }
 
         def tail: CoProduct18[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct18[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18, T1](valueR)
         }
 
@@ -1371,6 +1370,7 @@
       
         }
       
+
       }
 
       object CoProduct18 {
@@ -1399,8 +1399,7 @@
         }
 
         def tail: CoProduct19[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct19[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19, T1](valueR)
         }
 
@@ -1486,6 +1485,7 @@
       
         }
       
+
       }
 
       object CoProduct19 {
@@ -1514,8 +1514,7 @@
         }
 
         def tail: CoProduct20[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T20].append[T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct20[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20, T1](valueR)
         }
 
@@ -1605,6 +1604,7 @@
       
         }
       
+
       }
 
       object CoProduct20 {
@@ -1633,8 +1633,7 @@
         }
 
         def tail: CoProduct21[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T21].append[T20].append[T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct21[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21, T1](valueR)
         }
 
@@ -1728,6 +1727,7 @@
       
         }
       
+
       }
 
       object CoProduct21 {
@@ -1756,8 +1756,7 @@
         }
 
         def tail: CoProduct22[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22, T1] = {
-          val appendSupport = AppendTail2.zeroAppender[T1, T22].append[T21].append[T20].append[T19].append[T18].append[T17].append[T16].append[T15].append[T14].append[T13].append[T12].append[T11].append[T10].append[T9].append[T8].append[T7].append[T6].append[T5].append[T4].append[T3].append[T2]
-          val valueR = appendSupport.inputAbs(foldImpl)
+          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
           new CoProduct22[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22, T1](valueR)
         }
 
@@ -1855,6 +1854,7 @@
       
         }
       
+
       }
 
       object CoProduct22 {
