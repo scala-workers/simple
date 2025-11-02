@@ -1,6 +1,6 @@
 package net.scalax.simple.adt.codegen
 
-import net.scalax.simple.adt.text.v3.*
+import net.scalax.simple.adt.text.v3.{ADTApplyFunction2, ADTTraitBuilder, ADTTypeAliasBuilder, ADTUnapplyBuilder}
 
 import java.net.URI
 
@@ -14,53 +14,11 @@ object ScalaAdtInstanceSupportCodegenExec {
 
     val parameterSize: Int = 22
 
-    /*locally {
-      val filePath             = writePath / "ADTMappingX.scala"
-      val linerContent: String = ADTMappingX(index = parameterSize).text
-      os.write.over(filePath, linerContent, createFolders = true)
-    }
-
-    locally {
-      val filePath             = writePath / "ADTMappingAbsX.scala"
-      val linerContent: String = ADTMappingAbsX(index = parameterSize).text
-      os.write.over(filePath, linerContent, createFolders = true)
-    }
-
-    locally {
-      val filePath             = writePath / "ADTCoProductX1.scala"
-      val linerContent: String = ADTCoProductX1(index = parameterSize).text
-      os.write.over(filePath, linerContent, createFolders = true)
-    }
-
-    locally {
-      val filePath             = writePath / "ADTCoProductX2.scala"
-      val linerContent: String = ADTCoProductX2(index = parameterSize).text
-      os.write.over(filePath, linerContent, createFolders = true)
-    }
-
-    locally {
-      val filePath             = writePath / "ADTCoProductX3.scala"
-      val linerContent: String = ADTCoProductX3(index = parameterSize).text
-      os.write.over(filePath, linerContent, createFolders = true)
-    }
-
-    locally {
-      val filePath             = writePath / "ADTCoProductX4.scala"
-      val linerContent: String = ADTCoProductX4(index = parameterSize).text
-      os.write.over(filePath, linerContent, createFolders = true)
-    }*/
-
     locally {
       val filePath             = writePath / "ADTTraitBuilder.scala"
       val linerContent: String = ADTTraitBuilder(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
     }
-
-    /*locally {
-      val filePath             = writePath / "ADTApplyFunction.scala"
-      val linerContent: String = ADTApplyFunction(index = parameterSize).text
-      os.write.over(filePath, linerContent, createFolders = true)
-    }*/
 
     locally {
       val filePath             = writePath / "ADTApplyFunction2.scala"
