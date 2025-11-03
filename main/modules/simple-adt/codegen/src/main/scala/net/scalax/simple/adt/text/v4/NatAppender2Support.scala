@@ -55,23 +55,13 @@ class NatAppender2SupportCodegen(val index: Int) {
     val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1"
 
     val text: String = s"""
-      trait Support$index[M[${typeParam1.mkString(',')}],
-        HLLikeDefalut, APRHLLikeDefault[_, _ <: HLLikeDefalut] <: HLLikeDefalut,
-        ${typeParam3.mkString(',')}, ${typeParam4.mkString(',')}]
-      {
-        SupportSelf =>
-
-        def law: NatAppender1.Support${index + 1}[
-          ({ type AUB[A, ${typeParam5.mkString(',')}] = A => M[${typeParam5.mkString(',')}] })#AUB,
-          HLLikeDefalut, ${typeParam3.mkString(',')}, APRHLLikeDefault, ${typeParam6.mkString(',')}
-        ] /* = new NatAppender1.Support${index + 1}[
-          ({ type AUB[A, ${typeParam5.mkString(',')}] = A => M[${typeParam5.mkString(',')}] })#AUB,
-          HLLikeDefalut, ${typeParam3.mkString(',')}, APRHLLikeDefault, ${typeParam6.mkString(',')}
-        ] {
-          override def append[IU, ${typeParam5.mkString(',')}, HCDefault <: HLLikeDefalut, ${typeParam7.mkString(',')}](p2: HCDefault => ${param2Def.text}): APRHLLikeDefault[IU, HCDefault] => ${returnTypeDef.text} = ???
-        } */
-
-        def append[HCDefault <: HLLikeDefalut, ${typeParamDef.text}](p2: HCDefault => ${param2Def.text}): APRHLLikeDefault[${param1Def.text}, HCDefault] => ${returnTypeDef.text} = SupportSelf.law.append[M[${typeParam5.mkString(',')}], ${typeParam5.mkString(',')}, HCDefault, ${typeParam8.mkString(',')}](p2)
+      trait Support$index[
+        M[${typeParam1.mkString(',')}],
+        ${typeParam3.mkString(',')},
+        ${typeParam4.mkString(',')}
+      ] extends NatAppender1.Support$index[M, ${typeParam3.mkString(',')}, ${typeParam6.mkString(',')}] {
+        def sAppender: SimpleAppender${index}Positive[M]
+        override def append[${typeParamDef.text}](parameter: ${param2Def.text}): ${returnTypeDef.text}
       }
     """
 

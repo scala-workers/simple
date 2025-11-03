@@ -51,11 +51,14 @@ class NatAppender1SupportCodegen(val index: Int) {
     val typeParam4: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[_, _ <: HLLike$i1] <: HLLike$i1"
 
     val text: String = s"""
-      trait Support$index[M[${typeParam1.mkString(',')}], ${typeParam3.mkString(
-        ','
-      )}, ${typeParam4.mkString(',')}] {
+      trait Support$index[
+        M[${typeParam1.mkString(',')}],
+        ${typeParam3.mkString(',')},
+        ${typeParam4.mkString(',')}
+      ] {
         def append[${typeParamDef.text}](parameter: ${param2Def.text}): ${returnTypeDef.text}
-      }"""
+      }
+    """
 
   }
 
