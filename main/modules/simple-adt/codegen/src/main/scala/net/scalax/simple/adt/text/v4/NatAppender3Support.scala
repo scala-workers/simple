@@ -1,6 +1,6 @@
 package net.scalax.simple.adt.text.v4
 
-class NatAppender2SupportCodegen(val index: Int) {
+class NatAppender3SupportCodegen(val index: Int) {
 
   extension (list: Seq[String]) {
     def mkString(c: Char): String = list.mkString(c.toString)
@@ -17,8 +17,13 @@ class NatAppender2SupportCodegen(val index: Int) {
     val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1"
     val typeParam9: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[T$i1, HCollection$i1]"
     val typeParam10: Seq[String] =
-      for (i1 <- 1 to index) yield s"def abcFunc$i1[HC$i1 <: HLLike$i1]: ABCFunc[T$i1, HC$i1, APRHLLike$i1[T$i1, HC$i1]]"
-    val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s"abcFunc$i1[HCollection$i1]"
+      for (i1 <- 1 to index)
+        yield s"""
+          override def abcFunc$i1[HC$i1 <: HLLike$i1]: ABCFunc[T$i1, HC$i1, APRHLLike$i1[T$i1, HC$i1]] =
+            HListFunc.toABCFunc[T$i1, HC$i1, HLLike$i1, APRHLLike$i1](hlistFunnc$i1)
+        """
+    val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s"abcFunc$i1"
+    val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s"def hlistFunnc$i1: HListFunc[HLLike$i1, APRHLLike$i1]"
 
     val text: String = s"""
       trait Support$index[
@@ -26,20 +31,16 @@ class NatAppender2SupportCodegen(val index: Int) {
         ${typeParam5.mkString(',')},
         ${typeParam3.mkString(',')},
         ${typeParam4.mkString(',')}
-      ] extends NatAppender1.Support$index[
+      ] extends NatAppender2.Support$index[
         M,
         ${typeParam5.mkString(',')},
         ${typeParam3.mkString(',')},
         ${typeParam6.mkString(',')}
       ] {
-        def sAppender: SimpleAppender${index}Positive[M]
+        override def sAppender: SimpleAppender${index}Positive[M]
         ${typeParam10.mkString('\n')}
+        ${typeParam12.mkString('\n')}
         def headPlus: M[${typeParam5.mkString(',')}]
-
-        override def append[${typeParam7.mkString(',')}](
-          parameter: M[${typeParam8.mkString(',')}]
-        ): M[${typeParam9.mkString(',')}] =
-          sAppender.append(${typeParam11.mkString(',')})(headPlus, parameter)
       }
     """
 
@@ -52,7 +53,7 @@ class NatAppender2SupportCodegen(val index: Int) {
     package nat
     package support
 
-    object NatAppender2 {
+    object NatAppender3 {
       ${preTextContent.mkString('\n')}
     }
   """
