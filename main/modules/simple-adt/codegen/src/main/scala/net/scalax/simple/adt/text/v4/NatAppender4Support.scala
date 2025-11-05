@@ -34,7 +34,6 @@ class NatAppender4SupportCodegen(val index: Int) {
       ] {
         SupportSelf =>
 
-        override def sAppender: SimpleAppender${index}Positive[M]
         ${typeParam12.mkString('\n')}
         def headPlus: M[${typeParam5.mkString(',')}]
       }

@@ -16,7 +16,6 @@
         HLLike1,
         APRHLLike1
       ] {
-        override def sAppender: SimpleAppender1Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -37,7 +36,6 @@
         HLLike1,HLLike2,
         APRHLLike1,APRHLLike2
       ] {
-        override def sAppender: SimpleAppender2Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -63,7 +61,6 @@ def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
         HLLike1,HLLike2,HLLike3,
         APRHLLike1,APRHLLike2,APRHLLike3
       ] {
-        override def sAppender: SimpleAppender3Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -94,7 +91,6 @@ def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
         HLLike1,HLLike2,HLLike3,HLLike4,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4
       ] {
-        override def sAppender: SimpleAppender4Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -130,7 +126,6 @@ def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5
       ] {
-        override def sAppender: SimpleAppender5Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -171,7 +166,6 @@ def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6
       ] {
-        override def sAppender: SimpleAppender6Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -217,7 +211,6 @@ def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7
       ] {
-        override def sAppender: SimpleAppender7Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -268,7 +261,6 @@ def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8
       ] {
-        override def sAppender: SimpleAppender8Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -324,7 +316,6 @@ def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9
       ] {
-        override def sAppender: SimpleAppender9Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -385,7 +376,6 @@ def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10
       ] {
-        override def sAppender: SimpleAppender10Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -451,7 +441,6 @@ def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11
       ] {
-        override def sAppender: SimpleAppender11Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -522,7 +511,6 @@ def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12
       ] {
-        override def sAppender: SimpleAppender12Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -598,7 +586,6 @@ def hlistFunnc12: HListFunc[HLLike12, APRHLLike12]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13
       ] {
-        override def sAppender: SimpleAppender13Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -679,7 +666,6 @@ def hlistFunnc13: HListFunc[HLLike13, APRHLLike13]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14
       ] {
-        override def sAppender: SimpleAppender14Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -765,7 +751,6 @@ def hlistFunnc14: HListFunc[HLLike14, APRHLLike14]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15
       ] {
-        override def sAppender: SimpleAppender15Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -856,7 +841,6 @@ def hlistFunnc15: HListFunc[HLLike15, APRHLLike15]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16
       ] {
-        override def sAppender: SimpleAppender16Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -952,7 +936,6 @@ def hlistFunnc16: HListFunc[HLLike16, APRHLLike16]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16,APRHLLike17
       ] {
-        override def sAppender: SimpleAppender17Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -1053,7 +1036,6 @@ def hlistFunnc17: HListFunc[HLLike17, APRHLLike17]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16,APRHLLike17,APRHLLike18
       ] {
-        override def sAppender: SimpleAppender18Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -1159,7 +1141,6 @@ def hlistFunnc18: HListFunc[HLLike18, APRHLLike18]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,HLLike19,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16,APRHLLike17,APRHLLike18,APRHLLike19
       ] {
-        override def sAppender: SimpleAppender19Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -1270,7 +1251,6 @@ def hlistFunnc19: HListFunc[HLLike19, APRHLLike19]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,HLLike19,HLLike20,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16,APRHLLike17,APRHLLike18,APRHLLike19,APRHLLike20
       ] {
-        override def sAppender: SimpleAppender20Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
@@ -1386,7 +1366,6 @@ def hlistFunnc20: HListFunc[HLLike20, APRHLLike20]
         HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,HLLike19,HLLike20,HLLike21,
         APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16,APRHLLike17,APRHLLike18,APRHLLike19,APRHLLike20,APRHLLike21
       ] {
-        override def sAppender: SimpleAppender21Positive[M]
         
           override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
             HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)

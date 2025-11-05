@@ -37,7 +37,6 @@ class NatAppender3SupportCodegen(val index: Int) {
         ${typeParam3.mkString(',')},
         ${typeParam6.mkString(',')}
       ] {
-        override def sAppender: SimpleAppender${index}Positive[M]
         ${typeParam10.mkString('\n')}
         ${typeParam12.mkString('\n')}
         def headPlus: M[${typeParam5.mkString(',')}]

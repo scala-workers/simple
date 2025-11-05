@@ -21,7 +21,10 @@ import net.scalax.simple.adt.text.v4.{
   NatAppender1SupportCodegen,
   NatAppender2SupportCodegen,
   NatAppender3SupportCodegen,
-  NatAppender4SupportCodegen
+  NatAppender4SupportCodegen,
+  NatAppender5SupportCodegen,
+  NatAppender6SupportCodegen,
+  NatAppender7SupportCodegen
 }
 
 object ScalaNatSupportCodegenExec {
@@ -145,6 +148,24 @@ object ScalaNatSupportCodegenExec {
     locally {
       val filePath             = writePath / "v4" / "NatAppender4Support.scala"
       val linerContent: String = NatAppender4SupportCodegen(index = parameterSize - 1).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "v4" / "NatAppender5Support.scala"
+      val linerContent: String = NatAppender5SupportCodegen(index = parameterSize - 1).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "v4" / "NatAppender6Support.scala"
+      val linerContent: String = NatAppender6SupportCodegen(index = parameterSize - 1).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "v4" / "NatAppender7Support.scala"
+      val linerContent: String = NatAppender7SupportCodegen(index = parameterSize - 1).text
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
