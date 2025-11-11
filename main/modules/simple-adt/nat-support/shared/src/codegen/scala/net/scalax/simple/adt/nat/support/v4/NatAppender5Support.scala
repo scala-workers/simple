@@ -8,7 +8,8 @@
 
       def natNext2Helper: NatNext2Helper[HListLike, AppendLike]
 
-      
+      object Impl1 {
+        
       class Support1[
         M[_],
         T1[_],
@@ -26,11 +27,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support1[
+        override def next[U]: NatNext3Self.Impl1.Support1[
           M,
           T1,
           AppendLike[T1[U], HCollection1]
-        ] = new Support1[
+        ] = new NatNext3Self.Impl1.Support1[
           M,
           T1,
           AppendLike[T1[U], HCollection1]
@@ -64,11 +65,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support2[
+        override def next[U]: NatNext3Self.Impl1.Support2[
           M,
           T1,T2,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2]
-        ] = new Support2[
+        ] = new NatNext3Self.Impl1.Support2[
           M,
           T1,T2,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2]
@@ -102,11 +103,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support3[
+        override def next[U]: NatNext3Self.Impl1.Support3[
           M,
           T1,T2,T3,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3]
-        ] = new Support3[
+        ] = new NatNext3Self.Impl1.Support3[
           M,
           T1,T2,T3,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3]
@@ -140,11 +141,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support4[
+        override def next[U]: NatNext3Self.Impl1.Support4[
           M,
           T1,T2,T3,T4,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4]
-        ] = new Support4[
+        ] = new NatNext3Self.Impl1.Support4[
           M,
           T1,T2,T3,T4,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4]
@@ -178,11 +179,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support5[
+        override def next[U]: NatNext3Self.Impl1.Support5[
           M,
           T1,T2,T3,T4,T5,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5]
-        ] = new Support5[
+        ] = new NatNext3Self.Impl1.Support5[
           M,
           T1,T2,T3,T4,T5,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5]
@@ -216,11 +217,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support6[
+        override def next[U]: NatNext3Self.Impl1.Support6[
           M,
           T1,T2,T3,T4,T5,T6,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6]
-        ] = new Support6[
+        ] = new NatNext3Self.Impl1.Support6[
           M,
           T1,T2,T3,T4,T5,T6,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6]
@@ -254,11 +255,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support7[
+        override def next[U]: NatNext3Self.Impl1.Support7[
           M,
           T1,T2,T3,T4,T5,T6,T7,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7]
-        ] = new Support7[
+        ] = new NatNext3Self.Impl1.Support7[
           M,
           T1,T2,T3,T4,T5,T6,T7,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7]
@@ -292,11 +293,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support8[
+        override def next[U]: NatNext3Self.Impl1.Support8[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8]
-        ] = new Support8[
+        ] = new NatNext3Self.Impl1.Support8[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8]
@@ -330,11 +331,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support9[
+        override def next[U]: NatNext3Self.Impl1.Support9[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9]
-        ] = new Support9[
+        ] = new NatNext3Self.Impl1.Support9[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9]
@@ -368,11 +369,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support10[
+        override def next[U]: NatNext3Self.Impl1.Support10[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10]
-        ] = new Support10[
+        ] = new NatNext3Self.Impl1.Support10[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10]
@@ -406,11 +407,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support11[
+        override def next[U]: NatNext3Self.Impl1.Support11[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11]
-        ] = new Support11[
+        ] = new NatNext3Self.Impl1.Support11[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11]
@@ -444,11 +445,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support12[
+        override def next[U]: NatNext3Self.Impl1.Support12[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12]
-        ] = new Support12[
+        ] = new NatNext3Self.Impl1.Support12[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12]
@@ -482,11 +483,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support13[
+        override def next[U]: NatNext3Self.Impl1.Support13[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13]
-        ] = new Support13[
+        ] = new NatNext3Self.Impl1.Support13[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13]
@@ -520,11 +521,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support14[
+        override def next[U]: NatNext3Self.Impl1.Support14[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14]
-        ] = new Support14[
+        ] = new NatNext3Self.Impl1.Support14[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14]
@@ -558,11 +559,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support15[
+        override def next[U]: NatNext3Self.Impl1.Support15[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15]
-        ] = new Support15[
+        ] = new NatNext3Self.Impl1.Support15[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15]
@@ -596,11 +597,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support16[
+        override def next[U]: NatNext3Self.Impl1.Support16[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16]
-        ] = new Support16[
+        ] = new NatNext3Self.Impl1.Support16[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16]
@@ -634,11 +635,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support17[
+        override def next[U]: NatNext3Self.Impl1.Support17[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16],AppendLike[T17[U], HCollection17]
-        ] = new Support17[
+        ] = new NatNext3Self.Impl1.Support17[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16],AppendLike[T17[U], HCollection17]
@@ -672,11 +673,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support18[
+        override def next[U]: NatNext3Self.Impl1.Support18[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16],AppendLike[T17[U], HCollection17],AppendLike[T18[U], HCollection18]
-        ] = new Support18[
+        ] = new NatNext3Self.Impl1.Support18[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16],AppendLike[T17[U], HCollection17],AppendLike[T18[U], HCollection18]
@@ -710,11 +711,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support19[
+        override def next[U]: NatNext3Self.Impl1.Support19[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16],AppendLike[T17[U], HCollection17],AppendLike[T18[U], HCollection18],AppendLike[T19[U], HCollection19]
-        ] = new Support19[
+        ] = new NatNext3Self.Impl1.Support19[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16],AppendLike[T17[U], HCollection17],AppendLike[T18[U], HCollection18],AppendLike[T19[U], HCollection19]
@@ -748,11 +749,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support20[
+        override def next[U]: NatNext3Self.Impl1.Support20[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16],AppendLike[T17[U], HCollection17],AppendLike[T18[U], HCollection18],AppendLike[T19[U], HCollection19],AppendLike[T20[U], HCollection20]
-        ] = new Support20[
+        ] = new NatNext3Self.Impl1.Support20[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16],AppendLike[T17[U], HCollection17],AppendLike[T18[U], HCollection18],AppendLike[T19[U], HCollection19],AppendLike[T20[U], HCollection20]
@@ -786,11 +787,11 @@
       ] {
         SupportSelf =>
 
-        override def next[U]: Support21[
+        override def next[U]: NatNext3Self.Impl1.Support21[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16],AppendLike[T17[U], HCollection17],AppendLike[T18[U], HCollection18],AppendLike[T19[U], HCollection19],AppendLike[T20[U], HCollection20],AppendLike[T21[U], HCollection21]
-        ] = new Support21[
+        ] = new NatNext3Self.Impl1.Support21[
           M,
           T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,
           AppendLike[T1[U], HCollection1],AppendLike[T2[U], HCollection2],AppendLike[T3[U], HCollection3],AppendLike[T4[U], HCollection4],AppendLike[T5[U], HCollection5],AppendLike[T6[U], HCollection6],AppendLike[T7[U], HCollection7],AppendLike[T8[U], HCollection8],AppendLike[T9[U], HCollection9],AppendLike[T10[U], HCollection10],AppendLike[T11[U], HCollection11],AppendLike[T12[U], HCollection12],AppendLike[T13[U], HCollection13],AppendLike[T14[U], HCollection14],AppendLike[T15[U], HCollection15],AppendLike[T16[U], HCollection16],AppendLike[T17[U], HCollection17],AppendLike[T18[U], HCollection18],AppendLike[T19[U], HCollection19],AppendLike[T20[U], HCollection20],AppendLike[T21[U], HCollection21]
@@ -806,5 +807,6 @@
         )
       }
     
+      }
     }
   
