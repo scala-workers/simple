@@ -8,38 +8,76 @@ class NatAppender3SupportCodegen(val index: Int) {
 
   class TraitBody(val index: Int) {
 
-    val typeParam1: Seq[String] = for (_ <- 1 to index) yield s"_"
-    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"HLLike$i1"
-    val typeParam4: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[_, _ <: HLLike$i1] <: HLLike$i1"
-    val typeParam5: Seq[String] = for (index <- 1 to index) yield s"T$index"
-    val typeParam6: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1"
-    val typeParam7: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1 <: HLLike$i1"
-    val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1"
-    val typeParam9: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[T$i1, HCollection$i1]"
-    val typeParam10: Seq[String] =
-      for (i1 <- 1 to index)
-        yield s"""
-          override def abcFunc$i1[HC$i1 <: HLLike$i1]: ABCFunc[T$i1, HC$i1, APRHLLike$i1[T$i1, HC$i1]] =
-            HListFunc.toABCFunc[T$i1, HC$i1, HLLike$i1, APRHLLike$i1](hlistFunnc$i1)
-        """
-    val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s"abcFunc$i1"
-    val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s"def hlistFunnc$i1: HListFunc[HLLike$i1, APRHLLike$i1]"
+    val typeParam1: Seq[String]  = for (_ <- 1 to index) yield s"_"
+    val typeParam2: Seq[String]  = for (i1 <- 1 to index) yield s"N$i1[_]"
+    val typeParam3: Seq[String]  = for (i1 <- 1 to index) yield s"F[N$i1]"
+    val typeParam4: Seq[String]  = for (i1 <- 1 to index) yield s"N$i1"
+    val typeParam5: Seq[String]  = for (i1 <- 1 to index) yield s"HListLike"
+    val typeParam6: Seq[String]  = for (i1 <- 1 to index) yield s"ExtractProductSelf.extraAbstraction.hlistSimpleCompat.zero"
+    val typeParam8: Seq[String]  = for (i1 <- 1 to index) yield s"simpleFunc1[N$i1]"
+    val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"N$i1[Any]"
+    val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s"F[N$i1]"
+    val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s"HListLike"
+
+    val appendHLStr = "({ type AP1[_, T1 <: HListLike] = T1 })#AP1"
 
     val text: String = s"""
-      trait Support$index[
-        M[${typeParam1.mkString(',')}],
-        ${typeParam5.mkString(',')},
-        ${typeParam3.mkString(',')},
-        ${typeParam4.mkString(',')}
-      ] extends NatAppender2.Support$index[
-        M,
-        ${typeParam5.mkString(',')},
-        ${typeParam3.mkString(',')},
-        ${typeParam6.mkString(',')}
-      ] {
-        ${typeParam10.mkString('\n')}
-        ${typeParam12.mkString('\n')}
-        def headPlus: M[${typeParam5.mkString(',')}]
+      override final def simpleProduct$index: SimpleProduct$index.ProductAdapter[F] = new SimpleProduct$index.ProductAdapter[F] {
+        override final def append[M[${typeParam1.mkString(',')}], ${typeParam2.mkString(',')}](
+          tpGen: SimpleProduct$index.TypeGen[M, ${typeParam4.mkString(',')}],
+          sAppender: SimpleProduct$index.SimpleAppender[M]
+        ): M[${typeParam3.mkString(',')}] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support$index[M, ${typeParam4.mkString(',')}](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support$index[
+                M,
+                ${typeParam4.mkString(',')},
+                ${typeParam12.mkString(',')}
+              ]
+            ]
+
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support$index[
+            M,
+            ${typeParam4.mkString(',')},
+            ${typeParam12.mkString(',')}
+          ]): NatNext5Self.extraAbstraction.Impl1.Support$index[
+            M,
+            ${typeParam4.mkString(',')},
+            ${typeParam12.mkString(',')}
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support$index[
+                  M,
+                  ${typeParam4.mkString(',')},
+                  ${typeParam12.mkString(',')}
+                ]
+              ]
+            else
+              model
+          }
+
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
+
+          sAppender.append[
+            ${typeParam9.mkString(',')},
+            ${typeParam5.mkString(',')},
+            ${typeParam11.mkString(',')}
+          ](${typeParam8.mkString(',')})(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     """
 
@@ -52,8 +90,22 @@ class NatAppender3SupportCodegen(val index: Int) {
     package nat
     package support
 
-    object NatAppender3 {
-      ${preTextContent.mkString('\n')}
+    trait NatNext5[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <: HListLike] {
+      NatNext5Self =>
+
+      val extraAbstraction: NatNext4[HListLike, AppLike, HZero]
+
+      final def genSimpleProduct[F[_[_]]](
+        length: Int,
+        toModel: HListLike => F[({ type AnyF[_] = Any })#AnyF],
+        fromModel: F[({ type AnyF[_] = Any })#AnyF] => HListLike
+      ): SimpleProductContextX[F] = {
+        val autalLen: Int = length - 1
+
+        new SimpleProductContextX[F] {
+          ${preTextContent.mkString('\n')}
+        }
+      }
     }
   """
 

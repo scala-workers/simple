@@ -3,1476 +3,1318 @@
     package nat
     package support
 
-    object NatAppender3 {
-      
-      trait Support1[
-        M[_],
-        T1,
-        HLLike1,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1
-      ] extends NatAppender2.Support1[
-        M,
-        T1,
-        HLLike1,
-        APRHLLike1
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-        def headPlus: M[T1]
+    trait NatNext5[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <: HListLike] {
+      NatNext5Self =>
+
+      val extraAbstraction: NatNext4[HListLike, AppLike, HZero]
+
+      final def genSimpleProduct[F[_[_]]](
+        length: Int,
+        toModel: HListLike => F[({ type AnyF[_] = Any })#AnyF],
+        fromModel: F[({ type AnyF[_] = Any })#AnyF] => HListLike
+      ): SimpleProductContextX[F] = {
+        val autalLen: Int = length - 1
+
+        new SimpleProductContextX[F] {
+          
+      override final def simpleProduct1: SimpleProduct1.ProductAdapter[F] = new SimpleProduct1.ProductAdapter[F] {
+        override final def append[M[_], N1[_]](
+          tpGen: SimpleProduct1.TypeGen[M, N1],
+          sAppender: SimpleProduct1.SimpleAppender[M]
+        ): M[F[N1]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support1[M, N1](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support1[
+                M,
+                N1,
+                HListLike
+              ]
+            ]
+
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support1[
+            M,
+            N1,
+            HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support1[
+            M,
+            N1,
+            HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support1[
+                  M,
+                  N1,
+                  HListLike
+                ]
+              ]
+            else
+              model
+          }
+
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
+
+          sAppender.append[
+            N1[Any],
+            HListLike,
+            F[N1]
+          ](simpleFunc1[N1])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support2[
-        M[_,_],
-        T1,T2,
-        HLLike1,HLLike2,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2
-      ] extends NatAppender2.Support2[
-        M,
-        T1,T2,
-        HLLike1,HLLike2,
-        APRHLLike1,APRHLLike2
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct2: SimpleProduct2.ProductAdapter[F] = new SimpleProduct2.ProductAdapter[F] {
+        override final def append[M[_,_], N1[_],N2[_]](
+          tpGen: SimpleProduct2.TypeGen[M, N1,N2],
+          sAppender: SimpleProduct2.SimpleAppender[M]
+        ): M[F[N1],F[N2]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support2[M, N1,N2](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support2[
+                M,
+                N1,N2,
+                HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-        def headPlus: M[T1,T2]
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support2[
+            M,
+            N1,N2,
+            HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support2[
+            M,
+            N1,N2,
+            HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support2[
+                  M,
+                  N1,N2,
+                  HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
+
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
+
+          sAppender.append[
+            N1[Any],N2[Any],
+            HListLike,HListLike,
+            F[N1],F[N2]
+          ](simpleFunc1[N1],simpleFunc1[N2])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support3[
-        M[_,_,_],
-        T1,T2,T3,
-        HLLike1,HLLike2,HLLike3,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3
-      ] extends NatAppender2.Support3[
-        M,
-        T1,T2,T3,
-        HLLike1,HLLike2,HLLike3,
-        APRHLLike1,APRHLLike2,APRHLLike3
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct3: SimpleProduct3.ProductAdapter[F] = new SimpleProduct3.ProductAdapter[F] {
+        override final def append[M[_,_,_], N1[_],N2[_],N3[_]](
+          tpGen: SimpleProduct3.TypeGen[M, N1,N2,N3],
+          sAppender: SimpleProduct3.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support3[M, N1,N2,N3](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support3[
+                M,
+                N1,N2,N3,
+                HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support3[
+            M,
+            N1,N2,N3,
+            HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support3[
+            M,
+            N1,N2,N3,
+            HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support3[
+                  M,
+                  N1,N2,N3,
+                  HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-        def headPlus: M[T1,T2,T3]
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
+
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],
+            HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support4[
-        M[_,_,_,_],
-        T1,T2,T3,T4,
-        HLLike1,HLLike2,HLLike3,HLLike4,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4
-      ] extends NatAppender2.Support4[
-        M,
-        T1,T2,T3,T4,
-        HLLike1,HLLike2,HLLike3,HLLike4,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct4: SimpleProduct4.ProductAdapter[F] = new SimpleProduct4.ProductAdapter[F] {
+        override final def append[M[_,_,_,_], N1[_],N2[_],N3[_],N4[_]](
+          tpGen: SimpleProduct4.TypeGen[M, N1,N2,N3,N4],
+          sAppender: SimpleProduct4.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support4[M, N1,N2,N3,N4](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support4[
+                M,
+                N1,N2,N3,N4,
+                HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support4[
+            M,
+            N1,N2,N3,N4,
+            HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support4[
+            M,
+            N1,N2,N3,N4,
+            HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support4[
+                  M,
+                  N1,N2,N3,N4,
+                  HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-        def headPlus: M[T1,T2,T3,T4]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],
+            HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support5[
-        M[_,_,_,_,_],
-        T1,T2,T3,T4,T5,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5
-      ] extends NatAppender2.Support5[
-        M,
-        T1,T2,T3,T4,T5,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct5: SimpleProduct5.ProductAdapter[F] = new SimpleProduct5.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_]](
+          tpGen: SimpleProduct5.TypeGen[M, N1,N2,N3,N4,N5],
+          sAppender: SimpleProduct5.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support5[M, N1,N2,N3,N4,N5](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support5[
+                M,
+                N1,N2,N3,N4,N5,
+                HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support5[
+            M,
+            N1,N2,N3,N4,N5,
+            HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support5[
+            M,
+            N1,N2,N3,N4,N5,
+            HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support5[
+                  M,
+                  N1,N2,N3,N4,N5,
+                  HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-        def headPlus: M[T1,T2,T3,T4,T5]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support6[
-        M[_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6
-      ] extends NatAppender2.Support6[
-        M,
-        T1,T2,T3,T4,T5,T6,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct6: SimpleProduct6.ProductAdapter[F] = new SimpleProduct6.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_]](
+          tpGen: SimpleProduct6.TypeGen[M, N1,N2,N3,N4,N5,N6],
+          sAppender: SimpleProduct6.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support6[M, N1,N2,N3,N4,N5,N6](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support6[
+                M,
+                N1,N2,N3,N4,N5,N6,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support6[
+            M,
+            N1,N2,N3,N4,N5,N6,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support6[
+            M,
+            N1,N2,N3,N4,N5,N6,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support6[
+                  M,
+                  N1,N2,N3,N4,N5,N6,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-        def headPlus: M[T1,T2,T3,T4,T5,T6]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support7[
-        M[_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7
-      ] extends NatAppender2.Support7[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct7: SimpleProduct7.ProductAdapter[F] = new SimpleProduct7.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_]](
+          tpGen: SimpleProduct7.TypeGen[M, N1,N2,N3,N4,N5,N6,N7],
+          sAppender: SimpleProduct7.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support7[M, N1,N2,N3,N4,N5,N6,N7](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support7[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support7[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support7[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support7[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support8[
-        M[_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8
-      ] extends NatAppender2.Support8[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct8: SimpleProduct8.ProductAdapter[F] = new SimpleProduct8.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_]](
+          tpGen: SimpleProduct8.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8],
+          sAppender: SimpleProduct8.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support8[M, N1,N2,N3,N4,N5,N6,N7,N8](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support8[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support8[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support8[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support8[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support9[
-        M[_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9
-      ] extends NatAppender2.Support9[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct9: SimpleProduct9.ProductAdapter[F] = new SimpleProduct9.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_]](
+          tpGen: SimpleProduct9.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9],
+          sAppender: SimpleProduct9.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support9[M, N1,N2,N3,N4,N5,N6,N7,N8,N9](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support9[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support9[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support9[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support9[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support10[
-        M[_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10
-      ] extends NatAppender2.Support10[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct10: SimpleProduct10.ProductAdapter[F] = new SimpleProduct10.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_]](
+          tpGen: SimpleProduct10.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10],
+          sAppender: SimpleProduct10.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support10[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support10[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support10[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support10[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support10[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support11[
-        M[_,_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10,APRHLLike11[_, _ <: HLLike11] <: HLLike11
-      ] extends NatAppender2.Support11[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct11: SimpleProduct11.ProductAdapter[F] = new SimpleProduct11.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_]](
+          tpGen: SimpleProduct11.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11],
+          sAppender: SimpleProduct11.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support11[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support11[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support11[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support11[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support11[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-
-          override def abcFunc11[HC11 <: HLLike11]: ABCFunc[T11, HC11, APRHLLike11[T11, HC11]] =
-            HListFunc.toABCFunc[T11, HC11, HLLike11, APRHLLike11](hlistFunnc11)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support12[
-        M[_,_,_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10,APRHLLike11[_, _ <: HLLike11] <: HLLike11,APRHLLike12[_, _ <: HLLike12] <: HLLike12
-      ] extends NatAppender2.Support12[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct12: SimpleProduct12.ProductAdapter[F] = new SimpleProduct12.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_]](
+          tpGen: SimpleProduct12.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12],
+          sAppender: SimpleProduct12.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support12[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support12[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support12[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support12[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support12[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-
-          override def abcFunc11[HC11 <: HLLike11]: ABCFunc[T11, HC11, APRHLLike11[T11, HC11]] =
-            HListFunc.toABCFunc[T11, HC11, HLLike11, APRHLLike11](hlistFunnc11)
-        
-
-          override def abcFunc12[HC12 <: HLLike12]: ABCFunc[T12, HC12, APRHLLike12[T12, HC12]] =
-            HListFunc.toABCFunc[T12, HC12, HLLike12, APRHLLike12](hlistFunnc12)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
-def hlistFunnc12: HListFunc[HLLike12, APRHLLike12]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],N12[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11],simpleFunc1[N12])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support13[
-        M[_,_,_,_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10,APRHLLike11[_, _ <: HLLike11] <: HLLike11,APRHLLike12[_, _ <: HLLike12] <: HLLike12,APRHLLike13[_, _ <: HLLike13] <: HLLike13
-      ] extends NatAppender2.Support13[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct13: SimpleProduct13.ProductAdapter[F] = new SimpleProduct13.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_]](
+          tpGen: SimpleProduct13.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13],
+          sAppender: SimpleProduct13.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support13[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support13[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support13[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support13[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support13[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-
-          override def abcFunc11[HC11 <: HLLike11]: ABCFunc[T11, HC11, APRHLLike11[T11, HC11]] =
-            HListFunc.toABCFunc[T11, HC11, HLLike11, APRHLLike11](hlistFunnc11)
-        
-
-          override def abcFunc12[HC12 <: HLLike12]: ABCFunc[T12, HC12, APRHLLike12[T12, HC12]] =
-            HListFunc.toABCFunc[T12, HC12, HLLike12, APRHLLike12](hlistFunnc12)
-        
-
-          override def abcFunc13[HC13 <: HLLike13]: ABCFunc[T13, HC13, APRHLLike13[T13, HC13]] =
-            HListFunc.toABCFunc[T13, HC13, HLLike13, APRHLLike13](hlistFunnc13)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
-def hlistFunnc12: HListFunc[HLLike12, APRHLLike12]
-def hlistFunnc13: HListFunc[HLLike13, APRHLLike13]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],N12[Any],N13[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11],simpleFunc1[N12],simpleFunc1[N13])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support14[
-        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10,APRHLLike11[_, _ <: HLLike11] <: HLLike11,APRHLLike12[_, _ <: HLLike12] <: HLLike12,APRHLLike13[_, _ <: HLLike13] <: HLLike13,APRHLLike14[_, _ <: HLLike14] <: HLLike14
-      ] extends NatAppender2.Support14[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct14: SimpleProduct14.ProductAdapter[F] = new SimpleProduct14.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_]](
+          tpGen: SimpleProduct14.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14],
+          sAppender: SimpleProduct14.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support14[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support14[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support14[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support14[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support14[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-
-          override def abcFunc11[HC11 <: HLLike11]: ABCFunc[T11, HC11, APRHLLike11[T11, HC11]] =
-            HListFunc.toABCFunc[T11, HC11, HLLike11, APRHLLike11](hlistFunnc11)
-        
-
-          override def abcFunc12[HC12 <: HLLike12]: ABCFunc[T12, HC12, APRHLLike12[T12, HC12]] =
-            HListFunc.toABCFunc[T12, HC12, HLLike12, APRHLLike12](hlistFunnc12)
-        
-
-          override def abcFunc13[HC13 <: HLLike13]: ABCFunc[T13, HC13, APRHLLike13[T13, HC13]] =
-            HListFunc.toABCFunc[T13, HC13, HLLike13, APRHLLike13](hlistFunnc13)
-        
-
-          override def abcFunc14[HC14 <: HLLike14]: ABCFunc[T14, HC14, APRHLLike14[T14, HC14]] =
-            HListFunc.toABCFunc[T14, HC14, HLLike14, APRHLLike14](hlistFunnc14)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
-def hlistFunnc12: HListFunc[HLLike12, APRHLLike12]
-def hlistFunnc13: HListFunc[HLLike13, APRHLLike13]
-def hlistFunnc14: HListFunc[HLLike14, APRHLLike14]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],N12[Any],N13[Any],N14[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11],simpleFunc1[N12],simpleFunc1[N13],simpleFunc1[N14])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support15[
-        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10,APRHLLike11[_, _ <: HLLike11] <: HLLike11,APRHLLike12[_, _ <: HLLike12] <: HLLike12,APRHLLike13[_, _ <: HLLike13] <: HLLike13,APRHLLike14[_, _ <: HLLike14] <: HLLike14,APRHLLike15[_, _ <: HLLike15] <: HLLike15
-      ] extends NatAppender2.Support15[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct15: SimpleProduct15.ProductAdapter[F] = new SimpleProduct15.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_]](
+          tpGen: SimpleProduct15.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15],
+          sAppender: SimpleProduct15.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support15[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support15[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support15[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support15[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support15[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-
-          override def abcFunc11[HC11 <: HLLike11]: ABCFunc[T11, HC11, APRHLLike11[T11, HC11]] =
-            HListFunc.toABCFunc[T11, HC11, HLLike11, APRHLLike11](hlistFunnc11)
-        
-
-          override def abcFunc12[HC12 <: HLLike12]: ABCFunc[T12, HC12, APRHLLike12[T12, HC12]] =
-            HListFunc.toABCFunc[T12, HC12, HLLike12, APRHLLike12](hlistFunnc12)
-        
-
-          override def abcFunc13[HC13 <: HLLike13]: ABCFunc[T13, HC13, APRHLLike13[T13, HC13]] =
-            HListFunc.toABCFunc[T13, HC13, HLLike13, APRHLLike13](hlistFunnc13)
-        
-
-          override def abcFunc14[HC14 <: HLLike14]: ABCFunc[T14, HC14, APRHLLike14[T14, HC14]] =
-            HListFunc.toABCFunc[T14, HC14, HLLike14, APRHLLike14](hlistFunnc14)
-        
-
-          override def abcFunc15[HC15 <: HLLike15]: ABCFunc[T15, HC15, APRHLLike15[T15, HC15]] =
-            HListFunc.toABCFunc[T15, HC15, HLLike15, APRHLLike15](hlistFunnc15)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
-def hlistFunnc12: HListFunc[HLLike12, APRHLLike12]
-def hlistFunnc13: HListFunc[HLLike13, APRHLLike13]
-def hlistFunnc14: HListFunc[HLLike14, APRHLLike14]
-def hlistFunnc15: HListFunc[HLLike15, APRHLLike15]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],N12[Any],N13[Any],N14[Any],N15[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11],simpleFunc1[N12],simpleFunc1[N13],simpleFunc1[N14],simpleFunc1[N15])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support16[
-        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10,APRHLLike11[_, _ <: HLLike11] <: HLLike11,APRHLLike12[_, _ <: HLLike12] <: HLLike12,APRHLLike13[_, _ <: HLLike13] <: HLLike13,APRHLLike14[_, _ <: HLLike14] <: HLLike14,APRHLLike15[_, _ <: HLLike15] <: HLLike15,APRHLLike16[_, _ <: HLLike16] <: HLLike16
-      ] extends NatAppender2.Support16[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct16: SimpleProduct16.ProductAdapter[F] = new SimpleProduct16.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_]](
+          tpGen: SimpleProduct16.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16],
+          sAppender: SimpleProduct16.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support16[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support16[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support16[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support16[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support16[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-
-          override def abcFunc11[HC11 <: HLLike11]: ABCFunc[T11, HC11, APRHLLike11[T11, HC11]] =
-            HListFunc.toABCFunc[T11, HC11, HLLike11, APRHLLike11](hlistFunnc11)
-        
-
-          override def abcFunc12[HC12 <: HLLike12]: ABCFunc[T12, HC12, APRHLLike12[T12, HC12]] =
-            HListFunc.toABCFunc[T12, HC12, HLLike12, APRHLLike12](hlistFunnc12)
-        
-
-          override def abcFunc13[HC13 <: HLLike13]: ABCFunc[T13, HC13, APRHLLike13[T13, HC13]] =
-            HListFunc.toABCFunc[T13, HC13, HLLike13, APRHLLike13](hlistFunnc13)
-        
-
-          override def abcFunc14[HC14 <: HLLike14]: ABCFunc[T14, HC14, APRHLLike14[T14, HC14]] =
-            HListFunc.toABCFunc[T14, HC14, HLLike14, APRHLLike14](hlistFunnc14)
-        
-
-          override def abcFunc15[HC15 <: HLLike15]: ABCFunc[T15, HC15, APRHLLike15[T15, HC15]] =
-            HListFunc.toABCFunc[T15, HC15, HLLike15, APRHLLike15](hlistFunnc15)
-        
-
-          override def abcFunc16[HC16 <: HLLike16]: ABCFunc[T16, HC16, APRHLLike16[T16, HC16]] =
-            HListFunc.toABCFunc[T16, HC16, HLLike16, APRHLLike16](hlistFunnc16)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
-def hlistFunnc12: HListFunc[HLLike12, APRHLLike12]
-def hlistFunnc13: HListFunc[HLLike13, APRHLLike13]
-def hlistFunnc14: HListFunc[HLLike14, APRHLLike14]
-def hlistFunnc15: HListFunc[HLLike15, APRHLLike15]
-def hlistFunnc16: HListFunc[HLLike16, APRHLLike16]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],N12[Any],N13[Any],N14[Any],N15[Any],N16[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11],simpleFunc1[N12],simpleFunc1[N13],simpleFunc1[N14],simpleFunc1[N15],simpleFunc1[N16])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support17[
-        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10,APRHLLike11[_, _ <: HLLike11] <: HLLike11,APRHLLike12[_, _ <: HLLike12] <: HLLike12,APRHLLike13[_, _ <: HLLike13] <: HLLike13,APRHLLike14[_, _ <: HLLike14] <: HLLike14,APRHLLike15[_, _ <: HLLike15] <: HLLike15,APRHLLike16[_, _ <: HLLike16] <: HLLike16,APRHLLike17[_, _ <: HLLike17] <: HLLike17
-      ] extends NatAppender2.Support17[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16,APRHLLike17
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct17: SimpleProduct17.ProductAdapter[F] = new SimpleProduct17.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_]](
+          tpGen: SimpleProduct17.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17],
+          sAppender: SimpleProduct17.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support17[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support17[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support17[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support17[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support17[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-
-          override def abcFunc11[HC11 <: HLLike11]: ABCFunc[T11, HC11, APRHLLike11[T11, HC11]] =
-            HListFunc.toABCFunc[T11, HC11, HLLike11, APRHLLike11](hlistFunnc11)
-        
-
-          override def abcFunc12[HC12 <: HLLike12]: ABCFunc[T12, HC12, APRHLLike12[T12, HC12]] =
-            HListFunc.toABCFunc[T12, HC12, HLLike12, APRHLLike12](hlistFunnc12)
-        
-
-          override def abcFunc13[HC13 <: HLLike13]: ABCFunc[T13, HC13, APRHLLike13[T13, HC13]] =
-            HListFunc.toABCFunc[T13, HC13, HLLike13, APRHLLike13](hlistFunnc13)
-        
-
-          override def abcFunc14[HC14 <: HLLike14]: ABCFunc[T14, HC14, APRHLLike14[T14, HC14]] =
-            HListFunc.toABCFunc[T14, HC14, HLLike14, APRHLLike14](hlistFunnc14)
-        
-
-          override def abcFunc15[HC15 <: HLLike15]: ABCFunc[T15, HC15, APRHLLike15[T15, HC15]] =
-            HListFunc.toABCFunc[T15, HC15, HLLike15, APRHLLike15](hlistFunnc15)
-        
-
-          override def abcFunc16[HC16 <: HLLike16]: ABCFunc[T16, HC16, APRHLLike16[T16, HC16]] =
-            HListFunc.toABCFunc[T16, HC16, HLLike16, APRHLLike16](hlistFunnc16)
-        
-
-          override def abcFunc17[HC17 <: HLLike17]: ABCFunc[T17, HC17, APRHLLike17[T17, HC17]] =
-            HListFunc.toABCFunc[T17, HC17, HLLike17, APRHLLike17](hlistFunnc17)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
-def hlistFunnc12: HListFunc[HLLike12, APRHLLike12]
-def hlistFunnc13: HListFunc[HLLike13, APRHLLike13]
-def hlistFunnc14: HListFunc[HLLike14, APRHLLike14]
-def hlistFunnc15: HListFunc[HLLike15, APRHLLike15]
-def hlistFunnc16: HListFunc[HLLike16, APRHLLike16]
-def hlistFunnc17: HListFunc[HLLike17, APRHLLike17]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],N12[Any],N13[Any],N14[Any],N15[Any],N16[Any],N17[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11],simpleFunc1[N12],simpleFunc1[N13],simpleFunc1[N14],simpleFunc1[N15],simpleFunc1[N16],simpleFunc1[N17])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support18[
-        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10,APRHLLike11[_, _ <: HLLike11] <: HLLike11,APRHLLike12[_, _ <: HLLike12] <: HLLike12,APRHLLike13[_, _ <: HLLike13] <: HLLike13,APRHLLike14[_, _ <: HLLike14] <: HLLike14,APRHLLike15[_, _ <: HLLike15] <: HLLike15,APRHLLike16[_, _ <: HLLike16] <: HLLike16,APRHLLike17[_, _ <: HLLike17] <: HLLike17,APRHLLike18[_, _ <: HLLike18] <: HLLike18
-      ] extends NatAppender2.Support18[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16,APRHLLike17,APRHLLike18
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct18: SimpleProduct18.ProductAdapter[F] = new SimpleProduct18.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_]](
+          tpGen: SimpleProduct18.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18],
+          sAppender: SimpleProduct18.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support18[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support18[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support18[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support18[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support18[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-
-          override def abcFunc11[HC11 <: HLLike11]: ABCFunc[T11, HC11, APRHLLike11[T11, HC11]] =
-            HListFunc.toABCFunc[T11, HC11, HLLike11, APRHLLike11](hlistFunnc11)
-        
-
-          override def abcFunc12[HC12 <: HLLike12]: ABCFunc[T12, HC12, APRHLLike12[T12, HC12]] =
-            HListFunc.toABCFunc[T12, HC12, HLLike12, APRHLLike12](hlistFunnc12)
-        
-
-          override def abcFunc13[HC13 <: HLLike13]: ABCFunc[T13, HC13, APRHLLike13[T13, HC13]] =
-            HListFunc.toABCFunc[T13, HC13, HLLike13, APRHLLike13](hlistFunnc13)
-        
-
-          override def abcFunc14[HC14 <: HLLike14]: ABCFunc[T14, HC14, APRHLLike14[T14, HC14]] =
-            HListFunc.toABCFunc[T14, HC14, HLLike14, APRHLLike14](hlistFunnc14)
-        
-
-          override def abcFunc15[HC15 <: HLLike15]: ABCFunc[T15, HC15, APRHLLike15[T15, HC15]] =
-            HListFunc.toABCFunc[T15, HC15, HLLike15, APRHLLike15](hlistFunnc15)
-        
-
-          override def abcFunc16[HC16 <: HLLike16]: ABCFunc[T16, HC16, APRHLLike16[T16, HC16]] =
-            HListFunc.toABCFunc[T16, HC16, HLLike16, APRHLLike16](hlistFunnc16)
-        
-
-          override def abcFunc17[HC17 <: HLLike17]: ABCFunc[T17, HC17, APRHLLike17[T17, HC17]] =
-            HListFunc.toABCFunc[T17, HC17, HLLike17, APRHLLike17](hlistFunnc17)
-        
-
-          override def abcFunc18[HC18 <: HLLike18]: ABCFunc[T18, HC18, APRHLLike18[T18, HC18]] =
-            HListFunc.toABCFunc[T18, HC18, HLLike18, APRHLLike18](hlistFunnc18)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
-def hlistFunnc12: HListFunc[HLLike12, APRHLLike12]
-def hlistFunnc13: HListFunc[HLLike13, APRHLLike13]
-def hlistFunnc14: HListFunc[HLLike14, APRHLLike14]
-def hlistFunnc15: HListFunc[HLLike15, APRHLLike15]
-def hlistFunnc16: HListFunc[HLLike16, APRHLLike16]
-def hlistFunnc17: HListFunc[HLLike17, APRHLLike17]
-def hlistFunnc18: HListFunc[HLLike18, APRHLLike18]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],N12[Any],N13[Any],N14[Any],N15[Any],N16[Any],N17[Any],N18[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11],simpleFunc1[N12],simpleFunc1[N13],simpleFunc1[N14],simpleFunc1[N15],simpleFunc1[N16],simpleFunc1[N17],simpleFunc1[N18])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support19[
-        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,HLLike19,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10,APRHLLike11[_, _ <: HLLike11] <: HLLike11,APRHLLike12[_, _ <: HLLike12] <: HLLike12,APRHLLike13[_, _ <: HLLike13] <: HLLike13,APRHLLike14[_, _ <: HLLike14] <: HLLike14,APRHLLike15[_, _ <: HLLike15] <: HLLike15,APRHLLike16[_, _ <: HLLike16] <: HLLike16,APRHLLike17[_, _ <: HLLike17] <: HLLike17,APRHLLike18[_, _ <: HLLike18] <: HLLike18,APRHLLike19[_, _ <: HLLike19] <: HLLike19
-      ] extends NatAppender2.Support19[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,HLLike19,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16,APRHLLike17,APRHLLike18,APRHLLike19
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct19: SimpleProduct19.ProductAdapter[F] = new SimpleProduct19.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_]](
+          tpGen: SimpleProduct19.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19],
+          sAppender: SimpleProduct19.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support19[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support19[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support19[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support19[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support19[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-
-          override def abcFunc11[HC11 <: HLLike11]: ABCFunc[T11, HC11, APRHLLike11[T11, HC11]] =
-            HListFunc.toABCFunc[T11, HC11, HLLike11, APRHLLike11](hlistFunnc11)
-        
-
-          override def abcFunc12[HC12 <: HLLike12]: ABCFunc[T12, HC12, APRHLLike12[T12, HC12]] =
-            HListFunc.toABCFunc[T12, HC12, HLLike12, APRHLLike12](hlistFunnc12)
-        
-
-          override def abcFunc13[HC13 <: HLLike13]: ABCFunc[T13, HC13, APRHLLike13[T13, HC13]] =
-            HListFunc.toABCFunc[T13, HC13, HLLike13, APRHLLike13](hlistFunnc13)
-        
-
-          override def abcFunc14[HC14 <: HLLike14]: ABCFunc[T14, HC14, APRHLLike14[T14, HC14]] =
-            HListFunc.toABCFunc[T14, HC14, HLLike14, APRHLLike14](hlistFunnc14)
-        
-
-          override def abcFunc15[HC15 <: HLLike15]: ABCFunc[T15, HC15, APRHLLike15[T15, HC15]] =
-            HListFunc.toABCFunc[T15, HC15, HLLike15, APRHLLike15](hlistFunnc15)
-        
-
-          override def abcFunc16[HC16 <: HLLike16]: ABCFunc[T16, HC16, APRHLLike16[T16, HC16]] =
-            HListFunc.toABCFunc[T16, HC16, HLLike16, APRHLLike16](hlistFunnc16)
-        
-
-          override def abcFunc17[HC17 <: HLLike17]: ABCFunc[T17, HC17, APRHLLike17[T17, HC17]] =
-            HListFunc.toABCFunc[T17, HC17, HLLike17, APRHLLike17](hlistFunnc17)
-        
-
-          override def abcFunc18[HC18 <: HLLike18]: ABCFunc[T18, HC18, APRHLLike18[T18, HC18]] =
-            HListFunc.toABCFunc[T18, HC18, HLLike18, APRHLLike18](hlistFunnc18)
-        
-
-          override def abcFunc19[HC19 <: HLLike19]: ABCFunc[T19, HC19, APRHLLike19[T19, HC19]] =
-            HListFunc.toABCFunc[T19, HC19, HLLike19, APRHLLike19](hlistFunnc19)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
-def hlistFunnc12: HListFunc[HLLike12, APRHLLike12]
-def hlistFunnc13: HListFunc[HLLike13, APRHLLike13]
-def hlistFunnc14: HListFunc[HLLike14, APRHLLike14]
-def hlistFunnc15: HListFunc[HLLike15, APRHLLike15]
-def hlistFunnc16: HListFunc[HLLike16, APRHLLike16]
-def hlistFunnc17: HListFunc[HLLike17, APRHLLike17]
-def hlistFunnc18: HListFunc[HLLike18, APRHLLike18]
-def hlistFunnc19: HListFunc[HLLike19, APRHLLike19]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],N12[Any],N13[Any],N14[Any],N15[Any],N16[Any],N17[Any],N18[Any],N19[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11],simpleFunc1[N12],simpleFunc1[N13],simpleFunc1[N14],simpleFunc1[N15],simpleFunc1[N16],simpleFunc1[N17],simpleFunc1[N18],simpleFunc1[N19])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support20[
-        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,HLLike19,HLLike20,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10,APRHLLike11[_, _ <: HLLike11] <: HLLike11,APRHLLike12[_, _ <: HLLike12] <: HLLike12,APRHLLike13[_, _ <: HLLike13] <: HLLike13,APRHLLike14[_, _ <: HLLike14] <: HLLike14,APRHLLike15[_, _ <: HLLike15] <: HLLike15,APRHLLike16[_, _ <: HLLike16] <: HLLike16,APRHLLike17[_, _ <: HLLike17] <: HLLike17,APRHLLike18[_, _ <: HLLike18] <: HLLike18,APRHLLike19[_, _ <: HLLike19] <: HLLike19,APRHLLike20[_, _ <: HLLike20] <: HLLike20
-      ] extends NatAppender2.Support20[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,HLLike19,HLLike20,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16,APRHLLike17,APRHLLike18,APRHLLike19,APRHLLike20
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct20: SimpleProduct20.ProductAdapter[F] = new SimpleProduct20.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_]](
+          tpGen: SimpleProduct20.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20],
+          sAppender: SimpleProduct20.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support20[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support20[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support20[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support20[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support20[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-
-          override def abcFunc11[HC11 <: HLLike11]: ABCFunc[T11, HC11, APRHLLike11[T11, HC11]] =
-            HListFunc.toABCFunc[T11, HC11, HLLike11, APRHLLike11](hlistFunnc11)
-        
-
-          override def abcFunc12[HC12 <: HLLike12]: ABCFunc[T12, HC12, APRHLLike12[T12, HC12]] =
-            HListFunc.toABCFunc[T12, HC12, HLLike12, APRHLLike12](hlistFunnc12)
-        
-
-          override def abcFunc13[HC13 <: HLLike13]: ABCFunc[T13, HC13, APRHLLike13[T13, HC13]] =
-            HListFunc.toABCFunc[T13, HC13, HLLike13, APRHLLike13](hlistFunnc13)
-        
-
-          override def abcFunc14[HC14 <: HLLike14]: ABCFunc[T14, HC14, APRHLLike14[T14, HC14]] =
-            HListFunc.toABCFunc[T14, HC14, HLLike14, APRHLLike14](hlistFunnc14)
-        
-
-          override def abcFunc15[HC15 <: HLLike15]: ABCFunc[T15, HC15, APRHLLike15[T15, HC15]] =
-            HListFunc.toABCFunc[T15, HC15, HLLike15, APRHLLike15](hlistFunnc15)
-        
-
-          override def abcFunc16[HC16 <: HLLike16]: ABCFunc[T16, HC16, APRHLLike16[T16, HC16]] =
-            HListFunc.toABCFunc[T16, HC16, HLLike16, APRHLLike16](hlistFunnc16)
-        
-
-          override def abcFunc17[HC17 <: HLLike17]: ABCFunc[T17, HC17, APRHLLike17[T17, HC17]] =
-            HListFunc.toABCFunc[T17, HC17, HLLike17, APRHLLike17](hlistFunnc17)
-        
-
-          override def abcFunc18[HC18 <: HLLike18]: ABCFunc[T18, HC18, APRHLLike18[T18, HC18]] =
-            HListFunc.toABCFunc[T18, HC18, HLLike18, APRHLLike18](hlistFunnc18)
-        
-
-          override def abcFunc19[HC19 <: HLLike19]: ABCFunc[T19, HC19, APRHLLike19[T19, HC19]] =
-            HListFunc.toABCFunc[T19, HC19, HLLike19, APRHLLike19](hlistFunnc19)
-        
-
-          override def abcFunc20[HC20 <: HLLike20]: ABCFunc[T20, HC20, APRHLLike20[T20, HC20]] =
-            HListFunc.toABCFunc[T20, HC20, HLLike20, APRHLLike20](hlistFunnc20)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
-def hlistFunnc12: HListFunc[HLLike12, APRHLLike12]
-def hlistFunnc13: HListFunc[HLLike13, APRHLLike13]
-def hlistFunnc14: HListFunc[HLLike14, APRHLLike14]
-def hlistFunnc15: HListFunc[HLLike15, APRHLLike15]
-def hlistFunnc16: HListFunc[HLLike16, APRHLLike16]
-def hlistFunnc17: HListFunc[HLLike17, APRHLLike17]
-def hlistFunnc18: HListFunc[HLLike18, APRHLLike18]
-def hlistFunnc19: HListFunc[HLLike19, APRHLLike19]
-def hlistFunnc20: HListFunc[HLLike20, APRHLLike20]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],N12[Any],N13[Any],N14[Any],N15[Any],N16[Any],N17[Any],N18[Any],N19[Any],N20[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11],simpleFunc1[N12],simpleFunc1[N13],simpleFunc1[N14],simpleFunc1[N15],simpleFunc1[N16],simpleFunc1[N17],simpleFunc1[N18],simpleFunc1[N19],simpleFunc1[N20])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
 
-      trait Support21[
-        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,HLLike19,HLLike20,HLLike21,
-        APRHLLike1[_, _ <: HLLike1] <: HLLike1,APRHLLike2[_, _ <: HLLike2] <: HLLike2,APRHLLike3[_, _ <: HLLike3] <: HLLike3,APRHLLike4[_, _ <: HLLike4] <: HLLike4,APRHLLike5[_, _ <: HLLike5] <: HLLike5,APRHLLike6[_, _ <: HLLike6] <: HLLike6,APRHLLike7[_, _ <: HLLike7] <: HLLike7,APRHLLike8[_, _ <: HLLike8] <: HLLike8,APRHLLike9[_, _ <: HLLike9] <: HLLike9,APRHLLike10[_, _ <: HLLike10] <: HLLike10,APRHLLike11[_, _ <: HLLike11] <: HLLike11,APRHLLike12[_, _ <: HLLike12] <: HLLike12,APRHLLike13[_, _ <: HLLike13] <: HLLike13,APRHLLike14[_, _ <: HLLike14] <: HLLike14,APRHLLike15[_, _ <: HLLike15] <: HLLike15,APRHLLike16[_, _ <: HLLike16] <: HLLike16,APRHLLike17[_, _ <: HLLike17] <: HLLike17,APRHLLike18[_, _ <: HLLike18] <: HLLike18,APRHLLike19[_, _ <: HLLike19] <: HLLike19,APRHLLike20[_, _ <: HLLike20] <: HLLike20,APRHLLike21[_, _ <: HLLike21] <: HLLike21
-      ] extends NatAppender2.Support21[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,
-        HLLike1,HLLike2,HLLike3,HLLike4,HLLike5,HLLike6,HLLike7,HLLike8,HLLike9,HLLike10,HLLike11,HLLike12,HLLike13,HLLike14,HLLike15,HLLike16,HLLike17,HLLike18,HLLike19,HLLike20,HLLike21,
-        APRHLLike1,APRHLLike2,APRHLLike3,APRHLLike4,APRHLLike5,APRHLLike6,APRHLLike7,APRHLLike8,APRHLLike9,APRHLLike10,APRHLLike11,APRHLLike12,APRHLLike13,APRHLLike14,APRHLLike15,APRHLLike16,APRHLLike17,APRHLLike18,APRHLLike19,APRHLLike20,APRHLLike21
-      ] {
-        
-          override def abcFunc1[HC1 <: HLLike1]: ABCFunc[T1, HC1, APRHLLike1[T1, HC1]] =
-            HListFunc.toABCFunc[T1, HC1, HLLike1, APRHLLike1](hlistFunnc1)
-        
+      override final def simpleProduct21: SimpleProduct21.ProductAdapter[F] = new SimpleProduct21.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_]](
+          tpGen: SimpleProduct21.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21],
+          sAppender: SimpleProduct21.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20],F[N21]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support21[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support21[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
 
-          override def abcFunc2[HC2 <: HLLike2]: ABCFunc[T2, HC2, APRHLLike2[T2, HC2]] =
-            HListFunc.toABCFunc[T2, HC2, HLLike2, APRHLLike2](hlistFunnc2)
-        
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support21[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support21[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support21[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
 
-          override def abcFunc3[HC3 <: HLLike3]: ABCFunc[T3, HC3, APRHLLike3[T3, HC3]] =
-            HListFunc.toABCFunc[T3, HC3, HLLike3, APRHLLike3](hlistFunnc3)
-        
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
 
-          override def abcFunc4[HC4 <: HLLike4]: ABCFunc[T4, HC4, APRHLLike4[T4, HC4]] =
-            HListFunc.toABCFunc[T4, HC4, HLLike4, APRHLLike4](hlistFunnc4)
-        
-
-          override def abcFunc5[HC5 <: HLLike5]: ABCFunc[T5, HC5, APRHLLike5[T5, HC5]] =
-            HListFunc.toABCFunc[T5, HC5, HLLike5, APRHLLike5](hlistFunnc5)
-        
-
-          override def abcFunc6[HC6 <: HLLike6]: ABCFunc[T6, HC6, APRHLLike6[T6, HC6]] =
-            HListFunc.toABCFunc[T6, HC6, HLLike6, APRHLLike6](hlistFunnc6)
-        
-
-          override def abcFunc7[HC7 <: HLLike7]: ABCFunc[T7, HC7, APRHLLike7[T7, HC7]] =
-            HListFunc.toABCFunc[T7, HC7, HLLike7, APRHLLike7](hlistFunnc7)
-        
-
-          override def abcFunc8[HC8 <: HLLike8]: ABCFunc[T8, HC8, APRHLLike8[T8, HC8]] =
-            HListFunc.toABCFunc[T8, HC8, HLLike8, APRHLLike8](hlistFunnc8)
-        
-
-          override def abcFunc9[HC9 <: HLLike9]: ABCFunc[T9, HC9, APRHLLike9[T9, HC9]] =
-            HListFunc.toABCFunc[T9, HC9, HLLike9, APRHLLike9](hlistFunnc9)
-        
-
-          override def abcFunc10[HC10 <: HLLike10]: ABCFunc[T10, HC10, APRHLLike10[T10, HC10]] =
-            HListFunc.toABCFunc[T10, HC10, HLLike10, APRHLLike10](hlistFunnc10)
-        
-
-          override def abcFunc11[HC11 <: HLLike11]: ABCFunc[T11, HC11, APRHLLike11[T11, HC11]] =
-            HListFunc.toABCFunc[T11, HC11, HLLike11, APRHLLike11](hlistFunnc11)
-        
-
-          override def abcFunc12[HC12 <: HLLike12]: ABCFunc[T12, HC12, APRHLLike12[T12, HC12]] =
-            HListFunc.toABCFunc[T12, HC12, HLLike12, APRHLLike12](hlistFunnc12)
-        
-
-          override def abcFunc13[HC13 <: HLLike13]: ABCFunc[T13, HC13, APRHLLike13[T13, HC13]] =
-            HListFunc.toABCFunc[T13, HC13, HLLike13, APRHLLike13](hlistFunnc13)
-        
-
-          override def abcFunc14[HC14 <: HLLike14]: ABCFunc[T14, HC14, APRHLLike14[T14, HC14]] =
-            HListFunc.toABCFunc[T14, HC14, HLLike14, APRHLLike14](hlistFunnc14)
-        
-
-          override def abcFunc15[HC15 <: HLLike15]: ABCFunc[T15, HC15, APRHLLike15[T15, HC15]] =
-            HListFunc.toABCFunc[T15, HC15, HLLike15, APRHLLike15](hlistFunnc15)
-        
-
-          override def abcFunc16[HC16 <: HLLike16]: ABCFunc[T16, HC16, APRHLLike16[T16, HC16]] =
-            HListFunc.toABCFunc[T16, HC16, HLLike16, APRHLLike16](hlistFunnc16)
-        
-
-          override def abcFunc17[HC17 <: HLLike17]: ABCFunc[T17, HC17, APRHLLike17[T17, HC17]] =
-            HListFunc.toABCFunc[T17, HC17, HLLike17, APRHLLike17](hlistFunnc17)
-        
-
-          override def abcFunc18[HC18 <: HLLike18]: ABCFunc[T18, HC18, APRHLLike18[T18, HC18]] =
-            HListFunc.toABCFunc[T18, HC18, HLLike18, APRHLLike18](hlistFunnc18)
-        
-
-          override def abcFunc19[HC19 <: HLLike19]: ABCFunc[T19, HC19, APRHLLike19[T19, HC19]] =
-            HListFunc.toABCFunc[T19, HC19, HLLike19, APRHLLike19](hlistFunnc19)
-        
-
-          override def abcFunc20[HC20 <: HLLike20]: ABCFunc[T20, HC20, APRHLLike20[T20, HC20]] =
-            HListFunc.toABCFunc[T20, HC20, HLLike20, APRHLLike20](hlistFunnc20)
-        
-
-          override def abcFunc21[HC21 <: HLLike21]: ABCFunc[T21, HC21, APRHLLike21[T21, HC21]] =
-            HListFunc.toABCFunc[T21, HC21, HLLike21, APRHLLike21](hlistFunnc21)
-        
-        def hlistFunnc1: HListFunc[HLLike1, APRHLLike1]
-def hlistFunnc2: HListFunc[HLLike2, APRHLLike2]
-def hlistFunnc3: HListFunc[HLLike3, APRHLLike3]
-def hlistFunnc4: HListFunc[HLLike4, APRHLLike4]
-def hlistFunnc5: HListFunc[HLLike5, APRHLLike5]
-def hlistFunnc6: HListFunc[HLLike6, APRHLLike6]
-def hlistFunnc7: HListFunc[HLLike7, APRHLLike7]
-def hlistFunnc8: HListFunc[HLLike8, APRHLLike8]
-def hlistFunnc9: HListFunc[HLLike9, APRHLLike9]
-def hlistFunnc10: HListFunc[HLLike10, APRHLLike10]
-def hlistFunnc11: HListFunc[HLLike11, APRHLLike11]
-def hlistFunnc12: HListFunc[HLLike12, APRHLLike12]
-def hlistFunnc13: HListFunc[HLLike13, APRHLLike13]
-def hlistFunnc14: HListFunc[HLLike14, APRHLLike14]
-def hlistFunnc15: HListFunc[HLLike15, APRHLLike15]
-def hlistFunnc16: HListFunc[HLLike16, APRHLLike16]
-def hlistFunnc17: HListFunc[HLLike17, APRHLLike17]
-def hlistFunnc18: HListFunc[HLLike18, APRHLLike18]
-def hlistFunnc19: HListFunc[HLLike19, APRHLLike19]
-def hlistFunnc20: HListFunc[HLLike20, APRHLLike20]
-def hlistFunnc21: HListFunc[HLLike21, APRHLLike21]
-        def headPlus: M[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],N12[Any],N13[Any],N14[Any],N15[Any],N16[Any],N17[Any],N18[Any],N19[Any],N20[Any],N21[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20],F[N21]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11],simpleFunc1[N12],simpleFunc1[N13],simpleFunc1[N14],simpleFunc1[N15],simpleFunc1[N16],simpleFunc1[N17],simpleFunc1[N18],simpleFunc1[N19],simpleFunc1[N20],simpleFunc1[N21])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
       }
     
+
+      override final def simpleProduct22: SimpleProduct22.ProductAdapter[F] = new SimpleProduct22.ProductAdapter[F] {
+        override final def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_],N22[_]](
+          tpGen: SimpleProduct22.TypeGen[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22],
+          sAppender: SimpleProduct22.SimpleAppender[M]
+        ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20],F[N21],F[N22]] = {
+          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support22[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22](
+              simpleAppender = sAppender,
+              typeGen = tpGen
+            ).asInstanceOf[
+              NatNext5Self.extraAbstraction.Impl1.Support22[
+                M,
+                N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22,
+                HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+              ]
+            ]
+
+          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support22[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ]): NatNext5Self.extraAbstraction.Impl1.Support22[
+            M,
+            N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22,
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+          ] = {
+            if (len > 0)
+              model.next[Any].asInstanceOf[
+                NatNext5Self.extraAbstraction.Impl1.Support22[
+                  M,
+                  N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22,
+                  HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
+                ]
+              ]
+            else
+              model
+          }
+
+          def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
+            override def takeHead(m: F[U]): U[Any] =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
+              )
+            override def takeTail(m: F[U]): HListLike =
+              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+                fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
+              )
+            override def append(a: U[Any], b: HListLike): F[U] =
+              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+          }
+
+          sAppender.append[
+            N1[Any],N2[Any],N3[Any],N4[Any],N5[Any],N6[Any],N7[Any],N8[Any],N9[Any],N10[Any],N11[Any],N12[Any],N13[Any],N14[Any],N15[Any],N16[Any],N17[Any],N18[Any],N19[Any],N20[Any],N21[Any],N22[Any],
+            HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+            F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20],F[N21],F[N22]
+          ](simpleFunc1[N1],simpleFunc1[N2],simpleFunc1[N3],simpleFunc1[N4],simpleFunc1[N5],simpleFunc1[N6],simpleFunc1[N7],simpleFunc1[N8],simpleFunc1[N9],simpleFunc1[N10],simpleFunc1[N11],simpleFunc1[N12],simpleFunc1[N13],simpleFunc1[N14],simpleFunc1[N15],simpleFunc1[N16],simpleFunc1[N17],simpleFunc1[N18],simpleFunc1[N19],simpleFunc1[N20],simpleFunc1[N21],simpleFunc1[N22])(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)
+        }
+      }
+    
+        }
+      }
     }
   

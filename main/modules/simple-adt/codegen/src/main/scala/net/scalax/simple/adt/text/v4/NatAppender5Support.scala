@@ -25,8 +25,8 @@ class NatAppender5SupportCodegen(val index: Int) {
         ${typeParam7.mkString(',')}
       ](
         override val current: M[${typeParam8.mkString(',')}],
-        simpleAppender$index: SimpleAppender${index}Positive[M],
-        typeGen$index: TypeGen$index[M, ${typeParam14.mkString(',')}]
+        simpleAppender: SimpleAppender${index}Positive[M],
+        typeGen: SimpleProduct$index.TypeGen[M, ${typeParam14.mkString(',')}]
       ) extends NatNext1.Support$index[
         M,
         ${typeParam14.mkString(',')},
@@ -46,13 +46,13 @@ class NatAppender5SupportCodegen(val index: Int) {
           ${typeParam9.mkString(',')}
         ](
           current = NatNext3Self.natNext2Helper.append$index[M, ${typeParam13.mkString(',')}, ${typeParam8.mkString(',')}](
-            SupportSelf.simpleAppender$index
+            SupportSelf.simpleAppender
           )(
-            typeGen$index.gen[U],
+            typeGen.gen[U],
             current
           ),
-          simpleAppender$index = simpleAppender$index,
-          typeGen$index = typeGen$index
+          simpleAppender = simpleAppender,
+          typeGen = typeGen
         )
       }
     """
