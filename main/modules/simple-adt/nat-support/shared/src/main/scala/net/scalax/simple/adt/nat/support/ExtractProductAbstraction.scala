@@ -6,7 +6,7 @@ trait ExtractProductAbstraction[HListLike, AppLike[_, _ <: HListLike] <: HListLi
   ExtractProductAbstractionSelf =>
 
   def hListFunc: HListFunc[HListLike, AppLike]
-  def zero: HZero
+  def zeroInstance: HZero
 
   def runtimeCountSize(t: HListLike): Int
   def labelledItemToString(t: Any): String

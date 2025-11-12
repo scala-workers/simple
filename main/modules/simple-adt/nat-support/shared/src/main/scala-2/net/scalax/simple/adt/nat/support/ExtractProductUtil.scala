@@ -25,7 +25,6 @@ object ExtractProductUtil extends NatNext5[shapeless.HList, shapeless.::, shapel
     override def runtimeCountSize(t: shapeless.HList): Int = t.runtimeLength
     override def labelledItemToString(t: Any): String      = t.asInstanceOf[Symbol].name
 
-    override lazy val zero: shapeless.HNil         = shapeless.HNil
     override lazy val zeroInstance: shapeless.HNil = shapeless.HNil
     override object hListFunc extends HListFunc[shapeless.HList, shapeless.::] {
       override def takeHead[Head, Tail <: shapeless.HList](m: shapeless.::[Head, Tail]): Head        = m.head

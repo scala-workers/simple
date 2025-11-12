@@ -8,7 +8,17 @@
         SimpleProduct1Self =>
 
         
-      trait TypeGen[M[_], N1[_]] extends TypeGen1[M, N1]
+      trait TypeGen[
+        M[_],
+        N1[_]
+      ] extends Type10Gen1[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX
+      ] {
+        TypeGen1Self =>
+        def gen[Item1]: M[N1[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1]] = TypeGen1Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_]] extends SimpleAppender1Positive[M] with SimpleAppender1Zero[M]
@@ -27,7 +37,17 @@
         SimpleProduct2Self =>
 
         
-      trait TypeGen[M[_,_], N1[_],N2[_]] extends TypeGen2[M, N1,N2]
+      trait TypeGen[
+        M[_,_],
+        N1[_],N2[_]
+      ] extends Type10Gen2[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX
+      ] {
+        TypeGen2Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1]] = TypeGen2Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_]] extends SimpleAppender2Positive[M] with SimpleAppender2Zero[M]
@@ -46,7 +66,17 @@
         SimpleProduct3Self =>
 
         
-      trait TypeGen[M[_,_,_], N1[_],N2[_],N3[_]] extends TypeGen3[M, N1,N2,N3]
+      trait TypeGen[
+        M[_,_,_],
+        N1[_],N2[_],N3[_]
+      ] extends Type10Gen3[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX
+      ] {
+        TypeGen3Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1]] = TypeGen3Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_]] extends SimpleAppender3Positive[M] with SimpleAppender3Zero[M]
@@ -65,7 +95,17 @@
         SimpleProduct4Self =>
 
         
-      trait TypeGen[M[_,_,_,_], N1[_],N2[_],N3[_],N4[_]] extends TypeGen4[M, N1,N2,N3,N4]
+      trait TypeGen[
+        M[_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_]
+      ] extends Type10Gen4[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX
+      ] {
+        TypeGen4Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1]] = TypeGen4Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_]] extends SimpleAppender4Positive[M] with SimpleAppender4Zero[M]
@@ -84,7 +124,17 @@
         SimpleProduct5Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_]] extends TypeGen5[M, N1,N2,N3,N4,N5]
+      trait TypeGen[
+        M[_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_]
+      ] extends Type10Gen5[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX
+      ] {
+        TypeGen5Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1]] = TypeGen5Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_]] extends SimpleAppender5Positive[M] with SimpleAppender5Zero[M]
@@ -103,7 +153,17 @@
         SimpleProduct6Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_]] extends TypeGen6[M, N1,N2,N3,N4,N5,N6]
+      trait TypeGen[
+        M[_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_]
+      ] extends Type10Gen6[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX
+      ] {
+        TypeGen6Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1]] = TypeGen6Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_]] extends SimpleAppender6Positive[M] with SimpleAppender6Zero[M]
@@ -122,7 +182,17 @@
         SimpleProduct7Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_]] extends TypeGen7[M, N1,N2,N3,N4,N5,N6,N7]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_]
+      ] extends Type10Gen7[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX
+      ] {
+        TypeGen7Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1]] = TypeGen7Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_]] extends SimpleAppender7Positive[M] with SimpleAppender7Zero[M]
@@ -141,7 +211,17 @@
         SimpleProduct8Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_]] extends TypeGen8[M, N1,N2,N3,N4,N5,N6,N7,N8]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_]
+      ] extends Type10Gen8[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX
+      ] {
+        TypeGen8Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1]] = TypeGen8Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_]] extends SimpleAppender8Positive[M] with SimpleAppender8Zero[M]
@@ -160,7 +240,17 @@
         SimpleProduct9Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_]] extends TypeGen9[M, N1,N2,N3,N4,N5,N6,N7,N8,N9]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_]
+      ] extends Type10Gen9[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX
+      ] {
+        TypeGen9Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1]] = TypeGen9Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_]] extends SimpleAppender9Positive[M] with SimpleAppender9Zero[M]
@@ -179,7 +269,17 @@
         SimpleProduct10Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_]] extends TypeGen10[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_]
+      ] extends Type10Gen10[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX
+      ] {
+        TypeGen10Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1]] = TypeGen10Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender10Positive[M] with SimpleAppender10Zero[M]
@@ -198,7 +298,17 @@
         SimpleProduct11Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_]] extends TypeGen11[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_]
+      ] extends Type10Gen11[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX
+      ] {
+        TypeGen11Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1]] = TypeGen11Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender11Positive[M] with SimpleAppender11Zero[M]
@@ -217,7 +327,17 @@
         SimpleProduct12Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_]] extends TypeGen12[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_]
+      ] extends Type10Gen12[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N12[M1] })#TypeX
+      ] {
+        TypeGen12Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1]] = TypeGen12Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender12Positive[M] with SimpleAppender12Zero[M]
@@ -236,7 +356,17 @@
         SimpleProduct13Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_]] extends TypeGen13[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_]
+      ] extends Type10Gen13[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N12[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N13[M1] })#TypeX
+      ] {
+        TypeGen13Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1]] = TypeGen13Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender13Positive[M] with SimpleAppender13Zero[M]
@@ -255,7 +385,17 @@
         SimpleProduct14Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_]] extends TypeGen14[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_]
+      ] extends Type10Gen14[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N12[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N13[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N14[M1] })#TypeX
+      ] {
+        TypeGen14Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1]] = TypeGen14Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender14Positive[M] with SimpleAppender14Zero[M]
@@ -274,7 +414,17 @@
         SimpleProduct15Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_]] extends TypeGen15[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_]
+      ] extends Type10Gen15[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N12[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N13[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N14[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N15[M1] })#TypeX
+      ] {
+        TypeGen15Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1]] = TypeGen15Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender15Positive[M] with SimpleAppender15Zero[M]
@@ -293,7 +443,17 @@
         SimpleProduct16Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_]] extends TypeGen16[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_]
+      ] extends Type10Gen16[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N12[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N13[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N14[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N15[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N16[M1] })#TypeX
+      ] {
+        TypeGen16Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1]] = TypeGen16Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender16Positive[M] with SimpleAppender16Zero[M]
@@ -312,7 +472,17 @@
         SimpleProduct17Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_]] extends TypeGen17[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_]
+      ] extends Type10Gen17[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N12[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N13[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N14[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N15[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N16[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N17[M1] })#TypeX
+      ] {
+        TypeGen17Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1]] = TypeGen17Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender17Positive[M] with SimpleAppender17Zero[M]
@@ -331,7 +501,17 @@
         SimpleProduct18Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_]] extends TypeGen18[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_]
+      ] extends Type10Gen18[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N12[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N13[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N14[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N15[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N16[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N17[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N18[M1] })#TypeX
+      ] {
+        TypeGen18Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1],N18[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1],N18[Item1]] = TypeGen18Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender18Positive[M] with SimpleAppender18Zero[M]
@@ -350,7 +530,17 @@
         SimpleProduct19Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_]] extends TypeGen19[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_]
+      ] extends Type10Gen19[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N12[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N13[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N14[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N15[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N16[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N17[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N18[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N19[M1] })#TypeX
+      ] {
+        TypeGen19Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1],N18[Item1],N19[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1],N18[Item1],N19[Item1]] = TypeGen19Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender19Positive[M] with SimpleAppender19Zero[M]
@@ -369,7 +559,17 @@
         SimpleProduct20Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_]] extends TypeGen20[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_]
+      ] extends Type10Gen20[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N12[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N13[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N14[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N15[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N16[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N17[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N18[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N19[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N20[M1] })#TypeX
+      ] {
+        TypeGen20Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1],N18[Item1],N19[Item1],N20[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1],N18[Item1],N19[Item1],N20[Item1]] = TypeGen20Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender20Positive[M] with SimpleAppender20Zero[M]
@@ -388,7 +588,17 @@
         SimpleProduct21Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_]] extends TypeGen21[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_]
+      ] extends Type10Gen21[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N12[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N13[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N14[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N15[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N16[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N17[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N18[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N19[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N20[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N21[M1] })#TypeX
+      ] {
+        TypeGen21Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1],N18[Item1],N19[Item1],N20[Item1],N21[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1],N18[Item1],N19[Item1],N20[Item1],N21[Item1]] = TypeGen21Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender21Positive[M] with SimpleAppender21Zero[M]
@@ -407,7 +617,17 @@
         SimpleProduct22Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_],N22[_]] extends TypeGen22[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22]
+      trait TypeGen[
+        M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+        N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_],N22[_]
+      ] extends Type10Gen22[
+        M,
+        ({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N1[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N2[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N3[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N4[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N5[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N6[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N7[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N8[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N9[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N10[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N11[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N12[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N13[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N14[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N15[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N16[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N17[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N18[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N19[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N20[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N21[M1] })#TypeX,({ type TypeX[M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16,M17,M18,M19,M20,M21,M22] = N22[M1] })#TypeX
+      ] {
+        TypeGen22Self =>
+        def gen[Item1]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1],N18[Item1],N19[Item1],N20[Item1],N21[Item1],N22[Item1]]
+        override final def gen10[Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16,Item17,Item18,Item19,Item20,Item21,Item22]: M[N1[Item1],N2[Item1],N3[Item1],N4[Item1],N5[Item1],N6[Item1],N7[Item1],N8[Item1],N9[Item1],N10[Item1],N11[Item1],N12[Item1],N13[Item1],N14[Item1],N15[Item1],N16[Item1],N17[Item1],N18[Item1],N19[Item1],N20[Item1],N21[Item1],N22[Item1]] = TypeGen22Self.gen[Item1]
+      }
     
         
       trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender22Positive[M] with SimpleAppender22Zero[M]

@@ -28,7 +28,6 @@ object ExtractProductUtil extends NatNext5[Tuple, *:, EmptyTuple] {
     override def runtimeCountSize(t: Tuple): Int      = t.productArity
     override def labelledItemToString(t: Any): String = t.asInstanceOf[String]
 
-    override lazy val zero: EmptyTuple         = EmptyTuple
     override lazy val zeroInstance: EmptyTuple = EmptyTuple
     override object hListFunc extends HListFunc[Tuple, *:] {
       override def takeHead[Head, Tail <: Tuple](m: Head *: Tail): Head        = m.head
