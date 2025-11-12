@@ -33,6 +33,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support1[
             M,
             N1,
@@ -42,15 +43,16 @@
             N1,
             HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support1[
                   M,
                   N1,
                   HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -92,6 +94,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support2[
             M,
             N1,N2,
@@ -101,15 +104,16 @@
             N1,N2,
             HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support2[
                   M,
                   N1,N2,
                   HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -151,6 +155,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support3[
             M,
             N1,N2,N3,
@@ -160,15 +165,16 @@
             N1,N2,N3,
             HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support3[
                   M,
                   N1,N2,N3,
                   HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -210,6 +216,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support4[
             M,
             N1,N2,N3,N4,
@@ -219,15 +226,16 @@
             N1,N2,N3,N4,
             HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support4[
                   M,
                   N1,N2,N3,N4,
                   HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -269,6 +277,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support5[
             M,
             N1,N2,N3,N4,N5,
@@ -278,15 +287,16 @@
             N1,N2,N3,N4,N5,
             HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support5[
                   M,
                   N1,N2,N3,N4,N5,
                   HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -328,6 +338,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support6[
             M,
             N1,N2,N3,N4,N5,N6,
@@ -337,15 +348,16 @@
             N1,N2,N3,N4,N5,N6,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support6[
                   M,
                   N1,N2,N3,N4,N5,N6,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -387,6 +399,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support7[
             M,
             N1,N2,N3,N4,N5,N6,N7,
@@ -396,15 +409,16 @@
             N1,N2,N3,N4,N5,N6,N7,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support7[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -446,6 +460,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support8[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,
@@ -455,15 +470,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support8[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -505,6 +521,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support9[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,
@@ -514,15 +531,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support9[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -564,6 +582,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support10[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,
@@ -573,15 +592,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support10[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -623,6 +643,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support11[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,
@@ -632,15 +653,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support11[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -682,6 +704,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support12[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,
@@ -691,15 +714,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support12[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -741,6 +765,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support13[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,
@@ -750,15 +775,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support13[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -800,6 +826,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support14[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,
@@ -809,15 +836,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support14[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -859,6 +887,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support15[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,
@@ -868,15 +897,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support15[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -918,6 +948,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support16[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,
@@ -927,15 +958,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support16[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -977,6 +1009,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support17[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,
@@ -986,15 +1019,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support17[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -1036,6 +1070,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support18[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,
@@ -1045,15 +1080,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support18[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -1095,6 +1131,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support19[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,
@@ -1104,15 +1141,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support19[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -1154,6 +1192,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support20[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,
@@ -1163,15 +1202,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support20[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -1213,6 +1253,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support21[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,
@@ -1222,15 +1263,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support21[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 
@@ -1272,6 +1314,7 @@
               ]
             ]
 
+          @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support22[
             M,
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22,
@@ -1281,15 +1324,16 @@
             N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
-            if (len > 0)
-              model.next[Any].asInstanceOf[
+            if (len > 0) {
+              val nextModel = model.next[Any].asInstanceOf[
                 NatNext5Self.extraAbstraction.Impl1.Support22[
                   M,
                   N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
                 ]
               ]
-            else
+              appendImpl1(len - 1, nextModel)
+            } else
               model
           }
 

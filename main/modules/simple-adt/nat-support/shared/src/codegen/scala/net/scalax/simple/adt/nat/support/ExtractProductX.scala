@@ -3,7 +3,7 @@
     package nat
     package support
 
-    trait ExtractProduct1[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <: HListLike] {
+    trait ExtractProduct[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <: HListLike] {
       ExtractProductSelf =>
 
       def extraAbstraction: ExtractProductAbstraction[HListLike, AppLike, HZero]
