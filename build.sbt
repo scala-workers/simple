@@ -33,7 +33,7 @@ lazy val `nat-support`: sbtcrossproject.CrossProject =
 
 val `adt-main/file` = `adt/file` / "adt-main"
 lazy val `adt-main`: sbtcrossproject.CrossProject =
-  crossProject(JSPlatform, JVMPlatform) in `adt-main/file` dependsOn (`nat-support`, `test-common` % Test)
+  crossProject(JSPlatform, JVMPlatform) in `adt-main/file` dependsOn (`test-common` % Test)
 `adt-main`.jvm / version := `simple-adt-version`
 `adt-main`.js / version := `simple-adt-version`
 `adt-main`.jvm / scalaVersion := scalaV.v213
@@ -63,9 +63,9 @@ codec.js / scalaVersion := scalaV.v213
 codec.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 codec.js / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
-val `codec-codegen/file` = `codec/file` / "codegen"
+/*val `codec-codegen/file` = `codec/file` / "codegen"
 val `codec-codegen`      = project in `codec-codegen/file`
-`codec-codegen` / scalaVersion := scalaV.v3
+`codec-codegen` / scalaVersion := scalaV.v3*/
 
 val `codec-slick/file` = `codec/file` / "simple-codec-slick"
 lazy val `codec-slick` = project in `codec-slick/file` dependsOn (codec.jvm, `test-common`.jvm % Test) aggregate codec.jvm
@@ -91,8 +91,8 @@ lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, 
 `test-common`.jvm / version := `simple-adt-version`
 `test-common`.js / version  := `simple-adt-version`
 
-`adt-codegen` / rootCodegenPath   := (`adt-main`.jvm / baseDirectory).value / ".." / ".." / "shared" / "src" / "codegen"
-`codec-codegen` / rootCodegenPath := (codec.jvm / baseDirectory).value / ".." / "shared" / "src" / "codegen"
+`adt-codegen` / rootCodegenPath := (`adt-main`.jvm / baseDirectory).value / ".." / ".." / "shared" / "src" / "codegen"
+// `codec-codegen` / rootCodegenPath := (codec.jvm / baseDirectory).value / ".." / "shared" / "src" / "codegen"
 
 addCommandAlias("adtCodegen", s"; ++${scalaV.v3}; adt-codegen/codegenImpl;")
 addCommandAlias("cleanSimpleAdt", "; clean; nat-supportJVM/clean; nat-supportJS/clean; adt-mainJVM/clean; adt-mainJS/clean;")
