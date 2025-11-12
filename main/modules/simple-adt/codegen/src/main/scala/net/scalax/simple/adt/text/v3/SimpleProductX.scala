@@ -8,7 +8,7 @@ class SimpleProductX(val index: Int) {
 
   class TypeGenTraitDef(val index: Int) {
 
-    val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[T]"
+    val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[_]"
     val typeParam2: Seq[String] = for (_ <- 1 to index) yield s"_"
     val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"N$i1"
 
@@ -25,7 +25,7 @@ class SimpleProductX(val index: Int) {
     val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"N$i1"
 
     val text: String = s"""
-      trait SimpleAppender[M[${typeParam2.mkString(',')}]] extends SimpleAppender$index[M]
+      trait SimpleAppender[M[${typeParam2.mkString(',')}]] extends SimpleAppender${index}Positive[M] with SimpleAppender${index}Zero[M]
     """
 
   }

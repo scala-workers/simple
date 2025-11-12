@@ -1,15 +1,7 @@
 package net.scalax.simple.adt.codegen
 
 import net.scalax.simple.adt.text.v3.{
-  ExtractProductX,
-  FAppenderCodengen,
-  Parameter1sCodengen,
-  ParameterSingleNatSupportX,
-  Parameters10Codengen,
-  ParametersCodengen,
-  ParametersSimpleCodengen,
   SimpleAppenderPositiveX,
-  SimpleAppenderX,
   SimpleAppenderZeroX,
   SimpleProductContextX,
   SimpleProductIt10Codengen,
@@ -18,8 +10,6 @@ import net.scalax.simple.adt.text.v3.{
   TypeGenCodegen
 }
 import net.scalax.simple.adt.text.v4.{
-  NatAppender1SupportCodegen,
-  NatAppender2SupportCodegen,
   NatAppender3SupportCodegen,
   NatAppender4SupportCodegen,
   NatAppender5SupportCodegen,
@@ -37,23 +27,23 @@ object ScalaNatSupportCodegenExec {
 
     val parameterSize: Int = 22
 
-    locally {
+    /*locally {
       val filePath             = writePath / "ParameterNatSupportX.scala"
       val linerContent: String = ParametersCodengen(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
-    locally {
+    /*locally {
       val filePath             = writePath / "ParameterSingleNatSupportX.scala"
       val linerContent: String = ParameterSingleNatSupportX(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
-    locally {
+    /*locally {
       val filePath             = writePath / "AppenderNatSupportX.scala"
       val linerContent: String = FAppenderCodengen(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
     locally {
       val filePath             = writePath / "TypeGenX.scala"
@@ -61,11 +51,11 @@ object ScalaNatSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
-    locally {
+    /*locally {
       val filePath             = writePath / "SimpleAppenderX.scala"
       val linerContent: String = SimpleAppenderX(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
     locally {
       val filePath             = writePath / "SimpleAppenderPositiveX.scala"
@@ -85,17 +75,17 @@ object ScalaNatSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
-    locally {
+    /*locally {
       val filePath             = writePath / "ParametersSimpleSupportX.scala"
       val linerContent: String = ParametersSimpleCodengen(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
-    locally {
+    /*locally {
       val filePath             = writePath / "Parameters10Codengen.scala"
       val linerContent: String = Parameters10Codengen(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
     locally {
       val filePath             = writePath / "Type10GenX.scala"
@@ -103,17 +93,11 @@ object ScalaNatSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
-    locally {
-      val filePath             = writePath / "Parameter1NatSupportX.scala"
-      val linerContent: String = Parameter1sCodengen(index = parameterSize).text
-      os.write.over(filePath, linerContent, createFolders = true)
-    }
-
-    locally {
+    /*locally {
       val filePath             = writePath / "ExtractProductX.scala"
       val linerContent: String = ExtractProductX(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
     locally {
       val filePath             = writePath / "SimpleProductContextX.scala"
@@ -127,17 +111,17 @@ object ScalaNatSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
-    locally {
+    /*locally {
       val filePath             = writePath / "v4" / "NatAppender1Support.scala"
       val linerContent: String = NatAppender1SupportCodegen(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
-    locally {
+    /*locally {
       val filePath             = writePath / "v4" / "NatAppender2Support.scala"
       val linerContent: String = NatAppender2SupportCodegen(index = parameterSize - 1).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
     locally {
       val filePath             = writePath / "v4" / "NatAppender3Support.scala"

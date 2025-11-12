@@ -8,10 +8,10 @@
         SimpleProduct1Self =>
 
         
-      trait TypeGen[M[_], N1[T]] extends TypeGen1[M, N1]
+      trait TypeGen[M[_], N1[_]] extends TypeGen1[M, N1]
     
         
-      trait SimpleAppender[M[_]] extends SimpleAppender1[M]
+      trait SimpleAppender[M[_]] extends SimpleAppender1Positive[M] with SimpleAppender1Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -27,10 +27,10 @@
         SimpleProduct2Self =>
 
         
-      trait TypeGen[M[_,_], N1[T],N2[T]] extends TypeGen2[M, N1,N2]
+      trait TypeGen[M[_,_], N1[_],N2[_]] extends TypeGen2[M, N1,N2]
     
         
-      trait SimpleAppender[M[_,_]] extends SimpleAppender2[M]
+      trait SimpleAppender[M[_,_]] extends SimpleAppender2Positive[M] with SimpleAppender2Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -46,10 +46,10 @@
         SimpleProduct3Self =>
 
         
-      trait TypeGen[M[_,_,_], N1[T],N2[T],N3[T]] extends TypeGen3[M, N1,N2,N3]
+      trait TypeGen[M[_,_,_], N1[_],N2[_],N3[_]] extends TypeGen3[M, N1,N2,N3]
     
         
-      trait SimpleAppender[M[_,_,_]] extends SimpleAppender3[M]
+      trait SimpleAppender[M[_,_,_]] extends SimpleAppender3Positive[M] with SimpleAppender3Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -65,10 +65,10 @@
         SimpleProduct4Self =>
 
         
-      trait TypeGen[M[_,_,_,_], N1[T],N2[T],N3[T],N4[T]] extends TypeGen4[M, N1,N2,N3,N4]
+      trait TypeGen[M[_,_,_,_], N1[_],N2[_],N3[_],N4[_]] extends TypeGen4[M, N1,N2,N3,N4]
     
         
-      trait SimpleAppender[M[_,_,_,_]] extends SimpleAppender4[M]
+      trait SimpleAppender[M[_,_,_,_]] extends SimpleAppender4Positive[M] with SimpleAppender4Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -84,10 +84,10 @@
         SimpleProduct5Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T]] extends TypeGen5[M, N1,N2,N3,N4,N5]
+      trait TypeGen[M[_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_]] extends TypeGen5[M, N1,N2,N3,N4,N5]
     
         
-      trait SimpleAppender[M[_,_,_,_,_]] extends SimpleAppender5[M]
+      trait SimpleAppender[M[_,_,_,_,_]] extends SimpleAppender5Positive[M] with SimpleAppender5Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -103,10 +103,10 @@
         SimpleProduct6Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T]] extends TypeGen6[M, N1,N2,N3,N4,N5,N6]
+      trait TypeGen[M[_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_]] extends TypeGen6[M, N1,N2,N3,N4,N5,N6]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_]] extends SimpleAppender6[M]
+      trait SimpleAppender[M[_,_,_,_,_,_]] extends SimpleAppender6Positive[M] with SimpleAppender6Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -122,10 +122,10 @@
         SimpleProduct7Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T]] extends TypeGen7[M, N1,N2,N3,N4,N5,N6,N7]
+      trait TypeGen[M[_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_]] extends TypeGen7[M, N1,N2,N3,N4,N5,N6,N7]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_]] extends SimpleAppender7[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_]] extends SimpleAppender7Positive[M] with SimpleAppender7Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -141,10 +141,10 @@
         SimpleProduct8Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T]] extends TypeGen8[M, N1,N2,N3,N4,N5,N6,N7,N8]
+      trait TypeGen[M[_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_]] extends TypeGen8[M, N1,N2,N3,N4,N5,N6,N7,N8]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_]] extends SimpleAppender8[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_]] extends SimpleAppender8Positive[M] with SimpleAppender8Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -160,10 +160,10 @@
         SimpleProduct9Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T]] extends TypeGen9[M, N1,N2,N3,N4,N5,N6,N7,N8,N9]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_]] extends TypeGen9[M, N1,N2,N3,N4,N5,N6,N7,N8,N9]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_]] extends SimpleAppender9[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_]] extends SimpleAppender9Positive[M] with SimpleAppender9Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -179,10 +179,10 @@
         SimpleProduct10Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T]] extends TypeGen10[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_]] extends TypeGen10[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender10[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender10Positive[M] with SimpleAppender10Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -198,10 +198,10 @@
         SimpleProduct11Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T]] extends TypeGen11[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_]] extends TypeGen11[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender11[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender11Positive[M] with SimpleAppender11Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -217,10 +217,10 @@
         SimpleProduct12Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T],N12[T]] extends TypeGen12[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_]] extends TypeGen12[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender12[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender12Positive[M] with SimpleAppender12Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -236,10 +236,10 @@
         SimpleProduct13Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T],N12[T],N13[T]] extends TypeGen13[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_]] extends TypeGen13[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender13[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender13Positive[M] with SimpleAppender13Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -255,10 +255,10 @@
         SimpleProduct14Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T],N12[T],N13[T],N14[T]] extends TypeGen14[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_]] extends TypeGen14[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender14[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender14Positive[M] with SimpleAppender14Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -274,10 +274,10 @@
         SimpleProduct15Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T],N12[T],N13[T],N14[T],N15[T]] extends TypeGen15[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_]] extends TypeGen15[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender15[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender15Positive[M] with SimpleAppender15Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -293,10 +293,10 @@
         SimpleProduct16Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T],N12[T],N13[T],N14[T],N15[T],N16[T]] extends TypeGen16[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_]] extends TypeGen16[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender16[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender16Positive[M] with SimpleAppender16Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -312,10 +312,10 @@
         SimpleProduct17Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T],N12[T],N13[T],N14[T],N15[T],N16[T],N17[T]] extends TypeGen17[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_]] extends TypeGen17[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender17[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender17Positive[M] with SimpleAppender17Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -331,10 +331,10 @@
         SimpleProduct18Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T],N12[T],N13[T],N14[T],N15[T],N16[T],N17[T],N18[T]] extends TypeGen18[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_]] extends TypeGen18[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender18[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender18Positive[M] with SimpleAppender18Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -350,10 +350,10 @@
         SimpleProduct19Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T],N12[T],N13[T],N14[T],N15[T],N16[T],N17[T],N18[T],N19[T]] extends TypeGen19[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_]] extends TypeGen19[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender19[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender19Positive[M] with SimpleAppender19Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -369,10 +369,10 @@
         SimpleProduct20Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T],N12[T],N13[T],N14[T],N15[T],N16[T],N17[T],N18[T],N19[T],N20[T]] extends TypeGen20[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_]] extends TypeGen20[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender20[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender20Positive[M] with SimpleAppender20Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -388,10 +388,10 @@
         SimpleProduct21Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T],N12[T],N13[T],N14[T],N15[T],N16[T],N17[T],N18[T],N19[T],N20[T],N21[T]] extends TypeGen21[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_]] extends TypeGen21[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender21[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender21Positive[M] with SimpleAppender21Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
@@ -407,10 +407,10 @@
         SimpleProduct22Self =>
 
         
-      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[T],N2[T],N3[T],N4[T],N5[T],N6[T],N7[T],N8[T],N9[T],N10[T],N11[T],N12[T],N13[T],N14[T],N15[T],N16[T],N17[T],N18[T],N19[T],N20[T],N21[T],N22[T]] extends TypeGen22[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22]
+      trait TypeGen[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_],N22[_]] extends TypeGen22[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22]
     
         
-      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender22[M]
+      trait SimpleAppender[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]] extends SimpleAppender22Positive[M] with SimpleAppender22Zero[M]
     
         
       trait ProductAdapter[F[_[_]]] {
