@@ -16,7 +16,13 @@
       ](
         simpleAppender: SimpleProduct1.SimpleAppender[M],
         typeGen: SimpleProduct1.TypeGen[M, T1]
-      ) = NatNext4Self.Impl1.Support1[
+      ): NatNext1.Support1[
+        M,
+        T1,
+        HListLike,
+        AppendLike,
+        ZeroLike
+      ] = NatNext4Self.Impl1.Support1[
         M,
         T1,
         ZeroLike
@@ -33,7 +39,13 @@
       ](
         simpleAppender: SimpleProduct2.SimpleAppender[M],
         typeGen: SimpleProduct2.TypeGen[M, T1,T2]
-      ) = NatNext4Self.Impl1.Support2[
+      ): NatNext1.Support2[
+        M,
+        T1,T2,
+        HListLike,HListLike,
+        AppendLike,AppendLike,
+        ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support2[
         M,
         T1,T2,
         ZeroLike,ZeroLike
@@ -50,7 +62,13 @@
       ](
         simpleAppender: SimpleProduct3.SimpleAppender[M],
         typeGen: SimpleProduct3.TypeGen[M, T1,T2,T3]
-      ) = NatNext4Self.Impl1.Support3[
+      ): NatNext1.Support3[
+        M,
+        T1,T2,T3,
+        HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support3[
         M,
         T1,T2,T3,
         ZeroLike,ZeroLike,ZeroLike
@@ -67,7 +85,13 @@
       ](
         simpleAppender: SimpleProduct4.SimpleAppender[M],
         typeGen: SimpleProduct4.TypeGen[M, T1,T2,T3,T4]
-      ) = NatNext4Self.Impl1.Support4[
+      ): NatNext1.Support4[
+        M,
+        T1,T2,T3,T4,
+        HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support4[
         M,
         T1,T2,T3,T4,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -84,7 +108,13 @@
       ](
         simpleAppender: SimpleProduct5.SimpleAppender[M],
         typeGen: SimpleProduct5.TypeGen[M, T1,T2,T3,T4,T5]
-      ) = NatNext4Self.Impl1.Support5[
+      ): NatNext1.Support5[
+        M,
+        T1,T2,T3,T4,T5,
+        HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support5[
         M,
         T1,T2,T3,T4,T5,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -101,7 +131,13 @@
       ](
         simpleAppender: SimpleProduct6.SimpleAppender[M],
         typeGen: SimpleProduct6.TypeGen[M, T1,T2,T3,T4,T5,T6]
-      ) = NatNext4Self.Impl1.Support6[
+      ): NatNext1.Support6[
+        M,
+        T1,T2,T3,T4,T5,T6,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support6[
         M,
         T1,T2,T3,T4,T5,T6,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -118,7 +154,13 @@
       ](
         simpleAppender: SimpleProduct7.SimpleAppender[M],
         typeGen: SimpleProduct7.TypeGen[M, T1,T2,T3,T4,T5,T6,T7]
-      ) = NatNext4Self.Impl1.Support7[
+      ): NatNext1.Support7[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support7[
         M,
         T1,T2,T3,T4,T5,T6,T7,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -135,7 +177,13 @@
       ](
         simpleAppender: SimpleProduct8.SimpleAppender[M],
         typeGen: SimpleProduct8.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8]
-      ) = NatNext4Self.Impl1.Support8[
+      ): NatNext1.Support8[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support8[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -152,7 +200,13 @@
       ](
         simpleAppender: SimpleProduct9.SimpleAppender[M],
         typeGen: SimpleProduct9.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9]
-      ) = NatNext4Self.Impl1.Support9[
+      ): NatNext1.Support9[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support9[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -169,7 +223,13 @@
       ](
         simpleAppender: SimpleProduct10.SimpleAppender[M],
         typeGen: SimpleProduct10.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
-      ) = NatNext4Self.Impl1.Support10[
+      ): NatNext1.Support10[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support10[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -186,7 +246,13 @@
       ](
         simpleAppender: SimpleProduct11.SimpleAppender[M],
         typeGen: SimpleProduct11.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
-      ) = NatNext4Self.Impl1.Support11[
+      ): NatNext1.Support11[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support11[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -203,7 +269,13 @@
       ](
         simpleAppender: SimpleProduct12.SimpleAppender[M],
         typeGen: SimpleProduct12.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
-      ) = NatNext4Self.Impl1.Support12[
+      ): NatNext1.Support12[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support12[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -220,7 +292,13 @@
       ](
         simpleAppender: SimpleProduct13.SimpleAppender[M],
         typeGen: SimpleProduct13.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
-      ) = NatNext4Self.Impl1.Support13[
+      ): NatNext1.Support13[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support13[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -237,7 +315,13 @@
       ](
         simpleAppender: SimpleProduct14.SimpleAppender[M],
         typeGen: SimpleProduct14.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
-      ) = NatNext4Self.Impl1.Support14[
+      ): NatNext1.Support14[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support14[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -254,7 +338,13 @@
       ](
         simpleAppender: SimpleProduct15.SimpleAppender[M],
         typeGen: SimpleProduct15.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
-      ) = NatNext4Self.Impl1.Support15[
+      ): NatNext1.Support15[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support15[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -271,7 +361,13 @@
       ](
         simpleAppender: SimpleProduct16.SimpleAppender[M],
         typeGen: SimpleProduct16.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
-      ) = NatNext4Self.Impl1.Support16[
+      ): NatNext1.Support16[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support16[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -288,7 +384,13 @@
       ](
         simpleAppender: SimpleProduct17.SimpleAppender[M],
         typeGen: SimpleProduct17.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
-      ) = NatNext4Self.Impl1.Support17[
+      ): NatNext1.Support17[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support17[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -305,7 +407,13 @@
       ](
         simpleAppender: SimpleProduct18.SimpleAppender[M],
         typeGen: SimpleProduct18.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
-      ) = NatNext4Self.Impl1.Support18[
+      ): NatNext1.Support18[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support18[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -322,7 +430,13 @@
       ](
         simpleAppender: SimpleProduct19.SimpleAppender[M],
         typeGen: SimpleProduct19.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
-      ) = NatNext4Self.Impl1.Support19[
+      ): NatNext1.Support19[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support19[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -339,7 +453,13 @@
       ](
         simpleAppender: SimpleProduct20.SimpleAppender[M],
         typeGen: SimpleProduct20.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
-      ) = NatNext4Self.Impl1.Support20[
+      ): NatNext1.Support20[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support20[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -356,7 +476,13 @@
       ](
         simpleAppender: SimpleProduct21.SimpleAppender[M],
         typeGen: SimpleProduct21.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
-      ) = NatNext4Self.Impl1.Support21[
+      ): NatNext1.Support21[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support21[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
@@ -373,7 +499,13 @@
       ](
         simpleAppender: SimpleProduct22.SimpleAppender[M],
         typeGen: SimpleProduct22.TypeGen[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
-      ) = NatNext4Self.Impl1.Support22[
+      ): NatNext1.Support22[
+        M,
+        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22,
+        HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
+        AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,AppendLike,
+        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+      ] = NatNext4Self.Impl1.Support22[
         M,
         T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike

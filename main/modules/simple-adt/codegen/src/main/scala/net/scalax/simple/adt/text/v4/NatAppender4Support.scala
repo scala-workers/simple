@@ -27,7 +27,13 @@ class NatAppender4SupportCodegen(val index: Int) {
       ](
         simpleAppender: SimpleProduct$index.SimpleAppender[M],
         typeGen: SimpleProduct$index.TypeGen[M, ${typeParam14.mkString(',')}]
-      ) = NatNext4Self.Impl1.Support$index[
+      ): NatNext1.Support$index[
+        M,
+        ${typeParam14.mkString(',')},
+        ${typeParam3.mkString(',')},
+        ${typeParam6.mkString(',')},
+        ${typeParam15.mkString(',')}
+      ] = NatNext4Self.Impl1.Support$index[
         M,
         ${typeParam14.mkString(',')},
         ${typeParam15.mkString(',')}
