@@ -17,6 +17,7 @@ class NatAppender3SupportCodegen(val index: Int) {
     val typeParam8: Seq[String]  = for (i1 <- 1 to index) yield s"simpleFunc1[N$i1]"
     val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"N$i1[Any]"
     val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s"F[N$i1]"
+    val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s"AppLike"
 
     val appendHLStr = "({ type AP1[_, T1 <: HListLike] = T1 })#AP1"
 
@@ -26,32 +27,40 @@ class NatAppender3SupportCodegen(val index: Int) {
           tpGen: SimpleProduct$index.TypeGen[M, ${typeParam4.mkString(',')}],
           sAppender: SimpleProduct$index.SimpleAppender[M]
         ): M[${typeParam3.mkString(',')}] = {
-          val ap1 = new NatNext5Self.extraAbstraction.Impl2.Support$index[M, ${typeParam4.mkString(',')}](
+          val ap1 = NatNext5Self.extraAbstraction.Impl2.Support$index[M, ${typeParam4.mkString(',')}](
               simpleAppender = sAppender,
               typeGen = tpGen
             ).asInstanceOf[
-              NatNext5Self.extraAbstraction.Impl1.Support$index[
+              NatNext1.Support$index[
                 M,
                 ${typeParam4.mkString(',')},
+                ${typeParam5.mkString(',')},
+                ${typeParam12.mkString(',')},
                 ${typeParam5.mkString(',')}
               ]
             ]
 
           @scala.annotation.tailrec
-          def appendImpl1(len: Int, model: NatNext5Self.extraAbstraction.Impl1.Support$index[
+          def appendImpl1(len: Int, model: NatNext1.Support$index[
             M,
             ${typeParam4.mkString(',')},
+            ${typeParam5.mkString(',')},
+            ${typeParam12.mkString(',')},
             ${typeParam5.mkString(',')}
-          ]): NatNext5Self.extraAbstraction.Impl1.Support$index[
+          ]): NatNext1.Support$index[
             M,
             ${typeParam4.mkString(',')},
+            ${typeParam5.mkString(',')},
+            ${typeParam12.mkString(',')},
             ${typeParam5.mkString(',')}
           ] = {
             if (len > 0) {
               val nextModel = model.next[Any].asInstanceOf[
-                NatNext5Self.extraAbstraction.Impl1.Support$index[
+                NatNext1.Support$index[
                   M,
                   ${typeParam4.mkString(',')},
+                  ${typeParam5.mkString(',')},
+                  ${typeParam12.mkString(',')},
                   ${typeParam5.mkString(',')}
                 ]
               ]

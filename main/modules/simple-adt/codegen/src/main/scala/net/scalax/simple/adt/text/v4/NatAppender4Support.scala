@@ -21,13 +21,13 @@ class NatAppender4SupportCodegen(val index: Int) {
     val typeParam16: Seq[String] = for (i1 <- 1 to index) yield s"NatNext4Self.zeroInstance"
 
     val text: String = s"""
-      class Support$index[
+      def Support$index[
         M[${typeParam1.mkString(',')}],
         ${typeParam5.mkString(',')}
       ](
         simpleAppender: SimpleProduct$index.SimpleAppender[M],
         typeGen: SimpleProduct$index.TypeGen[M, ${typeParam14.mkString(',')}]
-      ) extends NatNext4Self.Impl1.Support$index[
+      ) = NatNext4Self.Impl1.Support$index[
         M,
         ${typeParam14.mkString(',')},
         ${typeParam15.mkString(',')}
