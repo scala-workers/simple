@@ -19,10 +19,7 @@ object AdtHList {
     }
   }
 
-  trait UsePositive[H1, T1 <: AdtHList] extends Positive[H1, T1] {
-    def head: H1
-    def tail: T1
-  }
+  trait UsePositive[H1, T1 <: AdtHList] extends Positive[H1, T1]
   object UsePositive {
     def append[H1, T1 <: AdtHList](h: H1, t: T1): AdtHListSelf.UsePositive[H1, T1] = new AdtHListSelf.UsePositive[H1, T1] {
       override def head: H1 = h
@@ -39,9 +36,7 @@ object AdtCoProduct {
   trait One[+T] extends AdtCoProduct {
     def value: T
   }
-  trait UseOne[T] extends One[T] {
-    override def value: T
-  }
+  trait UseOne[T] extends One[T]
 
   trait Positive[+H, +Tail <: AdtCoProduct] extends AdtCoProduct {
     def fold[TU](hFunc: H => TU, tFunc: Tail => TU): TU

@@ -14,7 +14,7 @@ class NatAppender6SupportCodegen(val index: Int) {
     val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1"
     val typeParam9: Seq[String] = for (i1 <- 1 to index) yield s"AppendLike[T$i1, HCollection$i1]"
     val typeParam14: Seq[String] =
-      for (i1 <- 1 to index) yield s"HListFunc.toABCFunc[T$i1, HCollection$i1, HListLike, AppendLike](NatNext2HelperSelf.hlistFunc)"
+      for (i1 <- 1 to index) yield s"NatNext2HelperSelf.hlistFunc.toABCFunc[T$i1, HCollection$i1]"
 
     val text: String = s"""
       def append$index[M[${typeParam1.mkString(',')}], ${typeParam5.mkString(',')}, ${typeParam7.mkString(',')}](
