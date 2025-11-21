@@ -116,7 +116,9 @@ class ADTTraitBuilder(val index: Int) {
       def headOption: Option[T1] = Some(foldImpl.value)
 
       def headMapTo[U1](func: T1 => U1): CoProduct1[U1] = {
-        val valueR = new AdtCoProduct.UseOne[U1](func(foldImpl.value))
+        val valueR = new AdtCoProduct.UseOne[U1] {
+          override val value: U1 = func(foldImpl.value)
+        }
         new CoProduct1[U1](valueR)
       }
 

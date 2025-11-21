@@ -17,7 +17,9 @@ object ADTValue extends LawTraitImplicit {
 
   implicit def oneImplicit3[Target, I1](implicit t1: AdtFunction[Target, I1]): ADTValue[AdtCoProduct.UseOne[AdtFunction[Target, I1]]] =
     new ADTValue[AdtCoProduct.UseOne[AdtFunction[Target, I1]]] {
-      override def value: AdtCoProduct.UseOne[AdtFunction[Target, I1]] = new AdtCoProduct.UseOne[AdtFunction[Target, I1]](value = t1)
+      override def value: AdtCoProduct.UseOne[AdtFunction[Target, I1]] = new AdtCoProduct.UseOne[AdtFunction[Target, I1]] {
+        override val value: AdtFunction[Target, I1] = t1
+      }
     }
 
 }

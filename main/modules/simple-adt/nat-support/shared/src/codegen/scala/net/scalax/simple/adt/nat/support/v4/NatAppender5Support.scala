@@ -35,7 +35,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1] = current1
 
           override def next[U]: NatNext1.Support1[
             M,
@@ -86,7 +86,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2] = current1
 
           override def next[U]: NatNext1.Support2[
             M,
@@ -137,7 +137,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3] = current1
 
           override def next[U]: NatNext1.Support3[
             M,
@@ -188,7 +188,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4] = current1
 
           override def next[U]: NatNext1.Support4[
             M,
@@ -239,7 +239,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5] = current1
 
           override def next[U]: NatNext1.Support5[
             M,
@@ -290,7 +290,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6] = current1
 
           override def next[U]: NatNext1.Support6[
             M,
@@ -341,7 +341,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7] = current1
 
           override def next[U]: NatNext1.Support7[
             M,
@@ -392,7 +392,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8] = current1
 
           override def next[U]: NatNext1.Support8[
             M,
@@ -443,7 +443,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9] = current1
 
           override def next[U]: NatNext1.Support9[
             M,
@@ -494,7 +494,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10] = current1
 
           override def next[U]: NatNext1.Support10[
             M,
@@ -545,7 +545,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11] = current1
 
           override def next[U]: NatNext1.Support11[
             M,
@@ -596,7 +596,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12] = current1
 
           override def next[U]: NatNext1.Support12[
             M,
@@ -647,7 +647,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13] = current1
 
           override def next[U]: NatNext1.Support13[
             M,
@@ -698,7 +698,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14] = current1
 
           override def next[U]: NatNext1.Support14[
             M,
@@ -749,7 +749,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15] = current1
 
           override def next[U]: NatNext1.Support15[
             M,
@@ -800,7 +800,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16] = current1
 
           override def next[U]: NatNext1.Support16[
             M,
@@ -851,7 +851,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17] = current1
 
           override def next[U]: NatNext1.Support17[
             M,
@@ -902,7 +902,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17,HCollection18] = current1
 
           override def next[U]: NatNext1.Support18[
             M,
@@ -953,7 +953,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17,HCollection18,HCollection19] = current1
 
           override def next[U]: NatNext1.Support19[
             M,
@@ -1004,7 +1004,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17,HCollection18,HCollection19,HCollection20] = current1
 
           override def next[U]: NatNext1.Support20[
             M,
@@ -1055,7 +1055,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17,HCollection18,HCollection19,HCollection20,HCollection21] = current1
 
           override def next[U]: NatNext1.Support21[
             M,
@@ -1106,7 +1106,7 @@
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17,HCollection18,HCollection19,HCollection20,HCollection21,HCollection22] = current1
 
           override def next[U]: NatNext1.Support22[
             M,

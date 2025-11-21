@@ -44,7 +44,7 @@ class NatAppender5SupportCodegen(val index: Int) {
         ] {
           SupportSelf =>
 
-          override def current = current1
+          override def current: M[${typeParam8.mkString(',')}] = current1
 
           override def next[U]: NatNext1.Support$index[
             M,
