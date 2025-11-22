@@ -12,9 +12,9 @@
     class CoProduct1[T1](private val foldImpl: AdtCoProduct.UseOne[T1]) {
       FoldApplySelf =>
 
-      def headOption: Option[T1] = Some(foldImpl.value)
+      def drop1: T1 = foldImpl.value
 
-      def headMapTo[U1](func: T1 => U1): CoProduct1[U1] = {
+      def map1[U1](func: T1 => U1): CoProduct1[U1] = {
         val valueR = new AdtCoProduct.UseOne[U1] {
           override val value: U1 = func(foldImpl.value)
         }
@@ -24,7 +24,7 @@
       def tail: CoProduct1[T1] = FoldApplySelf
 
       def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
-        val v1 = FoldApplySelf.headMapTo(param1)
+        val v1 = FoldApplySelf.map1(param1)
         CoProduct1.unsafeRun[TargetOther0](v1)
       }
 
@@ -50,9 +50,9 @@
       class CoProduct2[T1,T2](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UseOne[T2]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UseOne[T2]] = foldImpl.fold[Either[T1, AdtCoProduct.UseOne[T2]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UseOne[T2]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct2[U1, T2] = {
+        def map1[U1](func: T1 => U1): CoProduct2[U1, T2] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct2[U1, T2](valueR)
         }
@@ -63,7 +63,7 @@
         }
 
         def fold[Target1,Target2 >: Target1](param1: T1 => Target1,param2: T2 => Target2): Target2 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail
           CoProduct2.unsafeRun[Target2](v1)
         }
 
@@ -71,7 +71,7 @@
           ADTFoldApplyImpl1[TargetOther2,T2] = 
         new ADTFoldApplyImpl1[TargetOther2, T2] {
           override def fold1[TargetOther1 >: TargetOther2](param2: T2 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail
             CoProduct2.unsafeRun[TargetOther1](v1)
           }
         }
@@ -97,9 +97,9 @@
       class CoProduct3[T1,T2,T3](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UseOne[T3]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UseOne[T3]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UseOne[T3]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UseOne[T3]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct3[U1, T2,T3] = {
+        def map1[U1](func: T1 => U1): CoProduct3[U1, T2,T3] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct3[U1, T2,T3](valueR)
         }
@@ -110,7 +110,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3): Target3 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail
           CoProduct3.unsafeRun[Target3](v1)
         }
 
@@ -120,7 +120,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param2: T2 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T3] = 
         new ADTFoldApplyImpl1[TargetOther2, T3] {
           override def fold1[TargetOther1 >: TargetOther2](param3: T3 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail
             CoProduct3.unsafeRun[TargetOther1](v1)
           }
         }
@@ -148,9 +148,9 @@
       class CoProduct4[T1,T2,T3,T4](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UseOne[T4]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UseOne[T4]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UseOne[T4]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UseOne[T4]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct4[U1, T2,T3,T4] = {
+        def map1[U1](func: T1 => U1): CoProduct4[U1, T2,T3,T4] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct4[U1, T2,T3,T4](valueR)
         }
@@ -161,7 +161,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4): Target4 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail
           CoProduct4.unsafeRun[Target4](v1)
         }
 
@@ -173,7 +173,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param3: T3 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T4] = 
         new ADTFoldApplyImpl1[TargetOther2, T4] {
           override def fold1[TargetOther1 >: TargetOther2](param4: T4 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail
             CoProduct4.unsafeRun[TargetOther1](v1)
           }
         }
@@ -203,9 +203,9 @@
       class CoProduct5[T1,T2,T3,T4,T5](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UseOne[T5]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UseOne[T5]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UseOne[T5]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UseOne[T5]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct5[U1, T2,T3,T4,T5] = {
+        def map1[U1](func: T1 => U1): CoProduct5[U1, T2,T3,T4,T5] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct5[U1, T2,T3,T4,T5](valueR)
         }
@@ -216,7 +216,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5): Target5 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail
           CoProduct5.unsafeRun[Target5](v1)
         }
 
@@ -230,7 +230,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param4: T4 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T5] = 
         new ADTFoldApplyImpl1[TargetOther2, T5] {
           override def fold1[TargetOther1 >: TargetOther2](param5: T5 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail
             CoProduct5.unsafeRun[TargetOther1](v1)
           }
         }
@@ -262,9 +262,9 @@
       class CoProduct6[T1,T2,T3,T4,T5,T6](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UseOne[T6]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UseOne[T6]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UseOne[T6]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UseOne[T6]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct6[U1, T2,T3,T4,T5,T6] = {
+        def map1[U1](func: T1 => U1): CoProduct6[U1, T2,T3,T4,T5,T6] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct6[U1, T2,T3,T4,T5,T6](valueR)
         }
@@ -275,7 +275,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6): Target6 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail
           CoProduct6.unsafeRun[Target6](v1)
         }
 
@@ -291,7 +291,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param5: T5 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T6] = 
         new ADTFoldApplyImpl1[TargetOther2, T6] {
           override def fold1[TargetOther1 >: TargetOther2](param6: T6 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail
             CoProduct6.unsafeRun[TargetOther1](v1)
           }
         }
@@ -325,9 +325,9 @@
       class CoProduct7[T1,T2,T3,T4,T5,T6,T7](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UseOne[T7]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UseOne[T7]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UseOne[T7]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UseOne[T7]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct7[U1, T2,T3,T4,T5,T6,T7] = {
+        def map1[U1](func: T1 => U1): CoProduct7[U1, T2,T3,T4,T5,T6,T7] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct7[U1, T2,T3,T4,T5,T6,T7](valueR)
         }
@@ -338,7 +338,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7): Target7 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail
           CoProduct7.unsafeRun[Target7](v1)
         }
 
@@ -356,7 +356,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param6: T6 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T7] = 
         new ADTFoldApplyImpl1[TargetOther2, T7] {
           override def fold1[TargetOther1 >: TargetOther2](param7: T7 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail
             CoProduct7.unsafeRun[TargetOther1](v1)
           }
         }
@@ -392,9 +392,9 @@
       class CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UseOne[T8]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UseOne[T8]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UseOne[T8]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UseOne[T8]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct8[U1, T2,T3,T4,T5,T6,T7,T8] = {
+        def map1[U1](func: T1 => U1): CoProduct8[U1, T2,T3,T4,T5,T6,T7,T8] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct8[U1, T2,T3,T4,T5,T6,T7,T8](valueR)
         }
@@ -405,7 +405,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8): Target8 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail
           CoProduct8.unsafeRun[Target8](v1)
         }
 
@@ -425,7 +425,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param7: T7 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T8] = 
         new ADTFoldApplyImpl1[TargetOther2, T8] {
           override def fold1[TargetOther1 >: TargetOther2](param8: T8 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail
             CoProduct8.unsafeRun[TargetOther1](v1)
           }
         }
@@ -463,9 +463,9 @@
       class CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UseOne[T9]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UseOne[T9]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UseOne[T9]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UseOne[T9]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct9[U1, T2,T3,T4,T5,T6,T7,T8,T9] = {
+        def map1[U1](func: T1 => U1): CoProduct9[U1, T2,T3,T4,T5,T6,T7,T8,T9] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct9[U1, T2,T3,T4,T5,T6,T7,T8,T9](valueR)
         }
@@ -476,7 +476,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9): Target9 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail
           CoProduct9.unsafeRun[Target9](v1)
         }
 
@@ -498,7 +498,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param8: T8 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T9] = 
         new ADTFoldApplyImpl1[TargetOther2, T9] {
           override def fold1[TargetOther1 >: TargetOther2](param9: T9 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail
             CoProduct9.unsafeRun[TargetOther1](v1)
           }
         }
@@ -538,9 +538,9 @@
       class CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UseOne[T10]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UseOne[T10]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UseOne[T10]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UseOne[T10]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct10[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10] = {
+        def map1[U1](func: T1 => U1): CoProduct10[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct10[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10](valueR)
         }
@@ -551,7 +551,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10): Target10 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail
           CoProduct10.unsafeRun[Target10](v1)
         }
 
@@ -575,7 +575,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param9: T9 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T10] = 
         new ADTFoldApplyImpl1[TargetOther2, T10] {
           override def fold1[TargetOther1 >: TargetOther2](param10: T10 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail
             CoProduct10.unsafeRun[TargetOther1](v1)
           }
         }
@@ -617,9 +617,9 @@
       class CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UseOne[T11]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UseOne[T11]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UseOne[T11]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UseOne[T11]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct11[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11] = {
+        def map1[U1](func: T1 => U1): CoProduct11[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct11[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](valueR)
         }
@@ -630,7 +630,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11): Target11 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail
           CoProduct11.unsafeRun[Target11](v1)
         }
 
@@ -656,7 +656,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param10: T10 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T11] = 
         new ADTFoldApplyImpl1[TargetOther2, T11] {
           override def fold1[TargetOther1 >: TargetOther2](param11: T11 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail
             CoProduct11.unsafeRun[TargetOther1](v1)
           }
         }
@@ -700,9 +700,9 @@
       class CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UseOne[T12]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UseOne[T12]]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UseOne[T12]]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UseOne[T12]]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct12[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] = {
+        def map1[U1](func: T1 => U1): CoProduct12[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct12[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](valueR)
         }
@@ -713,7 +713,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12): Target12 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail
           CoProduct12.unsafeRun[Target12](v1)
         }
 
@@ -741,7 +741,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param11: T11 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T12] = 
         new ADTFoldApplyImpl1[TargetOther2, T12] {
           override def fold1[TargetOther1 >: TargetOther2](param12: T12 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail
             CoProduct12.unsafeRun[TargetOther1](v1)
           }
         }
@@ -787,9 +787,9 @@
       class CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UseOne[T13]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UseOne[T13]]]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UseOne[T13]]]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UseOne[T13]]]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct13[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] = {
+        def map1[U1](func: T1 => U1): CoProduct13[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct13[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](valueR)
         }
@@ -800,7 +800,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13): Target13 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail
           CoProduct13.unsafeRun[Target13](v1)
         }
 
@@ -830,7 +830,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param12: T12 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T13] = 
         new ADTFoldApplyImpl1[TargetOther2, T13] {
           override def fold1[TargetOther1 >: TargetOther2](param13: T13 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail
             CoProduct13.unsafeRun[TargetOther1](v1)
           }
         }
@@ -878,9 +878,9 @@
       class CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UseOne[T14]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UseOne[T14]]]]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UseOne[T14]]]]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UseOne[T14]]]]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct14[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] = {
+        def map1[U1](func: T1 => U1): CoProduct14[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct14[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](valueR)
         }
@@ -891,7 +891,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14): Target14 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail
           CoProduct14.unsafeRun[Target14](v1)
         }
 
@@ -923,7 +923,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param13: T13 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T14] = 
         new ADTFoldApplyImpl1[TargetOther2, T14] {
           override def fold1[TargetOther1 >: TargetOther2](param14: T14 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail
             CoProduct14.unsafeRun[TargetOther1](v1)
           }
         }
@@ -973,9 +973,9 @@
       class CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UseOne[T15]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UseOne[T15]]]]]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UseOne[T15]]]]]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UseOne[T15]]]]]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct15[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] = {
+        def map1[U1](func: T1 => U1): CoProduct15[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct15[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](valueR)
         }
@@ -986,7 +986,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15): Target15 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail
           CoProduct15.unsafeRun[Target15](v1)
         }
 
@@ -1020,7 +1020,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param14: T14 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T15] = 
         new ADTFoldApplyImpl1[TargetOther2, T15] {
           override def fold1[TargetOther1 >: TargetOther2](param15: T15 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail
             CoProduct15.unsafeRun[TargetOther1](v1)
           }
         }
@@ -1072,9 +1072,9 @@
       class CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UseOne[T16]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UseOne[T16]]]]]]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UseOne[T16]]]]]]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UseOne[T16]]]]]]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct16[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] = {
+        def map1[U1](func: T1 => U1): CoProduct16[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct16[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](valueR)
         }
@@ -1085,7 +1085,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16): Target16 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail
           CoProduct16.unsafeRun[Target16](v1)
         }
 
@@ -1121,7 +1121,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param15: T15 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T16] = 
         new ADTFoldApplyImpl1[TargetOther2, T16] {
           override def fold1[TargetOther1 >: TargetOther2](param16: T16 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail
             CoProduct16.unsafeRun[TargetOther1](v1)
           }
         }
@@ -1175,9 +1175,9 @@
       class CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UseOne[T17]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UseOne[T17]]]]]]]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UseOne[T17]]]]]]]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UseOne[T17]]]]]]]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct17[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] = {
+        def map1[U1](func: T1 => U1): CoProduct17[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct17[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](valueR)
         }
@@ -1188,7 +1188,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17): Target17 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail
           CoProduct17.unsafeRun[Target17](v1)
         }
 
@@ -1226,7 +1226,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param16: T16 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T17] = 
         new ADTFoldApplyImpl1[TargetOther2, T17] {
           override def fold1[TargetOther1 >: TargetOther2](param17: T17 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail
             CoProduct17.unsafeRun[TargetOther1](v1)
           }
         }
@@ -1282,9 +1282,9 @@
       class CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UseOne[T18]]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UseOne[T18]]]]]]]]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UseOne[T18]]]]]]]]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UseOne[T18]]]]]]]]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct18[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] = {
+        def map1[U1](func: T1 => U1): CoProduct18[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct18[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](valueR)
         }
@@ -1295,7 +1295,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18): Target18 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail.headMapTo(param18).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail
           CoProduct18.unsafeRun[Target18](v1)
         }
 
@@ -1335,7 +1335,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param17: T17 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T18] = 
         new ADTFoldApplyImpl1[TargetOther2, T18] {
           override def fold1[TargetOther1 >: TargetOther2](param18: T18 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail.headMapTo(param18).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail
             CoProduct18.unsafeRun[TargetOther1](v1)
           }
         }
@@ -1393,9 +1393,9 @@
       class CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UseOne[T19]]]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UseOne[T19]]]]]]]]]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UseOne[T19]]]]]]]]]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UseOne[T19]]]]]]]]]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct19[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] = {
+        def map1[U1](func: T1 => U1): CoProduct19[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct19[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](valueR)
         }
@@ -1406,7 +1406,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19): Target19 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail.headMapTo(param18).tail.headMapTo(param19).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail
           CoProduct19.unsafeRun[Target19](v1)
         }
 
@@ -1448,7 +1448,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param18: T18 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T19] = 
         new ADTFoldApplyImpl1[TargetOther2, T19] {
           override def fold1[TargetOther1 >: TargetOther2](param19: T19 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail.headMapTo(param18).tail.headMapTo(param19).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail
             CoProduct19.unsafeRun[TargetOther1](v1)
           }
         }
@@ -1508,9 +1508,9 @@
       class CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UseOne[T20]]]]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UseOne[T20]]]]]]]]]]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UseOne[T20]]]]]]]]]]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UseOne[T20]]]]]]]]]]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct20[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] = {
+        def map1[U1](func: T1 => U1): CoProduct20[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct20[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](valueR)
         }
@@ -1521,7 +1521,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20): Target20 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail.headMapTo(param18).tail.headMapTo(param19).tail.headMapTo(param20).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail.map1(param20).tail
           CoProduct20.unsafeRun[Target20](v1)
         }
 
@@ -1565,7 +1565,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param19: T19 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T20] = 
         new ADTFoldApplyImpl1[TargetOther2, T20] {
           override def fold1[TargetOther1 >: TargetOther2](param20: T20 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail.headMapTo(param18).tail.headMapTo(param19).tail.headMapTo(param20).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail.map1(param20).tail
             CoProduct20.unsafeRun[TargetOther1](v1)
           }
         }
@@ -1627,9 +1627,9 @@
       class CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UseOne[T21]]]]]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UseOne[T21]]]]]]]]]]]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UseOne[T21]]]]]]]]]]]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UseOne[T21]]]]]]]]]]]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct21[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] = {
+        def map1[U1](func: T1 => U1): CoProduct21[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct21[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](valueR)
         }
@@ -1640,7 +1640,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21): Target21 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail.headMapTo(param18).tail.headMapTo(param19).tail.headMapTo(param20).tail.headMapTo(param21).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail.map1(param20).tail.map1(param21).tail
           CoProduct21.unsafeRun[Target21](v1)
         }
 
@@ -1686,7 +1686,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param20: T20 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T21] = 
         new ADTFoldApplyImpl1[TargetOther2, T21] {
           override def fold1[TargetOther1 >: TargetOther2](param21: T21 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail.headMapTo(param18).tail.headMapTo(param19).tail.headMapTo(param20).tail.headMapTo(param21).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail.map1(param20).tail.map1(param21).tail
             CoProduct21.unsafeRun[TargetOther1](v1)
           }
         }
@@ -1750,9 +1750,9 @@
       class CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](private val foldImpl: AdtCoProduct.UsePositive[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UsePositive[T21, AdtCoProduct.UseOne[T22]]]]]]]]]]]]]]]]]]]]]]) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UsePositive[T21, AdtCoProduct.UseOne[T22]]]]]]]]]]]]]]]]]]]]]] = foldImpl.fold[Either[T1, AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UsePositive[T21, AdtCoProduct.UseOne[T22]]]]]]]]]]]]]]]]]]]]]]]((i1: T1) => Left(i1), (i1: AdtCoProduct.UsePositive[T2, AdtCoProduct.UsePositive[T3, AdtCoProduct.UsePositive[T4, AdtCoProduct.UsePositive[T5, AdtCoProduct.UsePositive[T6, AdtCoProduct.UsePositive[T7, AdtCoProduct.UsePositive[T8, AdtCoProduct.UsePositive[T9, AdtCoProduct.UsePositive[T10, AdtCoProduct.UsePositive[T11, AdtCoProduct.UsePositive[T12, AdtCoProduct.UsePositive[T13, AdtCoProduct.UsePositive[T14, AdtCoProduct.UsePositive[T15, AdtCoProduct.UsePositive[T16, AdtCoProduct.UsePositive[T17, AdtCoProduct.UsePositive[T18, AdtCoProduct.UsePositive[T19, AdtCoProduct.UsePositive[T20, AdtCoProduct.UsePositive[T21, AdtCoProduct.UseOne[T22]]]]]]]]]]]]]]]]]]]]]) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct22[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] = {
+        def map1[U1](func: T1 => U1): CoProduct22[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct22[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](valueR)
         }
@@ -1763,7 +1763,7 @@
         }
 
         def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20,Target22 >: Target21](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21,param22: T22 => Target22): Target22 = {
-          val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail.headMapTo(param18).tail.headMapTo(param19).tail.headMapTo(param20).tail.headMapTo(param21).tail.headMapTo(param22).tail
+          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail.map1(param20).tail.map1(param21).tail.map1(param22).tail
           CoProduct22.unsafeRun[Target22](v1)
         }
 
@@ -1811,7 +1811,7 @@
           override def fold2[TargetOther2 >: TargetOther3](param21: T21 => TargetOther2): ADTFoldApplyImpl1[TargetOther2,T22] = 
         new ADTFoldApplyImpl1[TargetOther2, T22] {
           override def fold1[TargetOther1 >: TargetOther2](param22: T22 => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf.headMapTo(param1).tail.headMapTo(param2).tail.headMapTo(param3).tail.headMapTo(param4).tail.headMapTo(param5).tail.headMapTo(param6).tail.headMapTo(param7).tail.headMapTo(param8).tail.headMapTo(param9).tail.headMapTo(param10).tail.headMapTo(param11).tail.headMapTo(param12).tail.headMapTo(param13).tail.headMapTo(param14).tail.headMapTo(param15).tail.headMapTo(param16).tail.headMapTo(param17).tail.headMapTo(param18).tail.headMapTo(param19).tail.headMapTo(param20).tail.headMapTo(param21).tail.headMapTo(param22).tail
+            val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail.map1(param20).tail.map1(param21).tail.map1(param22).tail
             CoProduct22.unsafeRun[TargetOther1](v1)
           }
         }

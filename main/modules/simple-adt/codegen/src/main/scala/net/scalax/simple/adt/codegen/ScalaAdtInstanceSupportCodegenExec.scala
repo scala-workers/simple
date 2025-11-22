@@ -1,6 +1,6 @@
 package net.scalax.simple.adt.codegen
 
-import net.scalax.simple.adt.text.v3.{ADTApplyFunction2, ADTTraitBuilder, ADTTypeAliasBuilder, ADTUnapplyBuilder}
+import net.scalax.simple.adt.text.v3.{ADTApplyFunction2, ADTTraitBuilder, ADTTraitBuilderHelper1, ADTTypeAliasBuilder, ADTUnapplyBuilder}
 
 import java.net.URI
 
@@ -35,6 +35,12 @@ object ScalaAdtInstanceSupportCodegenExec {
     locally {
       val filePath             = writePath / "ADTTypeAliasBuilder.scala"
       val linerContent: String = ADTTypeAliasBuilder(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "ADTTraitBuilderHelper1.scala"
+      val linerContent: String = ADTTraitBuilderHelper1(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
     }
 

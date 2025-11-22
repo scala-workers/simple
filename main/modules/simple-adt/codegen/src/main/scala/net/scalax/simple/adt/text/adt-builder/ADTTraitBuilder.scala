@@ -18,7 +18,7 @@ class ADTTraitBuilder(val index: Int) {
     val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1"
     val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"implicit val paramImpl$i1 = param$i1"
     // val typeParam11: Seq[String] = for (i1 <- index to (1, -1)) yield s".append[T$i1]"
-    val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s".headMapTo(param$i1).tail"
+    val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s".map1(param$i1).tail"
     val typeParam13: Seq[String] = for (i1 <- 1 to index) yield s"_ <: T"
 
     def typeParam6Impl(index: Int): String = if (index > 1) {
@@ -52,7 +52,8 @@ class ADTTraitBuilder(val index: Int) {
       s"""AdtCoProduct.UseOne[T$index]"""
     }
 
-    val typeParam7: String = typeParam7Impl(1)
+    val typeParam7: String  = typeParam7Impl(1)
+    val typeParam14: String = typeParam7Impl(2)
 
     val text: String = s"""
       trait ADTFoldApplyImpl$index[
@@ -68,9 +69,9 @@ class ADTTraitBuilder(val index: Int) {
       class CoProduct$index[${typeParam1.mkString(',')}](private val foldImpl: $typeParam7) {
         FoldApplySelf =>
 
-        def headOption: Option[T1] = AppendTail3.headOption(foldImpl)
+        def drop1: Either[T1, $typeParam14] = foldImpl.fold[Either[T1, $typeParam14]]((i1: T1) => Left(i1), (i1: $typeParam14) => Right(i1))
 
-        def headMapTo[U1](func: T1 => U1): CoProduct$index[U1, ${typeParam1.drop(1).mkString(',')}] = {
+        def map1[U1](func: T1 => U1): CoProduct$index[U1, ${typeParam1.drop(1).mkString(',')}] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)
           new CoProduct$index[U1, ${typeParam1.drop(1).mkString(',')}](valueR)
         }
@@ -113,9 +114,9 @@ class ADTTraitBuilder(val index: Int) {
     class CoProduct1[T1](private val foldImpl: AdtCoProduct.UseOne[T1]) {
       FoldApplySelf =>
 
-      def headOption: Option[T1] = Some(foldImpl.value)
+      def drop1: T1 = foldImpl.value
 
-      def headMapTo[U1](func: T1 => U1): CoProduct1[U1] = {
+      def map1[U1](func: T1 => U1): CoProduct1[U1] = {
         val valueR = new AdtCoProduct.UseOne[U1] {
           override val value: U1 = func(foldImpl.value)
         }
@@ -125,7 +126,7 @@ class ADTTraitBuilder(val index: Int) {
       def tail: CoProduct1[T1] = FoldApplySelf
 
       def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
-        val v1 = FoldApplySelf.headMapTo(param1)
+        val v1 = FoldApplySelf.map1(param1)
         CoProduct1.unsafeRun[TargetOther0](v1)
       }
 
