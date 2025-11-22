@@ -52,8 +52,9 @@ class ADTTraitBuilder(val index: Int) {
       s"""AdtCoProduct.UseOne[T$index]"""
     }
 
-    val typeParam7: String  = typeParam7Impl(1)
-    val typeParam14: String = typeParam7Impl(2)
+    val typeParam7: String       = typeParam7Impl(1)
+    val typeParam14: String      = typeParam7Impl(2)
+    val typeParam15: Seq[String] = for (i1 <- 2 to index) yield s"T$i1"
 
     val text: String = s"""
       trait ADTFoldApplyImpl$index[
@@ -66,10 +67,17 @@ class ADTTraitBuilder(val index: Int) {
           ADTFoldApplyImpl${index - 1}[${typeParam4.mkString(',')}]
       }
 
-      class CoProduct$index[${typeParam1.mkString(',')}](private val foldImpl: $typeParam7) {
+      class CoProduct$index[${typeParam1.mkString(',')}](private val foldImpl: $typeParam7)
+        extends helper1.CoProduct${index}Helper[${typeParam1.mkString(',')}] {
         FoldApplySelf =>
 
-        def drop1: Either[T1, $typeParam14] = foldImpl.fold[Either[T1, $typeParam14]]((i1: T1) => Left(i1), (i1: $typeParam14) => Right(i1))
+        def drop1: Either[
+          T1,
+          CoProduct${index - 1}[${typeParam15.mkString(',')}]
+        ] = foldImpl.fold[Either[T1, CoProduct${index - 1}[${typeParam15.mkString(',')}]]](
+          (i1: T1) => Left(i1),
+          (i1: $typeParam14) => Right(new CoProduct${index - 1}[${typeParam15.mkString(',')}](i1))
+        )
 
         def map1[U1](func: T1 => U1): CoProduct$index[U1, ${typeParam1.drop(1).mkString(',')}] = {
           val valueR = AppendTail3.mapHead(foldImpl)(func)

@@ -43,25 +43,22 @@ class ADTTraitBuilderHelper1(val index: Int) {
       val typeParam2: Seq[String] =
         for (i1 <- 1 to TraitBodySelf.index) yield if (i1 == MethodDropBodySelf.index) ".map1(func).tail" else ".tail"
       val typeParam3: Seq[String] = typeParam1.collect { case Some(s) => s }
+      val typeParam4: Seq[String] = for (i1 <- 2 to MethodDropBodySelf.index) yield ".tail"
+      val typeParam5: Seq[String] = for (i1 <- MethodDropBodySelf.index + 1 to TraitBodySelf.index) yield ".tail"
 
       val text: String = s"""
-        def drop$index[TargetN]: Either[T$index, CoProduct${TraitBodySelf.index - 1}[${typeParam3.mkString(',')}]] = ???
+        def drop$index: Either[T$index, CoProduct${TraitBodySelf.index - 1}[${typeParam3.mkString(',')}]] = {
+          for (item1 <- FoldApplySelf${typeParam4.mkString("")}.drop1) yield item1${typeParam5.mkString("")}
+        }
       """
 
     }
 
-    def typeParam7Impl(index: Int): String = if (index < TraitBodySelf.index) {
-      s"""AdtCoProduct.UsePositive[T$index, ${typeParam7Impl(index + 1)}]"""
-    } else {
-      s"""AdtCoProduct.UseOne[T$index]"""
-    }
-
-    val typeParam7: String       = typeParam7Impl(1)
     val typeParam14: Seq[String] = for (i1 <- 2 to index) yield new MethodMapBody(i1).text
     val typeParam15: Seq[String] = for (i1 <- 2 to index) yield new MethodDropBody(i1).text
 
     val text: String = s"""
-      class CoProduct${index}Helper[${typeParam1.mkString(',')}] {
+      trait CoProduct${index}Helper[${typeParam1.mkString(',')}] {
         FoldApplySelf: CoProduct$index[${typeParam1.mkString(',')}] =>
         ${typeParam14.mkString('\n')}
         ${typeParam15.mkString('\n')}
@@ -78,7 +75,7 @@ class ADTTraitBuilderHelper1(val index: Int) {
     package support
 
     object helper1 {
-      class CoProduct1Helper[T1] {
+      trait CoProduct1Helper[T1] {
         FoldApplySelf: CoProduct1[T1] =>
       }
 
