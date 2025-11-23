@@ -33,7 +33,7 @@ lazy val `nat-support`: sbtcrossproject.CrossProject =
 
 val `adt-main/file` = `adt/file` / "adt-main"
 lazy val `adt-main`: sbtcrossproject.CrossProject =
-  crossProject(JSPlatform, JVMPlatform) in `adt-main/file` dependsOn (`test-common` % Test)
+  crossProject(JSPlatform, JVMPlatform) in `adt-main/file` dependsOn (`test-common` % Test, `nat-support`)
 `adt-main`.jvm / version := `simple-adt-version`
 `adt-main`.js / version := `simple-adt-version`
 `adt-main`.jvm / scalaVersion := scalaV.v213

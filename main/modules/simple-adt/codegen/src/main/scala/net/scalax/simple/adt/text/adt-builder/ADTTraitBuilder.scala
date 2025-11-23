@@ -85,7 +85,7 @@ class ADTTraitBuilder(val index: Int) {
         }
 
         def tail: CoProduct$index[${typeParam1.drop(1).mkString(',')}, T1] = {
-          val valueR = AppendTail2.AppenderAdt.appendByDefault(foldImpl)
+          val valueR = AppendTailHelper2.appendByDefault(foldImpl)
           new CoProduct$index[${typeParam1.drop(1).mkString(',')}, T1](valueR)
         }
 
@@ -112,6 +112,8 @@ class ADTTraitBuilder(val index: Int) {
     package net.scalax.simple.adt
     package instance
     package support
+
+    import AppendTailHelper2._
 
     trait ADTFoldApplyImpl1[Target0, T1] {
       FoldApplySelf =>
