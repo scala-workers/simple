@@ -57,7 +57,6 @@ object AppendTailHelper2 {
     ]
   ): Z2 = {
     val ei1: Either[U, Z1] = input.fold((u: U) => Left(u), (z1: Z1) => Right(z1))
-
     u1.current(ei1)
   }
 

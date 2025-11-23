@@ -36,7 +36,8 @@ class ADTApplyFunction2(val index: Int) {
     val typeParam7: String = typeParam7Impl(1)
 
     val text: String = s"""
-      trait CoProduct${index}Apply[${typeParam1.mkString(',')}] {
+      trait CoProduct${index}Apply[${typeParam1.mkString(',')}] extends
+        ADTApplyFunction2Self.CoProduct${index}ApplyHelper[${typeParam1.mkString(',')}] {
         CoProduct${index}ApplySelf =>
         def instance[Target](target: Target)(implicit param: ADTValue[$typeParam7]): CoProduct$index[${typeParam1.mkString(',')}] = {
           CoProduct${index}ApplySelf.typeOnly[Target]${typeParam11.mkString("")}
@@ -47,7 +48,7 @@ class ADTApplyFunction2(val index: Int) {
         }
       }
 
-      object CoProduct$index extends Self.ADTOptionsUnapply$index {
+      object CoProduct$index extends ADTApplyFunction2Self.ADTOptionsUnapply$index {
         def apply[${typeParam1.mkString(',')}]: CoProduct${index}Apply[${typeParam1.mkString(',')}] =
           new CoProduct${index}Apply[${typeParam1.mkString(',')}] {
             //
@@ -64,8 +65,8 @@ class ADTApplyFunction2(val index: Int) {
     package instance
     package support
 
-    trait ADTApplyFunction2 {
-      Self: ADTUnapplyBuilder =>
+    trait ADTApplyFunction2 extends helper2 {
+      ADTApplyFunction2Self: ADTUnapplyBuilder =>
       ${preTextContent.mkString('\n')}
     }
   """
