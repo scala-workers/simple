@@ -8,10 +8,11 @@ class NatAppender4SupportCodegen(val index: Int) {
 
   class TraitBody(val index: Int) {
 
-    val typeParam1: Seq[String]  = for (_ <- 1 to index) yield s"_"
-    val typeParam3: Seq[String]  = for (i1 <- 1 to index) yield s"HListLike"
-    val typeParam5: Seq[String]  = for (i1 <- 1 to index) yield s"T$i1[_]"
-    val typeParam6: Seq[String]  = for (i1 <- 1 to index) yield s"AppendLike"
+    val typeParam1: Seq[String] = for (_ <- 1 to index) yield s"_"
+    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"HListLike"
+    val typeParam5: Seq[String] = for (i1 <- 1 to index) yield s"T$i1[_]"
+    val typeParam6: Seq[String] =
+      for (i1 <- 1 to index) yield s"({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T$i1[X12], Tail]})#XUAPPendEach"
     val typeParam7: Seq[String]  = for (i1 <- 1 to index) yield s"HCollection$i1 <: HListLike"
     val typeParam8: Seq[String]  = for (i1 <- 1 to index) yield s"HCollection$i1"
     val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"AppendLike[T$i1[U], HCollection$i1]"
@@ -29,7 +30,6 @@ class NatAppender4SupportCodegen(val index: Int) {
         typeGen: SimpleProduct$index.TypeGen[M, ${typeParam14.mkString(',')}]
       ): NatNext1.Support$index[
         M,
-        ${typeParam14.mkString(',')},
         ${typeParam3.mkString(',')},
         ${typeParam6.mkString(',')},
         ${typeParam15.mkString(',')}

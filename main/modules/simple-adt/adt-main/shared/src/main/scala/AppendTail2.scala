@@ -10,8 +10,6 @@ object AppendTailHelper2 {
   implicit def appendAbs1[XAA, S, CA <: AdtCoProduct, CB <: AdtCoProduct](implicit
     tail: NatNext1.Support2[
       ({ type M2[A, B] = Either[XAA, A] => B })#M2,
-      ({ type Id[T] = T })#Id,
-      ({ type Id[T] = T })#Id,
       AdtCoProduct,
       AdtCoProduct,
       AdtCoProduct.UsePositive,
@@ -21,8 +19,6 @@ object AppendTailHelper2 {
     ]
   ): NatNext1.Support2[
     ({ type M2[A, B] = Either[XAA, A] => B })#M2,
-    ({ type Id[T] = T })#Id,
-    ({ type Id[T] = T })#Id,
     AdtCoProduct,
     AdtCoProduct,
     AdtCoProduct.UsePositive,
@@ -33,8 +29,6 @@ object AppendTailHelper2 {
 
   implicit def zeroAppender[Item1, Zero]: NatNext1.Support2[
     ({ type M2[A, B] = Either[Zero, A] => B })#M2,
-    ({ type Id[T] = T })#Id,
-    ({ type Id[T] = T })#Id,
     AdtCoProduct,
     AdtCoProduct,
     AdtCoProduct.UsePositive,
@@ -46,8 +40,6 @@ object AppendTailHelper2 {
   def appendByDefault[U, Z1 <: AdtCoProduct, Z2 <: AdtCoProduct](input: AdtCoProduct.UsePositive[U, Z1])(implicit
     u1: NatNext1.Support2[
       ({ type M2[A, B] = Either[U, A] => B })#M2,
-      ({ type Id[T] = T })#Id,
-      ({ type Id[T] = T })#Id,
       AdtCoProduct,
       AdtCoProduct,
       AdtCoProduct.UsePositive,

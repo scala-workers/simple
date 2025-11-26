@@ -33,7 +33,6 @@ class NatAppender3SupportCodegen(val index: Int) {
             ).asInstanceOf[
               NatNext1.Support$index[
                 M,
-                ${typeParam4.mkString(',')},
                 ${typeParam5.mkString(',')},
                 ${typeParam12.mkString(',')},
                 ${typeParam5.mkString(',')}
@@ -43,13 +42,11 @@ class NatAppender3SupportCodegen(val index: Int) {
           @scala.annotation.tailrec
           def appendImpl1(len: Int, model: NatNext1.Support$index[
             M,
-            ${typeParam4.mkString(',')},
             ${typeParam5.mkString(',')},
             ${typeParam12.mkString(',')},
             ${typeParam5.mkString(',')}
           ]): NatNext1.Support$index[
             M,
-            ${typeParam4.mkString(',')},
             ${typeParam5.mkString(',')},
             ${typeParam12.mkString(',')},
             ${typeParam5.mkString(',')}
@@ -58,7 +55,6 @@ class NatAppender3SupportCodegen(val index: Int) {
               val nextModel = model.next[Any].asInstanceOf[
                 NatNext1.Support$index[
                   M,
-                  ${typeParam4.mkString(',')},
                   ${typeParam5.mkString(',')},
                   ${typeParam12.mkString(',')},
                   ${typeParam5.mkString(',')}

@@ -11,8 +11,6 @@ object AppendTail5 {
     current: Either[Zero, Pos1] => Pos2
   ): NatNext1.Support2[
     ({ type M2[A, B] = Either[Zero, A] => B })#M2,
-    ({ type Id[T] = T })#Id,
-    ({ type Id[T] = T })#Id,
     AdtCoProduct,
     AdtCoProduct,
     AdtCoProduct.UsePositive,
@@ -46,8 +44,6 @@ object AppendTail5 {
 
     new NatNext1.Support2[
       ({ type M2[A, B] = Either[Zero, A] => B })#M2,
-      ({ type Id[T] = T })#Id,
-      ({ type Id[T] = T })#Id,
       AdtCoProduct,
       AdtCoProduct,
       AdtCoProduct.UsePositive,
@@ -58,8 +54,6 @@ object AppendTail5 {
       override def current: Either[Zero, Pos1] => Pos2 = current1
       override def next[XUU]: NatNext1.Support2[
         ({ type M2[A, B] = Either[Zero, A] => B })#M2,
-        ({ type Id[T] = T })#Id,
-        ({ type Id[T] = T })#Id,
         AdtCoProduct,
         AdtCoProduct,
         AdtCoProduct.UsePositive,
@@ -72,8 +66,6 @@ object AppendTail5 {
 
   def adtSupportZero[Zero, OneValue]: NatNext1.Support2[
     ({ type M2[A, B] = Either[Zero, A] => B })#M2,
-    ({ type Id[T] = T })#Id,
-    ({ type Id[T] = T })#Id,
     AdtCoProduct,
     AdtCoProduct,
     AdtCoProduct.UsePositive,

@@ -10,19 +10,15 @@ class NatAppender7SupportCodegen(val index: Int) {
 
     val typeParam1: Seq[String]  = for (_ <- 1 to index) yield s"_"
     val typeParam3: Seq[String]  = for (i1 <- 1 to index) yield s"HLLike$i1"
-    val typeParam5: Seq[String]  = for (index <- 1 to index) yield s"T$index[_]"
     val typeParam6: Seq[String]  = for (i1 <- 1 to index) yield s"APRHLLike$i1"
     val typeParam7: Seq[String]  = for (i1 <- 1 to index) yield s"HCollection$i1 <: HLLike$i1"
     val typeParam8: Seq[String]  = for (i1 <- 1 to index) yield s"HCollection$i1"
-    val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"APRHLLike$i1[T$i1[U], HCollection$i1]"
-    val typeParam13: Seq[String] = for (i1 <- 1 to index) yield s"T$i1[U]"
-    val typeParam14: Seq[String] = for (index <- 1 to index) yield s"T$index"
+    val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"APRHLLike$i1[U, HCollection$i1]"
     val typeParam15: Seq[String] = for (i1 <- 1 to index) yield s"APRHLLike$i1[_, _ <: HLLike$i1] <: HLLike$i1"
 
     val text: String = s"""
       trait Support$index[
         M[${typeParam1.mkString(',')}],
-        ${typeParam5.mkString(',')},
         ${typeParam3.mkString(',')},
         ${typeParam15.mkString(',')},
         ${typeParam7.mkString(',')}
@@ -31,7 +27,6 @@ class NatAppender7SupportCodegen(val index: Int) {
 
         def next[U]: Support$index[
           M,
-          ${typeParam14.mkString(',')},
           ${typeParam3.mkString(',')},
           ${typeParam6.mkString(',')},
           ${typeParam9.mkString(',')}
