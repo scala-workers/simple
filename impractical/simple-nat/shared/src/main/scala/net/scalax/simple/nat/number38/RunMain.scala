@@ -90,7 +90,7 @@ object RunTest1 {
   def count(num: () => ghdmzsk, except: BigDecimal, printlnSum: Int, speed: Long = 8000000): Unit =
     countImpl(num = num, current分子 = 1, current分母 = 1, exceptResult = except, printlnSum = printlnSum, speed = speed)
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
 
     println("== start 1 ==")
 
