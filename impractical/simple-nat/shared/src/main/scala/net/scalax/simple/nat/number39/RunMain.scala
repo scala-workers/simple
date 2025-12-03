@@ -48,7 +48,7 @@ object RunTest1 {
 
     if (printlnSum > 0) {
       currentNum match {
-        case num1: 乘除1.Num1 =>
+        case num1: Num39.Num1 =>
           countImpl(
             () => num1.pre1,
             current分子 = current分子,
@@ -57,7 +57,7 @@ object RunTest1 {
             printlnSum = if (needPrintln) printlnSum - 1 else printlnSum,
             speed = speed
           )
-        case num2: 乘除1.Num2 =>
+        case num2: Num39.Num2 =>
           countImpl(
             () => num2.pre2,
             current分子 = current分子 + 1,
@@ -85,12 +85,12 @@ object RunTest1 {
       count(num = () => num1, except = BigDecimal(12) / BigDecimal(6), printlnSum = 15)
     }*/
 
-    locally {
+    /*locally {
       val 分子: Int = 12
       val 分母: Int = 3
 
       count(num = () => 乘除1.num6, except = BigDecimal(分母) / BigDecimal(分子), printlnSum = 10, speed = 20000)
-    }
+    }*/
 
     println("== finished 1 ==")
   }
