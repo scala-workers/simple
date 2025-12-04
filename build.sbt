@@ -104,27 +104,3 @@ addCommandAlias(
 addCommandAlias("releaseCodecLocal", "; +codecJVM/publishLocal ; +codecJS/publishLocal ;")
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
-
-val aa: Unit = locally {
-  val file1: java.io.File = new java.io.File("./")
-
-  println("=== Part test 1 toString start ===")
-  println(file1.toString)
-  println(file1.getAbsoluteFile.toString)
-  println(file1.getCanonicalFile.toString)
-  println("== Part 1 test uri start")
-  println(file1.toURI.toASCIIString)
-  println(file1.getAbsoluteFile.toURI.toASCIIString)
-  println(file1.getCanonicalFile.toURI.toASCIIString)
-  println("=== Part 1 test start ===")
-
-  println("=== Part 2 test toString start ===")
-  println(file1.toPath.toString)
-  println(file1.toPath.toAbsolutePath.toString)
-  println(file1.toPath.toRealPath().toString)
-  println("== Part 2 test uri start")
-  println(file1.toPath.toUri.toASCIIString)
-  println(file1.toPath.toAbsolutePath.toUri.toASCIIString)
-  println(file1.toPath.toRealPath().toUri.toASCIIString)
-  println("=== Part 2 test end ===")
-}
