@@ -33,15 +33,20 @@ class NatAppender4SupportCodegen(val index: Int) {
         ${typeParam3.mkString(',')},
         ${typeParam6.mkString(',')},
         ${typeParam15.mkString(',')}
-      ] = NatNext4Self.Impl1.Support$index[
-        M,
-        ${typeParam14.mkString(',')},
-        ${typeParam15.mkString(',')}
-      ](
-        current = simpleAppender.zero[${typeParam15.mkString(',')}](${typeParam16.mkString(',')}),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support${index}Context[
+          M,
+          ${typeParam14.mkString(',')}
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ${typeParam15.mkString(',')}
+        ] {
+          override def current: M[
+            ${typeParam15.mkString(',')}
+          ] = simpleAppender.zero[${typeParam15.mkString(',')}](${typeParam16.mkString(',')})
+        }
+      }
     """
 
   }

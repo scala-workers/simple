@@ -21,15 +21,20 @@
         HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,
         ZeroLike
-      ] = NatNext4Self.Impl1.Support1[
-        M,
-        T1,
-        ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike](NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support1Context[
+          M,
+          T1
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike
+          ] = simpleAppender.zero[ZeroLike](NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support2[
@@ -43,15 +48,20 @@
         HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support2[
-        M,
-        T1,T2,
-        ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support2Context[
+          M,
+          T1,T2
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support3[
@@ -65,15 +75,20 @@
         HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support3[
-        M,
-        T1,T2,T3,
-        ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support3Context[
+          M,
+          T1,T2,T3
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support4[
@@ -87,15 +102,20 @@
         HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support4[
-        M,
-        T1,T2,T3,T4,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support4Context[
+          M,
+          T1,T2,T3,T4
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support5[
@@ -109,15 +129,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support5[
-        M,
-        T1,T2,T3,T4,T5,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support5Context[
+          M,
+          T1,T2,T3,T4,T5
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support6[
@@ -131,15 +156,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support6[
-        M,
-        T1,T2,T3,T4,T5,T6,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support6Context[
+          M,
+          T1,T2,T3,T4,T5,T6
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support7[
@@ -153,15 +183,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support7[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support7Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support8[
@@ -175,15 +210,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support8[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support8Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support9[
@@ -197,15 +237,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support9[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support9Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support10[
@@ -219,15 +264,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support10[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support10Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support11[
@@ -241,15 +291,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support11[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support11Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support12[
@@ -263,15 +318,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support12[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support12Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support13[
@@ -285,15 +345,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support13[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support13Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support14[
@@ -307,15 +372,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support14[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support14Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support15[
@@ -329,15 +399,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support15[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support15Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support16[
@@ -351,15 +426,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support16[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support16Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support17[
@@ -373,15 +453,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support17[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support17Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support18[
@@ -395,15 +480,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T18[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support18[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support18Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support19[
@@ -417,15 +507,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T18[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T19[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support19[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support19Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support20[
@@ -439,15 +534,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T18[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T19[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T20[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support20[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support20Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support21[
@@ -461,15 +561,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T18[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T19[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T20[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T21[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support21[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support21Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
 
       def Support22[
@@ -483,15 +588,20 @@
         HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
         ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T18[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T19[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T20[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T21[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T22[X12], Tail]})#XUAPPendEach,
         ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ] = NatNext4Self.Impl1.Support22[
-        M,
-        T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22,
-        ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
-      ](
-        current = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance),
-        simpleAppender = simpleAppender,
-        typeGen = typeGen
-      )
+      ] = {
+        val ctx = new NatNext4Self.Impl1.Support22Context[
+          M,
+          T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22
+        ](simpleAppender = simpleAppender, typeGen = typeGen)
+
+        new ctx.SupportInstance[
+          ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+        ] {
+          override def current: M[
+            ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike
+          ] = simpleAppender.zero[ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike,ZeroLike](NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance,NatNext4Self.zeroInstance)
+        }
+      }
     
       }
     }

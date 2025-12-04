@@ -20,50 +20,38 @@ class NatAppender5SupportCodegen(val index: Int) {
     val typeParam14: Seq[String] = for (i1 <- 1 to index) yield s"T$i1"
 
     val text: String = s"""
-      def Support$index[
+      class Support${index}Context[
         M[${typeParam1.mkString(',')}],
-        ${typeParam5.mkString(',')},
-        ${typeParam7.mkString(',')}
+        ${typeParam5.mkString(',')}
       ](
-        current: M[${typeParam8.mkString(',')}],
         simpleAppender: SimpleAppender${index}Positive[M],
         typeGen: SimpleProduct$index.TypeGen[M, ${typeParam14.mkString(',')}]
-      ): NatNext1.Support$index[
-        M,
-        ${typeParam3.mkString(',')},
-        ${typeParam6.mkString(',')},
-        ${typeParam8.mkString(',')}
-      ] = {
-        val current1 = current
-        new NatNext1.Support$index[
+      ) {
+        trait SupportInstance[
+          ${typeParam7.mkString(',')}
+        ] extends NatNext1.Support$index[
           M,
           ${typeParam3.mkString(',')},
           ${typeParam6.mkString(',')},
           ${typeParam8.mkString(',')}
         ] {
           SupportSelf =>
-
-          override def current: M[${typeParam8.mkString(',')}] = current1
-
           override def next[U]: NatNext1.Support$index[
             M,
             ${typeParam3.mkString(',')},
             ${typeParam6.mkString(',')},
             ${typeParam9.mkString(',')}
-          ] = NatNext3Self.Impl1.Support$index[
-            M,
-            ${typeParam14.mkString(',')},
+          ] = new SupportInstance[
             ${typeParam9.mkString(',')}
-          ](
-            current = NatNext3Self.natNext2Helper.append$index[M, ${typeParam13.mkString(',')}, ${typeParam8.mkString(',')}](
-              simpleAppender
-            )(
-              typeGen.gen[U],
-              current1
-            ),
-            simpleAppender = simpleAppender,
-            typeGen = typeGen
-          )
+          ] {
+            override def current: M[
+              ${typeParam9.mkString(',')}
+            ] = NatNext3Self.natNext2Helper.append$index[
+              M,
+              ${typeParam13.mkString(',')},
+              ${typeParam8.mkString(',')}
+            ](simpleAppender)(typeGen.gen[U], SupportSelf.current)
+          }
         }
       }
     """
