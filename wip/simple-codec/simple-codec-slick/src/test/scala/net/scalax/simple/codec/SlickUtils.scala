@@ -1,7 +1,7 @@
 package net.scalax.simple.codec
 package aa
 
-import net.scalax.simple.codec.to_list_generic.{BasedInstalled, PojoInstance}
+import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance}
 import slick.ast.TypedType
 import slick.jdbc.JdbcProfile
 
@@ -16,7 +16,8 @@ trait SlickUtils[V <: JdbcProfile] {
     classTag: scala.reflect.ClassTag[Model],
     modelGet: ModelGet[F, Model],
     modelSet: ModelSet[F, Model],
-    basedInstalled: BasedInstalled[F]
+    basedInstalled: BasedInstalledSimpleProduct[F],
+    basedInstalledlabelled: BasedInstalledLabelled[F]
   ) extends Table[Model](_tableTag = _tableTag, _schemaName = _schemaName, _tableName = _tableName) {
     CommonTableSelf =>
 
@@ -26,7 +27,8 @@ trait SlickUtils[V <: JdbcProfile] {
       classTag: scala.reflect.ClassTag[Model],
       modelGet: ModelGet[F, Model],
       modelSet: ModelSet[F, Model],
-      basedInstalled: BasedInstalled[F]
+      basedInstalled: BasedInstalledSimpleProduct[F],
+      basedInstalledlabelled: BasedInstalledLabelled[F]
     ) = this(_tableTag = _tableTag, _schemaName = None, _tableName = _tableName)
 
     type Columns = F[Rep]
@@ -41,7 +43,7 @@ trait SlickUtils[V <: JdbcProfile] {
     def columnOption: ColOpt => ColOpt
 
     private val utilsWrap: UtilsWrap[F, Model, slickProfile.type] =
-      new UtilsWrap[F, Model, slickProfile.type](slickProfile, basedInstalled) {
+      new UtilsWrap[F, Model, slickProfile.type](slickProfile, basedInstalled, basedInstalledlabelled) {
         override val tb: Table[Model] = CommonTableSelf
       }
 
@@ -54,12 +56,14 @@ trait SlickUtils[V <: JdbcProfile] {
     typedType: F[TypedType],
     userShapeGeneric: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF],
     classTag: scala.reflect.ClassTag[F[({ type IDF[XU] = XU })#IDF]],
-    basedInstalled: BasedInstalled[F]
+    basedInstalled: BasedInstalledSimpleProduct[F],
+    basedInstalledlabelled: BasedInstalledLabelled[F]
   ) extends CommonTable[F, F[({ type IDF[XU] = XU })#IDF]](_tableTag = _tableTag, _schemaName = _schemaName, _tableName = _tableName)(
         typedType = typedType,
         userShapeGeneric = userShapeGeneric,
         classTag = classTag,
         basedInstalled = basedInstalled,
+        basedInstalledlabelled = basedInstalledlabelled,
         modelGet = identity[F[({ type IDF[XU] = XU })#IDF]],
         modelSet = identity[F[({ type IDF[XU] = XU })#IDF]]
       ) {
@@ -69,7 +73,8 @@ trait SlickUtils[V <: JdbcProfile] {
       typedType: F[TypedType],
       userShapeGeneric: F[({ type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]] })#ShapeF],
       classTag: scala.reflect.ClassTag[F[({ type IDF[XU] = XU })#IDF]],
-      basedInstalled: BasedInstalled[F]
+      basedInstalled: BasedInstalledSimpleProduct[F],
+      basedInstalledlabelled: BasedInstalledLabelled[F]
     ) = this(_tableTag = _tableTag, _schemaName = None, _tableName = _tableName)
 
   }
@@ -80,7 +85,8 @@ trait SlickUtils[V <: JdbcProfile] {
     classTag: scala.reflect.ClassTag[Model],
     modelGet: ModelGet[({ type PojoF[XU[_]] = PojoInstance[XU, Model] })#PojoF, Model],
     modelSet: ModelSet[({ type PojoF[XU[_]] = PojoInstance[XU, Model] })#PojoF, Model],
-    basedInstalled: BasedInstalled[({ type TypeF[UX[_]] = PojoInstance[UX, Model] })#TypeF]
+    basedInstalled: BasedInstalledSimpleProduct[({ type TypeF[UX[_]] = PojoInstance[UX, Model] })#TypeF],
+    basedInstalledlabelled: BasedInstalledLabelled[({ type TypeF[UX[_]] = PojoInstance[UX, Model] })#TypeF]
   ) extends CommonTable[({ type PojoF[XU[_]] = PojoInstance[XU, Model] })#PojoF, Model](
         _tableTag = _tableTag,
         _schemaName = _schemaName,
@@ -95,7 +101,8 @@ trait SlickUtils[V <: JdbcProfile] {
       classTag: scala.reflect.ClassTag[Model],
       modelGet: ModelGet[({ type PojoF[XU[_]] = PojoInstance[XU, Model] })#PojoF, Model],
       modelSet: ModelSet[({ type PojoF[XU[_]] = PojoInstance[XU, Model] })#PojoF, Model],
-      basedInstalled: BasedInstalled[({ type TypeF[UX[_]] = PojoInstance[UX, Model] })#TypeF]
+      basedInstalled: BasedInstalledSimpleProduct[({ type TypeF[UX[_]] = PojoInstance[UX, Model] })#TypeF],
+      basedInstalledlabelled: BasedInstalledLabelled[({ type TypeF[UX[_]] = PojoInstance[UX, Model] })#TypeF]
     ) = this(_tableTag = _tableTag, _schemaName = None, _tableName = _tableName)
 
     override def instance: Any = CommonTableSelf.repModel.instance

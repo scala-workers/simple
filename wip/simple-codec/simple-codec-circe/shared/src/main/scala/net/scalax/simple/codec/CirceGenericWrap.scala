@@ -4,7 +4,7 @@ package codec
 import io.circe.Decoder.Result
 import io.circe._
 import io.circe.syntax._
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct3, SimpleProductContextX}
+import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct3}
 
 object CirceGeneric {
   type Named[_] = String

@@ -4,14 +4,12 @@ package to_list_generic
 import net.scalax.simple.adt.nat.support.SimpleProductContextX
 import shapeless.DefaultSymbolicLabelling
 
-trait ModelLink[F[_[_]], Model] extends BasedInstalled[F] with ModelGetSet[F, Model] {
-  override def toIdentity(t: Model): F[({ type U1[X] = X })#U1]
-  override def fromIdentity(t: F[({ type U1[X] = X })#U1]): Model
-
-  override def basedInstalled: SimpleProductContextX[F]
-  override def labelled: ModelLabelled[F]
-  override def size: ModelSize[F]
-}
+trait ModelLink[F[_[_]], Model]
+    extends BasedInstalledSimpleProduct[F]
+    with BasedInstalledLabelled[F]
+    with BasedInstalledModelSized[F]
+    with ModelGet[F, Model]
+    with ModelSet[F, Model]
 
 object ModelLink {
   ModelLinkSelf =>

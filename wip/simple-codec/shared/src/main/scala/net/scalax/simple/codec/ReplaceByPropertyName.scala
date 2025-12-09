@@ -1,7 +1,6 @@
 package net.scalax.simple.codec
 
-import net.scalax.simple.codec.to_list_generic.BasedInstalled
-import net.scalax.simple.adt.nat.support.{SimpleProduct1, SimpleProductContextX}
+import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct}
 
 trait ReplaceByPropertyName[F[_[_]]] {
   def replaceImpl[UX](proName: String, proValue: UX): F[({ type X1[_] = UX })#X1] => F[({ type X1[_] = UX })#X1]
@@ -25,9 +24,9 @@ object ReplaceByPropertyName {
       }
     }
 
-    def derived(basedInstalled: BasedInstalled[F]): ReplaceByPropertyName[F] = {
+    def derived(basedInstalled: BasedInstalledSimpleProduct[F], labelled: BasedInstalledLabelled[F]): ReplaceByPropertyName[F] = {
       val appender1 = basedInstalled.basedInstalled.simpleProduct1
-      derivedImpl(IndexOfPropertyName[F].derived(appender1), ReplaceByIndex[F].derived(appender1), basedInstalled.labelled)
+      derivedImpl(IndexOfPropertyName[F].derived(appender1), ReplaceByIndex[F].derived(appender1), labelled.labelled)
     }
   }
 

@@ -5,7 +5,7 @@ import io.circe.Decoder.Result
 import io.circe._
 import io.circe.syntax._
 import net.scalax.simple.adt.nat.support.{SimpleProduct3, SimpleProductContextX}
-import net.scalax.simple.codec.to_list_generic.{BasedInstalled, PojoInstance}
+import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, PojoInstance}
 
 trait SimpleJsonEncodeLabelled[F[_[_]]] {
   SimpleJsonEncodeLabelledSelf =>
@@ -83,7 +83,7 @@ object SimpleJsonCodecLabelled {
   class Builder[F[_[_]]] {
     type Target = SimpleJsonCodecLabelled[F]
 
-    def derived(implicit bi: BasedInstalled[F]): SimpleJsonCodecLabelled[F] = new SimpleJsonCodecLabelled[F] {
+    def derived(implicit bi: BasedInstalledLabelled[F]): SimpleJsonCodecLabelled[F] = new SimpleJsonCodecLabelled[F] {
       override def jsonEncodeLabelled: F[({ type NamedF[_] = String })#NamedF] = bi.labelled.modelLabelled
       override def jsonDecodeLabelled: F[({ type NamedF[_] = String })#NamedF] = bi.labelled.modelLabelled
     }

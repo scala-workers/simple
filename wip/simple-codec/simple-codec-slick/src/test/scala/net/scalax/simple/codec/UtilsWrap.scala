@@ -1,13 +1,19 @@
 package net.scalax.simple.codec
 
-import net.scalax.simple.codec.to_list_generic.{BasedInstalled, Fold1FGenerc, PojoInstance, ToListByTheSameTypeGeneric}
+import net.scalax.simple.codec.to_list_generic.{
+  BasedInstalledLabelled,
+  BasedInstalledSimpleProduct,
+  Fold1FGenerc,
+  ToListByTheSameTypeGeneric
+}
 import slick.ast.TypedType
 import slick.jdbc.JdbcProfile
 import slick.lifted.ShapedValue
 
 abstract class UtilsWrap[F[_[_]], Model, V <: JdbcProfile](
   val slickProfile: V,
-  bi: BasedInstalled[F]
+  bi: BasedInstalledSimpleProduct[F],
+  named: BasedInstalledLabelled[F]
 ) {
   import slickProfile.api._
 
@@ -23,7 +29,8 @@ abstract class UtilsWrap[F[_[_]], Model, V <: JdbcProfile](
 
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
 
-  def getIndexByName1(n: String)(implicit bi: BasedInstalled[F]): Int = indexOfPropertyName.ofName(n, bi.labelled.modelLabelled)
+  def getIndexByName1(n: String)(implicit bi: BasedInstalledSimpleProduct[F]): Int =
+    indexOfPropertyName.ofName(n, named.labelled.modelLabelled)
 
   private def helperUtil: helperUtils[slickProfile.type, F] = new helperUtils[slickProfile.type, F](
     slickProfile = slickProfile
@@ -61,11 +68,11 @@ abstract class UtilsWrap[F[_[_]], Model, V <: JdbcProfile](
   }
 
   def userRep(
-    labelled: BasedInstalled[F],
+    labelled: BasedInstalledSimpleProduct[F],
     opt: F[ColumnOpt],
     typedType: F[TypedType]
   ): F[Rep] = {
-    val l1 = labelled.labelled.modelLabelled
+    val l1 = named.labelled.modelLabelled
     val l2 = opt
     val l3 = typedType
 
