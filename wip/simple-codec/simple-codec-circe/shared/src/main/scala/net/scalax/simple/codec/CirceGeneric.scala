@@ -3,7 +3,6 @@ package net.scalax.simple.codec
 import io.circe._
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledSimpleProduct, PojoInstance}
 import net.scalax.simple.codec.utils.ByNameImplicit
-import net.scalax.simple.adt.nat.support.{SimpleProduct3, SimpleProductContextX}
 
 object CirceGen {
 
