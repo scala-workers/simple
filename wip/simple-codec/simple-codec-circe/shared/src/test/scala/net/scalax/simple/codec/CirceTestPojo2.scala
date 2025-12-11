@@ -10,15 +10,15 @@ case class CatNameTest6(id3: Int, str3: Option[String], uClass3: Option[CusType]
 object CatNameTest6 {
 
   import CirceGen.Pojo._
-  import EncoderGetter._
 
-  type X1[T] = EncoderGetter[Encoder[T]]
+  val compileCtx = TypeClassOptCtx[Encoder]
 
   implicit val modelLinkPojo: ModelLink.Pojo[CatNameTest6] = ModelLink.Pojo[CatNameTest6].derived
 
-  implicit def encoderInstance: PojoInstance[X1, CatNameTest6] = FillIdentity.Pojo[X1, CatNameTest6].derived
+  implicit def encoderInstance: PojoInstance[compileCtx.EncoderGetter, CatNameTest6] =
+    FillIdentity.Pojo[compileCtx.EncoderGetter, CatNameTest6].derived
 
-  def typeClassOpt: TypeClassOpt[CatNameTest6, Encoder] = TypeClassOpt.Pojo[CatNameTest6, Encoder].derived
+  def typeClassOpt: compileCtx.TypeClassOpt[CatNameTest6] = compileCtx.TypeClassOpt.Pojo[CatNameTest6].derived
 
   // implicit def codec1: Codec[CatNameTest6] = ???
 
