@@ -1,10 +1,6 @@
 package net.scalax.simple
 package codec
 
-import io.circe.Decoder.Result
-import io.circe._
-import io.circe.syntax._
-import net.scalax.simple.adt.nat.support.{SimpleProduct3, SimpleProductContextX}
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, PojoInstance}
 
 trait SimpleJsonEncodeLabelled[F[_[_]]] {

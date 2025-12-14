@@ -1,4 +1,4 @@
-name := "simple-adt"
+name := "simple-append-support"
 
 libraryDependencies ++= libScalax.`scala-collection-compat`.value
 

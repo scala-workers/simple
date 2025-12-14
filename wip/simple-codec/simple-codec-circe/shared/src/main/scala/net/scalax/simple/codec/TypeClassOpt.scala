@@ -1,8 +1,6 @@
 package net.scalax.simple
 package codec
 
-import io.circe.Encoder
-import io.circe.syntax._
 import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct2}
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance}
 import net.scalax.simple.codec.utils.ByNameImplicit
