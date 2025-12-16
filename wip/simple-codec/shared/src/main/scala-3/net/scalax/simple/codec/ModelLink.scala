@@ -29,29 +29,9 @@ object ModelLink {
     }
   }
 
-  import scala.deriving.Mirror
-
-  def buildUtilImplPojo[Model <: Product](cNamed: Any, fromTuple: Any => Model): ModelLinkPojo[Model] = new ModelLinkPojo[Model] {
-    override val compatNamed: Any           = cNamed
-    override def genericTo(x: Model): Any   = Tuple.fromProduct(x.asInstanceOf)
-    override def genericFrom(x: Any): Model = fromTuple(x.asInstanceOf[Tuple]).asInstanceOf[Model]
-  }
-
-  class BuilderPojo[Model <: Product] {
-    inline def derived(using g: Mirror.ProductOf[Model]): ModelLink.Pojo[Model] = {
-      val namedModel = scala.compiletime.constValueTuple[g.MirroredElemLabels]
-      buildUtilImplPojo(namedModel, g.fromTuple.asInstanceOf[Any => Model])
-    }
-  }
-
   object F {
     def apply[FMM[_[_]]]: BuilderCommonF[FMM] = new BuilderCommonF[FMM]
   }
   type F[FModel[_[_]]] = ModelLink[FModel, FModel[({ type IDF[T] = T })#IDF]]
-
-  object Pojo {
-    def apply[Model <: Product]: BuilderPojo[Model] = new BuilderPojo[Model]
-  }
-  type Pojo[Model] = ModelLink[({ type FMM[X[_]] = PojoInstance[X, Model] })#FMM, Model]
 
 }

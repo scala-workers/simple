@@ -2,7 +2,7 @@ package net.scalax.simple.codec
 
 import io.circe._
 import io.circe.syntax._
-import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, PojoInstance}
+import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, ModelLinkPojo, PojoInstance}
 
 trait CusType
 case class CatNameTest6(id3: Int, str3: Option[String], uClass3: Option[CusType], name113: String, friends: List[CusType])
@@ -13,7 +13,7 @@ object CatNameTest6 {
 
   val compileCtx = TypeClassOptCtx[Encoder]
 
-  implicit val modelLinkPojo: ModelLink.Pojo[CatNameTest6] = ModelLink.Pojo[CatNameTest6].derived
+  implicit val modelLinkPojo: ModelLinkPojo[CatNameTest6] = ModelLinkPojo.derived
 
   implicit def encoderInstance: PojoInstance[compileCtx.EncoderGetter, CatNameTest6] =
     FillIdentity.Pojo[compileCtx.EncoderGetter, CatNameTest6].derived

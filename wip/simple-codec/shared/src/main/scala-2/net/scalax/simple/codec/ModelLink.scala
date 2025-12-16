@@ -1,7 +1,6 @@
 package net.scalax.simple.codec
 package to_list_generic
 
-import net.scalax.simple.adt.nat.support.SimpleProductContextX
 import shapeless.DefaultSymbolicLabelling
 
 trait ModelLink[F[_[_]], Model]
@@ -31,7 +30,12 @@ object ModelLink {
     def implicitly(implicit u: ModelLinkSelf.F[FMM]): ModelLinkSelf.F[FMM] = u
   }
 
-  class BuilderPojo[Model] {
+  object F {
+    def apply[F[_[_]]]: BuilderCommonF[F] = new BuilderCommonF[F]
+  }
+  type F[FModel[_[_]]] = ModelLink[FModel, FModel[({ type IDF[T] = T })#IDF]]
+
+  /*class BuilderPojo[Model] {
     def derived(implicit
       g: shapeless.Generic.Aux[Model, _ <: shapeless.HList],
       c: DefaultSymbolicLabelling.Aux[Model, _ <: shapeless.HList]
@@ -46,16 +50,23 @@ object ModelLink {
     }
 
     def implicitly(implicit u: ModelLinkSelf.Pojo[Model]): ModelLinkSelf.Pojo[Model] = u
-  }
+  }*/
 
-  object F {
-    def apply[F[_[_]]]: BuilderCommonF[F] = new BuilderCommonF[F]
-  }
-  type F[FModel[_[_]]] = ModelLink[FModel, FModel[({ type IDF[T] = T })#IDF]]
+  /*object Pojo {
+    def derived[Model](implicit
+      g: shapeless.Generic.Aux[Model, _ <: shapeless.HList],
+      c: DefaultSymbolicLabelling.Aux[Model, _ <: shapeless.HList]
+    ): Pojo[Model] = {
+      val namedModel = c.apply()
+      new Pojo[Model] {
+        override val compatNamed: Any           = namedModel
+        override def genericFrom(x: Any): Model = g.from(x.asInstanceOf[g.Repr])
+        override def genericTo(x: Model): Any   = g.to(x)
+      }
+    }
 
-  object Pojo {
-    def apply[Model]: BuilderPojo[Model] = new BuilderPojo[Model]
+    def implicitly[Model](implicit u: ModelLinkSelf.Pojo[Model]): ModelLinkSelf.Pojo[Model] = u
   }
-  type Pojo[Model] = ModelLink[({ type FMM[X[_]] = PojoInstance[X, Model] })#FMM, Model]
+  trait Pojo[Model] extends ModelLinkPojo[Model]*/
 
 }

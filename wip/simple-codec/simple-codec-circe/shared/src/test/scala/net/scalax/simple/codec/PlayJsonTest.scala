@@ -1,7 +1,7 @@
 package net.scalax.simple.codec
 
 import play.api.libs.json._
-import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, PojoInstance}
+import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLinkPojo}
 
 case class CatNameTest5(
   id5: Int,
@@ -13,9 +13,9 @@ case class CatNameTest5(
 
 object CatNameTest5 {
 
-  implicit val modelLinkPojo: ModelLink.Pojo[CatNameTest5] = ModelLink.Pojo[CatNameTest5].derived
+  implicit val modelLinkPojo: ModelLinkPojo[CatNameTest5] = ModelLinkPojo.derived
 
-  implicit val jsonLabelled: SimpleJsonCodecLabelled.Pojo[CatNameTest5] = SimpleJsonCodecLabelled.Pojo[CatNameTest5].derived
+  implicit val jsonLabelled: SimpleJsonCodecLabelledPojo[CatNameTest5] = SimpleJsonCodecLabelledPojo.derived[CatNameTest5]
 
   import PlayJsonGeneric.Pojo._
   implicit val modelWrites: FillIdentity.Pojo[Writes, CatNameTest5] = FillIdentity.Pojo[Writes, CatNameTest5].derived

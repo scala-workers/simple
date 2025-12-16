@@ -12,7 +12,7 @@ object CatName {
   implicit val namedModel_catName2: ModelLink[FAlias, FAlias[cats.Id]] = ToItera[CatName].derived.toModelLink[String](implicitly)
 
   implicit val jsonLabelled: SimpleJsonCodecLabelled.F[FAlias] =
-    SimpleJsonCodecLabelled.F[FAlias].fromInstance(implicitly[BasedInstalledLabelled[CatName]].labelled.modelLabelled)
+    SimpleJsonCodecLabelled.F[FAlias].implicitly(implicitly[BasedInstalledLabelled[CatName]].labelled.modelLabelled)
 
   implicit val li1222Encoder: FAlias[Encoder] = {
     val v: BasedInstalledSimpleProduct[FAlias] = implicitly

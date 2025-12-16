@@ -2,7 +2,14 @@ package net.scalax.simple.codec
 
 import io.circe._
 import io.circe.syntax._
-import net.scalax.simple.codec.to_list_generic.{FillIdentity, Fold1FGenerc, ModelLink, PojoInstance, ToListByTheSameTypeGeneric}
+import net.scalax.simple.codec.to_list_generic.{
+  FillIdentity,
+  Fold1FGenerc,
+  ModelLink,
+  ModelLinkPojo,
+  PojoInstance,
+  ToListByTheSameTypeGeneric
+}
 
 case class CatNameTest3(id3: Int, str3: Option[String], uClass3: Option[Long], name113: String, friends: List[CatNameTest3])
 
@@ -10,10 +17,10 @@ object CatNameTest3 {
 
   val longOptEncoder: Encoder[Option[Long]] = Encoder[Option[String]].contramap((opt: Option[Long]) => for (u <- opt) yield u.toString)
 
-  implicit val modelLinkPojo: ModelLink.Pojo[CatNameTest3] = ModelLink.Pojo[CatNameTest3].derived
+  implicit val modelLinkPojo: ModelLinkPojo[CatNameTest3] = ModelLinkPojo.derived
 
-  implicit val jsonLabelled: SimpleJsonCodecLabelled.Pojo[CatNameTest3] =
-    SimpleJsonCodecLabelled.Pojo[CatNameTest3].derived.codec.update(_.copy(_.id3)("miaomiao id"))
+  implicit val jsonLabelled: SimpleJsonCodecLabelledPojo[CatNameTest3] =
+    SimpleJsonCodecLabelledPojo.derived[CatNameTest3].codec.update(_.copy(_.id3)("miaomiao id"))
 
   import CirceGen.Pojo._
   implicit def modelEncoder: FillIdentity.Pojo[Encoder, CatNameTest3] =
@@ -45,7 +52,7 @@ object CatNameTest3TestCase {
   def getNames(model: PojoInstance[({ type M1[_] = String })#M1, CatNameTest3]): List[String] = {
     val ge = ToListByTheSameTypeGeneric[({ type U1[X[_]] = PojoInstance[X, CatNameTest3] })#U1].derived(
       Fold1FGenerc[({ type U1[X[_]] = PojoInstance[X, CatNameTest3] })#U1]
-        .derived(implicitly[ModelLink.Pojo[CatNameTest3]].basedInstalled.simpleProduct1)
+        .derived(implicitly[ModelLinkPojo[CatNameTest3]].basedInstalled.simpleProduct1)
     )
 
     ge.toListByTheSameType[String, List[String]](List.empty, (t1, t2) => t2 :: t1)(model)
@@ -55,7 +62,7 @@ object CatNameTest3TestCase {
     println(modelInstance.asJson.spaces2)
     println(parser.parse(modelInstance.asJson.spaces2).flatMap(_.as[CatNameTest3]))
     println("// ===")
-    val labelled1 = implicitly[ModelLink.Pojo[CatNameTest3]].labelled.modelLabelled
+    val labelled1 = implicitly[ModelLinkPojo[CatNameTest3]].labelled.modelLabelled
     val labelled2 = labelled1.copy(_.name113)("name224")
     println(getNames(labelled1))
     println(getNames(labelled2))

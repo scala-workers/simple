@@ -44,9 +44,22 @@ trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, M
   protected def genericTo(t: Model): Any
 }
 
-/*object ModelLinkPojo {
+object ModelLinkPojo {
 
-  class Builder[Model] {
+  import shapeless.DefaultSymbolicLabelling
+  def derived[Model](implicit
+    g: shapeless.Generic.Aux[Model, _ <: shapeless.HList],
+    c: DefaultSymbolicLabelling.Aux[Model, _ <: shapeless.HList]
+  ): ModelLinkPojo[Model] = {
+    val namedModel = c.apply()
+    new ModelLinkPojo[Model] {
+      override val compatNamed: Any           = namedModel
+      override def genericFrom(x: Any): Model = g.from(x.asInstanceOf[g.Repr])
+      override def genericTo(x: Model): Any   = g.to(x)
+    }
+  }
+
+  /*class Builder[Model] {
     def derived(implicit
       g: shapeless.Generic.Aux[Model, _ <: shapeless.HList],
       c: DefaultSymbolicLabelling.Aux[Model, _ <: shapeless.HList]
@@ -61,6 +74,6 @@ trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, M
     }
   }
 
-  def apply[Model]: Builder[Model] = new Builder[Model]
+  def apply[Model]: Builder[Model] = new Builder[Model]*/
 
-}*/
+}

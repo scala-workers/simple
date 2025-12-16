@@ -84,7 +84,7 @@ object SimpleJsonCodecLabelled {
       override def jsonDecodeLabelled: F[({ type NamedF[_] = String })#NamedF] = bi.labelled.modelLabelled
     }
 
-    def fromInstance(nModel: F[({ type NamedF[_] = String })#NamedF]): SimpleJsonCodecLabelled[F] = new SimpleJsonCodecLabelled[F] {
+    def implicitly(implicit nModel: F[({ type NamedF[_] = String })#NamedF]): SimpleJsonCodecLabelled[F] = new SimpleJsonCodecLabelled[F] {
       override def jsonEncodeLabelled: F[({ type NamedF[_] = String })#NamedF] = nModel
       override def jsonDecodeLabelled: F[({ type NamedF[_] = String })#NamedF] = nModel
     }
@@ -96,11 +96,55 @@ object SimpleJsonCodecLabelled {
     def apply[ModelF[_[_]]]: Builder[ModelF] = new Builder[ModelF]
   }
 
-  type Pojo[Model] = SimpleJsonCodecLabelled[({ type TR[UMF[_]] = PojoInstance[UMF, Model] })#TR]
+}
 
-  object Pojo {
-    def apply[Model]: Builder[({ type TR[UMF[_]] = PojoInstance[UMF, Model] })#TR] =
-      new Builder[({ type TR[UMF[_]] = PojoInstance[UMF, Model] })#TR]
-  }
+trait SimpleJsonCodecLabelledPojo[Model] extends SimpleJsonCodecLabelled[({ type TR[UMF[_]] = PojoInstance[UMF, Model] })#TR] {
+  PojoSelf =>
 
+  override def encode
+    : SimpleJsonCodecLabelled.Updater[PojoInstance[({ type NamedF[_] = String })#NamedF, Model], SimpleJsonCodecLabelledPojo[
+      Model
+    ]] =
+    new SimpleJsonCodecLabelled.Updater[PojoInstance[({ type NamedF[_] = String })#NamedF, Model], SimpleJsonCodecLabelledPojo[Model]] {
+      override def update(
+        m: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] => PojoInstance[({ type NamedF[_] = String })#NamedF, Model]
+      ): SimpleJsonCodecLabelledPojo[Model] = new SimpleJsonCodecLabelledPojo[Model] {
+        override def jsonEncodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = m(PojoSelf.jsonEncodeLabelled)
+        override def jsonDecodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = PojoSelf.jsonDecodeLabelled
+      }
+    }
+
+  override def decode
+    : SimpleJsonCodecLabelled.Updater[PojoInstance[({ type NamedF[_] = String })#NamedF, Model], SimpleJsonCodecLabelledPojo[
+      Model
+    ]] =
+    new SimpleJsonCodecLabelled.Updater[PojoInstance[({ type NamedF[_] = String })#NamedF, Model], SimpleJsonCodecLabelledPojo[Model]] {
+      override def update(
+        m: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] => PojoInstance[({ type NamedF[_] = String })#NamedF, Model]
+      ): SimpleJsonCodecLabelledPojo[Model] = new SimpleJsonCodecLabelledPojo[Model] {
+        override def jsonEncodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = m(PojoSelf.jsonEncodeLabelled)
+        override def jsonDecodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = PojoSelf.jsonDecodeLabelled
+      }
+    }
+
+  override def codec
+    : SimpleJsonCodecLabelled.Updater[PojoInstance[({ type NamedF[_] = String })#NamedF, Model], SimpleJsonCodecLabelledPojo[Model]] =
+    new SimpleJsonCodecLabelled.Updater[PojoInstance[({ type NamedF[_] = String })#NamedF, Model], SimpleJsonCodecLabelledPojo[Model]] {
+      override def update(
+        m: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] => PojoInstance[({ type NamedF[_] = String })#NamedF, Model]
+      ): SimpleJsonCodecLabelledPojo[Model] = new SimpleJsonCodecLabelledPojo[Model] {
+        override def jsonEncodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = m(PojoSelf.jsonEncodeLabelled)
+        override def jsonDecodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = m(PojoSelf.jsonDecodeLabelled)
+      }
+    }
+}
+
+object SimpleJsonCodecLabelledPojo {
+  def derived[Model](implicit
+    blabelled: BasedInstalledLabelled[({ type TR[UMF[_]] = PojoInstance[UMF, Model] })#TR]
+  ): SimpleJsonCodecLabelledPojo[Model] =
+    new SimpleJsonCodecLabelledPojo[Model] {
+      override def jsonEncodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = blabelled.labelled.modelLabelled
+      override def jsonDecodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = blabelled.labelled.modelLabelled
+    }
 }
