@@ -2,5 +2,6 @@ name := "simple-append-support"
 
 libraryDependencies ++= libScalax.`scala-collection-compat`.value
 
-enableZIOTest := true
+scalafmtOnCompile := true
+enableZIOTest     := true
 useKindProjector
