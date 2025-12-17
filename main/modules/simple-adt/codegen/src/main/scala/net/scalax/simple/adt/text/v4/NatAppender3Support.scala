@@ -19,6 +19,9 @@ class NatAppender3SupportCodegen(val index: Int) {
     val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s"F[N$i1]"
     val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s"AppLike"
 
+    val max: Int                 = 22
+    val typeParam13: Seq[String] = for (i1 <- 1 to max) yield s"Any"
+
     val appendHLStr = "({ type AP1[_, T1 <: HListLike] = T1 })#AP1"
 
     val text: String = s"""
@@ -52,7 +55,7 @@ class NatAppender3SupportCodegen(val index: Int) {
             ${typeParam5.mkString(',')}
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any].asInstanceOf[
+              val nextModel = model.next[${typeParam13.mkString(',')}].asInstanceOf[
                 NatNext1.Support$index[
                   M,
                   ${typeParam5.mkString(',')},
