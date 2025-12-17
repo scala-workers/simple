@@ -47,7 +47,7 @@
             HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support1[
                   M,
                   HListLike,
@@ -112,7 +112,7 @@
             HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support2[
                   M,
                   HListLike,HListLike,
@@ -177,7 +177,7 @@
             HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support3[
                   M,
                   HListLike,HListLike,HListLike,
@@ -242,7 +242,7 @@
             HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support4[
                   M,
                   HListLike,HListLike,HListLike,HListLike,
@@ -307,7 +307,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support5[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -372,7 +372,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support6[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -437,7 +437,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support7[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -502,7 +502,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support8[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -567,7 +567,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support9[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -632,7 +632,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support10[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -697,7 +697,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support11[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -762,7 +762,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support12[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -827,7 +827,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support13[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -892,7 +892,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support14[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -957,7 +957,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support15[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -1022,7 +1022,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support16[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -1087,7 +1087,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support17[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -1152,7 +1152,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support18[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -1217,7 +1217,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support19[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -1282,7 +1282,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support20[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -1347,7 +1347,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support21[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
@@ -1412,7 +1412,7 @@
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike
           ] = {
             if (len > 0) {
-              val nextModel = model.next[Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any,Any].asInstanceOf[
+              val nextModel = model.getTail[Any].asInstanceOf[
                 NatNext1.Support22[
                   M,
                   HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
