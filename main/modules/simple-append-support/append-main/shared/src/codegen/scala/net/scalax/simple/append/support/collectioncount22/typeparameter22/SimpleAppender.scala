@@ -3,7 +3,30 @@ package collectioncount22
 package typeparameter22
 
 trait SimpleAppender[
-  M22[_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _],
+  M22[
+    _ <: Col1,
+    _ <: Col2,
+    _ <: Col3,
+    _ <: Col4,
+    _ <: Col5,
+    _ <: Col6,
+    _ <: Col7,
+    _ <: Col8,
+    _ <: Col9,
+    _ <: Col10,
+    _ <: Col11,
+    _ <: Col12,
+    _ <: Col13,
+    _ <: Col14,
+    _ <: Col15,
+    _ <: Col16,
+    _ <: Col17,
+    _ <: Col18,
+    _ <: Col19,
+    _ <: Col20,
+    _ <: Col21,
+    _ <: Col22
+  ],
   Col1,
   Col2,
   Col3,
