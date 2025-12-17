@@ -105,6 +105,10 @@ ghdmzsk.js / publishTo           := localStaging.value
 `adt-main`.js / publishTo           := localStaging.value
 
 // ===
+`wire-web-app` / scalaVersion       := scalaV.v213
+`wire-web-app` / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
+
+// ===
 codec.jvm / scalaVersion       := scalaV.v213
 codec.js / scalaVersion        := scalaV.v213
 codec.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
@@ -135,7 +139,6 @@ nat.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `append-support`.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `append-support`.jvm / publishTo          := localStaging.value
 `append-support`.js / publishTo           := localStaging.value
-
 
 // ===
 `append-codegen` / scalaVersion := scalaV.v3
