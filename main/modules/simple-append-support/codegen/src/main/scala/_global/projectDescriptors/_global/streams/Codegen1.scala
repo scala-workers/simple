@@ -9,7 +9,7 @@ object Codegen1 {
     val pathRoot    = os.Path(rootUrl)
 
     for {
-      typeParamIndex <- 1 to 22
+      typeParamIndex <- 0 to 22
       colCountIndex  <- 0 to 22
     } yield {
       val typeParam = v1.TypeArgCodegen(typeParamIndex)

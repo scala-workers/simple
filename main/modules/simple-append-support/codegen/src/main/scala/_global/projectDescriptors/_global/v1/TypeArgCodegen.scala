@@ -46,17 +46,17 @@ class TypeArgCodegen(index: Int) {
       package typeparameter${ColCountCodegenSelf.index}
 
       trait SimpleAppender[
-        ${MWithArg(EmptyArg)},
-        ${CollectionDef.mkString(',')},
-        ${CollectionAppendDef.mkString(',')},
-        ${InsDef.mkString(',')}
+        ${(MWithArg(EmptyArg) +:
+        CollectionDef ++:
+        CollectionAppendDef ++:
+        InsDef).mkString(",")}
       ] {
         def current: ${MWithArg(InsName)}
         def next$nextParam: SimpleAppender[
-          $MName,
-          ${CollectionDef.mkString(',')},
-          ${CollectionAppendName.mkString(',')},
-          ${NextName.mkString(',')}
+          ${(MName +:
+        CollectionDef ++:
+        CollectionAppendName ++:
+        NextName).mkString(',')}
         ]
       }
     """
