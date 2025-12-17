@@ -44,7 +44,7 @@ class NatAppender7SupportCodegen(val index: Int) {
       ] {
         SupportSelf =>
 
-        def current: M[${typeParam8.mkString(',')}]
+        // def current: M[${typeParam8.mkString(',')}]
 
         def getTail[T1]: NatNext1.Support$index[
           M,
@@ -53,7 +53,7 @@ class NatAppender7SupportCodegen(val index: Int) {
           ${typeParam9.mkString(',')}
         ]
 
-        override def next[${typeParam16.mkString(',')}]: NatNext1.Support$index[
+        override final def next[${typeParam16.mkString(',')}]: NatNext1.Support$index[
           M,
           ${typeParam3.mkString(',')},
           ${typeParam6.mkString(',')},
