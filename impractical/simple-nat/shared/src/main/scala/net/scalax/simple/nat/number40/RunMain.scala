@@ -71,6 +71,8 @@ object RunTest1 {
 
     count(num = () => num1.append(num2), printlnSum = 25)
     count(num = () => num2.append(num1), printlnSum = 25)
+    count(num = () => num1.append(num1), printlnSum = 25)
+    count(num = () => num2.append(num2), printlnSum = 25)
 
     println("== finished 1 ==")
   }

@@ -21,8 +21,8 @@ object Num40 {
       override def append(other: Num1): Num0 = Num0.Append2(() => other.append(tail()))
     }
 
-    lazy val zero1: Append1 = Append1(() => zero1)
-    lazy val zero2: Append2 = Append2(() => zero2)
+    lazy val zero1: Append1 = Append1(() => zero2)
+    lazy val zero2: Append2 = Append2(() => zero1)
   }
 
 }
