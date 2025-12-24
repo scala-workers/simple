@@ -130,7 +130,7 @@ object RunTest1 {
       .inputGHDMZSK(() => num4)
       .inputGHDMZSK(() => Num43.Append1.tailToLeftInstance)
     val result3Except: BigDecimal = result1Except * result2Except * num3Except * num4Except
-    count(() => result3, except = result3Except, printlnSum = 10)
+    count(() => result3, except = result3Except, printlnSum = 100)
 
     println("== finished 1 ==")
   }
