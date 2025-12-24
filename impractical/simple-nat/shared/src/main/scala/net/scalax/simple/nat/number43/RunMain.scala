@@ -1,6 +1,6 @@
 package net.scalax.simple
 package nat
-package number42
+package number43
 
 import scala.annotation.tailrec
 import ghdmzsk._
@@ -11,9 +11,9 @@ object RunTest1 {
     def buildImpl(isFenmu: Boolean, numLong: Long, zero: () => ghdmzsk): ghdmzsk = {
       if (numLong > 0) {
         if (isFenmu) {
-          Num42.Append2.tailToLeft.inputGHDMZSK(() => buildImpl(isFenmu = isFenmu, numLong = numLong - 1, zero))
+          Num43.Append2.tailToLeft.inputGHDMZSK(() => buildImpl(isFenmu = isFenmu, numLong = numLong - 1, zero))
         } else {
-          Num42.Append2.tailToRight.inputGHDMZSK(() => buildImpl(isFenmu = isFenmu, numLong = numLong - 1, zero))
+          Num43.Append2.tailToRight.inputGHDMZSK(() => buildImpl(isFenmu = isFenmu, numLong = numLong - 1, zero))
         }
       } else {
         zero()
@@ -47,7 +47,7 @@ object RunTest1 {
 
     if (printlnSum > 0) {
       currentNum match {
-        case num1: Num42.Num1 =>
+        case num1: Num43.Num1 =>
           countImpl(
             () => num1.pre1,
             current分子 = current分子,
@@ -56,7 +56,7 @@ object RunTest1 {
             printlnSum = if (needPrintln) printlnSum - 1 else printlnSum,
             speed = speed
           )
-        case num2: Num42.Num2 =>
+        case num2: Num43.Num2 =>
           countImpl(
             () => num2.pre2,
             current分子 = current分子 + 1,
@@ -74,7 +74,7 @@ object RunTest1 {
   def count(num: () => ghdmzsk, except: BigDecimal, printlnSum: Int, speed: Long = 8000000): Unit =
     countImpl(num = num, current分子 = 1, current分母 = 1, exceptResult = except, printlnSum = printlnSum, speed = speed)
 
-  def main1(arr: Array[String]): Unit = {
+  def main(arr: Array[String]): Unit = {
     println("== start 1 ==")
 
     val 分子1: Long = 17
@@ -82,6 +82,12 @@ object RunTest1 {
 
     val 分子2: Long = 11
     val 分母2: Long = 3
+
+    val 分子3: Long = 79
+    val 分母3: Long = 65
+
+    val 分子4: Long = 81
+    val 分母4: Long = 93
 
     val num1: ghdmzsk          = build(分子 = 分母1, 分母 = 分子1)
     val num1Except: BigDecimal = BigDecimal(分子1) / BigDecimal(分母1)
@@ -91,26 +97,40 @@ object RunTest1 {
     val num2Except: BigDecimal = BigDecimal(分子2) / BigDecimal(分母2)
     count(() => num2, except = num2Except, printlnSum = 5)
 
-    val result1: ghdmzsk = Num42.Append1.tailToRightInstance
+    val num3: ghdmzsk          = build(分子 = 分母3, 分母 = 分子3)
+    val num3Except: BigDecimal = BigDecimal(分子3) / BigDecimal(分母3)
+    count(() => num3, except = num3Except, printlnSum = 5)
+
+    val num4: ghdmzsk          = build(分子 = 分母4, 分母 = 分子4)
+    val num4Except: BigDecimal = BigDecimal(分子4) / BigDecimal(分母4)
+    count(() => num4, except = num4Except, printlnSum = 5)
+
+    val result1: ghdmzsk = Num43.Append1.tailToRightInstance
       .inputGHDMZSK(() => num1)
       .inputGHDMZSK(() => num2)
-      .inputGHDMZSK(() => Num42.Append1.tailToLeftInstance)
-    val result1Except: BigDecimal = num1Except * num2Except
+      .inputGHDMZSK(() => num3)
+      .inputGHDMZSK(() => num4)
+      .inputGHDMZSK(() => Num43.Append1.tailToLeftInstance)
+    val result1Except: BigDecimal = num1Except * num2Except * num3Except * num4Except
     count(() => result1, except = result1Except, printlnSum = 5)
 
-    val result2: ghdmzsk = Num42.Append1.tailToRightInstance
+    val result2: ghdmzsk = Num43.Append1.tailToRightInstance
       .inputGHDMZSK(() => num1)
       .inputGHDMZSK(() => result1)
-      .inputGHDMZSK(() => Num42.Append1.tailToLeftInstance)
-    val result2Except: BigDecimal = num1Except * result1Except
-    count(() => result2, except = result2Except, printlnSum = 5, speed = 100000)
+      .inputGHDMZSK(() => num3)
+      .inputGHDMZSK(() => result1)
+      .inputGHDMZSK(() => Num43.Append1.tailToLeftInstance)
+    val result2Except: BigDecimal = num1Except * result1Except * num3Except * result1Except
+    count(() => result2, except = result2Except, printlnSum = 5)
 
-    val result3: ghdmzsk = Num42.Append1.tailToRightInstance
+    val result3: ghdmzsk = Num43.Append1.tailToRightInstance
       .inputGHDMZSK(() => result1)
       .inputGHDMZSK(() => result2)
-      .inputGHDMZSK(() => Num42.Append1.tailToLeftInstance)
-    val result3Except: BigDecimal = result1Except * result2Except
-    count(() => result3, except = result3Except, printlnSum = 5, speed = 100000)
+      .inputGHDMZSK(() => num3)
+      .inputGHDMZSK(() => num4)
+      .inputGHDMZSK(() => Num43.Append1.tailToLeftInstance)
+    val result3Except: BigDecimal = result1Except * result2Except * num3Except * num4Except
+    count(() => result3, except = result3Except, printlnSum = 10)
 
     println("== finished 1 ==")
   }
