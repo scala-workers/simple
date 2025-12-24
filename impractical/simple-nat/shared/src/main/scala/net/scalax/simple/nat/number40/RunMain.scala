@@ -61,7 +61,7 @@ object RunTest1 {
   def count(num: () => Num40.Num0, printlnSum: Int, speed: Long = 8000000): Unit =
     countImpl(num = num, current分子 = 1, current分母 = 1, result = Map.empty, printlnSum = printlnSum, speed = speed)
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     val num1: Num40.Num1 = Num40.Num1.Append2(() =>
       Num40.Num1.Append2(() =>
         Num40.Num1.Append2(() => Num40.Num1.Append2(() => Num40.Num1.Append2(() => Num40.Num1.Append2(() => Num40.Num1.zero1))))
