@@ -131,14 +131,17 @@ nat.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 nat.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
 // ===
-`append-support`.jvm / version            := "0.0.1-M1"
-`append-support`.js / version             := "0.0.1-M1"
+`append-support`.jvm / version            := "0.0.1-M2"
+`append-support`.js / version             := "0.0.1-M2"
 `append-support`.jvm / scalaVersion       := scalaV.v213
 `append-support`.js / scalaVersion        := scalaV.v213
 `append-support`.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `append-support`.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `append-support`.jvm / publishTo          := localStaging.value
 `append-support`.js / publishTo           := localStaging.value
+
+// ===
+addCommandAlias("appendPublish", "; +append-supportJVM/publishSigned; +append-supportJS/publishSigned; sonaBundle;")
 
 // ===
 `append-codegen` / scalaVersion := scalaV.v3
