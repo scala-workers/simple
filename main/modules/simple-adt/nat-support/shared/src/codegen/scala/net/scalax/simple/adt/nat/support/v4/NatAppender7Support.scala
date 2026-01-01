@@ -3,7 +3,7 @@
     package nat
     package support
 
-    import _root_.nat.scalax.simple.append.support.collectioncount22.typeparameter22.SimpleAppender
+    import net.scalax.simple.append.support.collectioncount22.typeparameter22.SimpleAppender
 
     object NatNext1 {
       

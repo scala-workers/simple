@@ -2,137 +2,22 @@ package net.scalax.simple.adt
 package instance
 package support
 
-import nat.support.NatNext1
-import _root_.nat.scalax.simple.append.support.collectioncount22.typeparameter22.SimpleAppender
-
 object AppendAdt1 {
 
-  class ProvideCtx[Zero] {
-    type M22[
-      T1 <: AdtCoProduct,
-      T2 <: AdtCoProduct,
-      T3 <: Any,
-      T4 <: Any,
-      T5 <: Any,
-      T6 <: Any,
-      T7 <: Any,
-      T8 <: Any,
-      T9 <: Any,
-      T10 <: Any,
-      T11 <: Any,
-      T12 <: Any,
-      T13 <: Any,
-      T14 <: Any,
-      T15 <: Any,
-      T16 <: Any,
-      T17 <: Any,
-      T18 <: Any,
-      T19 <: Any,
-      T20 <: Any,
-      T21 <: Any,
-      T22 <: Any
-    ] = Either[Zero, T1] => T2
-  }
-
-  type AppendCoProduct[
-    T1,
-    T2,
-    T3,
-    T4,
-    T5,
-    T6,
-    T7,
-    T8,
-    T9,
-    T10,
-    T11,
-    T12,
-    T13,
-    T14,
-    T15,
-    T16,
-    T17,
-    T18,
-    T19,
-    T20,
-    T21,
-    T22,
-    Tail1 <: AdtCoProduct
-  ] =
-    AdtCoProduct.UsePositive[T1, Tail1]
-  type AppendAny[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, Tail1 <: Any] = Any
-
   trait AdtSupport[Zero, Pos1 <: AdtCoProduct, Pos2 <: AdtCoProduct]
-      extends SimpleAppender[
-        ProvideCtx[
-          Zero
-        ]#M22,
+      extends SimpleAppenderAlias.AppenderAlias[
+        ({
+          type M22[
+            T1,
+            T2
+          ] = Either[Zero, T1] => T2
+        })#M22,
         AdtCoProduct,
         AdtCoProduct,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        AppendCoProduct,
-        AppendCoProduct,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
-        AppendAny,
+        AdtCoProduct.UsePositive,
+        AdtCoProduct.UsePositive,
         Pos1,
-        Pos2,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any,
-        Any
+        Pos2
       ] {
     AdtSupportSelf =>
 

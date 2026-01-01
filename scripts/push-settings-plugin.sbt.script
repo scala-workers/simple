@@ -48,7 +48,7 @@ description := "Simple, and scalable. Use it to subvert the author's imagination
 // end setting
 
 // start setting
-licenses := List("MIT License" -> new URL("https://github.com/scalax/simple/blob/main/LICENSE"))
+licenses := List("MIT License" -> url("https://github.com/scalax/simple/blob/main/LICENSE"))
 // end setting
 
 // start setting

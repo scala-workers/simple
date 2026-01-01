@@ -18,11 +18,10 @@ lazy val `nat-support`: sbtcrossproject.CrossProject =
 
 val `adt-main/file` = `adt/file` / "adt-main"
 lazy val `adt-main`: sbtcrossproject.CrossProject =
-  crossProject(JSPlatform, JVMPlatform) in `adt-main/file` dependsOn (`test-common` % Test, `nat-support`)
+  crossProject(JSPlatform, JVMPlatform) in `adt-main/file` dependsOn (`test-common` % Test)
 
 val `adt-codegen/file` = `adt/file` / "codegen"
 val `adt-codegen`      = project in `adt-codegen/file`
-`adt-codegen` / scalaVersion := scalaV.v3
 
 val `list/file` = `wip/file` / "simple-list"
 lazy val list   = crossProject(JSPlatform, JVMPlatform) in `list/file` dependsOn (ghdmzsk, `test-common` % Test) aggregate ghdmzsk
@@ -103,6 +102,13 @@ ghdmzsk.js / publishTo           := localStaging.value
 `adt-main`.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `adt-main`.jvm / publishTo          := localStaging.value
 `adt-main`.js / publishTo           := localStaging.value
+
+// ===
+`adt-codegen` / scalaVersion := scalaV.v3
+
+// ===
+list.jvm / scalaVersion := scalaV.v213
+list.js / scalaVersion  := scalaV.v213
 
 // ===
 `wire-web-app` / scalaVersion       := scalaV.v213

@@ -2,8 +2,6 @@ package net.scalax.simple.adt
 package instance
 package support
 
-import nat.support.NatNext1
-
 object AppendTailHelper2 {
   AppendTailSelf =>
 
