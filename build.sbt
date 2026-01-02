@@ -42,7 +42,7 @@ val `codec-circe/file` = `codec/file` / "simple-codec-circe"
 lazy val `codec-circe` = crossProject(JSPlatform, JVMPlatform) in `codec-circe/file` dependsOn (codec, `test-common` % Test) aggregate codec
 
 val `nat/file` = `impractical/file` / "simple-nat"
-lazy val nat   = crossProject(JSPlatform, JVMPlatform) in `nat/file` dependsOn (ghdmzsk, `test-common` % Test) aggregate ghdmzsk
+lazy val nat   = crossProject(JSPlatform, JVMPlatform) in `nat/file` dependsOn ghdmzsk aggregate ghdmzsk
 
 val `append-support/file` = `modules/file` / "simple-append-support" / "append-main"
 lazy val `append-support` = crossProject(JSPlatform, JVMPlatform) in `append-support/file` dependsOn (`test-common` % Test)
@@ -58,16 +58,13 @@ lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, 
 addCommandAlias("adtCodegen", s"; ++${scalaV.v3}; adt-codegen/codegenImpl;")
 addCommandAlias("cleanSimpleAdt", "; clean; nat-supportJVM/clean; nat-supportJS/clean; adt-mainJVM/clean; adt-mainJS/clean;")
 addCommandAlias("testSimpleAdt", "; +adt-mainJVM/test; +adt-mainJS/test;")
-addCommandAlias(
-  "releaseSimpleAdtWithOutTest",
-  "; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned; +nat-supportJVM/publishSigned; +nat-supportJS/publishSigned; sonaBundle;"
-)
+addCommandAlias("releaseSimpleAdtWithOutTest", "; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned; sonaBundle;")
 addCommandAlias("releaseCodecLocal", "; +codecJVM/publishLocal ; +codecJS/publishLocal ;")
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
 // Configure
-val `simple-adt-version` = "0.0.2-M23"
+val `simple-adt-version` = "0.0.2-M25"
 
 // ===
 scalaVersion := scalaV.v213
@@ -137,8 +134,8 @@ nat.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 nat.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
 // ===
-`append-support`.jvm / version            := "0.0.1-M2"
-`append-support`.js / version             := "0.0.1-M2"
+`append-support`.jvm / version            := "0.0.1-M3"
+`append-support`.js / version             := "0.0.1-M3"
 `append-support`.jvm / scalaVersion       := scalaV.v213
 `append-support`.js / scalaVersion        := scalaV.v213
 `append-support`.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)

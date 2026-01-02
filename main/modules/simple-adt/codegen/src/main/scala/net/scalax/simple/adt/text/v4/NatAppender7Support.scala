@@ -8,7 +8,7 @@ class NatAppender7SupportCodegen(val index: Int) {
 
   class TraitBody(val index: Int) {
 
-    val typeParam1: Seq[String]  = for (_ <- 1 to index) yield s"_"
+    val typeParam1: Seq[String]  = for (i1 <- 1 to index) yield s"_ <: HLLike$i1"
     val typeParam3: Seq[String]  = for (i1 <- 1 to index) yield s"HLLike$i1"
     val typeParam6: Seq[String]  = for (i1 <- 1 to index) yield s"APRHLLike$i1"
     val typeParam7: Seq[String]  = for (i1 <- 1 to index) yield s"HCollection$i1 <: HLLike$i1"
@@ -46,19 +46,19 @@ class NatAppender7SupportCodegen(val index: Int) {
 
         // def current: M[${typeParam8.mkString(',')}]
 
-        def getTail[T1]: NatNext1.Support$index[
+        /* def getTail[T1]: NatNext1.Support$index[
+          M,
+          ${typeParam3.mkString(',')},
+          ${typeParam6.mkString(',')},
+          ${typeParam9.mkString(',')}
+        ] */
+
+        override def next[${typeParam16.mkString(',')}]: NatNext1.Support$index[
           M,
           ${typeParam3.mkString(',')},
           ${typeParam6.mkString(',')},
           ${typeParam9.mkString(',')}
         ]
-
-        override final def next[${typeParam16.mkString(',')}]: NatNext1.Support$index[
-          M,
-          ${typeParam3.mkString(',')},
-          ${typeParam6.mkString(',')},
-          ${typeParam9.mkString(',')}
-        ] = SupportSelf.getTail[T1]
       }
     """
 

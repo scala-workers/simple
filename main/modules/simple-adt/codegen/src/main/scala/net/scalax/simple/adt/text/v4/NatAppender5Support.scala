@@ -15,9 +15,10 @@ class NatAppender5SupportCodegen(val index: Int) {
       for (i1 <- 1 to index) yield s"({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T$i1[X12], Tail]})#XUAPPendEach"
     val typeParam7: Seq[String]  = for (i1 <- 1 to index) yield s"HCollection$i1 <: HListLike"
     val typeParam8: Seq[String]  = for (i1 <- 1 to index) yield s"HCollection$i1"
-    val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"AppendLike[T$i1[U], HCollection$i1]"
-    val typeParam13: Seq[String] = for (i1 <- 1 to index) yield s"T$i1[U]"
+    val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"AppendLike[T$i1[XPoint], HCollection$i1]"
+    val typeParam13: Seq[String] = for (i1 <- 1 to index) yield s"T$i1[XPoint]"
     val typeParam14: Seq[String] = for (i1 <- 1 to index) yield s"T$i1"
+    val typeParam15: Seq[String] = for (i1 <- 1 to 21) yield s"X$i1"
 
     val text: String = s"""
       class Support${index}Context[
@@ -36,7 +37,7 @@ class NatAppender5SupportCodegen(val index: Int) {
           ${typeParam8.mkString(',')}
         ] {
           SupportSelf =>
-          override def getTail[U]: NatNext1.Support$index[
+          override def next[XPoint, ${typeParam15.mkString(',')}]: NatNext1.Support$index[
             M,
             ${typeParam3.mkString(',')},
             ${typeParam6.mkString(',')},
@@ -50,7 +51,7 @@ class NatAppender5SupportCodegen(val index: Int) {
               M,
               ${typeParam13.mkString(',')},
               ${typeParam8.mkString(',')}
-            ](simpleAppender)(typeGen.gen[U], SupportSelf.current)
+            ](simpleAppender)(typeGen.gen[XPoint], SupportSelf.current)
           }
         }
       }

@@ -55,7 +55,7 @@ class NatAppender3SupportCodegen(val index: Int) {
             ${typeParam5.mkString(',')}
           ] = {
             if (len > 0) {
-              val nextModel = model.getTail[Any].asInstanceOf[
+              val nextModel = model.next[${typeParam13.mkString(',')}].asInstanceOf[
                 NatNext1.Support$index[
                   M,
                   ${typeParam5.mkString(',')},

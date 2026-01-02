@@ -29,16 +29,16 @@ class ADTTraitBuilder(val index: Int) {
 
       s"""
         new ADTFoldApplyImpl$index[${typeParam7.mkString(',')}] {
-          override def fold$index[TargetOther$index >: TargetOther${index + 1}](param${(TraitBodySelf.index - index) + 1}: T${(TraitBodySelf.index - index) + 1} => TargetOther$index): ADTFoldApplyImpl${index - 1}[${typeParam8
-          .mkString(',')}] = ${typeParam6Impl(index - 1)}
+          override def fold$index[TargetOther$index >: TargetOther${index + 1}](
+            param${(TraitBodySelf.index - index) + 1}: T${(TraitBodySelf.index - index) + 1} => TargetOther$index
+          ): ADTFoldApplyImpl${index - 1}[${typeParam8.mkString(',')}] = ${typeParam6Impl(index - 1)}
         }
       """
     } else {
       s"""
         new ADTFoldApplyImpl1[TargetOther2, T${TraitBodySelf.index}] {
           override def fold1[TargetOther1 >: TargetOther2](param${TraitBodySelf.index}: T${TraitBodySelf.index} => TargetOther1): TargetOther1 = {
-            val v1 = FoldApplySelf${typeParam12.mkString("")}
-            CoProduct${TraitBodySelf.index}.unsafeRun[TargetOther1](v1)
+            FoldApplySelf.fold(${typeParam9.mkString(',')})
           }
         }
       """
@@ -89,7 +89,7 @@ class ADTTraitBuilder(val index: Int) {
           new CoProduct$index[${typeParam1.drop(1).mkString(',')}, T1](valueR)
         }
 
-        def fold[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = {
+        @inline def fold[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = {
           val v1 = FoldApplySelf${typeParam12.mkString("")}
           CoProduct$index.unsafeRun[Target$index](v1)
         }
@@ -135,7 +135,7 @@ class ADTTraitBuilder(val index: Int) {
 
       def tail: CoProduct1[T1] = FoldApplySelf
 
-      def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
+      @inline def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
         val v1 = FoldApplySelf.map1(param1)
         CoProduct1.unsafeRun[TargetOther0](v1)
       }

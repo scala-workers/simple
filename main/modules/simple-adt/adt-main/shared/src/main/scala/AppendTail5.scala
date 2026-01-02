@@ -8,7 +8,7 @@ object SimpleAppenderAlias {
 
   type AppendAny[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, Tail1 <: Any] = Any
 
-  trait AppenderAlias[M[_, _], Pro1, Pro2, AppendPro1[_, _ <: Pro1] <: Pro1, AppendPro2[
+  trait AppenderAlias[M[_ <: Pro1, _ <: Pro2], Pro1, Pro2, AppendPro1[_, _ <: Pro1] <: Pro1, AppendPro2[
     _,
     _ <: Pro2
   ] <: Pro2, ProInstance1 <: Pro1, ProInstance2 <: Pro2]
