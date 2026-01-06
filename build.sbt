@@ -58,13 +58,13 @@ lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, 
 addCommandAlias("adtCodegen", s"; ++${scalaV.v3}; adt-codegen/codegenImpl;")
 addCommandAlias("cleanSimpleAdt", "; clean; nat-supportJVM/clean; nat-supportJS/clean; adt-mainJVM/clean; adt-mainJS/clean;")
 addCommandAlias("testSimpleAdt", "; +adt-mainJVM/test; +adt-mainJS/test;")
-addCommandAlias("releaseSimpleAdtWithOutTest", "; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned; sonaBundle;")
+addCommandAlias("releaseSimpleAdtWithOutTest", "; all clean; +adt-mainJVM/compile; +adt-mainJS/compile; +adt-mainJVM/doc; +adt-mainJS/doc; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned; sonaBundle;")
 addCommandAlias("releaseCodecLocal", "; +codecJVM/publishLocal ; +codecJS/publishLocal ;")
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
 // Configure
-val `simple-adt-version` = "0.0.2-M25"
+val `simple-adt-version` = "0.0.2-M26"
 
 // ===
 scalaVersion := scalaV.v213
