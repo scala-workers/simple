@@ -67,14 +67,17 @@ class ADTTraitBuilder(val index: Int) {
           ADTFoldApplyImpl${index - 1}[${typeParam4.mkString(',')}]
       }
 
-      class CoProduct$index[${typeParam1.mkString(',')}](private val foldImpl: $typeParam7)
-        extends helper1.CoProduct${index}Helper[${typeParam1.mkString(',')}] {
+      class CoProduct$index[${typeParam1.mkString(',')}](foldImpl: $typeParam7)
+        extends $typeParam7
+        with helper1.CoProduct${index}Helper[${typeParam1.mkString(',')}] {
         FoldApplySelf =>
+
+        override def _foldCoProduct[Re](h: T1 => Re, t: $typeParam14 => Re): Re = foldImpl._foldCoProduct[Re](h, t)
 
         def drop1: Either[
           T1,
           CoProduct${index - 1}[${typeParam15.mkString(',')}]
-        ] = foldImpl.fold[Either[T1, CoProduct${index - 1}[${typeParam15.mkString(',')}]]](
+        ] = foldImpl._foldCoProduct[Either[T1, CoProduct${index - 1}[${typeParam15.mkString(',')}]]](
           (i1: T1) => Left(i1),
           (i1: $typeParam14) => Right(new CoProduct${index - 1}[${typeParam15.mkString(',')}](i1))
         )
@@ -94,13 +97,13 @@ class ADTTraitBuilder(val index: Int) {
           CoProduct$index.unsafeRun[Target$index](v1)
         }
 
-        def fold$index[TargetOther${index}](param1: T1 => TargetOther${index}):
+        def fold$index[TargetOther${index}](param1: T1 => TargetOther$index):
           ADTFoldApplyImpl${index - 1}[${typeParam4.mkString(',')}] = $typeParam6
 
       }
 
       object CoProduct$index {
-        def unsafeRun[T](m: CoProduct$index[${typeParam13.mkString(',')}]): T = ADTBuilderHelperImplicit.NeedCoProduct[T].input(m.foldImpl)
+        def unsafeRun[T](m: CoProduct$index[${typeParam13.mkString(',')}]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     """
 
@@ -121,8 +124,12 @@ class ADTTraitBuilder(val index: Int) {
       def fold1[TargetOther0 >: Target0](param1: T1 => TargetOther0): TargetOther0
     }
 
-    class CoProduct1[T1](private val foldImpl: AdtCoProduct.UseOne[T1]) {
+    class CoProduct1[T1](foldImpl: AdtCoProduct.UseOne[T1])
+      extends AdtCoProduct.UseOne[T1]
+      with helper1.CoProduct1Helper[T1] {
       FoldApplySelf =>
+
+      override def value: T1 = foldImpl.value
 
       def drop1: T1 = foldImpl.value
 
@@ -145,7 +152,7 @@ class ADTTraitBuilder(val index: Int) {
     }
 
     object CoProduct1 {
-      def unsafeRun[T](m: CoProduct1[_ <: T]): T = ADTBuilderHelperImplicit.NeedCoProduct[T].input(m.foldImpl)
+      def unsafeRun[T](m: CoProduct1[_ <: T]): T = m.value
     }
 
     ${preTextContent.mkString('\n')}

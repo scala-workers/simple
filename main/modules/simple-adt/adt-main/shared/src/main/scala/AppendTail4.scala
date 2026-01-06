@@ -31,7 +31,7 @@ object AppendAdt1 {
                 (zero: Zero) =>
                   AdtCoProduct.UsePositive.right[T1, AdtCoProduct.UsePositive[Zero, Pos1]](AdtCoProduct.UsePositive.left[Zero, Pos1](zero)),
                 (rightAdt: AdtCoProduct.UsePositive[T1, Pos1]) =>
-                  rightAdt.fold(
+                  rightAdt._foldCoProduct(
                     (ua: T1) => AdtCoProduct.UsePositive.left[T1, AdtCoProduct.UsePositive[Zero, Pos1]](ua),
                     (pos1: Pos1) =>
                       AdtCoProduct.UsePositive.right[T1, AdtCoProduct.UsePositive[Zero, Pos1]](
@@ -41,9 +41,9 @@ object AppendAdt1 {
               )
 
             def toEither(i: AdtCoProduct.UsePositive[Zero, Pos1]): Either[Zero, Pos1] =
-              i.fold((zero: Zero) => Left(zero), (pos1: Pos1) => Right(pos1))
+              i._foldCoProduct((zero: Zero) => Left(zero), (pos1: Pos1) => Right(pos1))
 
-            value1.fold(
+            value1._foldCoProduct(
               (ua: T1) => AdtCoProduct.UsePositive.left[T1, Pos2](ua),
               (r1: AdtCoProduct.UsePositive[Zero, Pos1]) => AdtCoProduct.UsePositive.right[T1, Pos2](AdtSupportSelf.current(toEither(r1)))
             )

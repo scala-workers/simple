@@ -39,26 +39,33 @@ object AdtCoProduct {
   trait UseOne[T] extends One[T]
 
   trait Positive[+H, +Tail <: AdtCoProduct] extends AdtCoProduct {
-    def fold[TU](hFunc: H => TU, tFunc: Tail => TU): TU
+    def _foldCoProduct[TU](hFunc: H => TU, tFunc: Tail => TU): TU
   }
   object Positive {
     def left[H1, T1 <: AdtCoProduct](h: H1): AdtCoProductSelf.Positive[H1, T1] = new AdtCoProductSelf.Positive[H1, T1] {
-      override def fold[TU](hFunc: H1 => TU, tFunc: T1 => TU): TU = hFunc(h)
+      override def _foldCoProduct[TU](hFunc: H1 => TU, tFunc: T1 => TU): TU = hFunc(h)
     }
     def right[H1, T1 <: AdtCoProduct](r: T1): AdtCoProductSelf.Positive[H1, T1] = new AdtCoProductSelf.Positive[H1, T1] {
-      override def fold[TU](hFunc: H1 => TU, tFunc: T1 => TU): TU = tFunc(r)
+      override def _foldCoProduct[TU](hFunc: H1 => TU, tFunc: T1 => TU): TU = tFunc(r)
     }
   }
 
   trait UsePositive[H1, T1 <: AdtCoProduct] extends AdtCoProductSelf.Positive[H1, T1] {
-    override def fold[TU](hFunc: H1 => TU, tFunc: T1 => TU): TU
+    override def _foldCoProduct[TU](hFunc: H1 => TU, tFunc: T1 => TU): TU
   }
   object UsePositive {
     def left[H1, T1 <: AdtCoProduct](h: H1): AdtCoProductSelf.UsePositive[H1, T1] = new AdtCoProductSelf.UsePositive[H1, T1] {
-      override def fold[TU](hFunc: H1 => TU, tFunc: T1 => TU): TU = hFunc(h)
+      override def _foldCoProduct[TU](hFunc: H1 => TU, tFunc: T1 => TU): TU = hFunc(h)
     }
     def right[H1, T1 <: AdtCoProduct](r: T1): AdtCoProductSelf.UsePositive[H1, T1] = new AdtCoProductSelf.UsePositive[H1, T1] {
-      override def fold[TU](hFunc: H1 => TU, tFunc: T1 => TU): TU = tFunc(r)
+      override def _foldCoProduct[TU](hFunc: H1 => TU, tFunc: T1 => TU): TU = tFunc(r)
+    }
+
+    object Left {
+      def unapply[H1](u: UsePositive[H1, _ <: AdtCoProduct]): Option[H1] = u._foldCoProduct[Option[H1]]((h1: H1) => Some(h1), _ => None)
+    }
+    object Right {
+      def unapply[T1 <: AdtCoProduct](u: UsePositive[_, T1]): Option[T1] = u._foldCoProduct[Option[T1]](_ => None, (t1: T1) => Some(t1))
     }
   }
 }
