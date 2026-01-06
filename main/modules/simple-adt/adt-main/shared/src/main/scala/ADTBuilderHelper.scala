@@ -33,6 +33,7 @@ object ADTBuilderHelperImplicit {
 
   private def applyAny2[T]: Apply[T] = applyAny1.asInstanceOf[Apply[T]]
 
-  def apply[T]: Apply[T] = applyAny2[T]
+  def apply[T]: Apply[T]                                                                                       = applyAny2[T]
+  @inline def toValue[H, T <: AdtCoProduct](m: AdtCoProduct.UsePositive[H, T]): AdtCoProduct.UsePositive[H, T] = m
 
 }

@@ -103,7 +103,9 @@ class ADTTraitBuilder(val index: Int) {
       }
 
       object CoProduct$index {
-        def unsafeRun[T](m: CoProduct$index[${typeParam13.mkString(',')}]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct$index[${typeParam13.mkString(
+        ','
+      )}]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     """
 

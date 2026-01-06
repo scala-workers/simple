@@ -31,7 +31,7 @@ class ADTUnapplyBuilder(val index: Int) {
           s"""
             def unapply[${typeParam1.mkString(',')}](
               p: CoProduct$index[${typeParam1.mkString(',')}]
-            ): Option[T${TraitBodySelf.index}] = p.drop${TraitBodySelf.index}.left.toOption
+            ): Option[T${TraitBodySelf.index}] = AppendTail6[T${TraitBodySelf.index}].take(AppendTail6.toValue(p))
           """
     }
 

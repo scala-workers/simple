@@ -95,7 +95,7 @@
       }
 
       object CoProduct2 {
-        def unsafeRun[T](m: CoProduct2[_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct2[_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -157,7 +157,7 @@
       }
 
       object CoProduct3 {
-        def unsafeRun[T](m: CoProduct3[_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct3[_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -225,7 +225,7 @@
       }
 
       object CoProduct4 {
-        def unsafeRun[T](m: CoProduct4[_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct4[_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -299,7 +299,7 @@
       }
 
       object CoProduct5 {
-        def unsafeRun[T](m: CoProduct5[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct5[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -379,7 +379,7 @@
       }
 
       object CoProduct6 {
-        def unsafeRun[T](m: CoProduct6[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct6[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -465,7 +465,7 @@
       }
 
       object CoProduct7 {
-        def unsafeRun[T](m: CoProduct7[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct7[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -557,7 +557,7 @@
       }
 
       object CoProduct8 {
-        def unsafeRun[T](m: CoProduct8[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct8[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -655,7 +655,7 @@
       }
 
       object CoProduct9 {
-        def unsafeRun[T](m: CoProduct9[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct9[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -759,7 +759,7 @@
       }
 
       object CoProduct10 {
-        def unsafeRun[T](m: CoProduct10[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct10[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -869,7 +869,7 @@
       }
 
       object CoProduct11 {
-        def unsafeRun[T](m: CoProduct11[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct11[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -985,7 +985,7 @@
       }
 
       object CoProduct12 {
-        def unsafeRun[T](m: CoProduct12[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct12[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -1107,7 +1107,7 @@
       }
 
       object CoProduct13 {
-        def unsafeRun[T](m: CoProduct13[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct13[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -1235,7 +1235,7 @@
       }
 
       object CoProduct14 {
-        def unsafeRun[T](m: CoProduct14[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct14[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -1369,7 +1369,7 @@
       }
 
       object CoProduct15 {
-        def unsafeRun[T](m: CoProduct15[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct15[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -1509,7 +1509,7 @@
       }
 
       object CoProduct16 {
-        def unsafeRun[T](m: CoProduct16[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct16[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -1655,7 +1655,7 @@
       }
 
       object CoProduct17 {
-        def unsafeRun[T](m: CoProduct17[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct17[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -1807,7 +1807,7 @@
       }
 
       object CoProduct18 {
-        def unsafeRun[T](m: CoProduct18[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct18[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -1965,7 +1965,7 @@
       }
 
       object CoProduct19 {
-        def unsafeRun[T](m: CoProduct19[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct19[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -2129,7 +2129,7 @@
       }
 
       object CoProduct20 {
-        def unsafeRun[T](m: CoProduct20[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct20[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -2299,7 +2299,7 @@
       }
 
       object CoProduct21 {
-        def unsafeRun[T](m: CoProduct21[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct21[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
 
@@ -2475,7 +2475,7 @@
       }
 
       object CoProduct22 {
-        def unsafeRun[T](m: CoProduct22[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(m)
+        def unsafeRun[T](m: CoProduct22[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
       }
     
   
