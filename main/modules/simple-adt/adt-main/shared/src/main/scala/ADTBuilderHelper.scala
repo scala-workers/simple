@@ -60,8 +60,9 @@ object ADTBuilderHelperImplicit {
   }
 
   trait Apply[Target] {
-    def input[X1 <: Target, In <: AdtCoProduct](u: AdtCoProduct.UsePositive[X1, In])(implicit au: NeedCoProduct[In, Target]): Target =
-      u._foldCoProduct((t1: X1) => t1, (t2: In) => au.model(t2))
+    def input[X1 <: Target, In <: AdtCoProduct](u: AdtCoProduct.UsePositive[X1, In])(implicit
+      au: NeedCoProduct[AdtCoProduct.UsePositive[X1, In], Target]
+    ): Target = au.model(u)
   }
 
   private val applyAny1: Apply[Any] = new Apply[Any] {

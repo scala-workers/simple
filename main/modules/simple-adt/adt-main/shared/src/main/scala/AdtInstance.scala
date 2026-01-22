@@ -6,7 +6,9 @@ trait AdtHList
 object AdtHList {
   AdtHListSelf =>
 
-  object zero extends AdtHList
+  val zero: AdtHList = new AdtHList {
+    //
+  }
 
   trait Positive[+H, +Tail <: AdtHList] extends AdtHList {
     def head: H

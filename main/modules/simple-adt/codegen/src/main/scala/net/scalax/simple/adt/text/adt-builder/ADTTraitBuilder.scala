@@ -12,7 +12,7 @@ class ADTTraitBuilder(val index: Int) {
 
     val typeParam1: Seq[String]  = for (i1 <- 1 to index) yield s"T$i1"
     val typeParam2: Seq[String]  = "Target1" +: (for (i1 <- 2 to index) yield s"Target$i1 >: Target${i1 - 1}")
-    val typeParam3: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1: T$i1 => Target$i1"
+    val typeParam3: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1: T$i1 => Target"
     val typeParam4: Seq[String]  = s"TargetOther$index" +: (for (i1 <- 2 to index) yield s"T$i1")
     val typeParam5: Seq[String]  = for (i1 <- 1 to index) yield s"apply(param$i1)"
     val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1"
@@ -56,6 +56,21 @@ class ADTTraitBuilder(val index: Int) {
     val typeParam14: String      = typeParam7Impl(2)
     val typeParam15: Seq[String] = for (i1 <- 2 to index) yield s"T$i1"
 
+    def typeParam16Impl(index: Int): String = if (index < TraitBodySelf.index) {
+      s"""AdtCoProduct.UsePositive[_ <: T, ${typeParam16Impl(index + 1)}]"""
+    } else {
+      s"""AdtCoProduct.UseOne[_ <: T]"""
+    }
+    val typeParam16: String = typeParam16Impl(1)
+
+    def typeParam17Impl(index: Int): String = if (index <= TraitBodySelf.index) {
+      s"""AdtHList.UsePositive.append(param$index: T$index => Target, ${typeParam17Impl(index + 1)})"""
+    } else {
+      s"""AdtHList.zero"""
+    }
+
+    val typeParam17: String = typeParam17Impl(1)
+
     val text: String = s"""
       trait ADTFoldApplyImpl$index[
         Target0,
@@ -92,9 +107,10 @@ class ADTTraitBuilder(val index: Int) {
           new CoProduct$index[${typeParam1.drop(1).mkString(',')}, T1](valueR)
         }
 
-        @inline def fold[${typeParam2.mkString(',')}](${typeParam3.mkString(',')}): Target$index = {
-          val v1 = FoldApplySelf${typeParam12.mkString("")}
-          CoProduct$index.unsafeRun[Target$index](v1)
+        @inline def fold[Target](${typeParam3.mkString(',')}): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take($typeParam17)
+          func(foldImpl)
         }
 
         def fold$index[TargetOther${index}](param1: T1 => TargetOther$index):
@@ -103,9 +119,9 @@ class ADTTraitBuilder(val index: Int) {
       }
 
       object CoProduct$index {
-        def unsafeRun[T](m: CoProduct$index[${typeParam13.mkString(
-        ','
-      )}]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct$index[
+          ${typeParam13.mkString(',')}
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     """
 

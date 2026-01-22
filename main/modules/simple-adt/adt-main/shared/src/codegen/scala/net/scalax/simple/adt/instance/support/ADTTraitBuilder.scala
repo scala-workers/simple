@@ -78,9 +78,10 @@
           new CoProduct2[T2, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1](param1: T1 => Target1,param2: T2 => Target2): Target2 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail
-          CoProduct2.unsafeRun[Target2](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.zero)))
+          func(foldImpl)
         }
 
         def fold2[TargetOther2](param1: T1 => TargetOther2):
@@ -95,7 +96,9 @@
       }
 
       object CoProduct2 {
-        def unsafeRun[T](m: CoProduct2[_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct2[
+          _ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -134,9 +137,10 @@
           new CoProduct3[T2,T3, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3): Target3 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail
-          CoProduct3.unsafeRun[Target3](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.zero))))
+          func(foldImpl)
         }
 
         def fold3[TargetOther3](param1: T1 => TargetOther3):
@@ -157,7 +161,9 @@
       }
 
       object CoProduct3 {
-        def unsafeRun[T](m: CoProduct3[_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct3[
+          _ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -196,9 +202,10 @@
           new CoProduct4[T2,T3,T4, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4): Target4 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail
-          CoProduct4.unsafeRun[Target4](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.zero)))))
+          func(foldImpl)
         }
 
         def fold4[TargetOther4](param1: T1 => TargetOther4):
@@ -225,7 +232,9 @@
       }
 
       object CoProduct4 {
-        def unsafeRun[T](m: CoProduct4[_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct4[
+          _ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -264,9 +273,10 @@
           new CoProduct5[T2,T3,T4,T5, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5): Target5 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail
-          CoProduct5.unsafeRun[Target5](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.zero))))))
+          func(foldImpl)
         }
 
         def fold5[TargetOther5](param1: T1 => TargetOther5):
@@ -299,7 +309,9 @@
       }
 
       object CoProduct5 {
-        def unsafeRun[T](m: CoProduct5[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct5[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -338,9 +350,10 @@
           new CoProduct6[T2,T3,T4,T5,T6, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6): Target6 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail
-          CoProduct6.unsafeRun[Target6](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.zero)))))))
+          func(foldImpl)
         }
 
         def fold6[TargetOther6](param1: T1 => TargetOther6):
@@ -379,7 +392,9 @@
       }
 
       object CoProduct6 {
-        def unsafeRun[T](m: CoProduct6[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct6[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -418,9 +433,10 @@
           new CoProduct7[T2,T3,T4,T5,T6,T7, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7): Target7 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail
-          CoProduct7.unsafeRun[Target7](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.zero))))))))
+          func(foldImpl)
         }
 
         def fold7[TargetOther7](param1: T1 => TargetOther7):
@@ -465,7 +481,9 @@
       }
 
       object CoProduct7 {
-        def unsafeRun[T](m: CoProduct7[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct7[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -504,9 +522,10 @@
           new CoProduct8[T2,T3,T4,T5,T6,T7,T8, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8): Target8 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail
-          CoProduct8.unsafeRun[Target8](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.zero)))))))))
+          func(foldImpl)
         }
 
         def fold8[TargetOther8](param1: T1 => TargetOther8):
@@ -557,7 +576,9 @@
       }
 
       object CoProduct8 {
-        def unsafeRun[T](m: CoProduct8[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct8[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -596,9 +617,10 @@
           new CoProduct9[T2,T3,T4,T5,T6,T7,T8,T9, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9): Target9 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail
-          CoProduct9.unsafeRun[Target9](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.zero))))))))))
+          func(foldImpl)
         }
 
         def fold9[TargetOther9](param1: T1 => TargetOther9):
@@ -655,7 +677,9 @@
       }
 
       object CoProduct9 {
-        def unsafeRun[T](m: CoProduct9[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct9[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -694,9 +718,10 @@
           new CoProduct10[T2,T3,T4,T5,T6,T7,T8,T9,T10, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10): Target10 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail
-          CoProduct10.unsafeRun[Target10](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.zero)))))))))))
+          func(foldImpl)
         }
 
         def fold10[TargetOther10](param1: T1 => TargetOther10):
@@ -759,7 +784,9 @@
       }
 
       object CoProduct10 {
-        def unsafeRun[T](m: CoProduct10[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct10[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -798,9 +825,10 @@
           new CoProduct11[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11): Target11 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail
-          CoProduct11.unsafeRun[Target11](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.zero))))))))))))
+          func(foldImpl)
         }
 
         def fold11[TargetOther11](param1: T1 => TargetOther11):
@@ -869,7 +897,9 @@
       }
 
       object CoProduct11 {
-        def unsafeRun[T](m: CoProduct11[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct11[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -908,9 +938,10 @@
           new CoProduct12[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12): Target12 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail
-          CoProduct12.unsafeRun[Target12](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.UsePositive.append(param12: T12 => Target, AdtHList.zero)))))))))))))
+          func(foldImpl)
         }
 
         def fold12[TargetOther12](param1: T1 => TargetOther12):
@@ -985,7 +1016,9 @@
       }
 
       object CoProduct12 {
-        def unsafeRun[T](m: CoProduct12[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct12[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -1024,9 +1057,10 @@
           new CoProduct13[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13): Target13 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail
-          CoProduct13.unsafeRun[Target13](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.UsePositive.append(param12: T12 => Target, AdtHList.UsePositive.append(param13: T13 => Target, AdtHList.zero))))))))))))))
+          func(foldImpl)
         }
 
         def fold13[TargetOther13](param1: T1 => TargetOther13):
@@ -1107,7 +1141,9 @@
       }
 
       object CoProduct13 {
-        def unsafeRun[T](m: CoProduct13[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct13[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -1146,9 +1182,10 @@
           new CoProduct14[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14): Target14 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail
-          CoProduct14.unsafeRun[Target14](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.UsePositive.append(param12: T12 => Target, AdtHList.UsePositive.append(param13: T13 => Target, AdtHList.UsePositive.append(param14: T14 => Target, AdtHList.zero)))))))))))))))
+          func(foldImpl)
         }
 
         def fold14[TargetOther14](param1: T1 => TargetOther14):
@@ -1235,7 +1272,9 @@
       }
 
       object CoProduct14 {
-        def unsafeRun[T](m: CoProduct14[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct14[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -1274,9 +1313,10 @@
           new CoProduct15[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15): Target15 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail
-          CoProduct15.unsafeRun[Target15](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.UsePositive.append(param12: T12 => Target, AdtHList.UsePositive.append(param13: T13 => Target, AdtHList.UsePositive.append(param14: T14 => Target, AdtHList.UsePositive.append(param15: T15 => Target, AdtHList.zero))))))))))))))))
+          func(foldImpl)
         }
 
         def fold15[TargetOther15](param1: T1 => TargetOther15):
@@ -1369,7 +1409,9 @@
       }
 
       object CoProduct15 {
-        def unsafeRun[T](m: CoProduct15[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct15[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -1408,9 +1450,10 @@
           new CoProduct16[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16): Target16 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail
-          CoProduct16.unsafeRun[Target16](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.UsePositive.append(param12: T12 => Target, AdtHList.UsePositive.append(param13: T13 => Target, AdtHList.UsePositive.append(param14: T14 => Target, AdtHList.UsePositive.append(param15: T15 => Target, AdtHList.UsePositive.append(param16: T16 => Target, AdtHList.zero)))))))))))))))))
+          func(foldImpl)
         }
 
         def fold16[TargetOther16](param1: T1 => TargetOther16):
@@ -1509,7 +1552,9 @@
       }
 
       object CoProduct16 {
-        def unsafeRun[T](m: CoProduct16[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct16[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -1548,9 +1593,10 @@
           new CoProduct17[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17): Target17 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail
-          CoProduct17.unsafeRun[Target17](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.UsePositive.append(param12: T12 => Target, AdtHList.UsePositive.append(param13: T13 => Target, AdtHList.UsePositive.append(param14: T14 => Target, AdtHList.UsePositive.append(param15: T15 => Target, AdtHList.UsePositive.append(param16: T16 => Target, AdtHList.UsePositive.append(param17: T17 => Target, AdtHList.zero))))))))))))))))))
+          func(foldImpl)
         }
 
         def fold17[TargetOther17](param1: T1 => TargetOther17):
@@ -1655,7 +1701,9 @@
       }
 
       object CoProduct17 {
-        def unsafeRun[T](m: CoProduct17[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct17[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -1694,9 +1742,10 @@
           new CoProduct18[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18): Target18 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail
-          CoProduct18.unsafeRun[Target18](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target,param18: T18 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.UsePositive.append(param12: T12 => Target, AdtHList.UsePositive.append(param13: T13 => Target, AdtHList.UsePositive.append(param14: T14 => Target, AdtHList.UsePositive.append(param15: T15 => Target, AdtHList.UsePositive.append(param16: T16 => Target, AdtHList.UsePositive.append(param17: T17 => Target, AdtHList.UsePositive.append(param18: T18 => Target, AdtHList.zero)))))))))))))))))))
+          func(foldImpl)
         }
 
         def fold18[TargetOther18](param1: T1 => TargetOther18):
@@ -1807,7 +1856,9 @@
       }
 
       object CoProduct18 {
-        def unsafeRun[T](m: CoProduct18[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct18[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -1846,9 +1897,10 @@
           new CoProduct19[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19): Target19 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail
-          CoProduct19.unsafeRun[Target19](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target,param18: T18 => Target,param19: T19 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.UsePositive.append(param12: T12 => Target, AdtHList.UsePositive.append(param13: T13 => Target, AdtHList.UsePositive.append(param14: T14 => Target, AdtHList.UsePositive.append(param15: T15 => Target, AdtHList.UsePositive.append(param16: T16 => Target, AdtHList.UsePositive.append(param17: T17 => Target, AdtHList.UsePositive.append(param18: T18 => Target, AdtHList.UsePositive.append(param19: T19 => Target, AdtHList.zero))))))))))))))))))))
+          func(foldImpl)
         }
 
         def fold19[TargetOther19](param1: T1 => TargetOther19):
@@ -1965,7 +2017,9 @@
       }
 
       object CoProduct19 {
-        def unsafeRun[T](m: CoProduct19[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct19[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -2004,9 +2058,10 @@
           new CoProduct20[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20): Target20 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail.map1(param20).tail
-          CoProduct20.unsafeRun[Target20](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target,param18: T18 => Target,param19: T19 => Target,param20: T20 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.UsePositive.append(param12: T12 => Target, AdtHList.UsePositive.append(param13: T13 => Target, AdtHList.UsePositive.append(param14: T14 => Target, AdtHList.UsePositive.append(param15: T15 => Target, AdtHList.UsePositive.append(param16: T16 => Target, AdtHList.UsePositive.append(param17: T17 => Target, AdtHList.UsePositive.append(param18: T18 => Target, AdtHList.UsePositive.append(param19: T19 => Target, AdtHList.UsePositive.append(param20: T20 => Target, AdtHList.zero)))))))))))))))))))))
+          func(foldImpl)
         }
 
         def fold20[TargetOther20](param1: T1 => TargetOther20):
@@ -2129,7 +2184,9 @@
       }
 
       object CoProduct20 {
-        def unsafeRun[T](m: CoProduct20[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct20[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -2168,9 +2225,10 @@
           new CoProduct21[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21): Target21 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail.map1(param20).tail.map1(param21).tail
-          CoProduct21.unsafeRun[Target21](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target,param18: T18 => Target,param19: T19 => Target,param20: T20 => Target,param21: T21 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.UsePositive.append(param12: T12 => Target, AdtHList.UsePositive.append(param13: T13 => Target, AdtHList.UsePositive.append(param14: T14 => Target, AdtHList.UsePositive.append(param15: T15 => Target, AdtHList.UsePositive.append(param16: T16 => Target, AdtHList.UsePositive.append(param17: T17 => Target, AdtHList.UsePositive.append(param18: T18 => Target, AdtHList.UsePositive.append(param19: T19 => Target, AdtHList.UsePositive.append(param20: T20 => Target, AdtHList.UsePositive.append(param21: T21 => Target, AdtHList.zero))))))))))))))))))))))
+          func(foldImpl)
         }
 
         def fold21[TargetOther21](param1: T1 => TargetOther21):
@@ -2299,7 +2357,9 @@
       }
 
       object CoProduct21 {
-        def unsafeRun[T](m: CoProduct21[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct21[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
 
@@ -2338,9 +2398,10 @@
           new CoProduct22[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22, T1](valueR)
         }
 
-        @inline def fold[Target1,Target2 >: Target1,Target3 >: Target2,Target4 >: Target3,Target5 >: Target4,Target6 >: Target5,Target7 >: Target6,Target8 >: Target7,Target9 >: Target8,Target10 >: Target9,Target11 >: Target10,Target12 >: Target11,Target13 >: Target12,Target14 >: Target13,Target15 >: Target14,Target16 >: Target15,Target17 >: Target16,Target18 >: Target17,Target19 >: Target18,Target20 >: Target19,Target21 >: Target20,Target22 >: Target21](param1: T1 => Target1,param2: T2 => Target2,param3: T3 => Target3,param4: T4 => Target4,param5: T5 => Target5,param6: T6 => Target6,param7: T7 => Target7,param8: T8 => Target8,param9: T9 => Target9,param10: T10 => Target10,param11: T11 => Target11,param12: T12 => Target12,param13: T13 => Target13,param14: T14 => Target14,param15: T15 => Target15,param16: T16 => Target16,param17: T17 => Target17,param18: T18 => Target18,param19: T19 => Target19,param20: T20 => Target20,param21: T21 => Target21,param22: T22 => Target22): Target22 = {
-          val v1 = FoldApplySelf.map1(param1).tail.map1(param2).tail.map1(param3).tail.map1(param4).tail.map1(param5).tail.map1(param6).tail.map1(param7).tail.map1(param8).tail.map1(param9).tail.map1(param10).tail.map1(param11).tail.map1(param12).tail.map1(param13).tail.map1(param14).tail.map1(param15).tail.map1(param16).tail.map1(param17).tail.map1(param18).tail.map1(param19).tail.map1(param20).tail.map1(param21).tail.map1(param22).tail
-          CoProduct22.unsafeRun[Target22](v1)
+        @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target,param18: T18 => Target,param19: T19 => Target,param20: T20 => Target,param21: T21 => Target,param22: T22 => Target): Target = {
+          val toTarget = AppendTail7[Target]
+          val func = toTarget.ToTarget.take(AdtHList.UsePositive.append(param1: T1 => Target, AdtHList.UsePositive.append(param2: T2 => Target, AdtHList.UsePositive.append(param3: T3 => Target, AdtHList.UsePositive.append(param4: T4 => Target, AdtHList.UsePositive.append(param5: T5 => Target, AdtHList.UsePositive.append(param6: T6 => Target, AdtHList.UsePositive.append(param7: T7 => Target, AdtHList.UsePositive.append(param8: T8 => Target, AdtHList.UsePositive.append(param9: T9 => Target, AdtHList.UsePositive.append(param10: T10 => Target, AdtHList.UsePositive.append(param11: T11 => Target, AdtHList.UsePositive.append(param12: T12 => Target, AdtHList.UsePositive.append(param13: T13 => Target, AdtHList.UsePositive.append(param14: T14 => Target, AdtHList.UsePositive.append(param15: T15 => Target, AdtHList.UsePositive.append(param16: T16 => Target, AdtHList.UsePositive.append(param17: T17 => Target, AdtHList.UsePositive.append(param18: T18 => Target, AdtHList.UsePositive.append(param19: T19 => Target, AdtHList.UsePositive.append(param20: T20 => Target, AdtHList.UsePositive.append(param21: T21 => Target, AdtHList.UsePositive.append(param22: T22 => Target, AdtHList.zero)))))))))))))))))))))))
+          func(foldImpl)
         }
 
         def fold22[TargetOther22](param1: T1 => TargetOther22):
@@ -2475,7 +2536,9 @@
       }
 
       object CoProduct22 {
-        def unsafeRun[T](m: CoProduct22[_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T]): T = ADTBuilderHelperImplicit[T].input(ADTBuilderHelperImplicit.toValue(m))
+        def unsafeRun[T](m: CoProduct22[
+          _ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T,_ <: T
+        ]): T = ADTBuilderHelperImplicit[T].input(m)
       }
     
   
