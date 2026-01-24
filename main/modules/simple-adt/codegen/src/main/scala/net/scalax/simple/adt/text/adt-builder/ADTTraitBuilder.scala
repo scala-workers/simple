@@ -119,9 +119,7 @@ class ADTTraitBuilder(val index: Int) {
       }
 
       object CoProduct$index {
-        def unsafeRun[T](m: CoProduct$index[
-          ${typeParam13.mkString(',')}
-        ]): T = ADTBuilderHelperImplicit[T].input(m)
+        //
       }
     """
 
@@ -162,7 +160,7 @@ class ADTTraitBuilder(val index: Int) {
 
       @inline def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
         val v1 = FoldApplySelf.map1(param1)
-        CoProduct1.unsafeRun[TargetOther0](v1)
+        v1.value
       }
 
       def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = FoldApplySelf.fold(param1)
@@ -170,7 +168,7 @@ class ADTTraitBuilder(val index: Int) {
     }
 
     object CoProduct1 {
-      def unsafeRun[T](m: CoProduct1[_ <: T]): T = m.value
+      //
     }
 
     ${preTextContent.mkString('\n')}
