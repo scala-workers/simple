@@ -44,7 +44,7 @@ object AppendTail7 {
         new ToTarget[AdtHList.UsePositive[Item => Target, AdtHList], AdtCoProduct.Use.One[Item]] {
           override def current: (AdtHList.UsePositive[Item => Target, AdtHList], AdtCoProduct.Use.One[Item]) => Target =
             (a: AdtHList.Positive[Item => Target, AdtHList], b: AdtCoProduct.Use.One[Item]) => {
-              a.head(AdtCoProduct.Use.One.unapplyImpl(b))
+              a.head(b._mergeValue)
             }
         }
 

@@ -57,6 +57,7 @@ object AdtCoProduct {
 
   trait One[+T] extends Positive[T, AdtCoProductSelf.One[T]] { OneSelf =>
     def _foldOne[TU](m: T => TU): TU = OneSelf._foldCoProduct[TU](m, (oth: AdtCoProductSelf.One[T]) => oth._foldOne[TU](m))
+    def _mergeValue: T               = OneSelf._foldOne[T](identity[T])
   }
   object One { OneSelf =>
 
@@ -67,8 +68,7 @@ object AdtCoProduct {
       override def _foldCoProduct[TU](hFunc: T => TU, tFunc: AdtCoProductSelf.One[T] => TU): TU = tFunc(one)
     }
 
-    def unapplyImpl[T](one: AdtCoProductSelf.One[T]): T   = one._foldOne[T](identity[T])
-    def unapply[T](one: AdtCoProductSelf.One[T]): Some[T] = Some(OneSelf.unapplyImpl[T](one))
+    def unapply[T](one: AdtCoProductSelf.One[T]): Some[T] = Some(one._mergeValue)
 
   }
 
@@ -108,8 +108,7 @@ object AdtCoProduct {
         override def _foldCoProduct[TU](hFunc: T => TU, tFunc: AdtCoProductSelf.Use.One[T] => TU): TU = tFunc(one)
       }
 
-      def unapplyImpl[T](one: AdtCoProductSelf.Use.One[T]): T   = one._foldOne[T](identity[T])
-      def unapply[T](one: AdtCoProductSelf.Use.One[T]): Some[T] = Some(UseOneSelf.unapplyImpl[T](one))
+      def unapply[T](one: AdtCoProductSelf.Use.One[T]): Some[T] = Some(one._mergeValue)
 
     }
   }

@@ -59,7 +59,7 @@ object AppendAdt1 {
         zeroEither.fold(
           (zero: Zero) => AdtCoProduct.Use.Positive.right[OneValue, AdtCoProduct.Use.One[Zero]](AdtCoProduct.Use.One.left[Zero](zero)),
           (oneValue: AdtCoProduct.Use.One[OneValue]) =>
-            AdtCoProduct.Use.Positive.left[OneValue, AdtCoProduct.Use.One[Zero]](AdtCoProduct.Use.One.unapply(oneValue).value)
+            AdtCoProduct.Use.Positive.left[OneValue, AdtCoProduct.Use.One[Zero]](oneValue._mergeValue)
         )
       }
 
