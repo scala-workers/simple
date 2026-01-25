@@ -3,8 +3,7 @@
     package instance
     package support
 
-    trait ADTApplyFunction2 extends helper2 {
-      ADTApplyFunction2Self: ADTUnapplyBuilder =>
+    trait ADTApplyFunction2 extends helper2 { ADTApplyFunction2Self: ADTUnapplyBuilder =>
       
       trait CoProduct1Apply[T1] extends
         ADTApplyFunction2Self.CoProduct1ApplyHelper[T1] {
