@@ -145,22 +145,22 @@ class ADTTraitBuilder(val index: Int) {
       with helper1.CoProduct1Helper[T1] {
       FoldApplySelf =>
 
-      override def value: T1 = foldImpl.value
+      override def _foldCoProduct[TU](hFunc: T1 => TU, tFunc: AdtCoProduct.UseOne[T1] => TU): TU =
+        FoldApplySelf.foldImpl._foldCoProduct[TU](hFunc, tFunc)
 
-      def drop1: T1 = foldImpl.value
+      def drop1: T1 = AdtCoProduct.UseOne.unapply(foldImpl).value
 
       def map1[U1](func: T1 => U1): CoProduct1[U1] = {
-        val valueR = new AdtCoProduct.UseOne[U1] {
-          override val value: U1 = func(foldImpl.value)
-        }
-        new CoProduct1[U1](valueR)
+        val valueR = func(AdtCoProduct.UseOne.unapply(foldImpl).value)
+        val valueR2 = AdtCoProduct.UseOne.left[U1](valueR)
+        new CoProduct1[U1](valueR2)
       }
 
       def tail: CoProduct1[T1] = FoldApplySelf
 
       @inline def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
         val v1 = FoldApplySelf.map1(param1)
-        v1.value
+        AdtCoProduct.UseOne.unapply(v1).value
       }
 
       def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = FoldApplySelf.fold(param1)
