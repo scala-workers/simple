@@ -53,7 +53,8 @@ object AdtCoProduct {
       override def _foldCoProduct[TU](hFunc: T => TU, tFunc: One[T] => TU): TU = tFunc(one)
     }
 
-    def unapply[T](one: One[T]): Some[T] = one._foldCoProduct[Some[T]]((t: T) => Some(t), (one: One[T]) => OneSelf.unapply[T](one))
+    def unapplyImpl[T](one: One[T]): T   = one._foldCoProduct[T](identity[T], (one: One[T]) => OneSelf.unapplyImpl[T](one))
+    def unapply[T](one: One[T]): Some[T] = Some(OneSelf.unapplyImpl[T](one))
   }
   trait UseOne[T] extends One[T] with UseAdtCoProduct with UseAdtEither[T, UseOne[T]]
   object UseOne {
@@ -66,7 +67,8 @@ object AdtCoProduct {
       override def _foldCoProduct[TU](hFunc: T => TU, tFunc: UseOne[T] => TU): TU = tFunc(one)
     }
 
-    def unapply[T](one: UseOne[T]): Some[T] = one._foldCoProduct[Some[T]]((t: T) => Some(t), (one: UseOne[T]) => UseOneSelf.unapply[T](one))
+    def unapplyImpl[T](one: UseOne[T]): T   = one._foldCoProduct[T](identity[T], (one: UseOne[T]) => UseOneSelf.unapplyImpl[T](one))
+    def unapply[T](one: UseOne[T]): Some[T] = Some(UseOneSelf.unapplyImpl[T](one))
   }
 
   trait Positive[+H, +Tail <: AdtCoProduct] extends AdtCoProduct with AdtEither[H, Tail]
