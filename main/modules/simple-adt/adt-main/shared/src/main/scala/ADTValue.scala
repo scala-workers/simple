@@ -1,13 +1,13 @@
 package net.scalax.simple.adt
 package instance
 
-trait ADTValue[T <: AdtCoProduct] {
+trait ADTValue[T <: AdtCoProduct.AdtType] {
   def value: T
 }
 
 object ADTValue extends LawTraitImplicit {
 
-  implicit def posImplicit2[Target, I1, Tail <: UseAdtCoProduct](implicit
+  implicit def posImplicit2[Target, I1, Tail <: AdtCoProduct.UseAdtType](implicit
     t1: AdtFunction[Target, I1]
   ): ADTValue[AdtCoProduct.UsePositive[AdtFunction[Target, I1], Tail]] =
     new ADTValue[AdtCoProduct.UsePositive[AdtFunction[Target, I1], Tail]] {
@@ -24,7 +24,7 @@ object ADTValue extends LawTraitImplicit {
 
 trait LawTraitImplicit {
 
-  implicit def posImplicit1[Target, I1, Tail <: UseAdtCoProduct](implicit
+  implicit def posImplicit1[Target, I1, Tail <: AdtCoProduct.UsePositive[_, _]](implicit
     t1: ADTValue[Tail]
   ): ADTValue[AdtCoProduct.UsePositive[AdtFunction[Target, I1], Tail]] =
     new ADTValue[AdtCoProduct.UsePositive[AdtFunction[Target, I1], Tail]] {

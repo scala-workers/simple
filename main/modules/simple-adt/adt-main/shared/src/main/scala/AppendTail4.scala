@@ -4,7 +4,7 @@ package support
 
 object AppendAdt1 {
 
-  trait AdtSupport[Zero, Pos1 <: UseAdtCoProduct, Pos2 <: UseAdtCoProduct]
+  trait AdtSupport[Zero, Pos1 <: AdtCoProduct.UsePositive[_, _], Pos2 <: AdtCoProduct.UsePositive[_, _]]
       extends SimpleAppenderAlias.AppenderAlias[
         ({
           type M22[
@@ -12,8 +12,8 @@ object AppendAdt1 {
             T2
           ] = Either[Zero, T1] => T2
         })#M22,
-        UseAdtCoProduct,
-        UseAdtCoProduct,
+        AdtCoProduct.UsePositive[_, _],
+        AdtCoProduct.UsePositive[_, _],
         AdtCoProduct.UsePositive,
         AdtCoProduct.UsePositive,
         Pos1,
