@@ -133,8 +133,8 @@ object AppendTail6 {
       : AppenderAlias[M, Pro1, AppendPro1, AppendPro1[T1, ProInstance1]]
   }
 
-  trait AppendToOption[TPoint, XU1 <: AdtCoProduct]
-      extends AppenderAlias[({ type XM[U <: AdtCoProduct] = U => Option[TPoint] })#XM, AdtCoProduct, AdtCoProduct.UsePositive, XU1] {
+  trait AppendToOption[TPoint, XU1 <: UseAdtCoProduct]
+      extends AppenderAlias[({ type XM[U <: UseAdtCoProduct] = U => Option[TPoint] })#XM, UseAdtCoProduct, AdtCoProduct.UsePositive, XU1] {
     AppendToOptionSelf =>
 
     override def next[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22]
@@ -146,7 +146,7 @@ object AppendTail6 {
   }
 
   object AppendToOption extends LawImplicit {
-    implicit def appendToZero[OneType, ZeroInstance <: AdtCoProduct]
+    implicit def appendToZero[OneType, ZeroInstance <: UseAdtCoProduct]
       : AppendToOption[OneType, AdtCoProduct.UsePositive[OneType, ZeroInstance]] =
       new AppendToOption[OneType, AdtCoProduct.UsePositive[OneType, ZeroInstance]] {
         override def current: AdtCoProduct.UsePositive[OneType, ZeroInstance] => Option[OneType] =
@@ -158,24 +158,24 @@ object AppendTail6 {
     implicit def appendToOne[OneType]: AppendToOption[OneType, AdtCoProduct.UseOne[OneType]] =
       new AppendToOption[OneType, AdtCoProduct.UseOne[OneType]] {
         override def current: AdtCoProduct.UseOne[OneType] => Option[OneType] = (m: AdtCoProduct.UseOne[OneType]) => {
-          Some(m.value)
+          AdtCoProduct.UseOne.unapply(m)
         }
       }
   }
 
   trait LawImplicit {
-    implicit def appendToOption[T1, OT, ZT <: AdtCoProduct](implicit
+    implicit def appendToOption[T1, OT, ZT <: UseAdtCoProduct](implicit
       tail: AppendToOption[OT, ZT]
     ): AppendToOption[OT, AdtCoProduct.UsePositive[T1, ZT]] =
       tail.next[T1, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any]
   }
 
-  def toValue[OneType, ZeroInstance <: AdtCoProduct](
+  def toValue[OneType, ZeroInstance <: UseAdtCoProduct](
     m: AdtCoProduct.UsePositive[OneType, ZeroInstance]
   ): AdtCoProduct.UsePositive[OneType, ZeroInstance] = m
 
   trait Apply[T] {
-    def take[A <: AdtCoProduct](a: A)(implicit k: AppendToOption[T, A]): Option[T] = k.current(a)
+    def take[A <: UseAdtCoProduct](a: A)(implicit k: AppendToOption[T, A]): Option[T] = k.current(a)
   }
 
   def apply[T]: Apply[T] = new Apply[T] {

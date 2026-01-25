@@ -5,11 +5,11 @@ package support
 object AppendTail7 {
 
   trait Ctx1[Target] {
-    trait ToTarget[ProInstance1 <: AdtHList, ProInstance2 <: AdtCoProduct]
+    trait ToTarget[ProInstance1 <: AdtHList, ProInstance2 <: UseAdtCoProduct]
         extends SimpleAppenderAlias.AppenderAlias[
           ({ type Func2[X1 <: AdtHList, X2 <: AdtCoProduct] = (X1, X2) => Target })#Func2,
           AdtHList,
-          AdtCoProduct,
+          UseAdtCoProduct,
           ({ type Append1[TItem, Tail <: AdtHList] = AdtHList.UsePositive[TItem => Target, Tail] })#Append1,
           AdtCoProduct.UsePositive,
           ProInstance1,
@@ -30,9 +30,9 @@ object AppendTail7 {
     }
 
     object ToTarget {
-      def take[A <: AdtHList, B <: AdtCoProduct](a: A)(implicit k: ToTarget[A, B]): B => Target = (b: B) => k.current(a, b)
+      def take[A <: AdtHList, B <: UseAdtCoProduct](a: A)(implicit k: ToTarget[A, B]): B => Target = (b: B) => k.current(a, b)
 
-      implicit def positiveImplicit[Item, ProInstance1 <: AdtHList, ProInstance2 <: AdtCoProduct](implicit
+      implicit def positiveImplicit[Item, ProInstance1 <: AdtHList, ProInstance2 <: UseAdtCoProduct](implicit
         tail: ToTarget[ProInstance1, ProInstance2]
       ): ToTarget[AdtHList.UsePositive[Item => Target, ProInstance1], AdtCoProduct.UsePositive[Item, ProInstance2]] =
         tail
@@ -43,7 +43,7 @@ object AppendTail7 {
         new ToTarget[AdtHList.UsePositive[Item => Target, AdtHList], AdtCoProduct.UseOne[Item]] {
           override def current: (AdtHList.UsePositive[Item => Target, AdtHList], AdtCoProduct.UseOne[Item]) => Target =
             (a: AdtHList.Positive[Item => Target, AdtHList], b: AdtCoProduct.UseOne[Item]) => {
-              a.head(b.value)
+              a.head(AdtCoProduct.UseOne.unapply(b).value)
             }
         }
 
