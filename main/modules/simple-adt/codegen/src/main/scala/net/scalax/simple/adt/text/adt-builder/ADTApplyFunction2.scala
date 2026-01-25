@@ -19,18 +19,18 @@ class ADTApplyFunction2(val index: Int) {
     val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"AdtFunction[Target, T$i1]"
     val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s".map1(_.adtFunctionApply(target)).tail"
 
-    def typeParam6Impl(index: Int): String = if (index < TraitBodySelf.index) {
-      s"""AdtCoProduct.UsePositive[T$index, ${typeParam6Impl(index + 1)}]"""
+    /*def typeParam6Impl(index: Int): String = if (index < TraitBodySelf.index) {
+      s"""AdtCoProduct.Use.Positive[T$index, ${typeParam6Impl(index + 1)}]"""
     } else {
-      s"""AdtCoProduct.UseOne[T$index]"""
+      s"""AdtCoProduct.Use.One[T$index]"""
     }
 
-    val typeParam6: String = typeParam6Impl(1)
+    val typeParam6: String = typeParam6Impl(1)*/
 
     def typeParam7Impl(index: Int): String = if (index < TraitBodySelf.index) {
-      s"""AdtCoProduct.UsePositive[AdtFunction[Target, T$index], ${typeParam7Impl(index + 1)}]"""
+      s"""AdtCoProduct.Use.Positive[AdtFunction[Target, T$index], ${typeParam7Impl(index + 1)}]"""
     } else {
-      s"""AdtCoProduct.UseOne[AdtFunction[Target, T$index]]"""
+      s"""AdtCoProduct.Use.One[AdtFunction[Target, T$index]]"""
     }
 
     val typeParam7: String = typeParam7Impl(1)
@@ -65,8 +65,7 @@ class ADTApplyFunction2(val index: Int) {
     package instance
     package support
 
-    trait ADTApplyFunction2 extends helper2 {
-      ADTApplyFunction2Self: ADTUnapplyBuilder =>
+    trait ADTApplyFunction2 extends helper2 { ADTApplyFunction2Self: ADTUnapplyBuilder =>
       ${preTextContent.mkString('\n')}
     }
   """

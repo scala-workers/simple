@@ -47,9 +47,9 @@ class ADTTraitBuilder(val index: Int) {
     val typeParam6: String = typeParam6Impl(index - 1)
 
     def typeParam7Impl(index: Int): String = if (index < TraitBodySelf.index) {
-      s"""AdtCoProduct.UsePositive[T$index, ${typeParam7Impl(index + 1)}]"""
+      s"""AdtCoProduct.Use.Positive[T$index, ${typeParam7Impl(index + 1)}]"""
     } else {
-      s"""AdtCoProduct.UseOne[T$index]"""
+      s"""AdtCoProduct.Use.One[T$index]"""
     }
 
     val typeParam7: String       = typeParam7Impl(1)
@@ -57,9 +57,9 @@ class ADTTraitBuilder(val index: Int) {
     val typeParam15: Seq[String] = for (i1 <- 2 to index) yield s"T$i1"
 
     def typeParam16Impl(index: Int): String = if (index < TraitBodySelf.index) {
-      s"""AdtCoProduct.UsePositive[_ <: T, ${typeParam16Impl(index + 1)}]"""
+      s"""AdtCoProduct.Use.Positive[_ <: T, ${typeParam16Impl(index + 1)}]"""
     } else {
-      s"""AdtCoProduct.UseOne[_ <: T]"""
+      s"""AdtCoProduct.Use.One[_ <: T]"""
     }
     val typeParam16: String = typeParam16Impl(1)
 
@@ -140,19 +140,19 @@ class ADTTraitBuilder(val index: Int) {
       def fold1[TargetOther0 >: Target0](param1: T1 => TargetOther0): TargetOther0
     }
 
-    class CoProduct1[T1](foldImpl: AdtCoProduct.UseOne[T1])
-      extends AdtCoProduct.UseOne[T1]
+    class CoProduct1[T1](foldImpl: AdtCoProduct.Use.One[T1])
+      extends AdtCoProduct.Use.One[T1]
       with helper1.CoProduct1Helper[T1] {
       FoldApplySelf =>
 
-      override def _foldCoProduct[TU](hFunc: T1 => TU, tFunc: AdtCoProduct.UseOne[T1] => TU): TU =
+      override def _foldCoProduct[TU](hFunc: T1 => TU, tFunc: AdtCoProduct.Use.One[T1] => TU): TU =
         FoldApplySelf.foldImpl._foldCoProduct[TU](hFunc, tFunc)
 
-      def drop1: T1 = AdtCoProduct.UseOne.unapply(foldImpl).value
+      def drop1: T1 = AdtCoProduct.Use.One.unapplyImpl(foldImpl)
 
       def map1[U1](func: T1 => U1): CoProduct1[U1] = {
-        val valueR = func(AdtCoProduct.UseOne.unapply(foldImpl).value)
-        val valueR2 = AdtCoProduct.UseOne.left[U1](valueR)
+        val valueR = func(AdtCoProduct.Use.One.unapplyImpl(foldImpl))
+        val valueR2 = AdtCoProduct.Use.One.left[U1](valueR)
         new CoProduct1[U1](valueR2)
       }
 
@@ -160,7 +160,7 @@ class ADTTraitBuilder(val index: Int) {
 
       @inline def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
         val v1 = FoldApplySelf.map1(param1)
-        AdtCoProduct.UseOne.unapply(v1).value
+        AdtCoProduct.Use.One.unapplyImpl(v1)
       }
 
       def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = FoldApplySelf.fold(param1)

@@ -14,9 +14,9 @@ class ADTTypeAliasBuilder(val index: Int) {
     val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"T$i1"
 
     def typeParam6Impl(index: Int): String = if (index < TraitBodySelf.index) {
-      s"""AdtCoProduct.UsePositive[AdtFunction[Target, T$index], ${typeParam6Impl(index + 1)}]"""
+      s"""AdtCoProduct.Use.Positive[AdtFunction[Target, T$index], ${typeParam6Impl(index + 1)}]"""
     } else {
-      s"""AdtCoProduct.UseOne[AdtFunction[Target, T$index]]"""
+      s"""AdtCoProduct.Use.One[AdtFunction[Target, T$index]]"""
     }
 
     val typeParam6: String = typeParam6Impl(1)
