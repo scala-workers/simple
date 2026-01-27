@@ -57,6 +57,10 @@ object ScalaAdtInstanceSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
+    locally {
+      ScalaAdtInstanceSupportCodegenExecRound.main(arr)
+    }
+
   }
 
 }
