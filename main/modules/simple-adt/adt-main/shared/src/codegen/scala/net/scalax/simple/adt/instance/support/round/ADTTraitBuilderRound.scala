@@ -15,6 +15,8 @@
     trait CoProduct1[T1]
       extends AdtCoProduct.Use.Positive[T1, CoProduct1[T1]] { FoldApplySelf =>
 
+      override def _foldCoProduct[TxU](param1: T1 => TxU, tail: CoProduct1[T1] => TxU): TxU = FoldApplySelf.fold[TxU](param1)
+
       @inline def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
         FoldApplySelf._foldCoProduct[TargetOther0](param1, t1 => t1.fold[TargetOther0](param1))
       }
@@ -41,11 +43,22 @@
       }
 
       trait CoProduct2[T1,T2]
-        extends AdtCoProduct.Use.Positive[T1, CoProduct2[T1,T2]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, CoProduct2[T1,T2]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, CoProduct2[T1,T2]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1.fold[Target](param1,param2))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2.fold[Target](param1,param2)))
         }
 
         def fold2[TargetOther2](param1: T1 => TargetOther2):
@@ -75,11 +88,29 @@
       }
 
       trait CoProduct3[T1,T2,T3]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, CoProduct3[T1,T2,T3]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, CoProduct3[T1,T2,T3]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, CoProduct3[T1,T2,T3]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2.fold[Target](param1,param2,param3)))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3.fold[Target](param1,param2,param3))))
         }
 
         def fold3[TargetOther3](param1: T1 => TargetOther3):
@@ -115,11 +146,36 @@
       }
 
       trait CoProduct4[T1,T2,T3,T4]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, CoProduct4[T1,T2,T3,T4]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, CoProduct4[T1,T2,T3,T4]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, CoProduct4[T1,T2,T3,T4]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3.fold[Target](param1,param2,param3,param4))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4.fold[Target](param1,param2,param3,param4)))))
         }
 
         def fold4[TargetOther4](param1: T1 => TargetOther4):
@@ -161,11 +217,43 @@
       }
 
       trait CoProduct5[T1,T2,T3,T4,T5]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, CoProduct5[T1,T2,T3,T4,T5]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, CoProduct5[T1,T2,T3,T4,T5]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, CoProduct5[T1,T2,T3,T4,T5]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4.fold[Target](param1,param2,param3,param4,param5)))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5.fold[Target](param1,param2,param3,param4,param5))))))
         }
 
         def fold5[TargetOther5](param1: T1 => TargetOther5):
@@ -213,11 +301,50 @@
       }
 
       trait CoProduct6[T1,T2,T3,T4,T5,T6]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, CoProduct6[T1,T2,T3,T4,T5,T6]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, CoProduct6[T1,T2,T3,T4,T5,T6]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, CoProduct6[T1,T2,T3,T4,T5,T6]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5.fold[Target](param1,param2,param3,param4,param5,param6))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6.fold[Target](param1,param2,param3,param4,param5,param6)))))))
         }
 
         def fold6[TargetOther6](param1: T1 => TargetOther6):
@@ -271,11 +398,57 @@
       }
 
       trait CoProduct7[T1,T2,T3,T4,T5,T6,T7]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, CoProduct7[T1,T2,T3,T4,T5,T6,T7]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, CoProduct7[T1,T2,T3,T4,T5,T6,T7]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, CoProduct7[T1,T2,T3,T4,T5,T6,T7]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6.fold[Target](param1,param2,param3,param4,param5,param6,param7)))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7.fold[Target](param1,param2,param3,param4,param5,param6,param7))))))))
         }
 
         def fold7[TargetOther7](param1: T1 => TargetOther7):
@@ -335,11 +508,64 @@
       }
 
       trait CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8)))))))))
         }
 
         def fold8[TargetOther8](param1: T1 => TargetOther8):
@@ -405,11 +631,71 @@
       }
 
       trait CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9)))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9))))))))))
         }
 
         def fold9[TargetOther9](param1: T1 => TargetOther9):
@@ -481,11 +767,78 @@
       }
 
       trait CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10)))))))))))
         }
 
         def fold10[TargetOther10](param1: T1 => TargetOther10):
@@ -563,11 +916,85 @@
       }
 
       trait CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11)))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11))))))))))))
         }
 
         def fold11[TargetOther11](param1: T1 => TargetOther11):
@@ -651,11 +1078,92 @@
       }
 
       trait CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param12: T12 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12))))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12)))))))))))))
         }
 
         def fold12[TargetOther12](param1: T1 => TargetOther12):
@@ -745,11 +1253,99 @@
       }
 
       trait CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]]]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]]]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param12: T12 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param13: T13 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13)))))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13))))))))))))))
         }
 
         def fold13[TargetOther13](param1: T1 => TargetOther13):
@@ -845,11 +1441,106 @@
       }
 
       trait CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]]]]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]]]]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param12: T12 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param13: T13 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param14: T14 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14))))))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14)))))))))))))))
         }
 
         def fold14[TargetOther14](param1: T1 => TargetOther14):
@@ -951,11 +1642,113 @@
       }
 
       trait CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]]]]]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]]]]]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param12: T12 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param13: T13 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param14: T14 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param15: T15 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15)))))))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15))))))))))))))))
         }
 
         def fold15[TargetOther15](param1: T1 => TargetOther15):
@@ -1063,11 +1856,120 @@
       }
 
       trait CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]]]]]]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]]]]]]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param12: T12 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param13: T13 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param14: T14 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param15: T15 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param16: T16 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16))))))))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16)))))))))))))))))
         }
 
         def fold16[TargetOther16](param1: T1 => TargetOther16):
@@ -1181,11 +2083,127 @@
       }
 
       trait CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]]]]]]]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]]]]]]]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param12: T12 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param13: T13 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param14: T14 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param15: T15 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param16: T16 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param17: T17 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17)))))))))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16._foldCoProduct[Target](param17, s17 => s17.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17))))))))))))))))))
         }
 
         def fold17[TargetOther17](param1: T1 => TargetOther17):
@@ -1305,11 +2323,134 @@
       }
 
       trait CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]]]]]]]]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]]]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]]]]]]]]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param12: T12 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param13: T13 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param14: T14 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param15: T15 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param16: T16 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param17: T17 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param18: T18 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target,param18: T18 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16._foldCoProduct[Target](param17, s17 => s17.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18))))))))))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16._foldCoProduct[Target](param17, s17 => s17._foldCoProduct[Target](param18, s18 => s18.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18)))))))))))))))))))
         }
 
         def fold18[TargetOther18](param1: T1 => TargetOther18):
@@ -1435,11 +2576,141 @@
       }
 
       trait CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]]]]]]]]]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]]]]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]]]]]]]]]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param12: T12 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param13: T13 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param14: T14 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param15: T15 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param16: T16 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param17: T17 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param18: T18 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param19: T19 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target,param18: T18 => Target,param19: T19 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16._foldCoProduct[Target](param17, s17 => s17._foldCoProduct[Target](param18, s18 => s18.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19)))))))))))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16._foldCoProduct[Target](param17, s17 => s17._foldCoProduct[Target](param18, s18 => s18._foldCoProduct[Target](param19, s19 => s19.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19))))))))))))))))))))
         }
 
         def fold19[TargetOther19](param1: T1 => TargetOther19):
@@ -1571,11 +2842,148 @@
       }
 
       trait CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]]]]]]]]]]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]]]]]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]]]]]]]]]]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param12: T12 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param13: T13 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param14: T14 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param15: T15 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param16: T16 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param17: T17 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param18: T18 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param19: T19 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param20: T20 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target,param18: T18 => Target,param19: T19 => Target,param20: T20 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16._foldCoProduct[Target](param17, s17 => s17._foldCoProduct[Target](param18, s18 => s18._foldCoProduct[Target](param19, s19 => s19.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20))))))))))))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16._foldCoProduct[Target](param17, s17 => s17._foldCoProduct[Target](param18, s18 => s18._foldCoProduct[Target](param19, s19 => s19._foldCoProduct[Target](param20, s20 => s20.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20)))))))))))))))))))))
         }
 
         def fold20[TargetOther20](param1: T1 => TargetOther20):
@@ -1713,11 +3121,155 @@
       }
 
       trait CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]]]]]]]]]]]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.Positive[T21, CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]]]]]]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.Positive[T21, CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]]]]]]]]]]]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param12: T12 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param13: T13 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param14: T14 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param15: T15 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param16: T16 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param17: T17 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param18: T18 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param19: T19 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param20: T20 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param21: T21 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20,param21)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target,param18: T18 => Target,param19: T19 => Target,param20: T20 => Target,param21: T21 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16._foldCoProduct[Target](param17, s17 => s17._foldCoProduct[Target](param18, s18 => s18._foldCoProduct[Target](param19, s19 => s19._foldCoProduct[Target](param20, s20 => s20.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20,param21)))))))))))))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16._foldCoProduct[Target](param17, s17 => s17._foldCoProduct[Target](param18, s18 => s18._foldCoProduct[Target](param19, s19 => s19._foldCoProduct[Target](param20, s20 => s20._foldCoProduct[Target](param21, s21 => s21.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20,param21))))))))))))))))))))))
         }
 
         def fold21[TargetOther21](param1: T1 => TargetOther21):
@@ -1861,11 +3413,162 @@
       }
 
       trait CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.Positive[T21, CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]]]]]]]]]]]]]]]]]]]]]] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.Positive[T21, AdtCoProduct.Use.Positive[T22, CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]]]]]]]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
+        override def _foldCoProduct[Target](param1: T1 => Target, tail: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.Positive[T21, AdtCoProduct.Use.Positive[T22, CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]]]]]]]]]]]]]]]]]]]]]] => Target): Target = {
+          
+        val param2: T2 => Target = ux => tail(
+          
+          AdtCoProduct.Use.Positive.left(ux)
+          
+        )
+      
+
+        val param3: T3 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          )
+        )
+      
+
+        val param4: T4 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) )
+        )
+      
+
+        val param5: T5 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) )
+        )
+      
+
+        val param6: T6 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) )
+        )
+      
+
+        val param7: T7 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) )
+        )
+      
+
+        val param8: T8 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) )
+        )
+      
+
+        val param9: T9 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) )
+        )
+      
+
+        val param10: T10 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) )
+        )
+      
+
+        val param11: T11 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param12: T12 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param13: T13 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param14: T14 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param15: T15 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param16: T16 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param17: T17 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param18: T18 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param19: T19 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param20: T20 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param21: T21 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+
+        val param22: T22 => Target = ux => tail(
+          AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right( AdtCoProduct.Use.Positive.right(
+          AdtCoProduct.Use.Positive.left(ux)
+          ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+        )
+      
+          FoldApplySelf.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20,param21,param22)
+        }
+
         @inline def fold[Target](param1: T1 => Target,param2: T2 => Target,param3: T3 => Target,param4: T4 => Target,param5: T5 => Target,param6: T6 => Target,param7: T7 => Target,param8: T8 => Target,param9: T9 => Target,param10: T10 => Target,param11: T11 => Target,param12: T12 => Target,param13: T13 => Target,param14: T14 => Target,param15: T15 => Target,param16: T16 => Target,param17: T17 => Target,param18: T18 => Target,param19: T19 => Target,param20: T20 => Target,param21: T21 => Target,param22: T22 => Target): Target = {
-          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16._foldCoProduct[Target](param17, s17 => s17._foldCoProduct[Target](param18, s18 => s18._foldCoProduct[Target](param19, s19 => s19._foldCoProduct[Target](param20, s20 => s20._foldCoProduct[Target](param21, s21 => s21.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20,param21,param22))))))))))))))))))))))
+          FoldApplySelf._foldCoProduct[Target](param1, s1 => s1._foldCoProduct[Target](param2, s2 => s2._foldCoProduct[Target](param3, s3 => s3._foldCoProduct[Target](param4, s4 => s4._foldCoProduct[Target](param5, s5 => s5._foldCoProduct[Target](param6, s6 => s6._foldCoProduct[Target](param7, s7 => s7._foldCoProduct[Target](param8, s8 => s8._foldCoProduct[Target](param9, s9 => s9._foldCoProduct[Target](param10, s10 => s10._foldCoProduct[Target](param11, s11 => s11._foldCoProduct[Target](param12, s12 => s12._foldCoProduct[Target](param13, s13 => s13._foldCoProduct[Target](param14, s14 => s14._foldCoProduct[Target](param15, s15 => s15._foldCoProduct[Target](param16, s16 => s16._foldCoProduct[Target](param17, s17 => s17._foldCoProduct[Target](param18, s18 => s18._foldCoProduct[Target](param19, s19 => s19._foldCoProduct[Target](param20, s20 => s20._foldCoProduct[Target](param21, s21 => s21._foldCoProduct[Target](param22, s22 => s22.fold[Target](param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20,param21,param22)))))))))))))))))))))))
         }
 
         def fold22[TargetOther22](param1: T1 => TargetOther22):
