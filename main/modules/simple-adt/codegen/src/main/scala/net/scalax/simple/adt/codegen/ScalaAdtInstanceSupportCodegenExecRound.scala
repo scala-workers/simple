@@ -1,6 +1,6 @@
 package net.scalax.simple.adt.codegen
 
-import net.scalax.simple.adt.text.v3.ADTTraitBuilderRound
+import net.scalax.simple.adt.text.v3.{ADTTraitBuilderRound, ADTTraitBuilderRoundImpl1, ADTTraitBuilderRoundImpl2}
 
 import java.net.URI
 
@@ -17,6 +17,18 @@ object ScalaAdtInstanceSupportCodegenExecRound {
     locally {
       val filePath             = writePath / "ADTTraitBuilderRound.scala"
       val linerContent: String = ADTTraitBuilderRound(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "ADTTraitBuilderRoundImpl1.scala"
+      val linerContent: String = ADTTraitBuilderRoundImpl1(index = parameterSize).text
+      os.write.over(filePath, linerContent, createFolders = true)
+    }
+
+    locally {
+      val filePath             = writePath / "ADTTraitBuilderRoundImpl2.scala"
+      val linerContent: String = ADTTraitBuilderRoundImpl2(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
