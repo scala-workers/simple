@@ -59,7 +59,7 @@ class ADTTraitBuilderRoundImpl2(val index: Int) {
     def typeParam16Impl(index: Int, varName: String): String = if (index <= TraitBodySelf.index) {
       s"""$varName._foldCoProduct[Target](param$index, s$index => ${typeParam16Impl(index + 1, "s" + index.toString)})"""
     } else {
-      s"""Function1Self($varName)"""
+      s"""CoProductSelf.fold[Target, ${typeParam1.mkString(',')}]($varName, ${typeParam9.mkString(',')})"""
     }
     val typeParam16: String = typeParam16Impl(1, "ins")
 
@@ -67,13 +67,11 @@ class ADTTraitBuilderRoundImpl2(val index: Int) {
     val typeParam19: Seq[String] = for (i1 <- 2 to index) yield s"param$i1"
 
     val text: String = s"""
-      object CoProduct$index {
+      object CoProduct$index { CoProductSelf =>
         @inline def fold[Target, ${typeParam1.mkString(',')}](
+          ins: Impl1.CoProduct$index[${typeParam1.mkString(',')}],
           ${typeParam3.mkString(',')}
-        ): Impl1.CoProduct$index[${typeParam1.mkString(',')}] => Target =
-          new Function1[Impl1.CoProduct$index[${typeParam1.mkString(',')}], Target] { Function1Self =>
-            override def apply(ins: Impl1.CoProduct$index[${typeParam1.mkString(',')}]): Target = $typeParam16
-          }
+        ): Target = $typeParam16
       }
     """
 
@@ -89,12 +87,9 @@ class ADTTraitBuilderRoundImpl2(val index: Int) {
 
     object Impl2 {
 
-      object CoProduct1 {
-        @inline def fold[Target, T1](param1: T1 => Target): Impl1.CoProduct1[T1] => Target =
-          new Function1[Impl1.CoProduct1[T1], Target] { Function1Self =>
-            override def apply(t: Impl1.CoProduct1[T1]): Target =
-              t._foldCoProduct[Target](param1, t1 => Function1Self(t1))
-          }
+      object CoProduct1 { CoProductSelf =>
+        @inline def fold[Target, T1](ins: Impl1.CoProduct1[T1], param1: T1 => Target): Target =
+          ins._foldCoProduct[Target](param1, s1 => CoProductSelf.fold[Target, T1](s1, param1))
       }
 
       ${preTextContent.mkString('\n')}
