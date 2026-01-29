@@ -21,7 +21,7 @@ class ADTTraitBuilderRoundImpl1(val index: Int) {
     val typeParam13: Seq[String] = for (i1 <- 1 to index) yield s"_ <: T"
 
     def typeParam7Impl(index: Int): String = if (index <= TraitBodySelf.index) {
-      s"""AdtCoProduct.Use.Positive[T$index, ${typeParam7Impl(index + 1)}]"""
+      s"""AdtCoProduct.Common.Positive[T$index, ${typeParam7Impl(index + 1)}]"""
     } else {
       s"""Impl1.CoProduct${index - 1}[${typeParam1.mkString(',')}]"""
     }
@@ -43,7 +43,7 @@ class ADTTraitBuilderRoundImpl1(val index: Int) {
     package round
 
     object Impl1 {
-      trait CoProduct1[T1] extends AdtCoProduct.Use.Positive[T1, Impl1.CoProduct1[T1]]
+      trait CoProduct1[T1] extends AdtCoProduct.Common.Positive[T1, Impl1.CoProduct1[T1]]
 
       ${preTextContent.mkString('\n')}
     }

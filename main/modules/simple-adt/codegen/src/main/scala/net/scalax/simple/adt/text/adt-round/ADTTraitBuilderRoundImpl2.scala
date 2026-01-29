@@ -47,9 +47,9 @@ class ADTTraitBuilderRoundImpl2(val index: Int) {
     val typeParam6: String = typeParam6Impl(index - 1)
 
     def typeParam7Impl(index: Int): String = if (index <= TraitBodySelf.index) {
-      s"""AdtCoProduct.Use.Positive[T$index, ${typeParam7Impl(index + 1)}]"""
+      s"""AdtCoProduct.Common.Positive[T$index, ${typeParam7Impl(index + 1)}]"""
     } else {
-      s"""CoProduct${index - 1}[${typeParam1.mkString(',')}]"""
+      s"""Impl2.CoProduct${index - 1}[${typeParam1.mkString(',')}]"""
     }
 
     val typeParam7: String       = typeParam7Impl(1)
@@ -59,17 +59,38 @@ class ADTTraitBuilderRoundImpl2(val index: Int) {
     def typeParam16Impl(index: Int, varName: String): String = if (index <= TraitBodySelf.index) {
       s"""$varName._foldCoProduct[Target](param$index, s$index => ${typeParam16Impl(index + 1, "s" + index.toString)})"""
     } else {
-      s"""CoProductSelf.fold[Target, ${typeParam1.mkString(',')}]($varName, ${typeParam9.mkString(',')})"""
+      s"""$varName.fold[Target](${typeParam9.mkString(',')})"""
     }
-    val typeParam16: String = typeParam16Impl(1, "ins")
+    val typeParam16: String = typeParam16Impl(1, "CoProductSelf")
 
     val typeParam18: Seq[String] = for (i1 <- 2 to index) yield s"(T$i1 => TxU)"
     val typeParam19: Seq[String] = for (i1 <- 2 to index) yield s"param$i1"
 
+    class ToCoProduct(index: Int) {
+      ToCoProductSelf =>
+      val typeParam20: Seq[String] = for (i1 <- 3 to ToCoProductSelf.index) yield s"AdtCoProduct.Common.Positive.Right("
+      val typeParam21: Seq[String] = for (i1 <- 3 to ToCoProductSelf.index) yield s")"
+
+      val text: String = s"""
+        val param$index: T$index => Target = ux => tail(
+          ${typeParam20.mkString(' ')}
+          AdtCoProduct.Common.Positive.Left(ux)
+          ${typeParam21.mkString(' ')}
+        )
+      """
+    }
+
+    val typeParam22: Seq[String] = for i1 <- 2 to TraitBodySelf.index yield ToCoProduct(i1).text
+
     val text: String = s"""
-      object CoProduct$index { CoProductSelf =>
-        @inline def fold[Target, ${typeParam1.mkString(',')}](
-          ins: Impl1.CoProduct$index[${typeParam1.mkString(',')}],
+      trait CoProduct$index[${typeParam1.mkString(',')}]
+        extends Impl1.CoProduct$index[${typeParam1.mkString(',')}]
+        with $typeParam7 { CoProductSelf =>
+        @inline override def _foldCoProduct[Target](param1: T1 => Target, tail: $typeParam14 => Target): Target = {
+          ${typeParam22.mkString('\n')}
+          CoProductSelf.fold[Target](${typeParam9.mkString(',')})
+        }
+        @inline def fold[Target](
           ${typeParam3.mkString(',')}
         ): Target = $typeParam16
       }
@@ -87,9 +108,12 @@ class ADTTraitBuilderRoundImpl2(val index: Int) {
 
     object Impl2 {
 
-      object CoProduct1 { CoProductSelf =>
-        @inline def fold[Target, T1](ins: Impl1.CoProduct1[T1], param1: T1 => Target): Target =
-          ins._foldCoProduct[Target](param1, s1 => CoProductSelf.fold[Target, T1](s1, param1))
+      trait CoProduct1[T1] extends Impl1.CoProduct1[T1] with AdtCoProduct.Common.Positive[T1, Impl2.CoProduct1[T1]] { CoProductSelf =>
+        @inline override def _foldCoProduct[Target](param1: T1 => Target, tail: Impl2.CoProduct1[T1] => Target): Target = {
+          CoProductSelf.fold[Target](param1)
+        }
+        @inline def fold[Target](param1: T1 => Target): Target =
+          CoProductSelf._foldCoProduct[Target](param1, s1 => s1.fold[Target](param1))
       }
 
       ${preTextContent.mkString('\n')}
