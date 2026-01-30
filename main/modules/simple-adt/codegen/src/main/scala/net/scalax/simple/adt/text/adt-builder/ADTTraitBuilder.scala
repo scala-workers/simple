@@ -151,7 +151,7 @@ class ADTTraitBuilder(val index: Int) {
       def drop1: T1 = AdtCoProduct.Use.One.merge(foldImpl)
 
       def map1[U1](func: T1 => U1): CoProduct1[U1] = {
-        val valueR = AdtCoProduct.Use.One.foldOnece(foldImpl)(func)
+        val valueR = AdtCoProduct.Use.One.foldOnce(foldImpl)(func)
         val valueR2 = AdtCoProduct.Use.One.left[U1](valueR)
         new CoProduct1[U1](valueR2)
       }

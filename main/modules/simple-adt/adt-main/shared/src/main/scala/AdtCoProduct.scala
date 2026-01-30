@@ -26,27 +26,10 @@ object AdtCoProduct {
     }
   }
 
-  trait One[+T] extends Positive[T, AdtCoProductSelf.One[T]]
-  object One { OneSelf =>
-
-    def left[T](t: T): AdtCoProductSelf.One[T] = new AdtCoProductSelf.One[T] {
-      override def _foldCoProduct[TU](hFunc: T => TU, tFunc: One[T] => TU): TU = hFunc(t)
-    }
-    def right[T](one: One[T]): AdtCoProductSelf.One[T] = new AdtCoProductSelf.One[T] {
-      override def _foldCoProduct[TU](hFunc: T => TU, tFunc: AdtCoProductSelf.One[T] => TU): TU = tFunc(one)
-    }
-
-    def foldOnece[T, U](one: One[T])(func: T => U): U =
-      one._foldCoProduct[U](func, (otherOne: One[T]) => OneSelf.foldOnece[T, U](otherOne)(func))
-    def merge[T](one: One[T]): T                          = OneSelf.foldOnece[T, T](one)(identity[T])
-    def unapply[T](one: AdtCoProductSelf.One[T]): Some[T] = Some(OneSelf.merge[T](one))
-
-  }
-
   object Use {
 
     type AdtType = AdtCoProductSelf.Use.Positive[_, _]
-    trait Positive[H1, T1 <: AdtCoProductSelf.Use.AdtType] extends AdtCoProductSelf.Positive[H1, T1]
+    trait Positive[H1, T1 <: AdtCoProductSelf.Use.AdtType] extends AdtCoProductSelf.Common.Positive[H1, T1]
     object Positive {
 
       def left[H1, T1 <: AdtCoProductSelf.Use.AdtType](h: H1): AdtCoProductSelf.Use.Positive[H1, T1] =
@@ -69,7 +52,7 @@ object AdtCoProduct {
 
     }
 
-    trait One[T] extends AdtCoProductSelf.One[T] with AdtCoProductSelf.Use.Positive[T, AdtCoProductSelf.Use.One[T]]
+    trait One[T] extends AdtCoProductSelf.Use.Positive[T, AdtCoProductSelf.Use.One[T]]
     object One { UseOneSelf =>
 
       def left[T](t: T): AdtCoProductSelf.Use.One[T] = new AdtCoProductSelf.Use.One[T] {
@@ -79,15 +62,15 @@ object AdtCoProduct {
         override def _foldCoProduct[TU](hFunc: T => TU, tFunc: AdtCoProductSelf.Use.One[T] => TU): TU = tFunc(one)
       }
 
-      def foldOnece[T, U](one: AdtCoProductSelf.Use.One[T])(func: T => U): U = AdtCoProductSelf.One.foldOnece[T, U](one)(func)
-      def merge[T](one: AdtCoProductSelf.Use.One[T]): T                      = AdtCoProductSelf.One.merge[T](one)
-      def unapply[T](one: AdtCoProductSelf.Use.One[T]): Some[T]              = AdtCoProductSelf.One.unapply[T](one)
+      def foldOnce[T, U](one: AdtCoProductSelf.Use.One[T])(func: T => U): U =
+        one._foldCoProduct[U](func, (otherOne: AdtCoProductSelf.Use.One[T]) => UseOneSelf.foldOnce[T, U](otherOne)(func))
+      def merge[T](one: AdtCoProductSelf.Use.One[T]): T         = AdtCoProductSelf.Use.One.foldOnce[T, T](one)(identity[T])
+      def unapply[T](one: AdtCoProductSelf.Use.One[T]): Some[T] = Some(AdtCoProductSelf.Use.One.merge[T](one))
 
     }
   }
 
   object Common {
-
     type AdtType = AdtCoProductSelf.Common.Positive[_, _]
     trait Positive[H1, +T1 <: AdtCoProductSelf.Common.AdtType] extends AdtCoProductSelf.Positive[H1, T1]
     object Positive {
