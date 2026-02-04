@@ -12,7 +12,7 @@ object ADTValue extends LawTraitImplicit {
   ): ADTValue[AdtCoProduct.Use.Positive[AdtFunction[Target, I1], Tail]] =
     new ADTValue[AdtCoProduct.Use.Positive[AdtFunction[Target, I1], Tail]] {
       override def value: AdtCoProduct.Use.Positive[AdtFunction[Target, I1], Tail] =
-        AdtCoProduct.Use.Positive.left[AdtFunction[Target, I1], Tail](t1)
+        AdtCoProduct.Use.Positive.Left[AdtFunction[Target, I1], Tail](t1)
     }
 
   implicit def oneImplicit3[Target, I1](implicit t1: AdtFunction[Target, I1]): ADTValue[AdtCoProduct.Use.One[AdtFunction[Target, I1]]] =
@@ -29,7 +29,7 @@ trait LawTraitImplicit {
   ): ADTValue[AdtCoProduct.Use.Positive[AdtFunction[Target, I1], Tail]] =
     new ADTValue[AdtCoProduct.Use.Positive[AdtFunction[Target, I1], Tail]] {
       override def value: AdtCoProduct.Use.Positive[AdtFunction[Target, I1], Tail] =
-        AdtCoProduct.Use.Positive.right[AdtFunction[Target, I1], Tail](t1.value)
+        AdtCoProduct.Use.Positive.Right[AdtFunction[Target, I1], Tail](t1.value)
     }
 
 }

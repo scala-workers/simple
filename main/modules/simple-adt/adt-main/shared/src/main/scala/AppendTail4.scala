@@ -30,13 +30,13 @@ object AppendAdt1 {
               param.fold(
                 (zero: Zero) =>
                   AdtCoProduct.Use.Positive
-                    .right[T1, AdtCoProduct.Use.Positive[Zero, Pos1]](AdtCoProduct.Use.Positive.left[Zero, Pos1](zero)),
+                    .Right[T1, AdtCoProduct.Use.Positive[Zero, Pos1]](AdtCoProduct.Use.Positive.Left[Zero, Pos1](zero)),
                 (rightAdt: AdtCoProduct.Use.Positive[T1, Pos1]) =>
                   rightAdt._foldCoProduct(
-                    (ua: T1) => AdtCoProduct.Use.Positive.left[T1, AdtCoProduct.Use.Positive[Zero, Pos1]](ua),
+                    (ua: T1) => AdtCoProduct.Use.Positive.Left[T1, AdtCoProduct.Use.Positive[Zero, Pos1]](ua),
                     (pos1: Pos1) =>
-                      AdtCoProduct.Use.Positive.right[T1, AdtCoProduct.Use.Positive[Zero, Pos1]](
-                        AdtCoProduct.Use.Positive.right[Zero, Pos1](pos1)
+                      AdtCoProduct.Use.Positive.Right[T1, AdtCoProduct.Use.Positive[Zero, Pos1]](
+                        AdtCoProduct.Use.Positive.Right[Zero, Pos1](pos1)
                       )
                   )
               )
@@ -45,8 +45,8 @@ object AppendAdt1 {
               i._foldCoProduct((zero: Zero) => Left(zero), (pos1: Pos1) => Right(pos1))
 
             value1._foldCoProduct(
-              (ua: T1) => AdtCoProduct.Use.Positive.left[T1, Pos2](ua),
-              (r1: AdtCoProduct.Use.Positive[Zero, Pos1]) => AdtCoProduct.Use.Positive.right[T1, Pos2](AdtSupportSelf.current(toEither(r1)))
+              (ua: T1) => AdtCoProduct.Use.Positive.Left[T1, Pos2](ua),
+              (r1: AdtCoProduct.Use.Positive[Zero, Pos1]) => AdtCoProduct.Use.Positive.Right[T1, Pos2](AdtSupportSelf.current(toEither(r1)))
             )
           }
       }
@@ -57,9 +57,9 @@ object AppendAdt1 {
     val func: Either[Zero, AdtCoProduct.Use.One[OneValue]] => AdtCoProduct.Use.Positive[OneValue, AdtCoProduct.Use.One[Zero]] =
       (zeroEither: Either[Zero, AdtCoProduct.Use.One[OneValue]]) => {
         zeroEither.fold(
-          (zero: Zero) => AdtCoProduct.Use.Positive.right[OneValue, AdtCoProduct.Use.One[Zero]](AdtCoProduct.Use.One.left[Zero](zero)),
+          (zero: Zero) => AdtCoProduct.Use.Positive.Right[OneValue, AdtCoProduct.Use.One[Zero]](AdtCoProduct.Use.One.left[Zero](zero)),
           (oneValue: AdtCoProduct.Use.One[OneValue]) =>
-            AdtCoProduct.Use.Positive.left[OneValue, AdtCoProduct.Use.One[Zero]](AdtCoProduct.Use.One.merge(oneValue))
+            AdtCoProduct.Use.Positive.Left[OneValue, AdtCoProduct.Use.One[Zero]](AdtCoProduct.Use.One.merge(oneValue))
         )
       }
 

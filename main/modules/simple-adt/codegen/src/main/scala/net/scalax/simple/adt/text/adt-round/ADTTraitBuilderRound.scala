@@ -75,16 +75,14 @@ class ADTTraitBuilderRound(val index: Int) {
     val typeParam19: Seq[String] = for (i1 <- 2 to index) yield s"param$i1"
 
     class ToCoProduct(index: Int) { ToCoProductSelf =>
-      val typeParam20: Seq[String] = for (i1 <- 3 to ToCoProductSelf.index) yield s"AdtCoProduct.Use.Positive.right("
+      val typeParam20: Seq[String] = for (i1 <- 3 to ToCoProductSelf.index) yield s"AdtCoProduct.Use.Positive.Right("
       val typeParam21: Seq[String] = for (i1 <- 3 to ToCoProductSelf.index) yield s")"
 
       val text: String = s"""
         val param$index: T$index => Target = ux => tail(
           ${typeParam20.mkString(' ')}
-          AdtCoProduct.Use.Positive.left(ux)
-          ${typeParam21.mkString(
-          ' '
-        )}
+          AdtCoProduct.Use.Positive.Left(ux)
+          ${typeParam21.mkString(' ')}
         )
       """
     }
