@@ -19,6 +19,14 @@ object SampleConf {
   implicit val modelLinkPojo: ModelLinkPojo[SampleConf] = ModelLinkPojo.derived
 
   import PureConfigUtils._
+  implicit val pureConfigNamed: PureConfigLabelled.Pojo[SampleConf] =
+    PureConfigLabelled
+      .pojo[SampleConf]
+      .default
+      .map(_.copy(_.optValue)("nextValue"))
+      .mapWithConfigFieldMapping(new ConfigFieldMapping {
+        override def apply(fieldName: String): String = fieldName.toUpperCase
+      })
   implicit def encoderInstance: PojoInstance[ConfigReader, SampleConf] = FillIdentity.Pojo[ConfigReader, SampleConf].derived
 
 }
@@ -28,10 +36,10 @@ object PureConfigUtils {
     g1: ModelSet[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model],
     basedInstalled: BasedInstalledSimpleProduct[({ type F[X[_]] = PojoInstance[X, Model] })#F],
     g3: ByNameImplicit[PojoInstance[ConfigReader, Model]],
-    sg: BasedInstalledLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F]
+    sg: PureConfigLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F]
   ): ConfigReader[Model] = {
     val de1: ConfigReader[PojoInstance[({ type IDF[T] = T })#IDF, Model]] =
-      scalaM[({ type F[X[_]] = PojoInstance[X, Model] })#F](sg.labelled.modelLabelled, () => g3.value, basedInstalled)
+      scalaM[({ type F[X[_]] = PojoInstance[X, Model] })#F](sg.labelledValue, () => g3.value, basedInstalled)
     for (model <- de1) yield g1.fromIdentity(model)
   }
 
@@ -97,6 +105,6 @@ object Runner {
   import PureConfigUtils._
 
   def main(arr: Array[String]): Unit = {
-    println(ConfigSource.string("{ foo: 2, bar: two, optValue: null }").load[SampleConf])
+    println(ConfigSource.string("{ FOO: 2, BAR: two, NEXTVALUE: null }").load[SampleConf])
   }
 }
