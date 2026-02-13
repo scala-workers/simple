@@ -44,11 +44,6 @@ object PureConfigUtils {
     readers: () => F[ConfigReader],
     sp: BasedInstalledSimpleProduct[F]
   ): ConfigReader[F[({ type IdF[U] = U })#IdF]] = {
-    import pureconfig.BasicReaders._
-
-    val sp3 = sp.basedInstalled.simpleProduct3
-    type MT[T1, T2, T3] = (T1, T2) => T3
-
     import net.scalax.simple.adt.nat.support.{SimpleProduct3 => SP3, ABCFunc}
     val typeGen: SP3.TypeGen[DecodeHelper, ({ type NamedF[_] = String })#NamedF, ConfigReader, ({ type IdF[U] = U })#IdF] =
       new SP3.TypeGen[DecodeHelper, ({ type NamedF[_] = String })#NamedF, ConfigReader, ({ type IdF[U] = U })#IdF] {
@@ -84,7 +79,7 @@ object PureConfigUtils {
     }
 
     val appender =
-      sp3.append[DecodeHelper, ({ type NamedF[_] = String })#NamedF, ConfigReader, ({ type IdF[U] = U })#IdF](
+      sp.basedInstalled.simpleProduct3.append[DecodeHelper, ({ type NamedF[_] = String })#NamedF, ConfigReader, ({ type IdF[U] = U })#IdF](
         typeGen = typeGen,
         sAppender = proApp
       )
