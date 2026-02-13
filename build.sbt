@@ -50,6 +50,9 @@ lazy val `append-support` = crossProject(JSPlatform, JVMPlatform) in `append-sup
 val `append-codegen/file` = `modules/file` / "simple-append-support" / "codegen"
 lazy val `append-codegen` = project in `append-codegen/file`
 
+val `pureconfig/file`       = `codec/file` / "simple-codec-pure-config"
+lazy val `codec-pureconfig` = project in `pureconfig/file`dependsOn (codec.jvm, `test-common`.jvm % Test) aggregate codec.jvm
+
 val `test-common/file`                               = `test/file` / "test-common"
 lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `test-common/file`
 
@@ -58,7 +61,10 @@ lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, 
 addCommandAlias("adtCodegen", s"; ++${scalaV.v3}; adt-codegen/codegenImpl;")
 addCommandAlias("cleanSimpleAdt", "; clean; nat-supportJVM/clean; nat-supportJS/clean; adt-mainJVM/clean; adt-mainJS/clean;")
 addCommandAlias("testSimpleAdt", "; +adt-mainJVM/test; +adt-mainJS/test;")
-addCommandAlias("releaseSimpleAdtWithOutTest", "; all clean; +adt-mainJVM/compile; +adt-mainJS/compile; +adt-mainJVM/doc; +adt-mainJS/doc; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned; sonaBundle;")
+addCommandAlias(
+  "releaseSimpleAdtWithOutTest",
+  "; all clean; +adt-mainJVM/compile; +adt-mainJS/compile; +adt-mainJVM/doc; +adt-mainJS/doc; +adt-mainJVM/publishSigned; +adt-mainJS/publishSigned; sonaBundle;"
+)
 addCommandAlias("releaseCodecLocal", "; +codecJVM/publishLocal ; +codecJS/publishLocal ;")
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
@@ -159,3 +165,7 @@ addCommandAlias("appendCodegen", s"+append-codegen/run ${codegenFile.toURI.toASC
 `test-common`.js / scalaVersion        := scalaV.v213
 `test-common`.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `test-common`.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
+
+// ===
+`codec-pureconfig` / scalaVersion       := scalaV.v213
+`codec-pureconfig` / crossScalaVersions := Seq( scalaV.v213, scalaV.v3)
