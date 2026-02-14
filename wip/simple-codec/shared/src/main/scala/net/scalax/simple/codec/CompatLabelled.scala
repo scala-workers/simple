@@ -1,7 +1,5 @@
 package net.scalax.simple.codec
 
-import net.scalax.simple.adt.nat.support.ExtractProductUtil
-
 trait CompatLabelled2[F[_[_]]] {
   def stringLabelled: F[({ type T1[_] = String })#T1]
   def symbolLabelled: F[({ type T1[_] = Symbol })#T1]

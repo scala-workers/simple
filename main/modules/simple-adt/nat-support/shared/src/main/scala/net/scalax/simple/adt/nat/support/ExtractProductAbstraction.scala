@@ -2,7 +2,7 @@ package net.scalax.simple.adt
 package nat
 package support
 
-trait ExtractProductAbstraction[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <: HListLike] {
+/*trait ExtractProductAbstraction[HListLike, AppLike[_, _ <: HListLike] <: HListLike, HZero <: HListLike] {
   ExtractProductAbstractionSelf =>
 
   def hListFunc: HListFunc[HListLike, AppLike]
@@ -16,4 +16,4 @@ trait ExtractProductAbstraction[HListLike, AppLike[_, _ <: HListLike] <: HListLi
   final val scalaVersionCompat: ExtractProductAbstraction[Any, ({ type AnyF[A1, A2 <: Any] = Any })#AnyF, Any] =
     ExtractProductAbstractionSelf.asInstanceOf[ExtractProductAbstraction[Any, ({ type AnyF[A1, A2 <: Any] = Any })#AnyF, Any]]
 
-}
+}*/
