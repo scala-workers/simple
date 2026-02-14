@@ -12,7 +12,7 @@ object CatName {
   implicit val namedModel_catName2: ModelLink[FAlias, FAlias[cats.Id]] = ToItera[CatName].derived.toModelLink[String](implicitly)
 
   implicit val jsonLabelled: SimpleJsonCodecLabelled.F[FAlias] =
-    SimpleJsonCodecLabelled.F[FAlias].implicitly(implicitly[BasedInstalledLabelled[CatName]].labelled.modelLabelled)
+    SimpleJsonCodecLabelled.F[FAlias].implicitly(implicitly[BasedInstalledLabelled[CatName]].labelled.stringLabelled)
 
   implicit val li1222Encoder: FAlias[Encoder] = {
     val v: BasedInstalledSimpleProduct[FAlias] = implicitly
@@ -39,7 +39,7 @@ object CirceText2 {
 
   import CirceGen.F._
 
-  val namedMode: FAlias[cats.Id] = ModelLink.F[FAlias].implicitly.labelled.modelLabelled
+  val namedMode: FAlias[cats.Id] = ModelLink.F[FAlias].implicitly.labelled.stringLabelled
 
   final def main(args: Array[String]): Unit = {
     println(namedMode.asJson.spaces2)

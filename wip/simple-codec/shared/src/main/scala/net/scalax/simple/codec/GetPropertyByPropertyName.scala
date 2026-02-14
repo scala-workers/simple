@@ -24,7 +24,7 @@ object GetPropertyByPropertyName {
           val getP = GetPropertyByIndex[F].derived(s1)
           val inP  = IndexOfPropertyName[F].derived(s1)
 
-          val indexOfName: Int = inP.ofName(proName, labelled.labelled.modelLabelled)
+          val indexOfName: Int = inP.ofName(proName, labelled.labelled.stringLabelled)
 
           getP.byIndex[T](indexOfName)(ft)
         }

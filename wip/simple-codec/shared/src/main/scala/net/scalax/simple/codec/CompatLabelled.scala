@@ -2,30 +2,30 @@ package net.scalax.simple.codec
 
 import net.scalax.simple.adt.nat.support.ExtractProductUtil
 
-trait CompatLabelled[F[_[_]]] {
-  def compatLabelled: Any
+trait CompatLabelled2[F[_[_]]] {
+  def stringLabelled: F[({ type T1[_] = String })#T1]
+  def symbolLabelled: F[({ type T1[_] = Symbol })#T1]
 }
 
-object CompatLabelled {
-  private val proAbs = ExtractProductUtil.extraAbstraction.scalaVersionCompat
+object CompatLabelled2 {
 
-  class Builder[F[_[_]]] {
-    def instance(t: Any): CompatLabelled[F] = new CompatLabelled[F] {
-      override val compatLabelled: Any = t
+  private val map1: MapGenerc.MapFunction[({ type T1[_] = String })#T1, ({ type T1[_] = Symbol })#T1] =
+    new MapGenerc.MapFunction[({ type T1[_] = String })#T1, ({ type T1[_] = Symbol })#T1] {
+      override def map[X1](in: String): Symbol = Symbol(in)
     }
 
-    def toLabelled(fromListGeneric: FromListByTheSameTypeGeneric[F], compatModel: CompatLabelled[F]): F[({ type M1[_] = String })#M1] = {
-      val fromList = fromListGeneric.fromListByTheSameType[String, Any](
-        takeHead = h => proAbs.labelledItemToString(proAbs.hListFunc.takeHead(h): Any),
-        takeTail = h => proAbs.hListFunc.takeTail(h): Any
-      )
-
-      fromList(compatModel.compatLabelled)
+  private val map2: MapGenerc.MapFunction[({ type T1[_] = Symbol })#T1, ({ type T1[_] = String })#T1] =
+    new MapGenerc.MapFunction[({ type T1[_] = Symbol })#T1, ({ type T1[_] = String })#T1] {
+      override def map[X1](in: Symbol): String = in.name
     }
 
-    def toLobelledSize(compat: CompatLabelled[F]): Int = proAbs.runtimeCountSize(compat.compatLabelled)
+  trait Impl[F[_[_]]] extends CompatLabelled2[F] { ImplSelf =>
+    override def stringLabelled: F[({ type T1[_] = String })#T1] =
+      mapGenerc.map[({ type T1[_] = Symbol })#T1, ({ type T1[_] = String })#T1](map2)(ImplSelf.symbolLabelled)
+    override def symbolLabelled: F[({ type T1[_] = Symbol })#T1] =
+      mapGenerc.map[({ type T1[_] = String })#T1, ({ type T1[_] = Symbol })#T1](map1)(ImplSelf.stringLabelled)
+
+    def mapGenerc: MapGenerc[F]
   }
-
-  def apply[F[_[_]]]: Builder[F] = new Builder[F]
 
 }

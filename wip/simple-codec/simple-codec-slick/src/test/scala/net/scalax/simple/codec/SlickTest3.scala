@@ -1,14 +1,14 @@
 package net.scalax.simple.codec
 
 import net.scalax.simple.codec.aa.SlickUtils
-import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink}
+import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, ModelLinkPojo}
 import slick.ast.TypedType
 import slick.jdbc.JdbcProfile
 import slick.lifted.{FlatShapeLevel, Rep, Shape}
 
 case class User3Cat(id: Option[Int], first: String, last: String, nickName: String, age: Long)
 object User3Cat {
-  implicit def appender: ModelLink.Pojo[User3Cat] = ModelLink.Pojo[User3Cat].derived
+  implicit def appender: ModelLinkPojo[User3Cat] = ModelLinkPojo.derived
 
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
 

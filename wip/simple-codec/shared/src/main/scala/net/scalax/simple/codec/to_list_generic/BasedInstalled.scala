@@ -10,7 +10,7 @@ trait BasedInstalledSimpleProduct[F[_[_]]] {
 }
 
 trait BasedInstalledLabelled[F[_[_]]] {
-  def labelled: ModelLabelled[F]
+  def labelled: CompatLabelled2[F]
 }
 
 trait BasedInstalledModelSized[F[_[_]]] {

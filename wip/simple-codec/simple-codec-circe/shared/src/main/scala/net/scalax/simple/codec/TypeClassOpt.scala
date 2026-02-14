@@ -56,7 +56,7 @@ trait TypeClassOptCtx[En[_]] {
           ({ type U1[Str, Enc] = (Str, Enc) => TypeClassOpt[Model] })#U1,
           ({ type U1[_] = String })#U1,
           ({ type U1[T1] = EncoderGetter[T1] })#U1
-        ](typeGen, appender2)(labelled.labelled.modelLabelled, ins)
+        ](typeGen, appender2)(labelled.labelled.stringLabelled, ins)
       }
     }
 

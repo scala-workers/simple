@@ -21,8 +21,11 @@ trait ToItera[F[_[_]]] {
       with BasedInstalledModelSized[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] {
       override def basedInstalled: SimpleProductContextX[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
         toIteraSelf.to[T](oldInstanlled.basedInstalled)
-      override def labelled: ModelLabelled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
-        ModelLabelled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1].instance(oldInstanlled.labelled.modelLabelled)
+      override def labelled: CompatLabelled2[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
+        new CompatLabelled2[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] {
+          override def stringLabelled: F[({ type T1[_] = String })#T1] = oldInstanlled.labelled.stringLabelled
+          override def symbolLabelled: F[({ type T1[_] = Symbol })#T1] = oldInstanlled.labelled.symbolLabelled
+        }
       override def size: ModelSize[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
         ModelSize[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1].instance(oldInstanlled.size.modelSize)
     }
@@ -33,8 +36,11 @@ trait ToItera[F[_[_]]] {
     new ModelLink[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1, F[({ type X1[_] = T })#X1]] {
       override def basedInstalled: SimpleProductContextX[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
         toIteraSelf.to[T](oldInstanlled.basedInstalled)
-      override def labelled: ModelLabelled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
-        ModelLabelled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1].instance(oldInstanlled.labelled.modelLabelled)
+      override def labelled: CompatLabelled2[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
+        new CompatLabelled2[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] {
+          override def stringLabelled: F[({ type T1[_] = String })#T1] = oldInstanlled.labelled.stringLabelled
+          override def symbolLabelled: F[({ type T1[_] = Symbol })#T1] = oldInstanlled.labelled.symbolLabelled
+        }
       override def size: ModelSize[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
         ModelSize[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1].instance(oldInstanlled.size.modelSize)
 

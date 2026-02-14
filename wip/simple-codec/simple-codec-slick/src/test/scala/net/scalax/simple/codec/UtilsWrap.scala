@@ -30,7 +30,7 @@ abstract class UtilsWrap[F[_[_]], Model, V <: JdbcProfile](
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
 
   def getIndexByName1(n: String)(implicit bi: BasedInstalledSimpleProduct[F]): Int =
-    indexOfPropertyName.ofName(n, named.labelled.modelLabelled)
+    indexOfPropertyName.ofName(n, named.labelled.stringLabelled)
 
   private def helperUtil: helperUtils[slickProfile.type, F] = new helperUtils[slickProfile.type, F](
     slickProfile = slickProfile
@@ -72,7 +72,7 @@ abstract class UtilsWrap[F[_[_]], Model, V <: JdbcProfile](
     opt: F[ColumnOpt],
     typedType: F[TypedType]
   ): F[Rep] = {
-    val l1 = named.labelled.modelLabelled
+    val l1 = named.labelled.stringLabelled
     val l2 = opt
     val l3 = typedType
 

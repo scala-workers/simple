@@ -1,7 +1,7 @@
 package net.scalax.simple.codec
 package aa
 
-import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink}
+import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, ModelLinkPojo}
 import slick.ast.TypedType
 import slick.jdbc.JdbcProfile
 import slick.lifted.{FlatShapeLevel, Rep, Shape}
@@ -11,7 +11,7 @@ object User2Cat {
   class SCtx[U[_]] {
     type FModel[X[_]] = FillIdentity.Pojo[X, User2Cat[U]]
   }
-  implicit def appender[U[_]]: ModelLink.Pojo[User2Cat[U]] = ModelLink.Pojo[User2Cat[U]].derived
+  implicit def appender[U[_]]: ModelLinkPojo[User2Cat[U]] = ModelLinkPojo.derived
 
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
 

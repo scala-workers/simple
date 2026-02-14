@@ -20,13 +20,13 @@ trait ModelLinkCommonF[F[_[_]]] extends ModelLink[F, F[({ type U1[X] = X })#U1]]
     SimpleProductX[F].derived(fromFunc, toFunc, modelLinkCommonFSelf.size)
   }
 
-  override def labelled: ModelLabelled[F] = ModelLabelled[F].derived(
-    modelLinkCommonFSelf.compatLabelled,
-    FromListByTheSameTypeGeneric[F].derived(modelLinkCommonFSelf.basedInstalled.simpleProduct1)
+  override def labelled: CompatLabelled2[F] = CompatLabelled[F].toLabelledWithScalaVersion(
+    FromListByTheSameTypeGeneric[F].derived(modelLinkCommonFSelf.basedInstalled.simpleProduct1),
+    MapGenerc[F].derived(modelLinkCommonFSelf.basedInstalled.simpleProduct2),
+    modelLinkCommonFSelf.compatNamed
   )
-  override def size: ModelSize[F] = ModelSize[F].derived(modelLinkCommonFSelf.compatLabelled)
+  override def size: ModelSize[F] = ModelSize[F].derived(modelLinkCommonFSelf.compatNamed)
 
-  protected def compatLabelled: CompatLabelled[F] = CompatLabelled[F].instance(modelLinkCommonFSelf.compatNamed)
   protected def compatNamed: Any
   protected def FToInstance[T[_]](x: F[T]): Any
   protected def FFromInstance[T[_]](x: Any): F[T]

@@ -62,7 +62,7 @@ object CatNameTest3TestCase {
     println(modelInstance.asJson.spaces2)
     println(parser.parse(modelInstance.asJson.spaces2).flatMap(_.as[CatNameTest3]))
     println("// ===")
-    val labelled1 = implicitly[ModelLinkPojo[CatNameTest3]].labelled.modelLabelled
+    val labelled1 = implicitly[ModelLinkPojo[CatNameTest3]].labelled.stringLabelled
     val labelled2 = labelled1.copy(_.name113)("name224")
     println(getNames(labelled1))
     println(getNames(labelled2))

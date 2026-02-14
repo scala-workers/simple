@@ -30,7 +30,7 @@ object PureConfigLabelled { PureConfigLabelledSelf =>
   trait Apply[F[_[_]]] {
     def default(implicit labe: BasedInstalledLabelled[F], sp: BasedInstalledSimpleProduct[F]): PureConfigLabelled[F] =
       new PureConfigLabelled[F] {
-        override def labelledValue: F[({ type Str[_] = String })#Str] = labe.labelled.modelLabelled
+        override def labelledValue: F[({ type Str[_] = String })#Str] = labe.labelled.stringLabelled
         override def mapGeneric: MapGenerc[F]                         = MapGenerc[F].derived(sp.basedInstalled.simpleProduct2)
       }
   }

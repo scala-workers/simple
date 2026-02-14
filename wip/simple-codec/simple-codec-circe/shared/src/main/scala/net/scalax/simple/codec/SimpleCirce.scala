@@ -80,8 +80,8 @@ object SimpleJsonCodecLabelled {
     type Target = SimpleJsonCodecLabelled[F]
 
     def derived(implicit bi: BasedInstalledLabelled[F]): SimpleJsonCodecLabelled[F] = new SimpleJsonCodecLabelled[F] {
-      override def jsonEncodeLabelled: F[({ type NamedF[_] = String })#NamedF] = bi.labelled.modelLabelled
-      override def jsonDecodeLabelled: F[({ type NamedF[_] = String })#NamedF] = bi.labelled.modelLabelled
+      override def jsonEncodeLabelled: F[({ type NamedF[_] = String })#NamedF] = bi.labelled.stringLabelled
+      override def jsonDecodeLabelled: F[({ type NamedF[_] = String })#NamedF] = bi.labelled.stringLabelled
     }
 
     def implicitly(implicit nModel: F[({ type NamedF[_] = String })#NamedF]): SimpleJsonCodecLabelled[F] = new SimpleJsonCodecLabelled[F] {
@@ -144,7 +144,7 @@ object SimpleJsonCodecLabelledPojo {
     blabelled: BasedInstalledLabelled[({ type TR[UMF[_]] = PojoInstance[UMF, Model] })#TR]
   ): SimpleJsonCodecLabelledPojo[Model] =
     new SimpleJsonCodecLabelledPojo[Model] {
-      override def jsonEncodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = blabelled.labelled.modelLabelled
-      override def jsonDecodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = blabelled.labelled.modelLabelled
+      override def jsonEncodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = blabelled.labelled.stringLabelled
+      override def jsonDecodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = blabelled.labelled.stringLabelled
     }
 }
