@@ -1,16 +1,16 @@
 package net.scalax.simple.codec
 
-object CompatLabelled {
+trait CompatLabelledCompatHelper {
 
   class Builder[F[_[_]]] {
     def toLabelledWithScalaVersion(
       fromListGeneric: FromListByTheSameTypeGeneric[F],
       mapGenerc: MapGenerc[F],
       compatModel: Any
-    ): CompatLabelled2[F] = {
+    ): CompatLabelled[F] = {
       val mapGeneric1: MapGenerc[F] = mapGenerc
 
-      new CompatLabelled2.Impl[F] {
+      new CompatLabelledImplHelper.Impl[F] {
         override def symbolLabelled: F[({ type T1[_] = Symbol })#T1] = {
           val fromList: shapeless.HList => F[({ type T1[_] = Symbol })#T1] = fromListGeneric.fromListByTheSameType[Symbol, shapeless.HList](
             takeHead = h => h.asInstanceOf[shapeless.::[Symbol, shapeless.HList]].head,

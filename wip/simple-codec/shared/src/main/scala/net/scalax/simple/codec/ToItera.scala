@@ -21,8 +21,8 @@ trait ToItera[F[_[_]]] {
       with BasedInstalledModelSized[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] {
       override def basedInstalled: SimpleProductContextX[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
         toIteraSelf.to[T](oldInstanlled.basedInstalled)
-      override def labelled: CompatLabelled2[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
-        new CompatLabelled2[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] {
+      override def labelled: CompatLabelled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
+        new CompatLabelled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] {
           override def stringLabelled: F[({ type T1[_] = String })#T1] = oldInstanlled.labelled.stringLabelled
           override def symbolLabelled: F[({ type T1[_] = Symbol })#T1] = oldInstanlled.labelled.symbolLabelled
         }
@@ -36,8 +36,8 @@ trait ToItera[F[_[_]]] {
     new ModelLink[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1, F[({ type X1[_] = T })#X1]] {
       override def basedInstalled: SimpleProductContextX[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
         toIteraSelf.to[T](oldInstanlled.basedInstalled)
-      override def labelled: CompatLabelled2[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
-        new CompatLabelled2[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] {
+      override def labelled: CompatLabelled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
+        new CompatLabelled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] {
           override def stringLabelled: F[({ type T1[_] = String })#T1] = oldInstanlled.labelled.stringLabelled
           override def symbolLabelled: F[({ type T1[_] = Symbol })#T1] = oldInstanlled.labelled.symbolLabelled
         }

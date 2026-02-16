@@ -16,7 +16,7 @@ object ReplaceByPropertyName {
     def derivedImpl(
       indexOfPropertyName: IndexOfPropertyName[F],
       replaceByIndex: ReplaceByIndex[F],
-      labelled: CompatLabelled2[F]
+      labelled: CompatLabelled[F]
     ): ReplaceByPropertyName[F] = new ReplaceByPropertyName[F] {
       override def replaceImpl[UX](proName: String, proValue: UX): F[({ type X1[_] = UX })#X1] => F[({ type X1[_] = UX })#X1] = {
         val indexInt = indexOfPropertyName.ofName(proName, labelled.stringLabelled)
