@@ -59,11 +59,9 @@ object EncodeHelperUtils {
         sAppender = proApp
       )
 
-    val confW = implicitly[ConfigWriter[Map[String, ConfigValue]]]
-
     ConfigWriter.fromFunction[F[({ type IDF[T1] = T1 })#IDF]]((u: F[({ type IDF[T1] = T1 })#IDF]) => {
       val configMap = appender.fromSource(name, readers(), u, List.empty[(String, ConfigValue)])
-      confW.to(Map.from(configMap))
+      ConfigWriter[Map[String, ConfigValue]].to(Map.from(configMap))
     })
   }
 
