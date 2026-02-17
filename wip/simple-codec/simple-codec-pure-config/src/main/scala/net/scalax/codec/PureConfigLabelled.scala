@@ -1,22 +1,20 @@
 package net.scalax.simple.codec.pureconfig
 
 import net.scalax.simple.codec.MapGenerc
-import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance}
+import net.scalax.simple.codec.to_list_generic.{BasedInstalledSimpleProduct, PojoInstance}
 import pureconfig._
 
 trait PureConfigLabelled[F[_[_]]] {
   PureConfigLabelledSelf =>
 
-  def labelledValue: F[({ type Str[_] = String })#Str]
+  def labelledValueFunc: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str]
   def mapGeneric: MapGenerc[F]
 
   def map(func: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str]): PureConfigLabelled[F] = new PureConfigLabelled[F] {
-    override def labelledValue: F[({ type Str[_] = String })#Str] = func(PureConfigLabelledSelf.labelledValue)
-    override def mapGeneric: MapGenerc[F]                         = PureConfigLabelledSelf.mapGeneric
+    override def labelledValueFunc: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str] =
+      (in: F[({ type Str[_] = String })#Str]) => func(PureConfigLabelledSelf.labelledValueFunc(in))
+    override def mapGeneric: MapGenerc[F] = PureConfigLabelledSelf.mapGeneric
   }
-  def flatMap(func: F[({ type Str[_] = String })#Str] => PureConfigLabelled[F]): PureConfigLabelled[F] = func(
-    PureConfigLabelledSelf.labelledValue
-  )
 
   def mapWithConfigFieldMapping(c: ConfigFieldMapping): PureConfigLabelled[F] = {
     val mapping = new MapGenerc.MapFunction[({ type Str[_] = String })#Str, ({ type Str[_] = String })#Str] {
@@ -27,12 +25,13 @@ trait PureConfigLabelled[F[_[_]]] {
 }
 
 object PureConfigLabelled { PureConfigLabelledSelf =>
+
   trait Apply[F[_[_]]] {
-    def default(implicit labe: BasedInstalledLabelled[F], sp: BasedInstalledSimpleProduct[F]): PureConfigLabelled[F] =
-      new PureConfigLabelled[F] {
-        override def labelledValue: F[({ type Str[_] = String })#Str] = labe.labelled.stringLabelled
-        override def mapGeneric: MapGenerc[F]                         = MapGenerc[F].derived(sp.basedInstalled.simpleProduct2)
-      }
+    def default(implicit sp: BasedInstalledSimpleProduct[F]): PureConfigLabelled[F] = new PureConfigLabelled[F] {
+      override def labelledValueFunc: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str] =
+        identity[F[({ type Str[_] = String })#Str]]
+      override def mapGeneric: MapGenerc[F] = MapGenerc[F].derived(sp.basedInstalled.simpleProduct2)
+    }
   }
 
   def build[F[_[_]]]: PureConfigLabelledSelf.Apply[F] = new PureConfigLabelledSelf.Apply[F] {
@@ -42,4 +41,5 @@ object PureConfigLabelled { PureConfigLabelledSelf =>
   type Pojo[Model] = PureConfigLabelled[({ type U1[X1[_]] = PojoInstance[X1, Model] })#U1]
   def pojo[Model]: PureConfigLabelledSelf.Apply[({ type U1[X1[_]] = PojoInstance[X1, Model] })#U1] =
     PureConfigLabelledSelf.build[({ type U1[X1[_]] = PojoInstance[X1, Model] })#U1]
+
 }

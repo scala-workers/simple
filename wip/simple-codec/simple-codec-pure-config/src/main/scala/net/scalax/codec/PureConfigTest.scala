@@ -19,7 +19,9 @@ object SampleConf {
       .mapWithConfigFieldMapping(new ConfigFieldMapping {
         override def apply(fieldName: String): String = fieldName.toUpperCase
       })
-  implicit def encoderInstance: PojoInstance[ConfigReader, SampleConf] = FillIdentity.Pojo[ConfigReader, SampleConf].derived
+
+  implicit def readerInstance: PojoInstance[ConfigReader, SampleConf] = FillIdentity.Pojo[ConfigReader, SampleConf].derived
+  implicit def writerInstance: PojoInstance[ConfigWriter, SampleConf] = FillIdentity.Pojo[ConfigWriter, SampleConf].derived
 
   implicit val defaultValueInstance: DefaultValue[SampleConf] = DefaultValue[SampleConf].derives
 
@@ -29,13 +31,21 @@ object Runner {
   import PureConfigUtils._
 
   def main(arr: Array[String]): Unit = {
-    println(ConfigSource.string("{ FOO: 2, BAR: two, NEXTVALUE: null }").load[SampleConf])
+    val value1: ConfigReader.Result[SampleConf] = ConfigSource.string("{ FOO: 2, BAR: two, NEXTVALUE: null }").load[SampleConf]
+    println("=== Reader Start ===")
+    println(value1)
+    println("=== Reader End ===")
+    println("=== Writer Start ===")
+    println(for (t <- value1) yield ConfigWriter[SampleConf].to(t))
+    println(for (t <- value1) yield ConfigWriter[SampleConf].to(t).render())
+    println("=== Writer End ===")
 
     val ins = implicitly[DefaultValue[SampleConf]].defaultValue
     println("=== DefaultValue Start ===")
     println(ins(_.foo))
     println(ins(_.bar))
     println(ins(_.optValue))
-    println("=== DefaultValue Start ===")
+    println("=== DefaultValue End ===")
+
   }
 }
