@@ -1,6 +1,7 @@
 package net.scalax.simple.codec
 
 import io.circe._
+import net.scalax.simple.codec.circe.EncodeHelperUtils
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledSimpleProduct, PojoInstance}
 import net.scalax.simple.codec.utils.ByNameImplicit
 
@@ -13,7 +14,7 @@ object CirceGen {
       g1: BasedInstalledSimpleProduct[F],
       sg: SimpleJsonEncodeLabelled[F]
     ): Encoder[F[({ type IDF[T] = T })#IDF]] = Encoder.instance[F[({ type IDF[T] = T })#IDF]](
-      CirceGeneric.encodeModelImpl[F](g1.basedInstalled.simpleProduct3, sg.jsonEncodeLabelled, () => g.value)
+      EncodeHelperUtils.encodeImpl[F](g1.basedInstalled.simpleProduct3, sg.jsonEncodeLabelled, () => g.value)
     )
 
     implicit def getCirceDecoderF[F[_[_]]](implicit
@@ -21,7 +22,7 @@ object CirceGen {
       g1: BasedInstalledSimpleProduct[F],
       sg: SimpleJsonEncodeLabelled[F]
     ): Decoder[F[({ type IDF[T] = T })#IDF]] = Decoder.instance[F[({ type IDF[T] = T })#IDF]](
-      CirceGeneric.decodeModelImpl[F](g1.basedInstalled.simpleProduct3, sg.jsonEncodeLabelled, () => g.value)
+      EncodeHelperUtils.decodeModelImpl[F](g1.basedInstalled.simpleProduct3, sg.jsonEncodeLabelled, () => g.value)
     )
 
   }

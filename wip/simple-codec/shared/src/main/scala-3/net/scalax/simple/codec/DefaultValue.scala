@@ -3,9 +3,9 @@ package net.scalax.simple.codec
 import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1}
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledSimpleProduct, PojoInstance}
 
-trait DefaultValue[ModelType] {
-  def defaultValueFunction1: PojoInstance[({ type UA[T1] = Option[() => T1] })#UA, ModelType]
-  def defaultValue: PojoInstance[Option, ModelType]
+trait DefaultValue[F[_[_]]] {
+  def defaultValueFunction1: F[({ type UA[T1] = Option[() => T1] })#UA]
+  def defaultValue: F[Option]
 }
 
 object DefaultValue { DefaultValueself =>
@@ -20,13 +20,13 @@ object DefaultValue { DefaultValueself =>
       override def map[X1](in: Option[() => X1]): Option[X1] = for (inVal <- in) yield inVal()
     }
 
-  trait Impl[ModelType] extends DefaultValue[ModelType] { ImplSelf =>
-    override def defaultValueFunction1: PojoInstance[({ type UA[T1] = Option[() => T1] })#UA, ModelType] =
-      ImplSelf.mapGenerc.map(DefaultValueself.map1)(ImplSelf.defaultValue)
-    override def defaultValue: PojoInstance[Option, ModelType] =
-      ImplSelf.mapGenerc.map(DefaultValueself.map2)(ImplSelf.defaultValueFunction1)
+  trait Impl[F[_[_]]] extends DefaultValue[F] { ImplSelf =>
+    override def defaultValueFunction1: F[({ type UA[T1] = Option[() => T1] })#UA] =
+      ImplSelf.mapGenerc.map[Option, ({ type UA[T1] = Option[() => T1] })#UA](DefaultValueself.map1)(ImplSelf.defaultValue)
+    override def defaultValue: F[Option] =
+      ImplSelf.mapGenerc.map[({ type UA[T1] = Option[() => T1] })#UA, Option](DefaultValueself.map2)(ImplSelf.defaultValueFunction1)
 
-    def mapGenerc: MapGenerc[({ type XXA[UB[_]] = PojoInstance[UB, ModelType] })#XXA]
+    def mapGenerc: MapGenerc[F]
   }
 
   type ListType = List[(String, Option[() => Any])]
@@ -56,7 +56,7 @@ object DefaultValue { DefaultValueself =>
   class Builder[ModelType] {
     inline def derives(using
       basedI: BasedInstalledSimpleProduct[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1]
-    ): DefaultValue[ModelType] = {
+    ): DefaultValue[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1] = {
       val defaultV: ListType = magnolia1.Macro.defaultValue[ModelType]
       def mapGenerc1: MapGenerc[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1] =
         MapGenerc[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1].derived(basedI.basedInstalled.simpleProduct2)
@@ -64,14 +64,14 @@ object DefaultValue { DefaultValueself =>
       val insValue: (ListType, PojoInstance[({ type UA[T1] = Option[() => T1] })#UA, ModelType]) = basedI.basedInstalled.simpleProduct1
         .append[({ type T1[U] = ListType => (ListType, U) })#T1, ({ type UA[T1] = Option[() => T1] })#UA](toNamed, monadAdd)(defaultV)
 
-      new DefaultValueself.Impl[ModelType] {
+      new DefaultValueself.Impl[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1] {
         override def defaultValueFunction1: PojoInstance[({ type UA[T1] = Option[() => T1] })#UA, ModelType] = insValue._2
         override def mapGenerc: MapGenerc[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1]       = mapGenerc1
       }
     }
-
   }
 
-  def apply[ModelType]: Builder[ModelType] = new Builder[ModelType]
+  def pojo[ModelType]: Builder[ModelType] = new Builder[ModelType]
+  type Pojo[ModelType] = DefaultValue[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1]
 
 }

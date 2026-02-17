@@ -15,7 +15,7 @@ object SampleConf {
     PureConfigLabelled
       .pojo[SampleConf]
       .default
-      .map(_.copy(_.optValue)("nextValue"))
+      .mapLabelled(_.copy(_.optValue)("nextValue"))
       .mapWithConfigFieldMapping(new ConfigFieldMapping {
         override def apply(fieldName: String): String = fieldName.toUpperCase
       })
@@ -23,7 +23,7 @@ object SampleConf {
   implicit def readerInstance: PojoInstance[ConfigReader, SampleConf] = FillIdentity.Pojo[ConfigReader, SampleConf].derived
   implicit def writerInstance: PojoInstance[ConfigWriter, SampleConf] = FillIdentity.Pojo[ConfigWriter, SampleConf].derived
 
-  implicit val defaultValueInstance: DefaultValue[SampleConf] = DefaultValue[SampleConf].derives
+  implicit val defaultValueInstance: DefaultValue.Pojo[SampleConf] = DefaultValue.pojo[SampleConf].derives
 
 }
 
@@ -40,7 +40,7 @@ object Runner {
     println(for (t <- value1) yield ConfigWriter[SampleConf].to(t).render())
     println("=== Writer End ===")
 
-    val ins = implicitly[DefaultValue[SampleConf]].defaultValue
+    val ins = implicitly[DefaultValue.Pojo[SampleConf]].defaultValue
     println("=== DefaultValue Start ===")
     println(ins(_.foo))
     println(ins(_.bar))
