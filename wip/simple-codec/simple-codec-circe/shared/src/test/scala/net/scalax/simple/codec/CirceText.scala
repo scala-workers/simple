@@ -17,8 +17,7 @@ object CatName {
   implicit val modelEncoder: CatName[Encoder] = FillIdentity.F[Encoder, CatName].derived.copy(id1 = intOptEncoder)
   implicit val modelDecoder: CatName[Decoder] = FillIdentity.F[Decoder, CatName].derived
 
-  implicit val jsonLabelled: SimpleJsonCodecLabelled.F[CatName] =
-    SimpleJsonCodecLabelled.F[CatName].derived.codec.update(_.copy[Named](id1 = "miaomiao id"))
+  implicit val jsonLabelled: SimpleJsonLabelled.F[CatName] = SimpleJsonLabelled.F[CatName].mapLabelled(_.copy[Named](id1 = "miaomiao id"))
 }
 
 object CirceText1 {

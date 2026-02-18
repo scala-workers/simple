@@ -32,7 +32,7 @@ object EncodeHelperUtils {
       }
 
       override def zero[N1, N2, N3](p1: N1, p2: N2, p3: N3): EncodeAction[N1, N2, N3] = new EncodeAction[N1, N2, N3] {
-        override def toJson(n: N1, reader: N2, source: N3, temp: List[(String, Json)]): List[(String, Json)] = temp
+        override def toJson(n: N1, enc: N2, id: N3, l: List[(String, Json)]): List[(String, Json)] = l
       }
     }
 

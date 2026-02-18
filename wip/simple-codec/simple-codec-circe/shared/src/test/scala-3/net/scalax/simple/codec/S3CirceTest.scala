@@ -4,14 +4,13 @@ import io.circe._
 import io.circe.syntax._
 import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, ModelLinkPojo}
 
-case class S3CatName(id4: Int, str4: Option[String], uClass4: Option[Long], name114: String, namexu4: String)
-    derives ModelLinkPojo,
-      SimpleJsonCodecLabelledPojo
+case class S3CatName(id4: Int, str4: Option[String], uClass4: Option[Long], name114: String, namexu4: String) derives ModelLinkPojo
 
 object S3CatName {
 
   given FillIdentity.Pojo[Encoder, S3CatName] = FillIdentity.Pojo[Encoder, S3CatName].derived
   given FillIdentity.Pojo[Decoder, S3CatName] = FillIdentity.Pojo[Decoder, S3CatName].derived
+  given SimpleJsonLabelled.Pojo[S3CatName]    = SimpleJsonLabelled.pojo[S3CatName]
 
 }
 

@@ -11,8 +11,7 @@ object CatName {
   implicit val modelLinkF: ModelLink.F[CatName]                        = ModelLink.F[CatName].derived
   implicit val namedModel_catName2: ModelLink[FAlias, FAlias[cats.Id]] = ToItera[CatName].derived.toModelLink[String](implicitly)
 
-  implicit val jsonLabelled: SimpleJsonCodecLabelled.F[FAlias] =
-    SimpleJsonCodecLabelled.F[FAlias].implicitly(implicitly[BasedInstalledLabelled[CatName]].labelled.stringLabelled)
+  implicit val jsonLabelled: SimpleJsonLabelled.F[FAlias] = SimpleJsonLabelled.F[FAlias]
 
   implicit val li1222Encoder: FAlias[Encoder] = {
     val v: BasedInstalledSimpleProduct[FAlias] = implicitly

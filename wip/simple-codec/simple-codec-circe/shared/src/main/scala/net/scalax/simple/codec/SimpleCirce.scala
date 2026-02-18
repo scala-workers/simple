@@ -1,24 +1,48 @@
 package net.scalax.simple
 package codec
 
-import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, PojoInstance}
+import net.scalax.simple.codec.to_list_generic.PojoInstance
 
-trait SimpleJsonEncodeLabelled[F[_[_]]] {
+trait SimpleJsonLabelled[F[_[_]]] {
   SimpleJsonEncodeLabelledSelf =>
 
-  def jsonEncodeLabelled: F[({ type NamedF[_] = String })#NamedF]
+  def labelledValueFunc: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str]
+  def defaultValue: Option[F[({ type OptF[U1] = Option[() => U1] })#OptF]]
+  def useDefaultValue(initFunc: F[({ type OptF[U1] = Option[() => U1] })#OptF] => F[({ type OptF[U1] = Option[() => U1] })#OptF])(implicit
+    defaultValue: DefaultValue[F]
+  ): SimpleJsonLabelled[F] = {
+    val defaultValue1 = defaultValue
 
-  def encode: SimpleJsonCodecLabelled.Updater[F[({ type NamedF[_] = String })#NamedF], SimpleJsonEncodeLabelled[F]] =
-    new SimpleJsonCodecLabelled.Updater[F[({ type NamedF[_] = String })#NamedF], SimpleJsonEncodeLabelled[F]] {
-      override def update(
-        m: F[({ type NamedF[_] = String })#NamedF] => F[({ type NamedF[_] = String })#NamedF]
-      ): SimpleJsonEncodeLabelled[F] = new SimpleJsonEncodeLabelled[F] {
-        override def jsonEncodeLabelled: F[({ type NamedF[_] = String })#NamedF] = m(SimpleJsonEncodeLabelledSelf.jsonEncodeLabelled)
-      }
+    new SimpleJsonLabelled[F] {
+      override def labelledValueFunc: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str] =
+        SimpleJsonEncodeLabelledSelf.labelledValueFunc
+      override def defaultValue: Option[F[({ type OptF[U1] = Option[() => U1] })#OptF]] = Some(
+        initFunc(defaultValue1.defaultValueFunction1)
+      )
+    }
+  }
+  def mapLabelled(func: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str]): SimpleJsonLabelled[F] =
+    new SimpleJsonLabelled[F] {
+      override def labelledValueFunc: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str] = in =>
+        func(SimpleJsonEncodeLabelledSelf.labelledValueFunc(in))
+      override def defaultValue: Option[F[({ type OptF[U1] = Option[() => U1] })#OptF]] = SimpleJsonEncodeLabelledSelf.defaultValue
     }
 }
 
-trait SimpleJsonDecodeLabelled[F[_[_]]] {
+object SimpleJsonLabelled { SimpleJsonLabelledSelf =>
+  type F[U1[_[_]]] = SimpleJsonLabelled[U1]
+  def F[U1[_[_]]]: SimpleJsonLabelled[U1] = new SimpleJsonLabelled[U1] {
+    override def labelledValueFunc: U1[({ type Str[_] = String })#Str] => U1[({ type Str[_] = String })#Str] =
+      identity[U1[({ type Str[_] = String })#Str]]
+    override def defaultValue: Option[U1[({ type OptF[UU2] = Option[() => UU2] })#OptF]] = Option.empty
+  }
+
+  type Pojo[Model] = SimpleJsonLabelled[({ type U1[Xu[_]] = PojoInstance[Xu, Model] })#U1]
+  def pojo[Model]: SimpleJsonLabelled[({ type U1[Xu[_]] = PojoInstance[Xu, Model] })#U1] =
+    SimpleJsonLabelledSelf.F[({ type U1[Xu[_]] = PojoInstance[Xu, Model] })#U1]
+}
+
+/*trait SimpleJsonDecodeLabelled[F[_[_]]] {
   SimpleJsonDecodeLabelledSelf =>
 
   def jsonDecodeLabelled: F[({ type NamedF[_] = String })#NamedF]
@@ -147,4 +171,4 @@ object SimpleJsonCodecLabelledPojo {
       override def jsonEncodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = blabelled.labelled.stringLabelled
       override def jsonDecodeLabelled: PojoInstance[({ type NamedF[_] = String })#NamedF, Model] = blabelled.labelled.stringLabelled
     }
-}
+}*/

@@ -19,8 +19,8 @@ object CatNameTest3 {
 
   implicit val modelLinkPojo: ModelLinkPojo[CatNameTest3] = ModelLinkPojo.derived
 
-  implicit val jsonLabelled: SimpleJsonCodecLabelledPojo[CatNameTest3] =
-    SimpleJsonCodecLabelledPojo.derived[CatNameTest3].codec.update(_.copy(_.id3)("miaomiao id"))
+  implicit val jsonLabelled: SimpleJsonLabelled.Pojo[CatNameTest3] =
+    SimpleJsonLabelled.pojo[CatNameTest3].mapLabelled(_.copy(_.id3)("miaomiao id"))
 
   import CirceGen.Pojo._
   implicit def modelEncoder: FillIdentity.Pojo[Encoder, CatNameTest3] =
