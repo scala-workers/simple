@@ -25,7 +25,7 @@ object CirceGen {
       sg: SimpleJsonLabelled[F]
     ): Decoder[F[({ type IDF[T] = T })#IDF]] = Decoder.instance[F[({ type IDF[T] = T })#IDF]](
       EncodeHelperUtils
-        .decodeModelImpl[F](g1.basedInstalled.simpleProduct3, sg.labelledValueFunc(lb.labelled.stringLabelled), () => g.value)
+        .decodeModelImpl[F](g1.basedInstalled, sg.labelledValueFunc(lb.labelled.stringLabelled), () => g.value, sg.defaultValue)
     )
 
   }

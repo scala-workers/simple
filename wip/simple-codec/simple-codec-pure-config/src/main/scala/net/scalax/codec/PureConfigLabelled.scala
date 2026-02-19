@@ -9,7 +9,10 @@ trait PureConfigLabelled[F[_[_]]] {
 
   def labelledValueFunc: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str]
   def defaultValue: Option[F[({ type OptF[U1] = Option[() => U1] })#OptF]]
-  def useDefaultValue(initFunc: F[({ type OptF[U1] = Option[() => U1] })#OptF] => F[({ type OptF[U1] = Option[() => U1] })#OptF])(implicit
+  def useDefaultValue(
+    initFunc: F[({ type OptF[U1] = Option[() => U1] })#OptF] => F[({ type OptF[U1] = Option[() => U1] })#OptF] =
+      identity[F[({ type OptF[U1] = Option[() => U1] })#OptF]]
+  )(implicit
     defaultValue: DefaultValue[F]
   ): PureConfigLabelled[F]
   def mapLabelled(func: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str]): PureConfigLabelled[F]

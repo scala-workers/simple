@@ -14,7 +14,7 @@ object PlayJsonGeneric {
       lb: BasedInstalledLabelled[F],
       sjn: SimpleJsonLabelled[F]
     ): Writes[F[({ type IDF[T] = T })#IDF]] = Writes(
-      EncodeHelperUtils.encodeImpl[F](
+      PlayJsonGeneric2.encodeImpl[F](
         sp3 = g1.basedInstalled.simpleProduct3,
         sjn.labelledValueFunc(lb.labelled.stringLabelled),
         () => g.value

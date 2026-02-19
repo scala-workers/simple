@@ -1,12 +1,13 @@
 package net.scalax.simple.codec
+package to_list_generic
 
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct2}
+import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1, SimpleProduct2}
 
-trait GetFieldModel[F[_[_]]] {
-  def getFieldModel[I[_]]: F[({ type XI[t] = F[I] => I[t] })#XI]
+trait SelfGeneric[F[_[_]]] {
+  def to[UX[_]]: F[({ type S1[T] = F[UX] => UX[T] })#S1]
 }
 
-object GetFieldModel {
+object SelfGeneric {
 
   trait TestGenericHelper[Sum, Temp, Item] {
     def out(in: Sum => Temp): Item
@@ -44,8 +45,8 @@ object GetFieldModel {
     }
 
   class Builder[F[_[_]]] {
-    def derived(o1: SimpleProduct2.ProductAdapter[F]): GetFieldModel[F] = new GetFieldModel[F] {
-      override def getFieldModel[UX[_]]: F[({ type S1[T] = F[UX] => UX[T] })#S1] = {
+    def derived(o1: SimpleProduct2.ProductAdapter[F]): SelfGeneric[F] = new SelfGeneric[F] {
+      override def to[UX[_]]: F[({ type S1[T] = F[UX] => UX[T] })#S1] = {
         val func: TestGenericHelper[F[UX], F[UX], F[({ type NU2[T] = F[UX] => UX[T] })#NU2]] =
           o1.append[({ type HE[U1, U2] = TestGenericHelper[F[UX], U1, U2] })#HE, UX, ({ type NU2[T] = F[UX] => UX[T] })#NU2](
             typeGen = createTypeGen[F[UX], UX],

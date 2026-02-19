@@ -6,7 +6,7 @@ import play.api.libs.json.Reads._
 import play.api.libs.functional.syntax._
 import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct3 => SP3}
 
-object EncodeHelperUtils {
+object PlayJsonGeneric2 {
   type Named[_]  = String
   type IdType[T] = T
 
