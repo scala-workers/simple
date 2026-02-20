@@ -1,6 +1,7 @@
 package net.scalax.simple
 package codec
 
+import net.scalax.simple.adt.nat.support.SimpleProductContextX
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance}
 import net.scalax.simple.codec.utils.ByNameImplicit
 import play.api.libs.json._
@@ -13,13 +14,13 @@ object PlayJsonGeneric {
       g1: BasedInstalledSimpleProduct[F],
       lb: BasedInstalledLabelled[F],
       sjn: SimpleJsonLabelled[F]
-    ): Writes[F[({ type IDF[T] = T })#IDF]] = Writes(
-      PlayJsonGeneric2.encodeImpl[F](
-        sp3 = g1.basedInstalled.simpleProduct3,
-        sjn.labelledValueFunc(lb.labelled.stringLabelled),
-        () => g.value
-      )
-    )
+    ): Writes[F[({ type IDF[T] = T })#IDF]] = {
+      val bsInsatnall: SimpleProductContextX[F] = g1.basedInstalled
+
+      val labelledIns: F[({ type Str1[_] = String })#Str1] = sjn.labelledValueFunc(lb.labelled.stringLabelled)
+
+      Writes(PlayJsonGeneric2.encodeImpl[F](sp3 = bsInsatnall.simpleProduct3, labelledIns, () => g.value))
+    }
   }
 
   object Pojo {

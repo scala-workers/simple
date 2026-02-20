@@ -1,6 +1,7 @@
 package net.scalax.simple.codec
 
 import io.circe._
+import net.scalax.simple.adt.nat.support.SimpleProductContextX
 import net.scalax.simple.codec.circe.EncodeHelperUtils
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance}
 import net.scalax.simple.codec.utils.ByNameImplicit
@@ -14,19 +15,34 @@ object CirceGen {
       g1: BasedInstalledSimpleProduct[F],
       lb: BasedInstalledLabelled[F],
       sg: SimpleJsonLabelled[F]
-    ): Encoder[F[({ type IDF[T] = T })#IDF]] = Encoder.instance[F[({ type IDF[T] = T })#IDF]](
-      EncodeHelperUtils.encodeImpl[F](g1.basedInstalled.simpleProduct3, sg.labelledValueFunc(lb.labelled.stringLabelled), () => g.value)
-    )
+    ): Encoder[F[({ type IDF[T] = T })#IDF]] = {
+      val labelledIns: F[({ type Str1[_] = String })#Str1] = sg.labelledValueFunc(lb.labelled.stringLabelled)
+
+      Encoder.instance[F[({ type IDF[T] = T })#IDF]](
+        EncodeHelperUtils.encodeImpl[F](g1.basedInstalled.simpleProduct3, labelledIns, () => g.value)
+      )
+    }
 
     implicit def getCirceDecoderF[F[_[_]]](implicit
       g: ByNameImplicit[F[Decoder]],
       g1: BasedInstalledSimpleProduct[F],
       lb: BasedInstalledLabelled[F],
       sg: SimpleJsonLabelled[F]
-    ): Decoder[F[({ type IDF[T] = T })#IDF]] = Decoder.instance[F[({ type IDF[T] = T })#IDF]](
-      EncodeHelperUtils
-        .decodeModelImpl[F](g1.basedInstalled, sg.labelledValueFunc(lb.labelled.stringLabelled), () => g.value, sg.defaultValue)
-    )
+    ): Decoder[F[({ type IDF[T] = T })#IDF]] = {
+      val bsInsatnall: SimpleProductContextX[F] = g1.basedInstalled
+
+      val labelledIns: F[({ type Str1[_] = String })#Str1] = sg.labelledValueFunc(lb.labelled.stringLabelled)
+
+      Decoder.instance[F[({ type IDF[T] = T })#IDF]](
+        EncodeHelperUtils.decodeImpl[F](
+          bsInsatnall.simpleProduct2,
+          bsInsatnall.simpleProduct4,
+          labelledIns,
+          () => g.value,
+          sg.defaultValue
+        )
+      )
+    }
 
   }
 

@@ -1,6 +1,7 @@
 package net.scalax.simple.codec.pureconfig
 
 import com.typesafe.config.ConfigValue
+import net.scalax.simple.adt.nat.support.SimpleProductContextX
 import net.scalax.simple.codec.{ModelGet, ModelSet}
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance}
 import net.scalax.simple.codec.utils.ByNameImplicit
@@ -8,6 +9,40 @@ import pureconfig.ConfigReader.Result
 import pureconfig._
 
 object PureConfigUtils {
+  type Str1[_]   = String
+  type IdType[T] = T
+
+  def getCirceDecoderF[F[_[_]]](implicit
+    modelLabelled: BasedInstalledLabelled[F],
+    basedInstalled: BasedInstalledSimpleProduct[F],
+    g3: ByNameImplicit[F[ConfigReader]],
+    sg: PureConfigLabelled[F]
+  ): ConfigReader[F[IdType]] = {
+    val bsIns: SimpleProductContextX[F] = basedInstalled.basedInstalled
+    val labelledIns: F[Str1]            = sg.labelledValueFunc(modelLabelled.labelled.stringLabelled)
+    val de1: ConfigObjectCursor => Result[F[IdType]] =
+      DecodeHelperUtils.decodeImpl[F](bsIns.simpleProduct2, bsIns.simpleProduct4, labelledIns, () => g3.value, sg.defaultValue)
+
+    ConfigReader.fromCursor[F[IdType]](configs =>
+      for {
+        v1 <- configs.asObjectCursor
+        v2 <- de1(v1)
+      } yield v2
+    )
+  }
+
+  def getPureConfigWriterF[F[_[_]]](implicit
+    modelLabelled: BasedInstalledLabelled[F],
+    basedInstalled: BasedInstalledSimpleProduct[F],
+    g3: ByNameImplicit[F[ConfigWriter]],
+    sg: PureConfigLabelled[F]
+  ): ConfigWriter[F[IdType]] = {
+    val bsIns: SimpleProductContextX[F] = basedInstalled.basedInstalled
+    val labelledIns: F[Str1]            = sg.labelledValueFunc(modelLabelled.labelled.stringLabelled)
+    val func: F[IdType] => ConfigValue  = EncodeHelperUtils.encodeImpl[F](bsIns.simpleProduct3, labelledIns, () => g3.value)
+
+    ConfigWriter.fromFunction[F[IdType]](func)
+  }
 
   implicit def getCirceDecoderPojo[Model](implicit
     g1: ModelSet[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model],
@@ -16,13 +51,8 @@ object PureConfigUtils {
     g3: ByNameImplicit[PojoInstance[ConfigReader, Model]],
     sg: PureConfigLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F]
   ): ConfigReader[Model] = {
-    val labelledIns: PojoInstance[({ type Str1[_] = String })#Str1, Model] = sg.labelledValueFunc(modelLabelled.labelled.stringLabelled)
-
-    val de1: ConfigReader[PojoInstance[({ type IDF[T] = T })#IDF, Model]] =
-      DecodeHelperUtils
-        .scalaM[({ type F[X[_]] = PojoInstance[X, Model] })#F](basedInstalled.basedInstalled, labelledIns, () => g3.value, sg.defaultValue)
-
-    for (model <- de1) yield g1.fromIdentity(model)
+    val reader = getCirceDecoderF[({ type F[X[_]] = PojoInstance[X, Model] })#F]
+    for (r1 <- reader) yield g1.fromIdentity(r1)
   }
 
   implicit def getPureConfigWriterPojo[Model](implicit
@@ -32,16 +62,8 @@ object PureConfigUtils {
     g3: ByNameImplicit[PojoInstance[ConfigWriter, Model]],
     sg: PureConfigLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F]
   ): ConfigWriter[Model] = {
-    val labelledIns: PojoInstance[({ type Str1[_] = String })#Str1, Model] = sg.labelledValueFunc(modelLabelled.labelled.stringLabelled)
-
-    val de1: PojoInstance[({ type IDF[T] = T })#IDF, Model] => ConfigValue =
-      EncodeHelperUtils.encodeImpl[({ type F[X[_]] = PojoInstance[X, Model] })#F](
-        basedInstalled.basedInstalled.simpleProduct3,
-        labelledIns,
-        () => g3.value
-      )
-
-    ConfigWriter.fromFunction[Model](de1.compose(g1.toIdentity))
+    val writer = getPureConfigWriterF[({ type F[X[_]] = PojoInstance[X, Model] })#F]
+    writer.contramap[Model](g1.toIdentity)
   }
 
 }

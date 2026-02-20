@@ -3,7 +3,7 @@ package net.scalax.simple.codec.circe
 import io.circe.Decoder.Result
 import io.circe._
 import io.circe.syntax._
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct3 => SP3, SimpleProduct4 => SP4, SimpleProductContextX}
+import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct2 => SP2, SimpleProduct3 => SP3, SimpleProduct4 => SP4}
 import net.scalax.simple.codec.GetFieldModel
 
 object EncodeHelperUtils {
@@ -50,16 +50,17 @@ object EncodeHelperUtils {
     def fromJson(n: Name, enc: Dec, defVal: DefaultValue): Decoder.Result[Model]
   }
 
-  def decodeModelImpl[F[_[_]]](
-    sp: SimpleProductContextX[F],
+  def decodeImpl[F[_[_]]](
+    sp2: SP2.ProductAdapter[F],
+    sp4: SP4.ProductAdapter[F],
     named: F[Named],
     g: () => F[Decoder],
     defaultValue: Option[F[({ type OptF[TU] = Option[() => TU] })#OptF]]
-  ): HCursor => Decoder.Result[F[cats.Id]] = (hCursor: HCursor) => {
+  ): HCursor => Decoder.Result[F[IdType]] = (hCursor: HCursor) => {
     type OptF[TU]    = Option[() => TU]
     type OptFGet[TU] = F[OptF] => OptF[TU]
 
-    val getField: GetFieldModel[F] = GetFieldModel[F].derived(sp.simpleProduct2)
+    val getField: GetFieldModel[F] = GetFieldModel[F].derived(sp2)
 
     val appender: SP4.SimpleAppender[DecodeJson] = new SP4.SimpleAppender[DecodeJson] {
       override def append[A1, A2, A3, A4, B1, B2, B3, B4, C1, C2, C3, C4](
@@ -81,7 +82,7 @@ object EncodeHelperUtils {
       }
     }
 
-    val typeGen: SP4.TypeGen[DecodeJson, Named, Decoder, cats.Id, OptFGet] = new SP4.TypeGen[DecodeJson, Named, Decoder, cats.Id, OptFGet] {
+    val typeGen: SP4.TypeGen[DecodeJson, Named, Decoder, IdType, OptFGet] = new SP4.TypeGen[DecodeJson, Named, Decoder, IdType, OptFGet] {
       override def gen[T]: DecodeJson[String, Decoder[T], T, F[OptF] => Option[() => T]] =
         new DecodeJson[String, Decoder[T], T, F[OptF] => Option[() => T]] {
           override def fromJson(n: String, dec: Decoder[T], defVal: F[OptF] => Option[() => T]): Decoder.Result[T] = {
@@ -97,8 +98,8 @@ object EncodeHelperUtils {
         }
     }
 
-    val decoderFunc: DecodeJson[F[Named], F[Decoder], F[cats.Id], F[OptFGet]] =
-      sp.simpleProduct4.append[DecodeJson, Named, Decoder, cats.Id, OptFGet](typeGen = typeGen, sAppender = appender)
+    val decoderFunc: DecodeJson[F[Named], F[Decoder], F[IdType], F[OptFGet]] =
+      sp4.append[DecodeJson, Named, Decoder, IdType, OptFGet](typeGen = typeGen, sAppender = appender)
 
     decoderFunc.fromJson(named, g(), getField.getFieldModel[OptF])
   }
