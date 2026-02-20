@@ -19,7 +19,8 @@ object PureConfigUtils {
     val labelledIns: PojoInstance[({ type Str1[_] = String })#Str1, Model] = sg.labelledValueFunc(modelLabelled.labelled.stringLabelled)
 
     val de1: ConfigReader[PojoInstance[({ type IDF[T] = T })#IDF, Model]] =
-      DecodeHelperUtils.scalaM[({ type F[X[_]] = PojoInstance[X, Model] })#F](basedInstalled, labelledIns, () => g3.value, sg.defaultValue)
+      DecodeHelperUtils
+        .scalaM[({ type F[X[_]] = PojoInstance[X, Model] })#F](basedInstalled.basedInstalled, labelledIns, () => g3.value, sg.defaultValue)
 
     for (model <- de1) yield g1.fromIdentity(model)
   }

@@ -3,7 +3,7 @@ package net.scalax.simple.codec.pureconfig
 import net.scalax.simple.codec.to_list_generic.BasedInstalledSimpleProduct
 import pureconfig.ConfigReader.Result
 import pureconfig._
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProductContextX, SimpleProduct4 => SP4}
+import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct4 => SP4, SimpleProductContextX}
 import net.scalax.simple.codec.GetFieldModel
 import pureconfig.error.ConfigReaderFailures
 
