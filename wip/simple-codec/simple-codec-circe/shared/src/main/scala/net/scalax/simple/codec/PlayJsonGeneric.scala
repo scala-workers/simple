@@ -21,10 +21,27 @@ object PlayJsonGeneric {
 
       Writes(PlayJsonGeneric2.encodeImpl[F](sp3 = bsInsatnall.simpleProduct3, labelledIns, () => g.value))
     }
+
+    implicit def getCirceDecoderF[F[_[_]]](implicit
+      g: ByNameImplicit[F[Reads]],
+      g1: BasedInstalledSimpleProduct[F],
+      lb: BasedInstalledLabelled[F],
+      sg: SimpleJsonLabelled[F]
+    ): Reads[F[({ type IDF[T] = T })#IDF]] = {
+      val bsInsatnall: SimpleProductContextX[F] = g1.basedInstalled
+
+      val labelledIns: F[({ type Str1[_] = String })#Str1] = sg.labelledValueFunc(lb.labelled.stringLabelled)
+
+      val func =
+        PlayJsonGeneric2.decodeImpl[F](bsInsatnall.simpleProduct2, bsInsatnall.simpleProduct4, labelledIns, () => g.value, sg.defaultValue)
+
+      implicitly[Reads[JsObject]].flatMapResult(func)
+    }
+
   }
 
   object Pojo {
-    implicit def encodeModelPojo[Model](implicit
+    implicit def playJsonEncodeModelPojo[Model](implicit
       g1: ModelGet[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model],
       basedInstalled: BasedInstalledSimpleProduct[({ type F[X[_]] = PojoInstance[X, Model] })#F],
       lb: BasedInstalledLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F],
@@ -33,6 +50,17 @@ object PlayJsonGeneric {
     ): Writes[Model] = {
       val w1: Writes[PojoInstance[({ type IDF[T] = T })#IDF, Model]] = F.encodeModelF[({ type F[X[_]] = PojoInstance[X, Model] })#F]
       w1.contramap[Model](g1.toIdentity)
+    }
+
+    implicit def playJsonDecodeModelPojo[Model](implicit
+      g1: ModelSet[({ type F[X[_]] = PojoInstance[X, Model] })#F, Model],
+      basedInstalled: BasedInstalledSimpleProduct[({ type F[X[_]] = PojoInstance[X, Model] })#F],
+      lb: BasedInstalledLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F],
+      g3: ByNameImplicit[PojoInstance[Reads, Model]],
+      sg: SimpleJsonLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F]
+    ): Reads[Model] = {
+      val de1: Reads[PojoInstance[({ type IDF[T] = T })#IDF, Model]] = F.getCirceDecoderF[({ type F[X[_]] = PojoInstance[X, Model] })#F]
+      for (model <- de1) yield g1.fromIdentity(model)
     }
   }
 

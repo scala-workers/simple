@@ -28,8 +28,8 @@ object PlayJsonGeneric2 {
         b: EncodeAction[B1, B2, B3]
       ): EncodeAction[C1, C2, C3] = new EncodeAction[C1, C2, C3] {
         override def toJson(n: C1, enc: C2, id: C3, l: List[(String, JsValue)]): List[(String, JsValue)] = {
-          val valueA: List[(String, JsValue)] = a.toJson(f1.takeHead(n), f2.takeHead(enc), f3.takeHead(id), l)
-          b.toJson(f1.takeTail(n), f2.takeTail(enc), f3.takeTail(id), valueA)
+          val valueA: List[(String, JsValue)] = b.toJson(f1.takeTail(n), f2.takeTail(enc), f3.takeTail(id), l)
+          a.toJson(f1.takeHead(n), f2.takeHead(enc), f3.takeHead(id), valueA)
         }
       }
 
@@ -87,7 +87,11 @@ object PlayJsonGeneric2 {
       override def gen[T]: DecodeJson[String, Reads[T], T, F[OptF] => Option[() => T]] =
         new DecodeJson[String, Reads[T], T, F[OptF] => Option[() => T]] {
           override def fromJson(n: String, dec: Reads[T], defVal: F[OptF] => Option[() => T]): JsResult[T] = {
-            val value1: JsResult[T] = dec.reads(hCursor(n)) // TODO
+            val jsPath: JsPath = JsPath() \ n
+            val value1: JsResult[T] = for {
+              v1 <- jsPath.asSingleJsResult(hCursor)
+              v2 <- dec.reads(v1)
+            } yield v2
 
             value1.fold[JsResult[T]](
               (err: scala.collection.Seq[(JsPath, scala.collection.Seq[JsonValidationError])]) =>

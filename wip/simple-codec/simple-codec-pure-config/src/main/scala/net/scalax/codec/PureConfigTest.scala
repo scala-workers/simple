@@ -1,6 +1,6 @@
 package net.scalax.simple.codec.pureconfig
 
-import net.scalax.simple.codec.DefaultValue
+import net.scalax.simple.codec.{DefaultValue, DefaultValuePojo}
 import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLinkPojo, PojoInstance}
 import pureconfig._
 
@@ -24,7 +24,7 @@ object SampleConf {
   implicit def readerInstance: PojoInstance[ConfigReader, SampleConf] = FillIdentity.Pojo[ConfigReader, SampleConf].derived
   implicit def writerInstance: PojoInstance[ConfigWriter, SampleConf] = FillIdentity.Pojo[ConfigWriter, SampleConf].derived
 
-  implicit def defaultValueInstance: DefaultValue.Pojo[SampleConf] = DefaultValue.pojo[SampleConf].derives
+  implicit def defaultValueInstance: DefaultValuePojo[SampleConf] = DefaultValuePojo[SampleConf].derives
 
 }
 
@@ -51,7 +51,7 @@ object Runner {
       println("=== Reader2 End ===")
     }
 
-    val ins = implicitly[DefaultValue.Pojo[SampleConf]].defaultValue
+    val ins = implicitly[DefaultValuePojo[SampleConf]].defaultValue
     println("=== DefaultValue Start ===")
     println(ins(_.foo))
     println(ins(_.bar))

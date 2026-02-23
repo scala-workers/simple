@@ -20,9 +20,12 @@ object CatNameTest5 {
   import PlayJsonGeneric.Pojo._
   implicit val modelWrites: FillIdentity.Pojo[Writes, CatNameTest5] = FillIdentity.Pojo[Writes, CatNameTest5].derived
 
+  implicit def optionWithNull[T](implicit rds: Reads[T]): Reads[Option[T]] = Reads.optionWithNull[T]
+  implicit val modelReads: FillIdentity.Pojo[Reads, CatNameTest5]          = FillIdentity.Pojo[Reads, CatNameTest5].derived
+
 }
 
-object PlayJsonTest {
+object PlayJsonTest1234 {
 
   import PlayJsonGeneric.Pojo._
 
@@ -49,7 +52,15 @@ object PlayJsonTest {
   )
 
   final def main(args: Array[String]): Unit = {
-    println(Json.toJson(modelInstance))
+    locally {
+      println(Json.toJson(modelInstance))
+    }
+
+    locally {
+      val jsonStr: String = Json.toJson(modelInstance).toString()
+      val jsVal: JsValue  = Json.parse(jsonStr)
+      println(Json.fromJson[CatNameTest5](jsVal))
+    }
   }
 
 }
