@@ -1,6 +1,6 @@
 package net.scalax.simple.codec
 
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1, SimpleProductContextX}
+import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1}
 
 trait FromListByTheSameTypeGeneric[F[_[_]]] {
   def fromListByTheSameType[TA, SeqType](

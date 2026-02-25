@@ -1,7 +1,7 @@
 package net.scalax.simple.codec
 package to_list_generic
 
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1, SimpleProductContextX}
+import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1}
 
 trait Fold1FGenerc[F[_[_]]] {
   def foldLeft[N[_], SeqType](folder: Fold1FGenerc.FoldF[N, SeqType], model: F[N], zero: SeqType): SeqType

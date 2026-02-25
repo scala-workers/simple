@@ -59,21 +59,4 @@ object ModelLinkPojo {
     }
   }
 
-  /*class Builder[Model] {
-    def derived(implicit
-      g: shapeless.Generic.Aux[Model, _ <: shapeless.HList],
-      c: DefaultSymbolicLabelling.Aux[Model, _ <: shapeless.HList]
-    ): ModelLinkPojo[Model] = {
-      val namedModel = c.apply()
-
-      new ModelLinkPojo[Model] {
-        override val compatNamed: Any           = namedModel
-        override def genericFrom(x: Any): Model = g.from(x.asInstanceOf[g.Repr])
-        override def genericTo(x: Model): Any   = g.to(x)
-      }
-    }
-  }
-
-  def apply[Model]: Builder[Model] = new Builder[Model]*/
-
 }

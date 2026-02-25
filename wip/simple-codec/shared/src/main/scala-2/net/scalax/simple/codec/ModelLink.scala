@@ -35,38 +35,4 @@ object ModelLink {
   }
   type F[FModel[_[_]]] = ModelLink[FModel, FModel[({ type IDF[T] = T })#IDF]]
 
-  /*class BuilderPojo[Model] {
-    def derived(implicit
-      g: shapeless.Generic.Aux[Model, _ <: shapeless.HList],
-      c: DefaultSymbolicLabelling.Aux[Model, _ <: shapeless.HList]
-    ): ModelLinkSelf.Pojo[Model] = {
-      val namedModel = c.apply()
-
-      new ModelLinkPojo[Model] {
-        override val compatNamed: Any           = namedModel
-        override def genericFrom(x: Any): Model = g.from(x.asInstanceOf[g.Repr])
-        override def genericTo(x: Model): Any   = g.to(x)
-      }
-    }
-
-    def implicitly(implicit u: ModelLinkSelf.Pojo[Model]): ModelLinkSelf.Pojo[Model] = u
-  }*/
-
-  /*object Pojo {
-    def derived[Model](implicit
-      g: shapeless.Generic.Aux[Model, _ <: shapeless.HList],
-      c: DefaultSymbolicLabelling.Aux[Model, _ <: shapeless.HList]
-    ): Pojo[Model] = {
-      val namedModel = c.apply()
-      new Pojo[Model] {
-        override val compatNamed: Any           = namedModel
-        override def genericFrom(x: Any): Model = g.from(x.asInstanceOf[g.Repr])
-        override def genericTo(x: Model): Any   = g.to(x)
-      }
-    }
-
-    def implicitly[Model](implicit u: ModelLinkSelf.Pojo[Model]): ModelLinkSelf.Pojo[Model] = u
-  }
-  trait Pojo[Model] extends ModelLinkPojo[Model]*/
-
 }
