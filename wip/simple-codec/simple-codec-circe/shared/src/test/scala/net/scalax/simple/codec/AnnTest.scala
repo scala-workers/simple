@@ -3,7 +3,6 @@ package net.scalax.simple.codec
 import io.circe._
 import io.circe.syntax._
 import io.circe.generic.extras._
-import net.scalax.simple.CirceField
 import net.scalax.simple.codec.to_list_generic.ModelLinkPojo
 
 case class AnnTestCatName(
