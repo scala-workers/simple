@@ -2,14 +2,22 @@ package net.scalax.simple.codec
 
 import io.circe._
 import io.circe.syntax._
-import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, ModelLink, ModelLinkCommonF}
+import net.scalax.simple.codec.to_list_generic.{
+  BasedInstalledLabelled,
+  BasedInstalledModelSized,
+  BasedInstalledSimpleProduct,
+  ModelLink,
+  ModelLinkCommonF
+}
 
 case class CatName[F[_]](id2: F[Int], str2: F[Option[String]], uClass2: F[Option[Long]], name112: F[String], namexu2: F[String])
 
 object CatName {
   type FAlias[UX[_]] = CatName[({ type U1[_] = UX[String] })#U1]
-  implicit val modelLinkF: ModelLink.F[CatName]                        = ModelLink.F[CatName].derived
-  implicit val namedModel_catName2: ModelLink[FAlias, FAlias[cats.Id]] = ToItera[CatName].derived.toModelLink[String](implicitly)
+  implicit val modelLinkF: ModelLink.F[CatName] = ModelLink.F[CatName].derived
+  implicit val namedModel_catName2
+    : BasedInstalledLabelled[FAlias] with BasedInstalledSimpleProduct[FAlias] with BasedInstalledModelSized[FAlias] =
+    ToItera[CatName].derived.toBasedInstalled[String](implicitly)
 
   implicit val jsonLabelled: SimpleJsonLabelled.F[FAlias] = SimpleJsonLabelled.F[FAlias]
 
@@ -38,7 +46,7 @@ object CirceText2 {
 
   import CirceGen.F._
 
-  val namedMode: FAlias[cats.Id] = ModelLink.F[FAlias].implicitly.labelled.stringLabelled
+  val namedMode: FAlias[cats.Id] = implicitly[BasedInstalledLabelled[FAlias]].labelled.stringLabelled
 
   final def main(args: Array[String]): Unit = {
     println(namedMode.asJson.spaces2)

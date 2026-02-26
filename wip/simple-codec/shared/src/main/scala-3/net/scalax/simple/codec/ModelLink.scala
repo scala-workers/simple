@@ -9,15 +9,22 @@ trait ModelLink[F[_[_]], Model]
     with BasedInstalledModelSized[F]
     with ModelGet[F, Model]
     with ModelSet[F, Model]
+    with FModelGet[F]
+    with FModelSet[F]
 
 object ModelLink {
 
   import scala.deriving.Mirror
 
   def buildUtilImplCommonF[FMM[_[_]]](cNamed: Any, fromTuple: Any => FMM[[_] =>> Any]): ModelLinkCommonF[FMM] = new ModelLinkCommonF[FMM] {
-    override val compatNamed: Any                    = cNamed
-    override def FToInstance[T[_]](x: FMM[T]): Any   = Tuple.fromProduct(x.asInstanceOf)
-    override def FFromInstance[T[_]](x: Any): FMM[T] = fromTuple(x).asInstanceOf[FMM[T]]
+    ModelLinkCommonFSelf =>
+    override def FToHList[T[_]](x: FMM[T]): Any   = Tuple.fromProduct(x.asInstanceOf)
+    override def FFromHList[T[_]](x: Any): FMM[T] = fromTuple(x).asInstanceOf[FMM[T]]
+    override def size: ModelSize[FMM]             = ModelSize[FMM].derived(cNamed)
+    override def labelled: CompatLabelled[FMM] = new CompatLabelledImplHelper.Impl[FMM] {
+      override def stringLabelled: FMM[({ type T1[_] = String })#T1] = ModelLinkCommonFSelf.FFromHList[({ type T1[_] = String })#T1](cNamed)
+      override def mapGenerc: MapGenerc[FMM] = MapGenerc[FMM].derived(ModelLinkCommonFSelf.basedInstalled.simpleProduct2)
+    }
   }
 
   class BuilderCommonF[FMM[_[_]]] {

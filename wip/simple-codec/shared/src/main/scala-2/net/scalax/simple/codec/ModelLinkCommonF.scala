@@ -11,24 +11,13 @@ trait ModelLinkCommonF[F[_[_]]] extends ModelLink[F, F[({ type U1[X] = X })#U1]]
 
   override def basedInstalled: SimpleProductContextX[F] = {
     val fromFunc: GenericAuxFrom[F] = new GenericAuxFrom[F] {
-      override def fromModel[X[_]](collection: Any): F[X] = modelLinkCommonFSelf.FFromInstance(collection)
+      override def fromModel[X[_]](collection: Any): F[X] = modelLinkCommonFSelf.FFromHList(collection)
     }
 
     val toFunc: GenericAuxTo[F] = new GenericAuxTo[F] {
-      override def toModel[X[_]](model: F[X]): Any = modelLinkCommonFSelf.FToInstance(model)
+      override def toModel[X[_]](model: F[X]): Any = modelLinkCommonFSelf.FToHList(model)
     }
 
     SimpleProductX[F].derived(fromFunc, toFunc, modelLinkCommonFSelf.size)
   }
-
-  override def labelled: CompatLabelled[F] = CompatLabelled[F].toLabelledWithScalaVersion(
-    FromListByTheSameTypeGeneric[F].derived(modelLinkCommonFSelf.basedInstalled.simpleProduct1),
-    MapGenerc[F].derived(modelLinkCommonFSelf.basedInstalled.simpleProduct2),
-    modelLinkCommonFSelf.compatNamed
-  )
-  override def size: ModelSize[F] = ModelSize[F].derived(modelLinkCommonFSelf.compatNamed)
-
-  protected def compatNamed: Any
-  protected def FToInstance[T[_]](x: F[T]): Any
-  protected def FFromInstance[T[_]](x: Any): F[T]
 }

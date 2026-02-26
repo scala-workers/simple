@@ -30,7 +30,7 @@ trait ToItera[F[_[_]]] {
         ModelSize[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1].instance(oldInstanlled.size.modelSize)
     }
 
-  def toModelLink[T](
+  /*def toModelLink[T](
     oldInstanlled: ModelLink[F, F[({ type X1[U] = U })#X1]]
   ): ModelLink[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1, F[({ type X1[_] = T })#X1]] =
     new ModelLink[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1, F[({ type X1[_] = T })#X1]] {
@@ -46,7 +46,9 @@ trait ToItera[F[_[_]]] {
 
       override def toIdentity(t: F[({ type X1[_] = T })#X1]): F[({ type X1[_] = T })#X1]   = t
       override def fromIdentity(t: F[({ type X1[_] = T })#X1]): F[({ type X1[_] = T })#X1] = t
-    }
+      override def FFromHList[U[_]](t: Any): F[({ type T1[_] = U[T] })#T1] = oldInstanlled.FFromHList[({ type T1[_] = U[T] })#T1](t)
+      override def FToHList[U[_]](t: F[({ type T1[_] = U[T] })#T1]): Any   = oldInstanlled.FToHList[({ type T1[_] = U[T] })#T1](t)
+    }*/
 }
 
 object ToItera {

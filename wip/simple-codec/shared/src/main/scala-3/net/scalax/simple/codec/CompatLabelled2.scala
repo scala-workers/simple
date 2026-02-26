@@ -3,7 +3,7 @@ package net.scalax.simple.codec
 trait CompatLabelledCompatHelper {
 
   class Builder[F[_[_]]] {
-    def toLabelledWithScalaVersion(
+    /*def toLabelledWithScalaVersion(
       fromListGeneric: FromListByTheSameTypeGeneric[F],
       mapGenerc: MapGenerc[F],
       compatModel: Any
@@ -22,7 +22,7 @@ trait CompatLabelledCompatHelper {
 
         override def mapGenerc: MapGenerc[F] = mapGeneric1
       }
-    }
+    }*/
 
     def toLobelledSizeWithScalaVersion(compat: Any): Int = compat.asInstanceOf[Product].productArity
   }
