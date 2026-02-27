@@ -27,19 +27,6 @@ trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, M
     SimpleProductX[({ type F[X[_]] = PojoInstance[X, Model] })#F].derived(fromFunc, toFunc, modelLinkCommonFSelf.size)
   }
 
-  /*override def labelled: CompatLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F] = {
-    CompatLabelled[({ type F[X[_]] = PojoInstance[X, Model] })#F].toLabelledWithScalaVersion(
-      FromListByTheSameTypeGeneric[({ type F[X[_]] = PojoInstance[X, Model] })#F]
-        .derived(modelLinkCommonFSelf.basedInstalled.simpleProduct1),
-      MapGenerc[({ type F[X[_]] = PojoInstance[X, Model] })#F].derived(modelLinkCommonFSelf.basedInstalled.simpleProduct2),
-      modelLinkCommonFSelf.compatNamed
-    )
-  }
-
-  override def size: ModelSize[({ type F[X[_]] = PojoInstance[X, Model] })#F] =
-    ModelSize[({ type F[X[_]] = PojoInstance[X, Model] })#F].derived(modelLinkCommonFSelf.compatNamed)
-
-  protected def compatNamed: Any*/
   protected def genericFrom(t: Any): Model
   protected def genericTo(t: Model): Any
 }

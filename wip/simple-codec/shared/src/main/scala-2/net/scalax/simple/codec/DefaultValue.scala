@@ -31,30 +31,9 @@ object DefaultValuePojo { DefaultValuePojoSelf =>
     def mapGenerc: MapGenerc[F]
   }
 
-  private def toNamed: SimpleProduct1.TypeGen[({ type T1[U] = shapeless.HList => (shapeless.HList, U) })#T1, Option] =
-    new SimpleProduct1.TypeGen[({ type T1[U] = shapeless.HList => (shapeless.HList, U) })#T1, Option] {
-      override def gen[U]: shapeless.HList => (shapeless.HList, Option[U]) = (tu: shapeless.HList) => {
-        val value1 = tu.asInstanceOf[shapeless.::[Option[U], shapeless.HList]]
-        (value1.tail, value1.head)
-      }
-    }
-
-  private def monadAdd: SimpleProduct1.SimpleAppender[({ type T1[U] = shapeless.HList => (shapeless.HList, U) })#T1] =
-    new SimpleProduct1.SimpleAppender[({ type T1[U] = shapeless.HList => (shapeless.HList, U) })#T1] {
-      override def append[A1, B1, C1](c: ABCFunc[A1, B1, C1])(
-        ma: shapeless.HList => (shapeless.HList, A1),
-        mb: shapeless.HList => (shapeless.HList, B1)
-      ): shapeless.HList => (shapeless.HList, C1) = { l =>
-        val rb = ma(l)
-        val ra = mb(rb._1)
-        (ra._1, c.append(rb._2, ra._2))
-      }
-
-      override def zero[N1](n1: N1): shapeless.HList => (shapeless.HList, N1) = l => (l, n1)
-    }
-
   class Builder[ModelType] {
     def derives(implicit
+      fModelGet: FModelGet[({ type F1[U[_]] = PojoInstance[U, ModelType] })#F1],
       basedI1: BasedInstalledSimpleProduct[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1],
       compatModel: shapeless.Default[ModelType]
     ): DefaultValuePojo[ModelType] = {
@@ -62,16 +41,13 @@ object DefaultValuePojo { DefaultValuePojoSelf =>
 
       val defaultV: shapeless.HList = compatModel.apply()
 
+      val ins1: PojoInstance[Option, ModelType] = fModelGet.FFromHList[Option](defaultV)
+
       def mapGenerc1: MapGenerc[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1] =
         MapGenerc[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1].derived(spx.simpleProduct2)
 
-      val insValue: (shapeless.HList, PojoInstance[Option, ModelType]) = spx.simpleProduct1
-        .append[({ type T1[U] = shapeless.HList => (shapeless.HList, U) })#T1, ({ type T1[U1] = Option[U1] })#T1](toNamed, monadAdd)(
-          defaultV
-        )
-
       new DefaultValuePojo[ModelType] with DefaultValuePojoSelf.Impl[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1] {
-        override def defaultValue: PojoInstance[Option, ModelType]                                     = insValue._2
+        override def defaultValue: PojoInstance[Option, ModelType]                                     = ins1
         override def mapGenerc: MapGenerc[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1] = mapGenerc1
       }
     }

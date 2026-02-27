@@ -13,20 +13,15 @@ object ModelAnnotationsPojo {
   trait ModelBuilder[Model, Ann] {
     def derived(using
       sa: shapeless3.deriving.Annotations[Ann, Model],
-      simplePro: BasedInstalledSimpleProduct[({ type F1[U[_]] = PojoInstance[U, Model] })#F1]
+      fModelGet: FModelGet[({ type F1[U[_]] = PojoInstance[U, Model] })#F1]
     ): ModelAnnotationsPojo[Model, Ann] = {
-      val fromList: FromListByTheSameTypeGeneric[({ type F1[U[_]] = PojoInstance[U, Model] })#F1] =
-        FromListByTheSameTypeGeneric[({ type F1[U[_]] = PojoInstance[U, Model] })#F1].derived(simplePro.basedInstalled.simpleProduct1)
+      def annIns: Tuple = sa.apply()
 
-      val annIns: Tuple = sa.apply().asInstanceOf[Tuple]
-
-      val toModel = fromList.fromListByTheSameType[Option[Ann], Tuple](
-        takeHead = t => t.asInstanceOf[*:[Option[Ann], Tuple]].head,
-        takeTail = t => t.asInstanceOf[*:[Any, Tuple]].tail
-      )
+      def toModel: PojoInstance[({ type U11[_] = Option[Ann] })#U11, Model] =
+        fModelGet.FFromHList[({ type U11[_] = Option[Ann] })#U11](annIns)
 
       new ModelAnnotationsPojo[Model, Ann] {
-        override val annInstance: PojoInstance[({ type U11[_] = Option[Ann] })#U11, Model] = toModel(annIns)
+        override def annInstance: PojoInstance[({ type U11[_] = Option[Ann] })#U11, Model] = toModel
       }
     }
   }

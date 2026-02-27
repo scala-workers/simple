@@ -34,44 +34,26 @@ object DefaultValuePojo { DefaultValuePojoSelf =>
 
   type ListType = List[(String, Option[() => Any])]
 
-  private def toNamed: SimpleProduct1.TypeGen[({ type T1[U] = ListType => (ListType, U) })#T1, ({ type UA[T1] = Option[() => T1] })#UA] =
-    new SimpleProduct1.TypeGen[({ type T1[U] = ListType => (ListType, U) })#T1, ({ type UA[T1] = Option[() => T1] })#UA] {
-      override def gen[U]: ListType => (ListType, Option[() => U]) = (tu: ListType) => {
-        val value1 = tu.head._2.asInstanceOf[Option[() => U]]
-        (tu.tail, value1)
-      }
-    }
-
-  private def monadAdd: SimpleProduct1.SimpleAppender[({ type T1[U] = ListType => (ListType, U) })#T1] =
-    new SimpleProduct1.SimpleAppender[({ type T1[U] = ListType => (ListType, U) })#T1] {
-      override def append[A1, B1, C1](c: ABCFunc[A1, B1, C1])(
-        ma: ListType => (ListType, A1),
-        mb: ListType => (ListType, B1)
-      ): ListType => (ListType, C1) = { l =>
-        val rb = ma(l)
-        val ra = mb(rb._1)
-        (ra._1, c.append(rb._2, ra._2))
-      }
-
-      override def zero[N1](n1: N1): ListType => (ListType, N1) = l => (l, n1)
-    }
-
   class Builder[ModelType] {
     inline def derives(using
+      fModelGet: FModelGet[({ type F1[U[_]] = PojoInstance[U, ModelType] })#F1],
       basedI1: BasedInstalledSimpleProduct[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1]
     ): DefaultValuePojo[ModelType] = {
       val spx: SimpleProductContextX[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1] = basedI1.basedInstalled
 
-      val defaultV: ListType = magnolia1.Macro.defaultValue[ModelType]
+      val defaultV: ListType                 = magnolia1.Macro.defaultValue[ModelType]
+      val defaultV2: List[Option[() => Any]] = for (n1 <- defaultV) yield n1._2
+
+      val namedTuple: Tuple = Tuple.fromArray(defaultV2.to(Array))
+
+      val ins1: PojoInstance[({ type UA[T1] = Option[() => T1] })#UA, ModelType] =
+        fModelGet.FFromHList[({ type UA[T1] = Option[() => T1] })#UA](namedTuple)
 
       def mapGenerc1: MapGenerc[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1] =
         MapGenerc[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1].derived(spx.simpleProduct2)
 
-      val insValue: (ListType, PojoInstance[({ type UA[T1] = Option[() => T1] })#UA, ModelType]) = spx.simpleProduct1
-        .append[({ type T1[U] = ListType => (ListType, U) })#T1, ({ type UA[T1] = Option[() => T1] })#UA](toNamed, monadAdd)(defaultV)
-
       new DefaultValuePojo[ModelType] with DefaultValuePojoSelf.Impl[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1] {
-        override def defaultValueFunction1: PojoInstance[({ type UA[T1] = Option[() => T1] })#UA, ModelType] = insValue._2
+        override def defaultValueFunction1: PojoInstance[({ type UA[T1] = Option[() => T1] })#UA, ModelType] = ins1
         override def mapGenerc: MapGenerc[({ type Type1[U1[_]] = PojoInstance[U1, ModelType] })#Type1]       = mapGenerc1
       }
     }
