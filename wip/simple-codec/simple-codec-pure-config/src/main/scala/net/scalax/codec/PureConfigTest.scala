@@ -51,11 +51,11 @@ object Runner {
       println("=== Reader2 End ===")
     }
 
-    val ins = implicitly[DefaultValuePojo[SampleConf]].defaultValue
+    val ins = implicitly[DefaultValuePojo[SampleConf]].defaultValueFunction1
     println("=== DefaultValue Start ===")
-    println(ins(_.foo))
-    println(ins(_.bar))
-    println(ins(_.optValue))
+    println(ins(_.foo).map(_.apply()))
+    println(ins(_.bar).map(_.apply()))
+    println(ins(_.optValue).map(_.apply()))
     println("=== DefaultValue End ===")
 
   }

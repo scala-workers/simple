@@ -7,6 +7,7 @@ libraryDependencies ++= libScalax.`scala-collection-compat`.value
 libraryDependencies ++= libScalax.`scala-reflect`.value
 libraryDependencies ++= libScalax.`scala-compiler`.value
 libraryDependencies ++= libScalax.`magnolia1.scala3`.value
+libraryDependencies ++= libScalax.`magnolia1.scala2`.value
 
 scalacOptions ++= {
   if (scalaVersion.value.startsWith("3.")) {
