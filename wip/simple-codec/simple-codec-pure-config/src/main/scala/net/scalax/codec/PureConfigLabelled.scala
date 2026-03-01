@@ -20,40 +20,43 @@ trait PureConfigLabelled[F[_[_]]] {
 }
 
 object PureConfigLabelled { PureConfigLabelledSelf =>
-  class Impl[F[_[_]]](
+  class Impl[F[_[_]]: MapGenerc](
     override val labelledValueFunc: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str],
-    mapGeneric: MapGenerc[F],
     override val defaultValue: Option[F[({ type OptF[U1] = Option[() => U1] })#OptF]]
   ) extends PureConfigLabelled[F] { ImplSelf =>
-    def useDefaultValue(initFunc: F[({ type OptF[U1] = Option[() => U1] })#OptF] => F[({ type OptF[U1] = Option[() => U1] })#OptF])(implicit
+    override def useDefaultValue(
+      initFunc: F[({ type OptF[U1] = Option[() => U1] })#OptF] => F[({ type OptF[U1] = Option[() => U1] })#OptF]
+    )(implicit
       defaultValue: DefaultValue[F]
     ): PureConfigLabelled[F] = new PureConfigLabelledSelf.Impl[F](
       labelledValueFunc = ImplSelf.labelledValueFunc,
-      mapGeneric = mapGeneric,
       defaultValue = Some(initFunc(defaultValue.defaultValueFunction1))
     )
 
-    def mapLabelled(func: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str]): PureConfigLabelled[F] =
+    override def mapLabelled(func: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str]): PureConfigLabelled[F] =
       new PureConfigLabelledSelf.Impl[F](
         labelledValueFunc = in => func(ImplSelf.labelledValueFunc(in)),
-        mapGeneric = mapGeneric,
         defaultValue = ImplSelf.defaultValue
       )
 
-    def mapWithConfigFieldMapping(c: ConfigFieldMapping): PureConfigLabelled[F] = {
+    override def mapWithConfigFieldMapping(c: ConfigFieldMapping): PureConfigLabelled[F] = {
       val mapping = new MapGenerc.MapFunction[({ type Str[_] = String })#Str, ({ type Str[_] = String })#Str] {
         override def map[X1](in: String): String = c(in)
       }
-      ImplSelf.mapLabelled(mapGeneric.map[({ type Str[_] = String })#Str, ({ type Str[_] = String })#Str](mapping))
+
+      ImplSelf.mapLabelled(implicitly[MapGenerc[F]].map[({ type Str[_] = String })#Str, ({ type Str[_] = String })#Str](mapping))
     }
   }
 
   trait Apply[F[_[_]]] {
-    def default(implicit sp: BasedInstalledSimpleProduct[F]): PureConfigLabelled[F] = new PureConfigLabelledSelf.Impl[F](
-      labelledValueFunc = identity[F[({ type Str[_] = String })#Str]],
-      mapGeneric = MapGenerc[F].derived(sp.basedInstalled.simpleProduct2),
-      defaultValue = Option.empty
-    )
+    def default(implicit sp: BasedInstalledSimpleProduct[F]): PureConfigLabelled[F] = {
+      implicit def mp: MapGenerc[F] = MapGenerc[F].derived(sp.basedInstalled.simpleProduct2)
+
+      new PureConfigLabelledSelf.Impl[F](
+        labelledValueFunc = identity[F[({ type Str[_] = String })#Str]],
+        defaultValue = Option.empty
+      )
+    }
   }
 
   def build[F[_[_]]]: PureConfigLabelledSelf.Apply[F] = new PureConfigLabelledSelf.Apply[F] {

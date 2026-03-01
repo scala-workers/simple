@@ -2,6 +2,7 @@ package net.scalax.simple.codec
 
 import net.scalax.simple.codec.to_list_generic.PojoInstance
 import shapeless.HList
+import scala.collection.compat._
 
 trait DefaultValue[F[_[_]]] {
   def defaultValueFunction1: F[({ type UA[T1] = Option[() => T1] })#UA]

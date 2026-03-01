@@ -1,6 +1,6 @@
 package net.scalax.simple.codec
 
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1, SimpleProductContextX}
+import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct1}
 
 trait GetPropertyByIndex[F[_[_]]] {
   def byIndexImpl[UX](index: Int): F[({ type X1[_] = UX })#X1] => UX
