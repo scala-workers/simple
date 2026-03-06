@@ -1,17 +1,17 @@
 package net.scalax.simple.codec
 
 import io.circe._
+import io.circe.generic.extras.JsonKey
 import io.circe.syntax._
-import net.scalax.simple.codec.to_list_generic.{
-  FillIdentity,
-  Fold1FGenerc,
-  ModelLink,
-  ModelLinkPojo,
-  PojoInstance,
-  ToListByTheSameTypeGeneric
-}
+import net.scalax.simple.codec.to_list_generic.{FillIdentity, Fold1FGenerc, ModelLinkPojo, PojoInstance, ToListByTheSameTypeGeneric}
 
-case class CatNameTest3(id3: Int, str3: Option[String], uClass3: Option[Long], name113: String, friends: List[CatNameTest3])
+case class CatNameTest3(
+  id3: Int,
+  str3: Option[String],
+  @JsonKey("MyClassMiaoMiaoMiao") uClass3: Option[Long],
+  name113: String,
+  friends: List[CatNameTest3]
+)
 
 object CatNameTest3 {
 
@@ -19,8 +19,9 @@ object CatNameTest3 {
 
   implicit val modelLinkPojo: ModelLinkPojo[CatNameTest3] = ModelLinkPojo.derived
 
+  implicit def annInstance: ModelAnnotationsPojo[CatNameTest3, JsonKey] = ModelAnnotationsPojo[CatNameTest3, JsonKey].derived
   implicit val jsonLabelled: SimpleJsonLabelled.Pojo[CatNameTest3] =
-    SimpleJsonLabelled.pojo[CatNameTest3].mapLabelled(_.copy(_.id3)("miaomiao id"))
+    SimpleJsonLabelled.pojo[CatNameTest3].mapLabelled(_.copy(_.id3)("miaomiao id")).annotationsLabelled
 
   import CirceGen.Pojo._
   implicit def modelEncoder: FillIdentity.Pojo[Encoder, CatNameTest3] =
