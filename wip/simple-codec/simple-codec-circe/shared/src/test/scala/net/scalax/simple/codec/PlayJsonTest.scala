@@ -61,6 +61,14 @@ object PlayJsonTest1234 {
       val jsVal: JsValue  = Json.parse(jsonStr)
       println(Json.fromJson[CatNameTest5](jsVal))
     }
+
+    locally {
+      val aa =
+        """{"id5":8594,"str5":"aaTest3","uClass5":null,"name115":"xxiwerwjkl","friends":[{"id5":8594,"str5":"aaTest3","uClass5":null,"name115":"xxiwerwjkl","friends":[{"id5":8594,"str5":"aaTest3","uClass5":null,"name1156":"xxiwerwjkl","friends":[]}]},{"id5":8594,"str5":"aaTest3","uClass5":null,"name115":"xxiwerwjkl","friends":[]}]}"""
+      val bb = Json.parse(aa)
+      val cc = bb.validate[CatNameTest5]
+      println(cc)
+    }
   }
 
 }

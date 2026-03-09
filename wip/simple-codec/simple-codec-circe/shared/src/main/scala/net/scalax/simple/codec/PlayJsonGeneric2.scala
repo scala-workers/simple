@@ -5,6 +5,7 @@ import play.api.libs.json._
 import play.api.libs.json.Reads._
 import play.api.libs.functional.syntax._
 import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct2 => SP2, SimpleProduct3 => SP3, SimpleProduct4 => SP4}
+import play.api.libs.json.JsValue.jsValueToJsLookup
 
 object PlayJsonGeneric2 {
   type Named[_]  = String
@@ -87,13 +88,11 @@ object PlayJsonGeneric2 {
       override def gen[T]: DecodeJson[String, Reads[T], T, F[OptF] => Option[() => T]] =
         new DecodeJson[String, Reads[T], T, F[OptF] => Option[() => T]] {
           override def fromJson(n: String, dec: Reads[T], defVal: F[OptF] => Option[() => T]): JsResult[T] = {
-            val jsPath: JsPath = JsPath() \ n
-            val value1: JsResult[T] = for {
-              v1 <- jsPath.asSingleJsResult(hCursor)
-              v2 <- dec.reads(v1)
-            } yield v2
+            val jsPath: JsPath      = JsPath() \ n
+            val value1: Reads[T]    = Reads.at[T](jsPath)(dec)
+            val value2: JsResult[T] = value1.reads(hCursor)
 
-            value1.fold[JsResult[T]](
+            value2.fold[JsResult[T]](
               (err: scala.collection.Seq[(JsPath, scala.collection.Seq[JsonValidationError])]) =>
                 defaultValue.fold[JsResult[T]](JsError(err))(r =>
                   defVal(r).fold[JsResult[T]](JsError(err))(rValue1 => JsSuccess(rValue1()))
