@@ -1,5 +1,6 @@
 package net.scalax.codec
 
+import com.typesafe.config.ConfigRenderOptions
 import net.scalax.simple.codec.pureconfig.PureConfigLabelled
 import net.scalax.simple.codec.DefaultValuePojo
 import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLinkPojo, PojoInstance}
@@ -29,7 +30,7 @@ object Runner {
       val modelIns: SampleConf2 = SampleConf2(name2 = "abc", age = 2345, bar = "uacb", nick = "accbs")
       println("=== Writer Start ===")
       println(ConfigWriter[SampleConf2].to(modelIns))
-      println(ConfigWriter[SampleConf2].to(modelIns).render())
+      println(ConfigWriter[SampleConf2].to(modelIns).render(ConfigRenderOptions.concise()))
       println("=== Writer End ===")
     }
   }
