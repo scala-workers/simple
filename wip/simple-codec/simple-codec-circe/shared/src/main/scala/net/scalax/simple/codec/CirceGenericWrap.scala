@@ -2,7 +2,6 @@ package net.scalax.simple.codec.circe
 
 import io.circe.Decoder.Result
 import io.circe._
-import io.circe.syntax._
 import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct2 => SP2, SimpleProduct3 => SP3, SimpleProduct4 => SP4}
 import net.scalax.simple.codec.GetFieldModel
 
