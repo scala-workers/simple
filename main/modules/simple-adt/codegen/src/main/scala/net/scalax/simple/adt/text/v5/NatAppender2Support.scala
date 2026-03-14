@@ -29,9 +29,9 @@ class NatAppender2Support(val index: Int) {
         ](
           simpleAppender: AppenderSupport1.Simple$index.Appender[M, ${typeParam14.mkString(',')}]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             ${typeParam7.mkString(',')}
-          ] extends NatNext1.Support$index[
+          ](override val current: M[${typeParam8.mkString(',')}]) extends NatNext1.Support$index[
             M,
             ${typeParam3.mkString(',')},
             ${typeParam6.mkString(',')},
@@ -45,11 +45,7 @@ class NatAppender2Support(val index: Int) {
               ${typeParam9.mkString(',')}
             ] = new SupportInstance[
               ${typeParam9.mkString(',')}
-            ] {
-              override def current: M[
-                ${typeParam9.mkString(',')}
-              ] = simpleAppender.append(${typeParam16.mkString(',')}, SupportSelf.current)
-            }
+            ](current = simpleAppender.append(${typeParam16.mkString(',')}, SupportSelf.current))
           }
         }
       """

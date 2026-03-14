@@ -16,9 +16,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple1.Appender[M, T1]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike
-          ] extends NatNext1.Support1[
+          ](override val current: M[HCollection1]) extends NatNext1.Support1[
             M,
             HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,
@@ -32,11 +32,7 @@
               AppendLike[T1[XPoint], HCollection1]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1], SupportSelf.current))
           }
         }
       
@@ -47,9 +43,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple2.Appender[M, T1,T2]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike
-          ] extends NatNext1.Support2[
+          ](override val current: M[HCollection1,HCollection2]) extends NatNext1.Support2[
             M,
             HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,
@@ -63,11 +59,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2], SupportSelf.current))
           }
         }
       
@@ -78,9 +70,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple3.Appender[M, T1,T2,T3]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike
-          ] extends NatNext1.Support3[
+          ](override val current: M[HCollection1,HCollection2,HCollection3]) extends NatNext1.Support3[
             M,
             HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,
@@ -94,11 +86,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3], SupportSelf.current))
           }
         }
       
@@ -109,9 +97,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple4.Appender[M, T1,T2,T3,T4]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike
-          ] extends NatNext1.Support4[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4]) extends NatNext1.Support4[
             M,
             HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,
@@ -125,11 +113,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4], SupportSelf.current))
           }
         }
       
@@ -140,9 +124,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple5.Appender[M, T1,T2,T3,T4,T5]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike
-          ] extends NatNext1.Support5[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5]) extends NatNext1.Support5[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,
@@ -156,11 +140,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5], SupportSelf.current))
           }
         }
       
@@ -171,9 +151,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple6.Appender[M, T1,T2,T3,T4,T5,T6]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike
-          ] extends NatNext1.Support6[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6]) extends NatNext1.Support6[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,
@@ -187,11 +167,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6], SupportSelf.current))
           }
         }
       
@@ -202,9 +178,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple7.Appender[M, T1,T2,T3,T4,T5,T6,T7]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike
-          ] extends NatNext1.Support7[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7]) extends NatNext1.Support7[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,
@@ -218,11 +194,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7], SupportSelf.current))
           }
         }
       
@@ -233,9 +205,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple8.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike
-          ] extends NatNext1.Support8[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8]) extends NatNext1.Support8[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,
@@ -249,11 +221,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8], SupportSelf.current))
           }
         }
       
@@ -264,9 +232,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple9.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike
-          ] extends NatNext1.Support9[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9]) extends NatNext1.Support9[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,
@@ -280,11 +248,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9], SupportSelf.current))
           }
         }
       
@@ -295,9 +259,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple10.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike
-          ] extends NatNext1.Support10[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10]) extends NatNext1.Support10[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,
@@ -311,11 +275,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10], SupportSelf.current))
           }
         }
       
@@ -326,9 +286,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple11.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike
-          ] extends NatNext1.Support11[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11]) extends NatNext1.Support11[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,
@@ -342,11 +302,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11], SupportSelf.current))
           }
         }
       
@@ -357,9 +313,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple12.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike,HCollection12 <: HListLike
-          ] extends NatNext1.Support12[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12]) extends NatNext1.Support12[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,
@@ -373,11 +329,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12], SupportSelf.current))
           }
         }
       
@@ -388,9 +340,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple13.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike,HCollection12 <: HListLike,HCollection13 <: HListLike
-          ] extends NatNext1.Support13[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13]) extends NatNext1.Support13[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,
@@ -404,11 +356,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13], SupportSelf.current))
           }
         }
       
@@ -419,9 +367,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple14.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike,HCollection12 <: HListLike,HCollection13 <: HListLike,HCollection14 <: HListLike
-          ] extends NatNext1.Support14[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14]) extends NatNext1.Support14[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,
@@ -435,11 +383,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14], SupportSelf.current))
           }
         }
       
@@ -450,9 +394,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple15.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike,HCollection12 <: HListLike,HCollection13 <: HListLike,HCollection14 <: HListLike,HCollection15 <: HListLike
-          ] extends NatNext1.Support15[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15]) extends NatNext1.Support15[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,
@@ -466,11 +410,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15], SupportSelf.current))
           }
         }
       
@@ -481,9 +421,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple16.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike,HCollection12 <: HListLike,HCollection13 <: HListLike,HCollection14 <: HListLike,HCollection15 <: HListLike,HCollection16 <: HListLike
-          ] extends NatNext1.Support16[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16]) extends NatNext1.Support16[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,
@@ -497,11 +437,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16], SupportSelf.current))
           }
         }
       
@@ -512,9 +448,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple17.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike,HCollection12 <: HListLike,HCollection13 <: HListLike,HCollection14 <: HListLike,HCollection15 <: HListLike,HCollection16 <: HListLike,HCollection17 <: HListLike
-          ] extends NatNext1.Support17[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17]) extends NatNext1.Support17[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,
@@ -528,11 +464,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17], SupportSelf.current))
           }
         }
       
@@ -543,9 +475,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple18.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike,HCollection12 <: HListLike,HCollection13 <: HListLike,HCollection14 <: HListLike,HCollection15 <: HListLike,HCollection16 <: HListLike,HCollection17 <: HListLike,HCollection18 <: HListLike
-          ] extends NatNext1.Support18[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17,HCollection18]) extends NatNext1.Support18[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T18[X12], Tail]})#XUAPPendEach,
@@ -559,11 +491,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17],AppenderSupport2Self.abcGen[T18[XPoint], HCollection18], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17],AppenderSupport2Self.abcGen[T18[XPoint], HCollection18], SupportSelf.current))
           }
         }
       
@@ -574,9 +502,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple19.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike,HCollection12 <: HListLike,HCollection13 <: HListLike,HCollection14 <: HListLike,HCollection15 <: HListLike,HCollection16 <: HListLike,HCollection17 <: HListLike,HCollection18 <: HListLike,HCollection19 <: HListLike
-          ] extends NatNext1.Support19[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17,HCollection18,HCollection19]) extends NatNext1.Support19[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T18[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T19[X12], Tail]})#XUAPPendEach,
@@ -590,11 +518,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17],AppenderSupport2Self.abcGen[T18[XPoint], HCollection18],AppenderSupport2Self.abcGen[T19[XPoint], HCollection19], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17],AppenderSupport2Self.abcGen[T18[XPoint], HCollection18],AppenderSupport2Self.abcGen[T19[XPoint], HCollection19], SupportSelf.current))
           }
         }
       
@@ -605,9 +529,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple20.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike,HCollection12 <: HListLike,HCollection13 <: HListLike,HCollection14 <: HListLike,HCollection15 <: HListLike,HCollection16 <: HListLike,HCollection17 <: HListLike,HCollection18 <: HListLike,HCollection19 <: HListLike,HCollection20 <: HListLike
-          ] extends NatNext1.Support20[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17,HCollection18,HCollection19,HCollection20]) extends NatNext1.Support20[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T18[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T19[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T20[X12], Tail]})#XUAPPendEach,
@@ -621,11 +545,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19],AppendLike[T20[XPoint], HCollection20]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19],AppendLike[T20[XPoint], HCollection20]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19],AppendLike[T20[XPoint], HCollection20]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17],AppenderSupport2Self.abcGen[T18[XPoint], HCollection18],AppenderSupport2Self.abcGen[T19[XPoint], HCollection19],AppenderSupport2Self.abcGen[T20[XPoint], HCollection20], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17],AppenderSupport2Self.abcGen[T18[XPoint], HCollection18],AppenderSupport2Self.abcGen[T19[XPoint], HCollection19],AppenderSupport2Self.abcGen[T20[XPoint], HCollection20], SupportSelf.current))
           }
         }
       
@@ -636,9 +556,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple21.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike,HCollection12 <: HListLike,HCollection13 <: HListLike,HCollection14 <: HListLike,HCollection15 <: HListLike,HCollection16 <: HListLike,HCollection17 <: HListLike,HCollection18 <: HListLike,HCollection19 <: HListLike,HCollection20 <: HListLike,HCollection21 <: HListLike
-          ] extends NatNext1.Support21[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17,HCollection18,HCollection19,HCollection20,HCollection21]) extends NatNext1.Support21[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T18[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T19[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T20[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T21[X12], Tail]})#XUAPPendEach,
@@ -652,11 +572,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19],AppendLike[T20[XPoint], HCollection20],AppendLike[T21[XPoint], HCollection21]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19],AppendLike[T20[XPoint], HCollection20],AppendLike[T21[XPoint], HCollection21]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19],AppendLike[T20[XPoint], HCollection20],AppendLike[T21[XPoint], HCollection21]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17],AppenderSupport2Self.abcGen[T18[XPoint], HCollection18],AppenderSupport2Self.abcGen[T19[XPoint], HCollection19],AppenderSupport2Self.abcGen[T20[XPoint], HCollection20],AppenderSupport2Self.abcGen[T21[XPoint], HCollection21], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17],AppenderSupport2Self.abcGen[T18[XPoint], HCollection18],AppenderSupport2Self.abcGen[T19[XPoint], HCollection19],AppenderSupport2Self.abcGen[T20[XPoint], HCollection20],AppenderSupport2Self.abcGen[T21[XPoint], HCollection21], SupportSelf.current))
           }
         }
       
@@ -667,9 +583,9 @@
         ](
           simpleAppender: AppenderSupport1.Simple22.Appender[M, T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
         ) {
-          trait SupportInstance[
+          class SupportInstance[
             HCollection1 <: HListLike,HCollection2 <: HListLike,HCollection3 <: HListLike,HCollection4 <: HListLike,HCollection5 <: HListLike,HCollection6 <: HListLike,HCollection7 <: HListLike,HCollection8 <: HListLike,HCollection9 <: HListLike,HCollection10 <: HListLike,HCollection11 <: HListLike,HCollection12 <: HListLike,HCollection13 <: HListLike,HCollection14 <: HListLike,HCollection15 <: HListLike,HCollection16 <: HListLike,HCollection17 <: HListLike,HCollection18 <: HListLike,HCollection19 <: HListLike,HCollection20 <: HListLike,HCollection21 <: HListLike,HCollection22 <: HListLike
-          ] extends NatNext1.Support22[
+          ](override val current: M[HCollection1,HCollection2,HCollection3,HCollection4,HCollection5,HCollection6,HCollection7,HCollection8,HCollection9,HCollection10,HCollection11,HCollection12,HCollection13,HCollection14,HCollection15,HCollection16,HCollection17,HCollection18,HCollection19,HCollection20,HCollection21,HCollection22]) extends NatNext1.Support22[
             M,
             HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,HListLike,
             ({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T1[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T2[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T3[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T4[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T5[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T6[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T7[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T8[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T9[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T10[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T11[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T12[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T13[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T14[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T15[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T16[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T17[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T18[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T19[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T20[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T21[X12], Tail]})#XUAPPendEach,({ type XUAPPendEach[X12, Tail <: HListLike] = AppendLike[T22[X12], Tail]})#XUAPPendEach,
@@ -683,11 +599,7 @@
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19],AppendLike[T20[XPoint], HCollection20],AppendLike[T21[XPoint], HCollection21],AppendLike[T22[XPoint], HCollection22]
             ] = new SupportInstance[
               AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19],AppendLike[T20[XPoint], HCollection20],AppendLike[T21[XPoint], HCollection21],AppendLike[T22[XPoint], HCollection22]
-            ] {
-              override def current: M[
-                AppendLike[T1[XPoint], HCollection1],AppendLike[T2[XPoint], HCollection2],AppendLike[T3[XPoint], HCollection3],AppendLike[T4[XPoint], HCollection4],AppendLike[T5[XPoint], HCollection5],AppendLike[T6[XPoint], HCollection6],AppendLike[T7[XPoint], HCollection7],AppendLike[T8[XPoint], HCollection8],AppendLike[T9[XPoint], HCollection9],AppendLike[T10[XPoint], HCollection10],AppendLike[T11[XPoint], HCollection11],AppendLike[T12[XPoint], HCollection12],AppendLike[T13[XPoint], HCollection13],AppendLike[T14[XPoint], HCollection14],AppendLike[T15[XPoint], HCollection15],AppendLike[T16[XPoint], HCollection16],AppendLike[T17[XPoint], HCollection17],AppendLike[T18[XPoint], HCollection18],AppendLike[T19[XPoint], HCollection19],AppendLike[T20[XPoint], HCollection20],AppendLike[T21[XPoint], HCollection21],AppendLike[T22[XPoint], HCollection22]
-              ] = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17],AppenderSupport2Self.abcGen[T18[XPoint], HCollection18],AppenderSupport2Self.abcGen[T19[XPoint], HCollection19],AppenderSupport2Self.abcGen[T20[XPoint], HCollection20],AppenderSupport2Self.abcGen[T21[XPoint], HCollection21],AppenderSupport2Self.abcGen[T22[XPoint], HCollection22], SupportSelf.current)
-            }
+            ](current = simpleAppender.append(AppenderSupport2Self.abcGen[T1[XPoint], HCollection1],AppenderSupport2Self.abcGen[T2[XPoint], HCollection2],AppenderSupport2Self.abcGen[T3[XPoint], HCollection3],AppenderSupport2Self.abcGen[T4[XPoint], HCollection4],AppenderSupport2Self.abcGen[T5[XPoint], HCollection5],AppenderSupport2Self.abcGen[T6[XPoint], HCollection6],AppenderSupport2Self.abcGen[T7[XPoint], HCollection7],AppenderSupport2Self.abcGen[T8[XPoint], HCollection8],AppenderSupport2Self.abcGen[T9[XPoint], HCollection9],AppenderSupport2Self.abcGen[T10[XPoint], HCollection10],AppenderSupport2Self.abcGen[T11[XPoint], HCollection11],AppenderSupport2Self.abcGen[T12[XPoint], HCollection12],AppenderSupport2Self.abcGen[T13[XPoint], HCollection13],AppenderSupport2Self.abcGen[T14[XPoint], HCollection14],AppenderSupport2Self.abcGen[T15[XPoint], HCollection15],AppenderSupport2Self.abcGen[T16[XPoint], HCollection16],AppenderSupport2Self.abcGen[T17[XPoint], HCollection17],AppenderSupport2Self.abcGen[T18[XPoint], HCollection18],AppenderSupport2Self.abcGen[T19[XPoint], HCollection19],AppenderSupport2Self.abcGen[T20[XPoint], HCollection20],AppenderSupport2Self.abcGen[T21[XPoint], HCollection21],AppenderSupport2Self.abcGen[T22[XPoint], HCollection22], SupportSelf.current))
           }
         }
       

@@ -39,11 +39,11 @@ object ScalaNatSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
-    /*locally {
-      val filePath             = writePath / "AppenderNatSupportX.scala"
-      val linerContent: String = FAppenderCodengen(index = parameterSize).text
+    locally {
+      val filePath             = writePath2 / "NatAppender3Support.scala"
+      val linerContent: String = net.scalax.simple.adt.text.v5.NatAppender3Support(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }*/
+    }
 
     /*locally {
       val filePath             = writePath / "TypeGenX.scala"
