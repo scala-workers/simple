@@ -31,19 +31,14 @@ object RunTest1 {
     current2: Long,
     current3: Long,
     current4: Long,
-    genResult: (Long, Long, Long, Long) => BigDecimal,
-    exceptResult: BigDecimal,
     printlnSum: Int,
-    speed: Long
+    speed: Long,
+    dealResult: (Long, Long, Long, Long) => Unit
   ): Unit = {
     val needPrintln: Boolean = (current1 + current2 + current3 + current4) % speed == 0
 
-    val current: BigDecimal = genResult(current1, current2, current3, current4)
-
     if (needPrintln) {
-      println(
-        s"except: $exceptResult, current1: $current1, current2: $current2, current3: $current3, current4: $current4, current: $current"
-      )
+      dealResult(current1, current2, current3, current4): Unit
     }
 
     val currentNum = num()
@@ -57,10 +52,9 @@ object RunTest1 {
             current2 = current2,
             current3 = current3,
             current4 = current4,
-            genResult = genResult,
-            exceptResult = exceptResult,
             printlnSum = if (needPrintln) printlnSum - 1 else printlnSum,
-            speed = speed
+            speed = speed,
+            dealResult = dealResult
           )
         case num2: Num44.Num2 =>
           countImpl(
@@ -69,10 +63,9 @@ object RunTest1 {
             current2 = current2 + 1,
             current3 = current3,
             current4 = current4,
-            genResult = genResult,
-            exceptResult = exceptResult,
             printlnSum = if (needPrintln) printlnSum - 1 else printlnSum,
-            speed = speed
+            speed = speed,
+            dealResult = dealResult
           )
         case num3: Num44.Num3 =>
           countImpl(
@@ -81,10 +74,9 @@ object RunTest1 {
             current2 = current2,
             current3 = current3 + 1,
             current4 = current4,
-            genResult = genResult,
-            exceptResult = exceptResult,
             printlnSum = if (needPrintln) printlnSum - 1 else printlnSum,
-            speed = speed
+            speed = speed,
+            dealResult = dealResult
           )
         case num4: Num44.Num4 =>
           countImpl(
@@ -93,23 +85,19 @@ object RunTest1 {
             current2 = current2,
             current3 = current3,
             current4 = current4 + 1,
-            genResult = genResult,
-            exceptResult = exceptResult,
             printlnSum = if (needPrintln) printlnSum - 1 else printlnSum,
-            speed = speed
+            speed = speed,
+            dealResult = dealResult
           )
       }
-    } else {
-      println("== finished ==")
     }
   }
 
   def count(
     num: () => ghdmzsk,
-    genResult: (Long, Long, Long, Long) => BigDecimal,
-    except: BigDecimal,
     printlnSum: Int,
-    speed: Long = 80000
+    speed: Long = 80000,
+    dealResult: (Long, Long, Long, Long) => Unit
   ): Unit =
     countImpl(
       num = num,
@@ -117,10 +105,9 @@ object RunTest1 {
       current2 = 1,
       current3 = 1,
       current4 = 1,
-      genResult = genResult,
-      exceptResult = except,
       printlnSum = printlnSum,
-      speed = speed
+      speed = speed,
+      dealResult = dealResult
     )
 
   def main(arr: Array[String]): Unit = {
@@ -142,17 +129,47 @@ object RunTest1 {
 
     val num1: ghdmzsk          = build(current1 = 分子1, current2 = 分母1, current3 = 分子2, current4 = 分母2)
     val num1Except: BigDecimal = BigDecimal(分子1) / BigDecimal(分母1)
-    count(() => num1, genResult = genResult, except = num1Except, printlnSum = 5)
+    count(
+      () => num1,
+      printlnSum = 5,
+      dealResult = (a1, a2, a3, a4) => {
+        val aResult: BigDecimal = (BigDecimal(a1) + BigDecimal(a2)) / (BigDecimal(a3) + BigDecimal(a4))
+        println(
+          s"except: $num1Except, current1: $a1, current2: $a2, current3: $a3, current4: $a4, current: $aResult"
+        )
+      }
+    )
+    println("== end 1 ==")
 
     val num2: ghdmzsk          = build(current1 = 分子3, current2 = 分母3, current3 = 分子4, current4 = 分母4)
     val num2Except: BigDecimal = BigDecimal(分子2) / BigDecimal(分母2)
-    count(() => num2, genResult = genResult, except = num2Except, printlnSum = 5)
+    count(
+      () => num2,
+      printlnSum = 5,
+      dealResult = (a1, a2, a3, a4) => {
+        val aResult: BigDecimal = (BigDecimal(a1) + BigDecimal(a2)) / (BigDecimal(a3) + BigDecimal(a4))
+        println(
+          s"except: $num1Except, current1: $a1, current2: $a2, current3: $a3, current4: $a4, current: $aResult"
+        )
+      }
+    )
+    println("== end 2 ==")
 
     val num3_1: ghdmzsk        = num1.inputGHDMZSK(() => Num44.Append1.tail3Num)
     val num3_2: ghdmzsk        = num2.inputGHDMZSK(() => Num44.Append1.tail4Num)
     val num3: ghdmzsk          = num3_1.inputGHDMZSK(() => num3_2)
     val num3Except: BigDecimal = BigDecimal(分子3) / BigDecimal(分母3)
-    count(() => num3, genResult = genResult, except = num3Except, printlnSum = 5)
+    count(
+      () => num3,
+      printlnSum = 5,
+      dealResult = (a1, a2, a3, a4) => {
+        val aResult: BigDecimal = (BigDecimal(a1) + BigDecimal(a2)) / (BigDecimal(a3) + BigDecimal(a4))
+        println(
+          s"except: $num1Except, current1: $a1, current2: $a2, current3: $a3, current4: $a4, current: $aResult"
+        )
+      }
+    )
+    println("== end 3 ==")
 
     /*val num4: ghdmzsk          = build(分子 = 分母4, 分母 = 分子4)
     val num4Except: BigDecimal = BigDecimal(分子4) / BigDecimal(分母4)

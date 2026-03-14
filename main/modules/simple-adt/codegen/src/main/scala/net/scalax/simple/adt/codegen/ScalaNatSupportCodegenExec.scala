@@ -23,20 +23,21 @@ object ScalaNatSupportCodegenExec {
     val List(rootString) = arr.to(List)
     val rootPath         = os.Path(rootString)
     val writePath        = rootPath / "net" / "scalax" / "simple" / "adt" / "nat" / "support"
+    val writePath2       = writePath / "v5"
 
     val parameterSize: Int = 22
 
-    /*locally {
-      val filePath             = writePath / "ParameterNatSupportX.scala"
-      val linerContent: String = ParametersCodengen(index = parameterSize).text
+    locally {
+      val filePath             = writePath2 / "NatAppender1Support.scala"
+      val linerContent: String = net.scalax.simple.adt.text.v5.NatAppender1Support(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }*/
+    }
 
-    /*locally {
-      val filePath             = writePath / "ParameterSingleNatSupportX.scala"
-      val linerContent: String = ParameterSingleNatSupportX(index = parameterSize).text
+    locally {
+      val filePath             = writePath2 / "NatAppender2Support.scala"
+      val linerContent: String = net.scalax.simple.adt.text.v5.NatAppender2Support(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }*/
+    }
 
     /*locally {
       val filePath             = writePath / "AppenderNatSupportX.scala"
