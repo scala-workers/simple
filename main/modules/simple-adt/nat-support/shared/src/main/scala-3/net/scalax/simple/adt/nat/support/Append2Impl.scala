@@ -3,7 +3,7 @@ package nat
 package support
 
 object Append2Impl extends v5.AppenderSupport2[Tuple, *:] {
-private   object hlistFunc1 extends HListFunc[Tuple, *:] {
+  override object abcGen extends HListFunc[Tuple, *:] {
     override def takeHead[Head, Tail <: Tuple](m: Head *: Tail): Head        = m.head
     override def takeTail[Head, Tail <: Tuple](m: Head *: Tail): Tail        = m.tail
     override def append[Head, Tail <: Tuple](h: Head, t: Tail): Head *: Tail = h *: t
@@ -12,6 +12,4 @@ private   object hlistFunc1 extends HListFunc[Tuple, *:] {
     override def toABCFunc[Head, HCollecio <: Tuple]: ABCFunc[Head, HCollecio, Head *: HCollecio] =
       anyToABCFunc.asInstanceOf[ABCFunc[Head, HCollecio, Head *: HCollecio]]
   }
-
-  override def abcGen[H, T <: Tuple]: ABCFunc[H, T, H*: T]] = hlistFunc1.toABCFunc[H, T]
 }

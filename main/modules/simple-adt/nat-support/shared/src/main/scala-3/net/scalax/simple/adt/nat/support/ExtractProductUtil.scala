@@ -2,6 +2,8 @@ package net.scalax.simple.adt
 package nat
 package support
 
+import net.scalax.simple.adt.nat.support.v5.{AppenderSupport2, AppenderSupport3}
+
 object ExtractProductUtil extends NatNext5[Tuple, *:, EmptyTuple] {
 
   override object extraAbstraction extends NatNext4[Tuple, *:, EmptyTuple] {
@@ -23,4 +25,9 @@ object ExtractProductUtil extends NatNext5[Tuple, *:, EmptyTuple] {
 
   }
 
+}
+
+object Append3Impl extends AppenderSupport3[Tuple, *:, EmptyTuple] {
+  override lazy val appSupport2: AppenderSupport2[Tuple, *:] = Append2Impl
+  override val hZero: EmptyTuple                             = EmptyTuple
 }

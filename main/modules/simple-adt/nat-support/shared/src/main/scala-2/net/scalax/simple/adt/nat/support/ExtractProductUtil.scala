@@ -2,7 +2,8 @@ package net.scalax.simple.adt
 package nat
 package support
 
-import shapeless.HList
+import net.scalax.simple.adt.nat.support.v5.{Append2Impl, AppenderSupport2, AppenderSupport3, AppenderSupport4}
+import shapeless.{HList, HNil}
 
 object ExtractProductUtil extends NatNext5[shapeless.HList, shapeless.::, shapeless.HNil] {
 
@@ -25,4 +26,9 @@ object ExtractProductUtil extends NatNext5[shapeless.HList, shapeless.::, shapel
 
   }
 
+}
+
+object Append3Impl extends AppenderSupport3[shapeless.HList, shapeless.::, shapeless.HNil] {
+  override lazy val appSupport2: AppenderSupport2[shapeless.HList, shapeless.::] = Append2Impl
+  override val hZero: shapeless.HNil                                             = shapeless.HNil
 }

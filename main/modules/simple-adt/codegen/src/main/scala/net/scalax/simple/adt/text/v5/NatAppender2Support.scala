@@ -19,36 +19,32 @@ class NatAppender2Support(val index: Int) {
     val typeParam13: Seq[String] = for (i1 <- 1 to index) yield s"T$i1[XPoint]"
     val typeParam14: Seq[String] = for (i1 <- 1 to index) yield s"T$i1"
     val typeParam15: Seq[String] = for (i1 <- 1 to 21) yield s"X$i1"
-    val typeParam16: Seq[String] = for (i1 <- 1 to index) yield s"AppenderSupport2Self.abcGen[T$i1[XPoint], HCollection$i1]"
+    val typeParam16: Seq[String] = for (i1 <- 1 to index) yield s"AppenderSupport2Self.abcGen.toABCFunc[T$i1[XPoint], HCollection$i1]"
 
-    val text: String =
-      s"""
-        class Support${index}Context[
-          M[${typeParam1.mkString(',')}],
-          ${typeParam5.mkString(',')}
-        ](
-          simpleAppender: AppenderSupport1.Simple$index.Appender[M, ${typeParam14.mkString(',')}]
-        ) {
-          class SupportInstance[
-            ${typeParam7.mkString(',')}
-          ](override val current: M[${typeParam8.mkString(',')}]) extends NatNext1.Support$index[
-            M,
-            ${typeParam3.mkString(',')},
-            ${typeParam6.mkString(',')},
-            ${typeParam8.mkString(',')}
-          ] {
-            SupportSelf =>
-            override def next[XPoint, ${typeParam15.mkString(',')}]: NatNext1.Support$index[
-              M,
-              ${typeParam3.mkString(',')},
-              ${typeParam6.mkString(',')},
-              ${typeParam9.mkString(',')}
-            ] = new SupportInstance[
-              ${typeParam9.mkString(',')}
-            ](current = simpleAppender.append(${typeParam16.mkString(',')}, SupportSelf.current))
-          }
+    val text: String = s"""
+      class Support${index}Context[
+        M[${typeParam1.mkString(',')}],
+        ${typeParam5.mkString(',')}
+      ](
+        simpleAppender: AppenderSupport1.Simple$index.Appender[M, ${typeParam14.mkString(',')}]
+      ) {
+        class SupportInstance[
+          ${typeParam7.mkString(',')}
+        ](override val current: M[${typeParam8.mkString(',')}]) extends NatNext1.Support$index[
+          M,
+          ${typeParam3.mkString(',')},
+          ${typeParam6.mkString(',')},
+          ${typeParam8.mkString(',')}
+        ] {
+          SupportSelf =>
+          override def next[XPoint, ${typeParam15.mkString(',')}]: SupportInstance[
+            ${typeParam9.mkString(',')}
+          ] = new SupportInstance[
+            ${typeParam9.mkString(',')}
+          ](current = simpleAppender.append(${typeParam16.mkString(',')}, SupportSelf.current))
         }
-      """
+      }
+    """
 
   }
 
@@ -64,7 +60,7 @@ class NatAppender2Support(val index: Int) {
       trait AppenderSupport2[HListLike, AppendLike[_, _ <: HListLike] <: HListLike] {
         AppenderSupport2Self =>
 
-        def abcGen[H, T <: HListLike]: net.scalax.simple.adt.nat.support.ABCFunc[H, T, AppendLike[H, T]]
+        def abcGen: net.scalax.simple.adt.nat.support.HListFunc[HListLike, AppendLike]
 
         ${preTextContent.mkString('\n')}
       }

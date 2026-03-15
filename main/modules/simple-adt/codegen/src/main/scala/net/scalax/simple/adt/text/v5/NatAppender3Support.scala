@@ -27,7 +27,7 @@ class NatAppender3Support(val index: Int) {
     val appendHLStr = "({ type AP1[_, T1 <: HListLike] = T1 })#AP1"
 
     val text: String = s"""
-      override final def simpleProduct$index: AppenderSupport1.Simple$index.Runner[F] = new AppenderSupport1.Simple$index.Runner[F] {
+      override final def simpleRunner$index: AppenderSupport1.Simple$index.Runner[F] = new AppenderSupport1.Simple$index.Runner[F] {
         override final def append[M[${typeParam1.mkString(',')}], ${typeParam2.mkString(',')}](
           sAppender: AppenderSupport1.Simple$index.Appender[M, ${typeParam4.mkString(',')}],
           zero: AppenderSupport1.Simple$index.Zero[M]
@@ -38,25 +38,17 @@ class NatAppender3Support(val index: Int) {
           new ctx.SupportInstance[${typeParam14.mkString(',')}](
             current = zero.zero[${typeParam14.mkString(',')}](${typeParam15.mkString(',')})
           )
+          val ap2: ctx.SupportInstance[${typeParam5.mkString(',')}] = ap1.asInstanceOf[ctx.SupportInstance[${typeParam5.mkString(',')}]]
 
-          /*@scala.annotation.tailrec
-          def appendImpl1(len: Int, model: NatNext1.Support$index[
-            M,
-            ${typeParam5.mkString(',')},
-            ${typeParam12.mkString(',')},
+          @scala.annotation.tailrec
+          def appendImpl1(len: Int, model: ctx.SupportInstance[
             ${typeParam5.mkString(',')}
-          ]): NatNext1.Support$index[
-            M,
-            ${typeParam5.mkString(',')},
-            ${typeParam12.mkString(',')},
+          ]): ctx.SupportInstance[
             ${typeParam5.mkString(',')}
           ] = {
             if (len > 0) {
               val nextModel = model.next[${typeParam13.mkString(',')}].asInstanceOf[
-                NatNext1.Support$index[
-                  M,
-                  ${typeParam5.mkString(',')},
-                  ${typeParam12.mkString(',')},
+                ctx.SupportInstance[
                   ${typeParam5.mkString(',')}
                 ]
               ]
@@ -67,24 +59,25 @@ class NatAppender3Support(val index: Int) {
 
           def simpleFunc1[U[_]]: ABCFunc[U[Any], HListLike, F[U]] = new ABCFunc[U[Any], HListLike, F[U]] {
             override def takeHead(m: F[U]): U[Any] =
-              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeHead[U[Any], HListLike](
+              AppenderSupport3Self.appSupport2.abcGen.takeHead[U[Any], HListLike](
                 fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[U[Any], HListLike]]
               )
             override def takeTail(m: F[U]): HListLike =
-              NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.takeTail[Any, HListLike](
+              AppenderSupport3Self.appSupport2.abcGen.takeTail[Any, HListLike](
                 fromModel(m.asInstanceOf[F[({ type AnyF[_] = Any })#AnyF]]).asInstanceOf[AppLike[Any, HListLike]]
               )
             override def append(a: U[Any], b: HListLike): F[U] =
-              toModel(NatNext5Self.extraAbstraction.natNext2Helper.hlistFunc.append[U[Any], HListLike](a, b)).asInstanceOf[F[U]]
+              toModel(AppenderSupport3Self.appSupport2.abcGen.append[Any, HListLike](a, b)).asInstanceOf[F[U]]
           }
 
           sAppender.append[
-            ${typeParam9.mkString(',')},
+            Any,
             ${typeParam5.mkString(',')},
             ${typeParam11.mkString(',')}
-          ](${typeParam8.mkString(',')})(tpGen.gen[Any], appendImpl1(autalLen, ap1).current)*/
-
-          ???
+          ](
+            ${typeParam8.mkString(',')},
+            appendImpl1(autalLen, ap2).current
+          )
         }
       }
     """
@@ -103,17 +96,16 @@ class NatAppender3Support(val index: Int) {
       AppenderSupport3Self =>
 
       def appSupport2: AppenderSupport2[HListLike, AppLike]
-      def abcGen[H, T <: HListLike]: net.scalax.simple.adt.nat.support.ABCFunc[H, T, AppLike[H, T]]
       def hZero: HZero
 
       final def genSimpleProduct[F[_[_]]](
         length: Int,
         toModel: HListLike => F[({ type AnyF[_] = Any })#AnyF],
         fromModel: F[({ type AnyF[_] = Any })#AnyF] => HListLike
-      ): SimpleProductContextX[F] = {
+      ): AppenderSupport4[F] = {
         val autalLen: Int = length - 1
 
-        new SimpleProductContextX[F] {
+        new AppenderSupport4[F] {
           ${preTextContent.mkString('\n')}
         }
       }

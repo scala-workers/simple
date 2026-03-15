@@ -1,5 +1,6 @@
 package net.scalax.simple.codec
 
+import net.scalax.simple.adt.nat.support.v5.{AppenderSupport1, AppenderSupport4, SimpleRunnerIt10Codengen}
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledModelSized, BasedInstalledSimpleProduct, ModelLink}
 import net.scalax.simple.adt.nat.support.{SimpleProduct1, SimpleProductContextX, SimpleProductIt10Codengen}
 
@@ -11,6 +12,11 @@ trait ToItera[F[_[_]]] {
   ): SimpleProductContextX[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
     SimpleProductIt10Codengen.toItera[F, T](simpleProductX)
 
+  @inline def to2[T](
+    simpleProductX: AppenderSupport4[F]
+  ): AppenderSupport4[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
+    SimpleRunnerIt10Codengen.toItera[F, T](simpleProductX)
+
   def toBasedInstalled[T](
     oldInstanlled: BasedInstalledSimpleProduct[F] with BasedInstalledLabelled[F] with BasedInstalledModelSized[F]
   ): BasedInstalledSimpleProduct[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1]
@@ -21,6 +27,8 @@ trait ToItera[F[_[_]]] {
       with BasedInstalledModelSized[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] {
       override def basedInstalled: SimpleProductContextX[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
         toIteraSelf.to[T](oldInstanlled.basedInstalled)
+      override def simpleRunner: AppenderSupport4[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
+        toIteraSelf.to2[T](oldInstanlled.simpleRunner)
       override def labelled: CompatLabelled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] =
         new CompatLabelled[({ type F1[TX[_]] = F[({ type T1[_] = TX[T] })#T1] })#F1] {
           override def stringLabelled: F[({ type T1[_] = String })#T1] = oldInstanlled.labelled.stringLabelled

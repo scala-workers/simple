@@ -45,17 +45,17 @@ object ScalaNatSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
-    /*locally {
-      val filePath             = writePath / "TypeGenX.scala"
-      val linerContent: String = TypeGenCodegen(index = parameterSize).text
+    locally {
+      val filePath             = writePath2 / "NatAppender4Support.scala"
+      val linerContent: String = net.scalax.simple.adt.text.v5.NatAppender4Support(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }*/
+    }
 
-    /*locally {
-      val filePath             = writePath / "SimpleAppenderX.scala"
-      val linerContent: String = SimpleAppenderX(index = parameterSize).text
+    locally {
+      val filePath             = writePath2 / "NatAppender5Support.scala"
+      val linerContent: String = net.scalax.simple.adt.text.v5.NatAppender5Support(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }*/
+    }
 
     locally {
       val filePath             = writePath / "SimpleAppenderPositiveX.scala"
