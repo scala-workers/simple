@@ -2,6 +2,7 @@ package net.scalax.simple.codec
 
 import io.circe._
 import net.scalax.simple.adt.nat.support.SimpleProductContextX
+import net.scalax.simple.adt.nat.support.v5.{AppenderSupport3, AppenderSupport4}
 import net.scalax.simple.codec.circe.EncodeHelperUtils
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance}
 import net.scalax.simple.codec.utils.ByNameImplicit
@@ -19,7 +20,7 @@ object CirceGen {
       val labelledIns: F[({ type Str1[_] = String })#Str1] = sg.labelledValueFunc(lb.labelled.stringLabelled)
 
       Encoder.instance[F[({ type IDF[T] = T })#IDF]](
-        EncodeHelperUtils.encodeImpl[F](g1.basedInstalled.simpleProduct3, labelledIns, () => g.value)
+        EncodeHelperUtils.encodeImpl[F](g1.simpleRunner.simpleRunner3, labelledIns, () => g.value)
       )
     }
 
@@ -30,13 +31,14 @@ object CirceGen {
       sg: SimpleJsonLabelled[F]
     ): Decoder[F[({ type IDF[T] = T })#IDF]] = {
       val bsInsatnall: SimpleProductContextX[F] = g1.basedInstalled
+      val simpleRunner: AppenderSupport4[F]     = g1.simpleRunner
 
       val labelledIns: F[({ type Str1[_] = String })#Str1] = sg.labelledValueFunc(lb.labelled.stringLabelled)
 
       Decoder.instance[F[({ type IDF[T] = T })#IDF]](
         EncodeHelperUtils.decodeImpl[F](
           bsInsatnall.simpleProduct2,
-          bsInsatnall.simpleProduct4,
+          simpleRunner.simpleRunner4,
           labelledIns,
           () => g.value,
           sg.defaultValue

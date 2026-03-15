@@ -1,8 +1,8 @@
 package net.scalax.simple.codec.circe
 
-import io.circe.Decoder.Result
 import io.circe._
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct2 => SP2, SimpleProduct3 => SP3, SimpleProduct4 => SP4}
+import net.scalax.simple.adt.nat.support.v5.AppenderSupport1
+import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct2 => SP2}
 import net.scalax.simple.codec.GetFieldModel
 
 object EncodeHelperUtils {
@@ -10,39 +10,41 @@ object EncodeHelperUtils {
   type IdType[T] = T
 
   private trait EncodeAction[Name, Enc, Model] {
-    def toJson(n: Name, enc: Enc, id: Model, l: List[(String, Json)]): List[(String, Json)]
+    def toJson(n: Name, enc: Enc, id: Model): List[(String, Json)]
   }
 
-  def encodeImpl[F[_[_]]](sp3: SP3.ProductAdapter[F], namedIns: F[Named], encIns: () => F[Encoder]): F[IdType] => Json = {
-    val typeGen: SP3.TypeGen[EncodeAction, Named, Encoder, IdType] = new SP3.TypeGen[EncodeAction, Named, Encoder, IdType] {
-      override def gen[T]: EncodeAction[String, Encoder[T], T] = new EncodeAction[String, Encoder[T], T] {
-        override def toJson(n: String, enc: Encoder[T], id: T, l: List[(String, Json)]): List[(String, Json)] = (n, enc(id)) :: l
+  def encodeImpl[F[_[_]]](sp3: AppenderSupport1.Simple3.Runner[F], namedIns: F[Named], encIns: () => F[Encoder]): F[IdType] => Json = {
+    val zero3: AppenderSupport1.Simple3.Zero[EncodeAction] = new AppenderSupport1.Simple3.Zero[EncodeAction] {
+      override def zero[B1, B2, B3](b1: B1, b2: B2, b3: B3): EncodeAction[B1, B2, B3] = new EncodeAction[B1, B2, B3] {
+        override def toJson(n: B1, enc: B2, id: B3): List[(String, Json)] = List.empty[(String, Json)]
       }
     }
 
-    val appender: SP3.SimpleAppender[EncodeAction] = new SP3.SimpleAppender[EncodeAction] {
-      override def append[A1, A2, A3, B1, B2, B3, C1, C2, C3](f1: ABCFunc[A1, B1, C1], f2: ABCFunc[A2, B2, C2], f3: ABCFunc[A3, B3, C3])(
-        a: EncodeAction[A1, A2, A3],
-        b: EncodeAction[B1, B2, B3]
-      ): EncodeAction[C1, C2, C3] = new EncodeAction[C1, C2, C3] {
-        override def toJson(n: C1, enc: C2, id: C3, l: List[(String, Json)]): List[(String, Json)] = {
-          val valueA: List[(String, Json)] = a.toJson(f1.takeHead(n), f2.takeHead(enc), f3.takeHead(id), l)
-          b.toJson(f1.takeTail(n), f2.takeTail(enc), f3.takeTail(id), valueA)
+    val appender3: AppenderSupport1.Simple3.Appender[EncodeAction, Named, Encoder, IdType] =
+      new AppenderSupport1.Simple3.Appender[EncodeAction, Named, Encoder, IdType] {
+        override def append[T, B1, B2, B3, C1, C2, C3](
+          abc1: ABCFunc[String, B1, C1],
+          abc2: ABCFunc[Encoder[T], B2, C2],
+          abc3: ABCFunc[T, B3, C3],
+          ma: EncodeAction[B1, B2, B3]
+        ): EncodeAction[C1, C2, C3] = new EncodeAction[C1, C2, C3] {
+          override def toJson(n: C1, enc: C2, id: C3): List[(String, Json)] = {
+            val str: String                  = abc1.takeHead(n)
+            val b1: B1                       = abc1.takeTail(n)
+            val encoderT: Encoder[T]         = abc2.takeHead(enc)
+            val b2: B2                       = abc2.takeTail(enc)
+            val t: T                         = abc3.takeHead(id)
+            val b3: B3                       = abc3.takeTail(id)
+            val maJson: List[(String, Json)] = ma.toJson(b1, b2, b3)
+            val jPro: Json                   = encoderT(t)
+            (str, jPro) :: maJson
+          }
         }
       }
 
-      override def zero[N1, N2, N3](p1: N1, p2: N2, p3: N3): EncodeAction[N1, N2, N3] = new EncodeAction[N1, N2, N3] {
-        override def toJson(n: N1, enc: N2, id: N3, l: List[(String, Json)]): List[(String, Json)] = l
-      }
-    }
+    val action = sp3.append[EncodeAction, Named, Encoder, IdType](appender3, zero3)
 
-    val encodeFunc: EncodeAction[F[Named], F[Encoder], F[IdType]] =
-      sp3.append[EncodeAction, Named, Encoder, IdType](typeGen = typeGen, sAppender = appender)
-
-    (model: F[IdType]) => {
-      val list: List[(String, Json)] = encodeFunc.toJson(namedIns, encIns(), model, List.empty)
-      Json.fromJsonObject(JsonObject.fromIterable(list))
-    }
+    (model: F[IdType]) => Json.fromJsonObject(JsonObject.fromIterable(action.toJson(namedIns, encIns(), model)))
   }
 
   private trait DecodeJson[Name, Dec, Model, DefaultValue] {
@@ -51,7 +53,7 @@ object EncodeHelperUtils {
 
   def decodeImpl[F[_[_]]](
     sp2: SP2.ProductAdapter[F],
-    sp4: SP4.ProductAdapter[F],
+    sp4: AppenderSupport1.Simple4.Runner[F],
     named: F[Named],
     g: () => F[Decoder],
     defaultValue: Option[F[({ type OptF[TU] = Option[() => TU] })#OptF]]
@@ -61,44 +63,48 @@ object EncodeHelperUtils {
 
     val getField: GetFieldModel[F] = GetFieldModel[F].derived(sp2)
 
-    val appender: SP4.SimpleAppender[DecodeJson] = new SP4.SimpleAppender[DecodeJson] {
-      override def append[A1, A2, A3, A4, B1, B2, B3, B4, C1, C2, C3, C4](
-        cxF1: ABCFunc[A1, B1, C1],
-        cxF2: ABCFunc[A2, B2, C2],
-        cxF3: ABCFunc[A3, B3, C3],
-        cxF4: ABCFunc[A4, B4, C4]
-      )(
-        ma: DecodeJson[A1, A2, A3, A4],
-        mb: DecodeJson[B1, B2, B3, B4]
-      ): DecodeJson[C1, C2, C3, C4] = new DecodeJson[C1, C2, C3, C4] {
-        override def fromJson(n: C1, enc: C2, de: C4): Result[C3] = for {
-          t1 <- ma.fromJson(cxF1.takeHead(n), cxF2.takeHead(enc), cxF4.takeHead(de))
-          t2 <- mb.fromJson(cxF1.takeTail(n), cxF2.takeTail(enc), cxF4.takeTail(de))
-        } yield cxF3.append(t1, t2)
-      }
-      override def zero[N1, N2, N3, N4](n1: N1, n2: N2, n3: N3, n4: N4): DecodeJson[N1, N2, N3, N4] = new DecodeJson[N1, N2, N3, N4] {
-        override def fromJson(n: N1, enc: N2, de: N4): Result[N3] = Right(n3)
+    val zero4: AppenderSupport1.Simple4.Zero[DecodeJson] = new AppenderSupport1.Simple4.Zero[DecodeJson] {
+      override def zero[B1, B2, B3, B4](b1: B1, b2: B2, b3: B3, b4: B4): DecodeJson[B1, B2, B3, B4] = new DecodeJson[B1, B2, B3, B4] {
+        override def fromJson(n: B1, enc: B2, defVal: B4): Decoder.Result[B3] = Right(b3)
       }
     }
 
-    val typeGen: SP4.TypeGen[DecodeJson, Named, Decoder, IdType, OptFGet] = new SP4.TypeGen[DecodeJson, Named, Decoder, IdType, OptFGet] {
-      override def gen[T]: DecodeJson[String, Decoder[T], T, F[OptF] => Option[() => T]] =
-        new DecodeJson[String, Decoder[T], T, F[OptF] => Option[() => T]] {
-          override def fromJson(n: String, dec: Decoder[T], defVal: F[OptF] => Option[() => T]): Decoder.Result[T] = {
-            val value1: Decoder.Result[T] = hCursor.downField(n).as(dec)
-            value1.fold[Decoder.Result[T]](
+    val appender4: AppenderSupport1.Simple4.Appender[DecodeJson, Named, Decoder, IdType, OptFGet] =
+      new AppenderSupport1.Simple4.Appender[DecodeJson, Named, Decoder, IdType, OptFGet] {
+        override def append[T, B1, B2, B3, B4, C1, C2, C3, C4](
+          abc1: ABCFunc[String, B1, C1],
+          abc2: ABCFunc[Decoder[T], B2, C2],
+          abc3: ABCFunc[T, B3, C3],
+          abc4: ABCFunc[F[OptF] => Option[() => T], B4, C4],
+          ma: DecodeJson[B1, B2, B3, B4]
+        ): DecodeJson[C1, C2, C3, C4] = new DecodeJson[C1, C2, C3, C4] {
+          override def fromJson(n: C1, dec: C2, defVal: C4): Decoder.Result[C3] = {
+            val nameStr: String                    = abc1.takeHead(n)
+            val b1: B1                             = abc1.takeTail(n)
+            val decoderT: Decoder[T]               = abc2.takeHead(dec)
+            val b2: B2                             = abc2.takeTail(dec)
+            val optGet: F[OptF] => Option[() => T] = abc4.takeHead(defVal)
+            val b4: B4                             = abc4.takeTail(defVal)
+            val b3Result: Decoder.Result[B3]       = ma.fromJson(b1, b2, b4)
+            val value1: Decoder.Result[T]          = hCursor.downField(nameStr).as(decoderT)
+            val value2: Decoder.Result[T] = value1.fold[Decoder.Result[T]](
               (err: DecodingFailure) =>
                 defaultValue.fold[Decoder.Result[T]](Left(err))(r =>
-                  defVal(r).fold[Decoder.Result[T]](Left(err))(rValue1 => Right(rValue1()))
+                  optGet(r).fold[Decoder.Result[T]](Left(err))(rValue1 => Right(rValue1()))
                 ),
               rV => Right(rV)
             )
+
+            for {
+              v1 <- value2
+              v2 <- b3Result
+            } yield abc3.append(v1, v2)
           }
         }
-    }
+      }
 
     val decoderFunc: DecodeJson[F[Named], F[Decoder], F[IdType], F[OptFGet]] =
-      sp4.append[DecodeJson, Named, Decoder, IdType, OptFGet](typeGen = typeGen, sAppender = appender)
+      sp4.append[DecodeJson, Named, Decoder, IdType, OptFGet](appender4, zero4)
 
     decoderFunc.fromJson(named, g(), getField.getFieldModel[OptF])
   }
