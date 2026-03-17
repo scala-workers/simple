@@ -24,7 +24,7 @@ object PureConfigUtils {
 
     val labelledIns: F[Str1] = sg.labelledValueFunc(modelLabelled.labelled.stringLabelled)
     val de1: ConfigObjectCursor => Result[F[IdType]] =
-      DecodeHelperUtils.decodeImpl[F](simpleRunner.simpleRunner2, bsIns.simpleProduct4, labelledIns, () => g3.value, sg.defaultValue)
+      DecodeHelperUtils.decodeImpl[F](simpleRunner.simpleRunner2, simpleRunner.simpleRunner4, labelledIns, () => g3.value, sg.defaultValue)
 
     ConfigReader.fromCursor[F[IdType]](configs =>
       for {

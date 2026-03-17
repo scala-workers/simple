@@ -10,16 +10,13 @@ import pureconfig.error.ConfigReaderFailures
 
 object DecodeHelperUtils {
 
-  type Named[_]  = String
-  type IdType[T] = T
-
-  private trait DecodeJson[Name, Dec, Model, DefaultValue] {
-    def fromJson(n: Name, enc: Dec, defVal: DefaultValue): ConfigReader.Result[Model]
-  }
+  type Named[_]                                   = String
+  type IdType[T]                                  = T
+  type DecodeJson[Name, Dec, Model, DefaultValue] = (Name, Dec, DefaultValue) => ConfigReader.Result[Model]
 
   def decodeImpl[F[_[_]]](
     sp2: AppenderSupport1.Simple2.Runner[F],
-    sp4: SP4.ProductAdapter[F],
+    sp4: AppenderSupport1.Simple4.Runner[F],
     named: F[Named],
     g: () => F[ConfigReader],
     defaultValue: Option[F[({ type OptF[TU] = Option[() => TU] })#OptF]]
@@ -29,51 +26,48 @@ object DecodeHelperUtils {
 
     val getField: GetFieldModel[F] = GetFieldModel[F].derived(sp2)
 
-    val appender: SP4.SimpleAppender[DecodeJson] = new SP4.SimpleAppender[DecodeJson] {
-      override def append[A1, A2, A3, A4, B1, B2, B3, B4, C1, C2, C3, C4](
-        cxF1: ABCFunc[A1, B1, C1],
-        cxF2: ABCFunc[A2, B2, C2],
-        cxF3: ABCFunc[A3, B3, C3],
-        cxF4: ABCFunc[A4, B4, C4]
-      )(
-        ma: DecodeJson[A1, A2, A3, A4],
-        mb: DecodeJson[B1, B2, B3, B4]
-      ): DecodeJson[C1, C2, C3, C4] = new DecodeJson[C1, C2, C3, C4] {
-        override def fromJson(n: C1, enc: C2, de: C4): Result[C3] = for {
-          t1 <- ma.fromJson(cxF1.takeHead(n), cxF2.takeHead(enc), cxF4.takeHead(de))
-          t2 <- mb.fromJson(cxF1.takeTail(n), cxF2.takeTail(enc), cxF4.takeTail(de))
-        } yield cxF3.append(t1, t2)
+    val appender: AppenderSupport1.Simple4.Appender[DecodeJson, Named, ConfigReader, IdType, OptFGet] =
+      new AppenderSupport1.Simple4.Appender[DecodeJson, Named, ConfigReader, IdType, OptFGet] {
+        override def append[T, B1, B2, B3, B4, C1, C2, C3, C4](
+          abc1: ABCFunc[String, B1, C1],
+          abc2: ABCFunc[ConfigReader[T], B2, C2],
+          abc3: ABCFunc[T, B3, C3],
+          abc4: ABCFunc[OptFGet[T], B4, C4],
+          ma: DecodeJson[B1, B2, B3, B4]
+        ): (C1, C2, C4) => ConfigReader.Result[C3] = (c1: C1, c2: C2, c4: C4) => {
+          val name1: String                 = abc1.takeHead(c1)
+          val b1: B1                        = abc1.takeTail(c1)
+          val configReader: ConfigReader[T] = abc2.takeHead(c2)
+          val b2: B2                        = abc2.takeTail(c2)
+          val optGet: OptFGet[T]            = abc4.takeHead(c4)
+          val b4: B4                        = abc4.takeTail(c4)
+
+          val value1: ConfigReader.Result[T] = for {
+            v1 <- hCursor.atKey(name1)
+            v2 <- configReader.from(v1)
+          } yield v2
+
+          val value2: ConfigReader.Result[T] = if (value1.isLeft) {
+            val optIns = defaultValue.flatMap(optGet)
+            optIns.fold[ConfigReader.Result[T]](value1)(r => Right(r()))
+          } else value1
+
+          for {
+            t1 <- ma(b1, b2, b4)
+            t2 <- value2
+          } yield abc3.append(t2, t1)
+        }
       }
-      override def zero[N1, N2, N3, N4](n1: N1, n2: N2, n3: N3, n4: N4): DecodeJson[N1, N2, N3, N4] = new DecodeJson[N1, N2, N3, N4] {
-        override def fromJson(n: N1, enc: N2, de: N4): Result[N3] = Right(n3)
-      }
+
+    val zero: AppenderSupport1.Simple4.Zero[DecodeJson] = new AppenderSupport1.Simple4.Zero[DecodeJson] {
+      override def zero[B1, B2, B3, B4](b1: B1, b2: B2, b3: B3, b4: B4): (B1, B2, B4) => ConfigReader.Result[B3] = (a: B1, b: B2, c: B4) =>
+        Right(b3)
     }
 
-    val typeGen: SP4.TypeGen[DecodeJson, Named, ConfigReader, IdType, OptFGet] =
-      new SP4.TypeGen[DecodeJson, Named, ConfigReader, IdType, OptFGet] {
-        override def gen[T]: DecodeJson[String, ConfigReader[T], T, F[OptF] => Option[() => T]] =
-          new DecodeJson[String, ConfigReader[T], T, F[OptF] => Option[() => T]] {
-            override def fromJson(n: String, dec: ConfigReader[T], defVal: F[OptF] => Option[() => T]): ConfigReader.Result[T] = {
-              val value1: ConfigReader.Result[T] = for {
-                v1 <- hCursor.atKey(n)
-                v2 <- dec.from(v1)
-              } yield v2
-
-              value1.fold[ConfigReader.Result[T]](
-                (err: ConfigReaderFailures) =>
-                  defaultValue.fold[ConfigReader.Result[T]](Left(err))(r =>
-                    defVal(r).fold[ConfigReader.Result[T]](Left(err))(rValue1 => Right(rValue1()))
-                  ),
-                rV => Right(rV)
-              )
-            }
-          }
-      }
-
     val decoderFunc: DecodeJson[F[Named], F[ConfigReader], F[IdType], F[OptFGet]] =
-      sp4.append[DecodeJson, Named, ConfigReader, IdType, OptFGet](typeGen = typeGen, sAppender = appender)
+      sp4.append[DecodeJson, Named, ConfigReader, IdType, OptFGet](appender = appender, zero = zero)
 
-    decoderFunc.fromJson(named, g(), getField.getFieldModel[OptF])
+    decoderFunc(named, g(), getField.getFieldModel[OptF])
   }
 
 }

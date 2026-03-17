@@ -93,13 +93,10 @@ object PlayJsonGeneric2 {
             val value1: Reads[T]    = Reads.at[T](jsPath)(dec)
             val value2: JsResult[T] = value1.reads(hCursor)
 
-            value2.fold[JsResult[T]](
-              (err: scala.collection.Seq[(JsPath, scala.collection.Seq[JsonValidationError])]) =>
-                defaultValue.fold[JsResult[T]](JsError(err))(r =>
-                  defVal(r).fold[JsResult[T]](JsError(err))(rValue1 => JsSuccess(rValue1()))
-                ),
-              (rV: T) => JsSuccess(rV)
-            )
+            value2.recoverWith[T] { error =>
+              val optIns = defaultValue.flatMap(defVal)
+              optIns.fold[JsResult[T]](error)(dInstance => JsSuccess(dInstance()))
+            }
           }
         }
     }
