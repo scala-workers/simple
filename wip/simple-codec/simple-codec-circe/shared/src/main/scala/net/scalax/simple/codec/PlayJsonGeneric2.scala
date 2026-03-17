@@ -1,6 +1,7 @@
 package net.scalax.simple
 package codec
 
+import net.scalax.simple.adt.nat.support.v5.AppenderSupport1
 import play.api.libs.json._
 import play.api.libs.json.Reads._
 import play.api.libs.functional.syntax._
@@ -53,7 +54,7 @@ object PlayJsonGeneric2 {
   }
 
   def decodeImpl[F[_[_]]](
-    sp2: SP2.ProductAdapter[F],
+    sp2: AppenderSupport1.Simple2.Runner[F],
     sp4: SP4.ProductAdapter[F],
     named: F[Named],
     g: () => F[Reads],

@@ -2,6 +2,7 @@ package net.scalax.simple
 package codec
 
 import net.scalax.simple.adt.nat.support.SimpleProductContextX
+import net.scalax.simple.adt.nat.support.v5.AppenderSupport4
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance}
 import net.scalax.simple.codec.utils.ByNameImplicit
 import play.api.libs.json._
@@ -29,11 +30,12 @@ object PlayJsonGeneric {
       sg: SimpleJsonLabelled[F]
     ): Reads[F[({ type IDF[T] = T })#IDF]] = {
       val bsInsatnall: SimpleProductContextX[F] = g1.basedInstalled
+      val simpleRunner: AppenderSupport4[F]     = g1.simpleRunner
 
       val labelledIns: F[({ type Str1[_] = String })#Str1] = sg.labelledValueFunc(lb.labelled.stringLabelled)
 
       val func =
-        PlayJsonGeneric2.decodeImpl[F](bsInsatnall.simpleProduct2, bsInsatnall.simpleProduct4, labelledIns, () => g.value, sg.defaultValue)
+        PlayJsonGeneric2.decodeImpl[F](simpleRunner.simpleRunner2, bsInsatnall.simpleProduct4, labelledIns, () => g.value, sg.defaultValue)
 
       implicitly[Reads[JsObject]].flatMapResult(func)
     }

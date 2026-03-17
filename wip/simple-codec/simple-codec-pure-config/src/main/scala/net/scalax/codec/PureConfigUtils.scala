@@ -2,6 +2,7 @@ package net.scalax.simple.codec.pureconfig
 
 import com.typesafe.config.ConfigValue
 import net.scalax.simple.adt.nat.support.SimpleProductContextX
+import net.scalax.simple.adt.nat.support.v5.AppenderSupport4
 import net.scalax.simple.codec.{ModelGet, ModelSet}
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance}
 import net.scalax.simple.codec.utils.ByNameImplicit
@@ -18,10 +19,12 @@ object PureConfigUtils {
     g3: ByNameImplicit[F[ConfigReader]],
     sg: PureConfigLabelled[F]
   ): ConfigReader[F[IdType]] = {
-    val bsIns: SimpleProductContextX[F] = basedInstalled.basedInstalled
-    val labelledIns: F[Str1]            = sg.labelledValueFunc(modelLabelled.labelled.stringLabelled)
+    val bsIns: SimpleProductContextX[F]   = basedInstalled.basedInstalled
+    val simpleRunner: AppenderSupport4[F] = basedInstalled.simpleRunner
+
+    val labelledIns: F[Str1] = sg.labelledValueFunc(modelLabelled.labelled.stringLabelled)
     val de1: ConfigObjectCursor => Result[F[IdType]] =
-      DecodeHelperUtils.decodeImpl[F](bsIns.simpleProduct2, bsIns.simpleProduct4, labelledIns, () => g3.value, sg.defaultValue)
+      DecodeHelperUtils.decodeImpl[F](simpleRunner.simpleRunner2, bsIns.simpleProduct4, labelledIns, () => g3.value, sg.defaultValue)
 
     ConfigReader.fromCursor[F[IdType]](configs =>
       for {

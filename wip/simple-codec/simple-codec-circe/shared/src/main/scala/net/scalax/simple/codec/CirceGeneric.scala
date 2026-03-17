@@ -37,7 +37,7 @@ object CirceGen {
 
       Decoder.instance[F[({ type IDF[T] = T })#IDF]](
         EncodeHelperUtils.decodeImpl[F](
-          bsInsatnall.simpleProduct2,
+          simpleRunner.simpleRunner2,
           simpleRunner.simpleRunner4,
           labelledIns,
           () => g.value,

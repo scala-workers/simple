@@ -52,7 +52,7 @@ object EncodeHelperUtils {
   }
 
   def decodeImpl[F[_[_]]](
-    sp2: SP2.ProductAdapter[F],
+    sp2: AppenderSupport1.Simple2.Runner[F],
     sp4: AppenderSupport1.Simple4.Runner[F],
     named: F[Named],
     g: () => F[Decoder],

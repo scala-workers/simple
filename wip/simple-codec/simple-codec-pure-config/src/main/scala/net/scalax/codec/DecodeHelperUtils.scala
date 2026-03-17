@@ -1,5 +1,6 @@
 package net.scalax.simple.codec.pureconfig
 
+import net.scalax.simple.adt.nat.support.v5.AppenderSupport1
 import net.scalax.simple.codec.to_list_generic.BasedInstalledSimpleProduct
 import pureconfig.ConfigReader.Result
 import pureconfig._
@@ -17,7 +18,7 @@ object DecodeHelperUtils {
   }
 
   def decodeImpl[F[_[_]]](
-    sp2: SP2.ProductAdapter[F],
+    sp2: AppenderSupport1.Simple2.Runner[F],
     sp4: SP4.ProductAdapter[F],
     named: F[Named],
     g: () => F[ConfigReader],
