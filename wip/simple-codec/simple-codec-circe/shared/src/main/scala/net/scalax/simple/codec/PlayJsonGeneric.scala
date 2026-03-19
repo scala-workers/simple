@@ -17,10 +17,11 @@ object PlayJsonGeneric {
       sjn: SimpleJsonLabelled[F]
     ): Writes[F[({ type IDF[T] = T })#IDF]] = {
       val bsInsatnall: SimpleProductContextX[F] = g1.basedInstalled
+      val simpleRunner: AppenderSupport4[F]     = g1.simpleRunner
 
       val labelledIns: F[({ type Str1[_] = String })#Str1] = sjn.labelledValueFunc(lb.labelled.stringLabelled)
 
-      Writes(PlayJsonGeneric2.encodeImpl[F](sp3 = bsInsatnall.simpleProduct3, labelledIns, () => g.value))
+      Writes(PlayJsonGeneric2.encodeImpl[F](sp3 = simpleRunner.simpleRunner3, labelledIns, () => g.value))
     }
 
     implicit def getCirceDecoderF[F[_[_]]](implicit
@@ -35,7 +36,7 @@ object PlayJsonGeneric {
       val labelledIns: F[({ type Str1[_] = String })#Str1] = sg.labelledValueFunc(lb.labelled.stringLabelled)
 
       val func =
-        PlayJsonGeneric2.decodeImpl[F](simpleRunner.simpleRunner2, bsInsatnall.simpleProduct4, labelledIns, () => g.value, sg.defaultValue)
+        PlayJsonGeneric2.decodeImpl[F](simpleRunner.simpleRunner2, simpleRunner.simpleRunner4, labelledIns, () => g.value, sg.defaultValue)
 
       implicitly[Reads[JsObject]].flatMapResult(func)
     }
