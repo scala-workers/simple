@@ -11,14 +11,13 @@ object CatNameTest6 {
 
   import CirceGen.Pojo._
 
-  val compileCtx = TypeClassOptCtx[Encoder]
-
   implicit val modelLinkPojo: ModelLinkPojo[CatNameTest6] = ModelLinkPojo.derived
 
+  val compileCtx = TypeClassContent[Encoder]
   implicit def encoderInstance: PojoInstance[compileCtx.EncoderGetter, CatNameTest6] =
     FillIdentity.Pojo[compileCtx.EncoderGetter, CatNameTest6].derived
 
-  def typeClassOpt: compileCtx.TypeClassOpt[CatNameTest6] = compileCtx.TypeClassOpt.Pojo[CatNameTest6].derived
+  def typeClassOpt: compileCtx.Pojo[CatNameTest6] = compileCtx.Pojo[CatNameTest6].derived
 
   // implicit def codec1: Codec[CatNameTest6] = ???
 
@@ -28,8 +27,8 @@ object CatNameTes6EncoderInstance {
 
   final def main(args: Array[String]): Unit = {
     println(CatNameTest6.typeClassOpt)
-    println(CatNameTest6.typeClassOpt.info.succeed)
-    println(CatNameTest6.typeClassOpt.info.failed)
+    println(CatNameTest6.typeClassOpt.infoCollection.filter(_.isDefined).map(_.fieldName))
+    println(CatNameTest6.typeClassOpt.infoCollection.filter(!_.isDefined).map(_.fieldName))
   }
 
 }

@@ -65,7 +65,7 @@ object ModelLinkPojo {
         override def stringLabelled: PojoInstance[({ type T1[_] = String })#T1, Model] =
           ModelLinkPojoSelf.FFromHList[({ type T1[_] = String })#T1](cNamed)
         override def mapGenerc: MapGenerc[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX] =
-          MapGenerc[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX].derived(ModelLinkPojoSelf.basedInstalled.simpleProduct2)
+          MapGenerc[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX].derived(ModelLinkPojoSelf.simpleRunner.simpleRunner2)
       }
   }
 

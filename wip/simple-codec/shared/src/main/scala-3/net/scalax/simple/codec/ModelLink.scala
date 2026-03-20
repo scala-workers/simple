@@ -23,7 +23,7 @@ object ModelLink {
     override def size: ModelSize[FMM]             = ModelSize[FMM].derived(cNamed)
     override def labelled: CompatLabelled[FMM] = new CompatLabelledImplHelper.Impl[FMM] {
       override def stringLabelled: FMM[({ type T1[_] = String })#T1] = ModelLinkCommonFSelf.FFromHList[({ type T1[_] = String })#T1](cNamed)
-      override def mapGenerc: MapGenerc[FMM] = MapGenerc[FMM].derived(ModelLinkCommonFSelf.basedInstalled.simpleProduct2)
+      override def mapGenerc: MapGenerc[FMM] = MapGenerc[FMM].derived(ModelLinkCommonFSelf.simpleRunner.simpleRunner2)
     }
   }
 

@@ -61,7 +61,7 @@ object ModelLinkPojo {
           override def symbolLabelled: PojoInstance[({ type T1[_] = Symbol })#T1, Model] =
             ModelLinkPojoSelf.FFromHList[({ type T1[_] = Symbol })#T1](namedModel)
           override def mapGenerc: MapGenerc[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX] =
-            MapGenerc[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX].derived(ModelLinkPojoSelf.basedInstalled.simpleProduct2)
+            MapGenerc[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX].derived(ModelLinkPojoSelf.simpleRunner.simpleRunner2)
         }
       override def genericFrom(x: Any): Model = g.from(x.asInstanceOf[g.Repr])
       override def genericTo(x: Model): Any   = g.to(x)

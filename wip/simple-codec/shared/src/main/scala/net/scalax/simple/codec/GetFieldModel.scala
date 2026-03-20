@@ -33,7 +33,7 @@ object GetFieldModel {
 
   def zero[Sum]: AppenderSupport1.Simple2.Zero[TestGenericHelper[Sum]#Func] =
     new AppenderSupport1.Simple2.Zero[TestGenericHelper[Sum]#Func] {
-      override def zero[B1, B2](b1: B1, b2: B2): (Sum => B1) => B2 = (f: (Sum => B1)) => b2
+      override def zero[B1, B2](b1: B1, b2: B2): (Sum => B1) => B2 = (f: Sum => B1) => b2
     }
 
   class Builder[F[_[_]]] {

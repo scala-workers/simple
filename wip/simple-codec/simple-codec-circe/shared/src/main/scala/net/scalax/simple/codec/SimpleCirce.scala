@@ -2,6 +2,7 @@ package net.scalax.simple
 package codec
 
 import io.circe.generic.extras.JsonKey
+import net.scalax.simple.adt.nat.support.v5.AppenderSupport1
 import net.scalax.simple.adt.nat.support.{SimpleProduct2, SimpleProduct3, SimpleProductContextX}
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledSimpleProduct, PojoInstance}
 
@@ -18,13 +19,13 @@ trait SimpleJsonLabelled[F[_[_]]] {
 }
 
 object SimpleJsonLabelled { SimpleJsonLabelledSelf =>
-  class Impl[F[_[_]]: SimpleProduct2.ProductAdapter: SimpleProduct3.ProductAdapter](
+  class Impl[F[_[_]]: AppenderSupport1.Simple2.Runner: SimpleProduct3.ProductAdapter](
     override val labelledValueFunc: F[({ type Str[_] = String })#Str] => F[({ type Str[_] = String })#Str],
     override val defaultValue: Option[F[({ type OptF[U1] = Option[() => U1] })#OptF]]
   ) extends SimpleJsonLabelled[F] { ImplSelf =>
     override def annotationsLabelled(implicit ann: ModelAnnotations[F, JsonKey]): SimpleJsonLabelled[F] = {
       val zipGeneric: ZipGeneric[F] = ZipGeneric[F].derived(implicitly[SimpleProduct3.ProductAdapter[F]])
-      val mapGenerc: MapGenerc[F]   = MapGenerc[F].derived(implicitly[SimpleProduct2.ProductAdapter[F]])
+      val mapGenerc: MapGenerc[F]   = MapGenerc[F].derived(implicitly[AppenderSupport1.Simple2.Runner[F]])
 
       type Type1[T] = String
       type Type2[T] = Option[JsonKey]
@@ -62,8 +63,8 @@ object SimpleJsonLabelled { SimpleJsonLabelledSelf =>
 
   type F[U1[_[_]]] = SimpleJsonLabelled[U1]
   def F[U1[_[_]]](implicit spx: BasedInstalledSimpleProduct[U1]): SimpleJsonLabelled[U1] = {
-    implicit def sp3: SimpleProduct3.ProductAdapter[U1] = spx.basedInstalled.simpleProduct3
-    implicit def sp2: SimpleProduct2.ProductAdapter[U1] = spx.basedInstalled.simpleProduct2
+    implicit def sp3: SimpleProduct3.ProductAdapter[U1]   = spx.basedInstalled.simpleProduct3
+    implicit def sp2: AppenderSupport1.Simple2.Runner[U1] = spx.simpleRunner.simpleRunner2
 
     new SimpleJsonLabelledSelf.Impl[U1](labelledValueFunc = identity[U1[({ type Str[_] = String })#Str]], defaultValue = Option.empty)
   }
