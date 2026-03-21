@@ -19,7 +19,6 @@ object PureConfigUtils {
     g3: ByNameImplicit[F[ConfigReader]],
     sg: PureConfigLabelled[F]
   ): ConfigReader[F[IdType]] = {
-    val bsIns: SimpleProductContextX[F]   = basedInstalled.basedInstalled
     val simpleRunner: AppenderSupport4[F] = basedInstalled.simpleRunner
 
     val labelledIns: F[Str1] = sg.labelledValueFunc(modelLabelled.labelled.stringLabelled)
@@ -40,7 +39,6 @@ object PureConfigUtils {
     g3: ByNameImplicit[F[ConfigWriter]],
     sg: PureConfigLabelled[F]
   ): ConfigWriter[F[IdType]] = {
-    val bsIns: SimpleProductContextX[F]   = basedInstalled.basedInstalled
     val simpleRunner: AppenderSupport4[F] = basedInstalled.simpleRunner
     val labelledIns: F[Str1]              = sg.labelledValueFunc(modelLabelled.labelled.stringLabelled)
     val func: F[IdType] => ConfigValue    = EncodeHelperUtils.encodeImpl[F](simpleRunner.simpleRunner3, labelledIns, () => g3.value)

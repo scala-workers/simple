@@ -2,7 +2,7 @@ package net.scalax.simple.codec.pureconfig
 
 import com.typesafe.config.{ConfigFactory, ConfigObject, ConfigValue}
 import net.scalax.simple.adt.nat.support.v5.AppenderSupport1
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct3 => SP3}
+import net.scalax.simple.adt.nat.support.ABCFunc
 import pureconfig._
 
 import scala.jdk.CollectionConverters._

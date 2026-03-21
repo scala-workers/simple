@@ -1,12 +1,9 @@
 package net.scalax.simple.codec.pureconfig
 
 import net.scalax.simple.adt.nat.support.v5.AppenderSupport1
-import net.scalax.simple.codec.to_list_generic.BasedInstalledSimpleProduct
-import pureconfig.ConfigReader.Result
 import pureconfig._
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct2 => SP2, SimpleProduct4 => SP4, SimpleProductContextX}
+import net.scalax.simple.adt.nat.support.ABCFunc
 import net.scalax.simple.codec.GetFieldModel
-import pureconfig.error.ConfigReaderFailures
 
 object DecodeHelperUtils {
 
