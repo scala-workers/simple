@@ -1,7 +1,7 @@
 package net.scalax.simple.codec
 
 import net.scalax.simple.adt.nat.support.v5.AppenderSupport1
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct2, SimpleProductContextX}
+import net.scalax.simple.adt.nat.support.ABCFunc
 
 trait MapGenerc[F[_[_]]] {
   def map[S[_], T[_]](input: MapGenerc.MapFunction[S, T]): F[S] => F[T]
