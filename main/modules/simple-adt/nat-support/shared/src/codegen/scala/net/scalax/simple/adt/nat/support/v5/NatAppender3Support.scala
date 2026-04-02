@@ -9,6 +9,7 @@
 
       def appSupport2: AppenderSupport2[HListLike, AppLike]
       def hZero: HZero
+      def fromToFunc[X1]: FromToFunc[X1, AppLike[X1, HZero]]
 
       final def genSimpleProduct[F[_[_]]](
         length: Int,

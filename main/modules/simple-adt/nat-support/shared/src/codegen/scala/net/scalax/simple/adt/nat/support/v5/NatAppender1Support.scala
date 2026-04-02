@@ -26,7 +26,7 @@
         }
 
         trait Mapper[M[_], N1[_]] {
-          def map[T, B1](func1To: N1[T] => B1, func1From: B1 => N1[T])
+          def map[T, B1](func1: FromToFunc[N1[T], B1])
           : M[B1]
         }
 
@@ -59,7 +59,7 @@
         }
 
         trait Mapper[M[_,_], N1[_],N2[_]] {
-          def map[T, B1,B2](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T])
+          def map[T, B1,B2](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2])
           : M[B1,B2]
         }
 
@@ -92,7 +92,7 @@
         }
 
         trait Mapper[M[_,_,_], N1[_],N2[_],N3[_]] {
-          def map[T, B1,B2,B3](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T])
+          def map[T, B1,B2,B3](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3])
           : M[B1,B2,B3]
         }
 
@@ -125,7 +125,7 @@
         }
 
         trait Mapper[M[_,_,_,_], N1[_],N2[_],N3[_],N4[_]] {
-          def map[T, B1,B2,B3,B4](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T])
+          def map[T, B1,B2,B3,B4](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4])
           : M[B1,B2,B3,B4]
         }
 
@@ -158,7 +158,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_]] {
-          def map[T, B1,B2,B3,B4,B5](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T])
+          def map[T, B1,B2,B3,B4,B5](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5])
           : M[B1,B2,B3,B4,B5]
         }
 
@@ -191,7 +191,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T])
+          def map[T, B1,B2,B3,B4,B5,B6](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6])
           : M[B1,B2,B3,B4,B5,B6]
         }
 
@@ -224,7 +224,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7])
           : M[B1,B2,B3,B4,B5,B6,B7]
         }
 
@@ -257,7 +257,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8])
           : M[B1,B2,B3,B4,B5,B6,B7,B8]
         }
 
@@ -290,7 +290,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9]
         }
 
@@ -323,7 +323,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10]
         }
 
@@ -356,7 +356,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11]
         }
 
@@ -389,7 +389,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T],func12To: N12[T] => B12, func12From: B12 => N12[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12]
         }
 
@@ -422,7 +422,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T],func12To: N12[T] => B12, func12From: B12 => N12[T],func13To: N13[T] => B13, func13From: B13 => N13[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13]
         }
 
@@ -455,7 +455,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T],func12To: N12[T] => B12, func12From: B12 => N12[T],func13To: N13[T] => B13, func13From: B13 => N13[T],func14To: N14[T] => B14, func14From: B14 => N14[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14]
         }
 
@@ -488,7 +488,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T],func12To: N12[T] => B12, func12From: B12 => N12[T],func13To: N13[T] => B13, func13From: B13 => N13[T],func14To: N14[T] => B14, func14From: B14 => N14[T],func15To: N15[T] => B15, func15From: B15 => N15[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15]
         }
 
@@ -521,7 +521,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T],func12To: N12[T] => B12, func12From: B12 => N12[T],func13To: N13[T] => B13, func13From: B13 => N13[T],func14To: N14[T] => B14, func14From: B14 => N14[T],func15To: N15[T] => B15, func15From: B15 => N15[T],func16To: N16[T] => B16, func16From: B16 => N16[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16]
         }
 
@@ -554,7 +554,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T],func12To: N12[T] => B12, func12From: B12 => N12[T],func13To: N13[T] => B13, func13From: B13 => N13[T],func14To: N14[T] => B14, func14From: B14 => N14[T],func15To: N15[T] => B15, func15From: B15 => N15[T],func16To: N16[T] => B16, func16From: B16 => N16[T],func17To: N17[T] => B17, func17From: B17 => N17[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17]
         }
 
@@ -587,7 +587,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T],func12To: N12[T] => B12, func12From: B12 => N12[T],func13To: N13[T] => B13, func13From: B13 => N13[T],func14To: N14[T] => B14, func14From: B14 => N14[T],func15To: N15[T] => B15, func15From: B15 => N15[T],func16To: N16[T] => B16, func16From: B16 => N16[T],func17To: N17[T] => B17, func17From: B17 => N17[T],func18To: N18[T] => B18, func18From: B18 => N18[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18]
         }
 
@@ -620,7 +620,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T],func12To: N12[T] => B12, func12From: B12 => N12[T],func13To: N13[T] => B13, func13From: B13 => N13[T],func14To: N14[T] => B14, func14From: B14 => N14[T],func15To: N15[T] => B15, func15From: B15 => N15[T],func16To: N16[T] => B16, func16From: B16 => N16[T],func17To: N17[T] => B17, func17From: B17 => N17[T],func18To: N18[T] => B18, func18From: B18 => N18[T],func19To: N19[T] => B19, func19From: B19 => N19[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19]
         }
 
@@ -653,7 +653,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T],func12To: N12[T] => B12, func12From: B12 => N12[T],func13To: N13[T] => B13, func13From: B13 => N13[T],func14To: N14[T] => B14, func14From: B14 => N14[T],func15To: N15[T] => B15, func15From: B15 => N15[T],func16To: N16[T] => B16, func16From: B16 => N16[T],func17To: N17[T] => B17, func17From: B17 => N17[T],func18To: N18[T] => B18, func18From: B18 => N18[T],func19To: N19[T] => B19, func19From: B19 => N19[T],func20To: N20[T] => B20, func20From: B20 => N20[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19],func20: FromToFunc[N20[T], B20])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20]
         }
 
@@ -686,7 +686,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T],func12To: N12[T] => B12, func12From: B12 => N12[T],func13To: N13[T] => B13, func13From: B13 => N13[T],func14To: N14[T] => B14, func14From: B14 => N14[T],func15To: N15[T] => B15, func15From: B15 => N15[T],func16To: N16[T] => B16, func16From: B16 => N16[T],func17To: N17[T] => B17, func17From: B17 => N17[T],func18To: N18[T] => B18, func18From: B18 => N18[T],func19To: N19[T] => B19, func19From: B19 => N19[T],func20To: N20[T] => B20, func20From: B20 => N20[T],func21To: N21[T] => B21, func21From: B21 => N21[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19],func20: FromToFunc[N20[T], B20],func21: FromToFunc[N21[T], B21])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21]
         }
 
@@ -719,7 +719,7 @@
         }
 
         trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_],N22[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22](func1To: N1[T] => B1, func1From: B1 => N1[T],func2To: N2[T] => B2, func2From: B2 => N2[T],func3To: N3[T] => B3, func3From: B3 => N3[T],func4To: N4[T] => B4, func4From: B4 => N4[T],func5To: N5[T] => B5, func5From: B5 => N5[T],func6To: N6[T] => B6, func6From: B6 => N6[T],func7To: N7[T] => B7, func7From: B7 => N7[T],func8To: N8[T] => B8, func8From: B8 => N8[T],func9To: N9[T] => B9, func9From: B9 => N9[T],func10To: N10[T] => B10, func10From: B10 => N10[T],func11To: N11[T] => B11, func11From: B11 => N11[T],func12To: N12[T] => B12, func12From: B12 => N12[T],func13To: N13[T] => B13, func13From: B13 => N13[T],func14To: N14[T] => B14, func14From: B14 => N14[T],func15To: N15[T] => B15, func15From: B15 => N15[T],func16To: N16[T] => B16, func16From: B16 => N16[T],func17To: N17[T] => B17, func17From: B17 => N17[T],func18To: N18[T] => B18, func18From: B18 => N18[T],func19To: N19[T] => B19, func19From: B19 => N19[T],func20To: N20[T] => B20, func20From: B20 => N20[T],func21To: N21[T] => B21, func21From: B21 => N21[T],func22To: N22[T] => B22, func22From: B22 => N22[T])
+          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19],func20: FromToFunc[N20[T], B20],func21: FromToFunc[N21[T], B21],func22: FromToFunc[N22[T], B22])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22]
         }
 

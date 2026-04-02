@@ -2,7 +2,7 @@ package net.scalax.simple.codec.circe
 
 import io.circe._
 import net.scalax.simple.adt.nat.support.v5.AppenderSupport1
-import net.scalax.simple.adt.nat.support.{ABCFunc, SimpleProduct2 => SP2}
+import net.scalax.simple.adt.nat.support.{ABCFunc, FromToFunc, SimpleProduct2 => SP2}
 import net.scalax.simple.codec.GetFieldModel
 
 object EncodeHelperUtils {
@@ -20,16 +20,13 @@ object EncodeHelperUtils {
     val mapper: AppenderSupport1.Simple3.Mapper[EncodeAction, Named, Encoder, IdType] =
       new AppenderSupport1.Simple3.Mapper[EncodeAction, Named, Encoder, IdType] {
         override def map[T, B1, B2, B3](
-          func1To: String => B1,
-          func1From: B1 => String,
-          func2To: Encoder[T] => B2,
-          func2From: B2 => Encoder[T],
-          func3To: T => B3,
-          func3From: B3 => T
+          func1: FromToFunc[String, B1],
+          func2: FromToFunc[Encoder[T], B2],
+          func3: FromToFunc[T, B3]
         ): (B1, B2, B3) => List[(String, Json)] = (b1: B1, b2: B2, b3: B3) => {
-          val nameStr: String = func1From(b1)
-          val en: Encoder[T]  = func2From(b2)
-          val t: T            = func3From(b3)
+          val nameStr: String = func1.to(b1)
+          val en: Encoder[T]  = func2.to(b2)
+          val t: T            = func3.to(b3)
 
           List((nameStr, en(t)))
         }

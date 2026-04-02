@@ -32,4 +32,11 @@ trait HListFunc[HLLike, Ap[_, _ <: HLLike] <: HLLike] {
       override def takeTail(m: Ap[Head, HCollecio]): HCollecio        = HListFuncSelf.takeTail(m)
       override def append(h: Head, t: HCollecio): Ap[Head, HCollecio] = HListFuncSelf.append(h, t)
     }
+
+  def fromTo[Head, HCollecio <: HLLike](hCol: HCollecio): FromToFunc[Head, Ap[Head, HCollecio]] =
+    new FromToFunc[Head, Ap[Head, HCollecio]] {
+      override def from(m: Head): Ap[Head, HCollecio] = HListFuncSelf.append(m, hCol)
+      override def to(m: Ap[Head, HCollecio]): Head   = HListFuncSelf.takeHead(m)
+    }
+
 }
