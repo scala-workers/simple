@@ -8,6 +8,11 @@ trait ABCFunc[A, B, C] {
   def append(h: A, t: B): C
 }
 
+trait FromToFunc[A, B] {
+  def from(m: A): B
+  def to(m: B): A
+}
+
 trait HListFuncAbs[HLLike, Ap[_, _ <: HLLike] <: HLLike] {
   def takeHead[Head, Tail <: HLLike](m: Ap[Head, Tail]): Head
   def takeTail[Head, Tail <: HLLike](m: Ap[Head, Tail]): Tail

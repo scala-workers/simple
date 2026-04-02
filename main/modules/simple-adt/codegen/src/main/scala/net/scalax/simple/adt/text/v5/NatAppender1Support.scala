@@ -27,7 +27,7 @@ class NatAppender1Support(val index: Int) {
     val typeParam16: Seq[String] = for (i1 <- 1 to index) yield s"abc$i1: net.scalax.simple.adt.nat.support.ABCFunc[N$i1[T], B$i1, C$i1]"
     val typeParam17: Seq[String] = for (i1 <- 1 to index) yield s"b$i1: B$i1"
     val typeParam18: Seq[String] = for (i1 <- 1 to index) yield s"N$i1[T]"
-    val typeParam19: Seq[String] = for (i1 <- 1 to index) yield s"func${i1}To: N$i1[T] => B$i1, func${i1}From: B$i1 => N$i1[T]"
+    val typeParam19: Seq[String] = for (i1 <- 1 to index) yield s"func$i1: FromToFunc[N$i1[T], B$i1]"
 
     val appendHLStr = "({ type AP1[_, T1 <: HListLike] = T1 })#AP1"
 
@@ -52,7 +52,7 @@ class NatAppender1Support(val index: Int) {
         }
 
         trait Mapper[M[${typeParam1.mkString(',')}], ${typeParam2.mkString(',')}] {
-          def map[T, ${typeParam14.mkString(',')}](old: M[${typeParam18.mkString(',')}], ${typeParam19.mkString(',')})
+          def map[T, ${typeParam14.mkString(',')}](${typeParam19.mkString(',')})
           : M[${typeParam14.mkString(',')}]
         }
 
