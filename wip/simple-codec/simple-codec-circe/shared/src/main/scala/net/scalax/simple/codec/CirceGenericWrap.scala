@@ -11,15 +11,10 @@ object EncodeHelperUtils {
 
   type EncodeAction[Name, Enc, Model] = (Name, Enc, Model) => List[(String, Json)]
 
-  def encodeImpl[F[_[_]]](sp3: AppenderSupport1.Simple3.Runner[F], namedIns: F[Named], encIns: () => F[Encoder]): F[IdType] => Json = {
-    val zero3: AppenderSupport1.Simple3.Zero[EncodeAction] = new AppenderSupport1.Simple3.Zero[EncodeAction] {
-      override def zero[B1, B2, B3](b1: B1, b2: B2, b3: B3): EncodeAction[B1, B2, B3] = (n: B1, enc: B2, id: B3) =>
-        List.empty[(String, Json)]
-    }
-
-    val mapper: AppenderSupport1.Simple3.Mapper[EncodeAction, Named, Encoder, IdType] =
-      new AppenderSupport1.Simple3.Mapper[EncodeAction, Named, Encoder, IdType] {
-        override def map[T, B1, B2, B3](
+  def encodeImpl[F[_[_]]](sp3: AppenderSupport1.Simple3.Release[F], namedIns: F[Named], encIns: () => F[Encoder]): F[IdType] => Json = {
+    val one3: AppenderSupport1.Simple3.One[EncodeAction, Named, Encoder, IdType] =
+      new AppenderSupport1.Simple3.One[EncodeAction, Named, Encoder, IdType] {
+        override def one[T, B1, B2, B3](
           func1: FromToFunc[String, B1],
           func2: FromToFunc[Encoder[T], B2],
           func3: FromToFunc[T, B3]
@@ -53,7 +48,7 @@ object EncodeHelperUtils {
 
       }
 
-    val action = sp3.append[EncodeAction, Named, Encoder, IdType](appender3, zero3)
+    val action = sp3.append[EncodeAction, Named, Encoder, IdType](appender3, one3)
 
     (model: F[IdType]) => Json.fromJsonObject(JsonObject.fromIterable(action(namedIns, encIns(), model)))
   }

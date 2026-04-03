@@ -20,7 +20,7 @@ object CirceGen {
       val labelledIns: F[({ type Str1[_] = String })#Str1] = sg.labelledValueFunc(lb.labelled.stringLabelled)
 
       Encoder.instance[F[({ type IDF[T] = T })#IDF]](
-        EncodeHelperUtils.encodeImpl[F](g1.simpleRunner.simpleRunner3, labelledIns, () => g.value)
+        EncodeHelperUtils.encodeImpl[F](g1.simpleRunner.simpleRelease3, labelledIns, () => g.value)
       )
     }
 

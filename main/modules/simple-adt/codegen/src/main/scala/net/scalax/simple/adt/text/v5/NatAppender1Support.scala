@@ -51,15 +51,15 @@ class NatAppender1Support(val index: Int) {
           ): M[${typeParam3.mkString(',')}]
         }
 
-        trait Mapper[M[${typeParam1.mkString(',')}], ${typeParam2.mkString(',')}] {
-          def map[T, ${typeParam14.mkString(',')}](${typeParam19.mkString(',')})
+        trait One[M[${typeParam1.mkString(',')}], ${typeParam2.mkString(',')}] {
+          def one[T, ${typeParam14.mkString(',')}](${typeParam19.mkString(',')})
           : M[${typeParam14.mkString(',')}]
         }
 
         trait Release[F[_[_]]] {
           def append[M[${typeParam1.mkString(',')}], ${typeParam2.mkString(',')}](
             appender: SimpleSelf.Appender[M, ${typeParam4.mkString(',')}],
-            zero: SimpleSelf.Mapper[M, ${typeParam4.mkString(',')}]
+            zero: SimpleSelf.One[M, ${typeParam4.mkString(',')}]
           ): M[${typeParam3.mkString(',')}]
         }
       }

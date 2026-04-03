@@ -25,15 +25,15 @@
           ): M[F[N1]]
         }
 
-        trait Mapper[M[_], N1[_]] {
-          def map[T, B1](func1: FromToFunc[N1[T], B1])
+        trait One[M[_], N1[_]] {
+          def one[T, B1](func1: FromToFunc[N1[T], B1])
           : M[B1]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_], N1[_]](
             appender: SimpleSelf.Appender[M, N1],
-            zero: SimpleSelf.Mapper[M, N1]
+            zero: SimpleSelf.One[M, N1]
           ): M[F[N1]]
         }
       }
@@ -58,15 +58,15 @@
           ): M[F[N1],F[N2]]
         }
 
-        trait Mapper[M[_,_], N1[_],N2[_]] {
-          def map[T, B1,B2](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2])
+        trait One[M[_,_], N1[_],N2[_]] {
+          def one[T, B1,B2](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2])
           : M[B1,B2]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_], N1[_],N2[_]](
             appender: SimpleSelf.Appender[M, N1,N2],
-            zero: SimpleSelf.Mapper[M, N1,N2]
+            zero: SimpleSelf.One[M, N1,N2]
           ): M[F[N1],F[N2]]
         }
       }
@@ -91,15 +91,15 @@
           ): M[F[N1],F[N2],F[N3]]
         }
 
-        trait Mapper[M[_,_,_], N1[_],N2[_],N3[_]] {
-          def map[T, B1,B2,B3](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3])
+        trait One[M[_,_,_], N1[_],N2[_],N3[_]] {
+          def one[T, B1,B2,B3](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3])
           : M[B1,B2,B3]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_], N1[_],N2[_],N3[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3]
+            zero: SimpleSelf.One[M, N1,N2,N3]
           ): M[F[N1],F[N2],F[N3]]
         }
       }
@@ -124,15 +124,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4]]
         }
 
-        trait Mapper[M[_,_,_,_], N1[_],N2[_],N3[_],N4[_]] {
-          def map[T, B1,B2,B3,B4](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4])
+        trait One[M[_,_,_,_], N1[_],N2[_],N3[_],N4[_]] {
+          def one[T, B1,B2,B3,B4](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4])
           : M[B1,B2,B3,B4]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_], N1[_],N2[_],N3[_],N4[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4]
           ): M[F[N1],F[N2],F[N3],F[N4]]
         }
       }
@@ -157,15 +157,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5]]
         }
 
-        trait Mapper[M[_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_]] {
-          def map[T, B1,B2,B3,B4,B5](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5])
+        trait One[M[_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_]] {
+          def one[T, B1,B2,B3,B4,B5](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5])
           : M[B1,B2,B3,B4,B5]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5]]
         }
       }
@@ -190,15 +190,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6])
+        trait One[M[_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6])
           : M[B1,B2,B3,B4,B5,B6]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6]]
         }
       }
@@ -223,15 +223,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7])
+        trait One[M[_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7])
           : M[B1,B2,B3,B4,B5,B6,B7]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7]]
         }
       }
@@ -256,15 +256,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8])
+        trait One[M[_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8])
           : M[B1,B2,B3,B4,B5,B6,B7,B8]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8]]
         }
       }
@@ -289,15 +289,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9])
+        trait One[M[_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9]]
         }
       }
@@ -322,15 +322,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10])
+        trait One[M[_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10]]
         }
       }
@@ -355,15 +355,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11]]
         }
       }
@@ -388,15 +388,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12]]
         }
       }
@@ -421,15 +421,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13]]
         }
       }
@@ -454,15 +454,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14]]
         }
       }
@@ -487,15 +487,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15]]
         }
       }
@@ -520,15 +520,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16]]
         }
       }
@@ -553,15 +553,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17]]
         }
       }
@@ -586,15 +586,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18]]
         }
       }
@@ -619,15 +619,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19]]
         }
       }
@@ -652,15 +652,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19],func20: FromToFunc[N20[T], B20])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19],func20: FromToFunc[N20[T], B20])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20]]
         }
       }
@@ -685,15 +685,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20],F[N21]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19],func20: FromToFunc[N20[T], B20],func21: FromToFunc[N21[T], B21])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19],func20: FromToFunc[N20[T], B20],func21: FromToFunc[N21[T], B21])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20],F[N21]]
         }
       }
@@ -718,15 +718,15 @@
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20],F[N21],F[N22]]
         }
 
-        trait Mapper[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_],N22[_]] {
-          def map[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19],func20: FromToFunc[N20[T], B20],func21: FromToFunc[N21[T], B21],func22: FromToFunc[N22[T], B22])
+        trait One[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_],N22[_]] {
+          def one[T, B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22](func1: FromToFunc[N1[T], B1],func2: FromToFunc[N2[T], B2],func3: FromToFunc[N3[T], B3],func4: FromToFunc[N4[T], B4],func5: FromToFunc[N5[T], B5],func6: FromToFunc[N6[T], B6],func7: FromToFunc[N7[T], B7],func8: FromToFunc[N8[T], B8],func9: FromToFunc[N9[T], B9],func10: FromToFunc[N10[T], B10],func11: FromToFunc[N11[T], B11],func12: FromToFunc[N12[T], B12],func13: FromToFunc[N13[T], B13],func14: FromToFunc[N14[T], B14],func15: FromToFunc[N15[T], B15],func16: FromToFunc[N16[T], B16],func17: FromToFunc[N17[T], B17],func18: FromToFunc[N18[T], B18],func19: FromToFunc[N19[T], B19],func20: FromToFunc[N20[T], B20],func21: FromToFunc[N21[T], B21],func22: FromToFunc[N22[T], B22])
           : M[B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22]
         }
 
         trait Release[F[_[_]]] {
           def append[M[_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_], N1[_],N2[_],N3[_],N4[_],N5[_],N6[_],N7[_],N8[_],N9[_],N10[_],N11[_],N12[_],N13[_],N14[_],N15[_],N16[_],N17[_],N18[_],N19[_],N20[_],N21[_],N22[_]](
             appender: SimpleSelf.Appender[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22],
-            zero: SimpleSelf.Mapper[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22]
+            zero: SimpleSelf.One[M, N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,N13,N14,N15,N16,N17,N18,N19,N20,N21,N22]
           ): M[F[N1],F[N2],F[N3],F[N4],F[N5],F[N6],F[N7],F[N8],F[N9],F[N10],F[N11],F[N12],F[N13],F[N14],F[N15],F[N16],F[N17],F[N18],F[N19],F[N20],F[N21],F[N22]]
         }
       }

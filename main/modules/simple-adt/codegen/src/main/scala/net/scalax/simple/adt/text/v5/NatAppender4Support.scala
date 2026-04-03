@@ -31,6 +31,7 @@ class NatAppender4Support(val index: Int) {
 
     val text: String = s"""
       def simpleRunner$index: AppenderSupport1.Simple$index.Runner[F]
+      def simpleRelease$index: AppenderSupport1.Simple$index.Release[F]
     """
 
   }

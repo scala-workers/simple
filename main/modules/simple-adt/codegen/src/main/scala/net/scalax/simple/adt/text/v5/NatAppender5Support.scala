@@ -16,22 +16,6 @@ class NatAppender5Support(val index: Int) {
 
   }
 
-  class TraitDef(val index: Int) {
-
-    val typeParam2: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1"
-    val typeParam3: Seq[String] =
-      for (i1 <- 1 to index)
-        yield s"APRHLLike$i1[N$i1[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], HCollection$i1]"
-    val typeParam8: Seq[String] = for (i1 <- 1 to index) yield s"HCollection$i1 <: HLLike$i1"
-
-    val text: String = s"""
-      def append10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10, ${typeParam8.mkString(',')}](
-        p1: M[${typeParam2.mkString(',')}]): M[${typeParam3.mkString(',')}] =
-        Parameter10NatSupport${index}Self.content.append(Parameter10NatSupport${index}Self.typeGen.gen10[Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10], p1)
-    """
-
-  }
-
   class TraitContentDef(val index: Int) {
 
     val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"HLLike$i1"
@@ -45,7 +29,6 @@ class NatAppender5Support(val index: Int) {
 
   class SimpleProductXBody(val index: Int) {
 
-    val traitDef: TraitDef               = new TraitDef(index)
     val traitContentDef: TraitContentDef = new TraitContentDef(index)
     val typeGenTrait: TypeGenTrait       = new TypeGenTrait(index)
 
@@ -59,6 +42,8 @@ class NatAppender5Support(val index: Int) {
     val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"B$i1"
     val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"C$i1"
     val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s"abc$i1"
+    val typeParam12: Seq[String] = for (i1 <- 1 to index) yield s"func$i1: FromToFunc[N$i1[T], B$i1]"
+    val typeParam13: Seq[String] = for (i1 <- 1 to index) yield s"func$i1"
 
     val text: String = s"""
       override def simpleRunner$index: AppenderSupport1.Simple$index.Runner[TPF] = new AppenderSupport1.Simple$index.Runner[TPF] {
@@ -87,9 +72,46 @@ class NatAppender5Support(val index: Int) {
       }
     """
 
+    val text2: String = s"""
+      override def simpleRelease$index: AppenderSupport1.Simple$index.Release[TPF] = new AppenderSupport1.Simple$index.Release[TPF] {
+        override def append[M[${typeParam1.mkString(',')}], ${typeParam3.mkString(',')}]
+          (
+            sAppender: AppenderSupport1.Simple$index.Appender[M, ${typeParam4.mkString(',')}],
+            sOne: AppenderSupport1.Simple$index.One[M, ${typeParam4.mkString(',')}])
+          : M[${typeParam7.mkString(',')}] =
+            spc.simpleRelease$index.append[M, ${typeParam6.mkString(',')}](
+              new AppenderSupport1.Simple$index.Appender[M, ${typeParam6.mkString(',')}] {
+                override def append[
+                  U1,
+                  ${typeParam9.mkString(',')},
+                  ${typeParam10.mkString(',')}
+                ](
+                  ${typeParam8.mkString(',')},
+                  ma: M[${typeParam9.mkString(',')}]
+                ): M[${typeParam10.mkString(',')}] = sAppender.append[
+                  T,
+                  ${typeParam9.mkString(',')},
+                  ${typeParam10.mkString(',')}
+                ](${typeParam11.mkString(',')}, ma)
+              },
+              new AppenderSupport1.Simple$index.One[M, ${typeParam6.mkString(',')}] {
+                override def one[
+                  U1,
+                  ${typeParam9.mkString(',')}
+                ](
+                  ${typeParam12.mkString(',')}
+                ): M[${typeParam9.mkString(',')}] = sOne.one[
+                  T,
+                  ${typeParam9.mkString(',')}
+                ](${typeParam13.mkString(',')})
+              }
+            )
+      }
+    """
+
   }
 
-  val preTextContent: Seq[String] = for (i <- 1 to index) yield new SimpleProductXBody(i).text
+  val preTextContent: Seq[String] = for (i <- 1 to index) yield new SimpleProductXBody(i).text + '\n' + new SimpleProductXBody(i).text2
 
   val text: String = s"""
     package net.scalax.simple.adt
