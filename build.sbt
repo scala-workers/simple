@@ -51,7 +51,7 @@ val `append-codegen/file` = `modules/file` / "simple-append-support" / "codegen"
 lazy val `append-codegen` = project in `append-codegen/file`
 
 val `pureconfig/file`       = `codec/file` / "simple-codec-pure-config"
-lazy val `codec-pureconfig` = project in `pureconfig/file`dependsOn (codec.jvm, `test-common`.jvm % Test) aggregate codec.jvm
+lazy val `codec-pureconfig` = project in `pureconfig/file` dependsOn (codec.jvm, `test-common`.jvm % Test) aggregate codec.jvm
 
 val `test-common/file`                               = `test/file` / "test-common"
 lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `test-common/file`
@@ -168,4 +168,4 @@ addCommandAlias("appendCodegen", s"+append-codegen/run ${codegenFile.toURI.toASC
 
 // ===
 `codec-pureconfig` / scalaVersion       := scalaV.v213
-`codec-pureconfig` / crossScalaVersions := Seq( scalaV.v213, scalaV.v3)
+`codec-pureconfig` / crossScalaVersions := Seq(scalaV.v213, scalaV.v3)
