@@ -2,7 +2,7 @@ package net.scalax.simple.codec.pureconfig
 
 import net.scalax.simple.adt.nat.support.v5.AppenderSupport1
 import pureconfig._
-import net.scalax.simple.adt.nat.support.ABCFunc
+import net.scalax.simple.adt.nat.support.{ABCFunc, FromToFunc}
 import net.scalax.simple.codec.GetFieldModel
 
 object DecodeHelperUtils {
@@ -13,7 +13,7 @@ object DecodeHelperUtils {
 
   def decodeImpl[F[_[_]]](
     sp2: AppenderSupport1.Simple2.Runner[F],
-    sp4: AppenderSupport1.Simple4.Runner[F],
+    sp4: AppenderSupport1.Simple4.Release[F],
     named: F[Named],
     g: () => F[ConfigReader],
     defaultValue: Option[F[({ type OptF[TU] = Option[() => TU] })#OptF]]
@@ -56,13 +56,34 @@ object DecodeHelperUtils {
         }
       }
 
-    val zero: AppenderSupport1.Simple4.Zero[DecodeJson] = new AppenderSupport1.Simple4.Zero[DecodeJson] {
-      override def zero[B1, B2, B3, B4](b1: B1, b2: B2, b3: B3, b4: B4): (B1, B2, B4) => ConfigReader.Result[B3] = (a: B1, b: B2, c: B4) =>
-        Right(b3)
-    }
+    val one: AppenderSupport1.Simple4.One[DecodeJson, Named, ConfigReader, IdType, OptFGet] =
+      new AppenderSupport1.Simple4.One[DecodeJson, Named, ConfigReader, IdType, OptFGet] {
+        override def one[T, B1, B2, B3, B4](
+          func1: FromToFunc[String, B1],
+          func2: FromToFunc[ConfigReader[T], B2],
+          func3: FromToFunc[T, B3],
+          func4: FromToFunc[OptFGet[T], B4]
+        ): (B1, B2, B4) => ConfigReader.Result[B3] = (b1: B1, b2: B2, b3: B4) => {
+          val nameStr: String         = func1.to(b1)
+          val reader: ConfigReader[T] = func2.to(b2)
+          val optGet: OptFGet[T]      = func4.to(b3)
+
+          val value1: ConfigReader.Result[T] = for {
+            v1 <- hCursor.atKey(nameStr)
+            v2 <- reader.from(v1)
+          } yield v2
+
+          val value2: ConfigReader.Result[T] = if (value1.isLeft) {
+            val optIns = defaultValue.flatMap(optGet)
+            optIns.fold[ConfigReader.Result[T]](value1)(r => Right(r()))
+          } else value1
+
+          for (v2 <- value2) yield func3.from(v2)
+        }
+      }
 
     val decoderFunc: DecodeJson[F[Named], F[ConfigReader], F[IdType], F[OptFGet]] =
-      sp4.append[DecodeJson, Named, ConfigReader, IdType, OptFGet](appender = appender, zero = zero)
+      sp4.append[DecodeJson, Named, ConfigReader, IdType, OptFGet](appender = appender, zero = one)
 
     decoderFunc(named, g(), getField.getFieldModel[OptF])
   }
