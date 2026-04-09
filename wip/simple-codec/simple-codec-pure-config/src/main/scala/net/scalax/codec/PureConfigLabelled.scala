@@ -50,7 +50,7 @@ object PureConfigLabelled { PureConfigLabelledSelf =>
 
   trait Apply[F[_[_]]] {
     def default(implicit sp: BasedInstalledSimpleProduct[F]): PureConfigLabelled[F] = {
-      implicit def mp: MapGenerc[F] = MapGenerc[F].derived(sp.simpleRunner.simpleRunner2)
+      implicit def mp: MapGenerc[F] = MapGenerc[F].derived(sp.simpleRunner.simpleRelease2)
 
       new PureConfigLabelledSelf.Impl[F](
         labelledValueFunc = identity[F[({ type Str[_] = String })#Str]],

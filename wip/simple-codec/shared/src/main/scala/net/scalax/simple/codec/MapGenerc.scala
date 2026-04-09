@@ -1,7 +1,7 @@
 package net.scalax.simple.codec
 
 import net.scalax.simple.adt.nat.support.v5.AppenderSupport1
-import net.scalax.simple.adt.nat.support.ABCFunc
+import net.scalax.simple.adt.nat.support.{ABCFunc, FromToFunc}
 
 trait MapGenerc[F[_[_]]] {
   def map[S[_], T[_]](input: MapGenerc.MapFunction[S, T]): F[S] => F[T]
@@ -14,7 +14,7 @@ object MapGenerc {
   }
 
   class Builder[F[_[_]]] {
-    def derived(generic3: AppenderSupport1.Simple2.Runner[F]): MapGenerc[F] = new MapGenerc[F] {
+    def derived(generic3: AppenderSupport1.Simple2.Release[F]): MapGenerc[F] = new MapGenerc[F] {
       override def map[S[_], T[_]](input: MapFunction[S, T]): F[S] => F[T] = {
         type MA[H, HH] = H => HH
         val appender: AppenderSupport1.Simple2.Appender[MA, S, T] = new AppenderSupport1.Simple2.Appender[MA, S, T] {
@@ -25,10 +25,11 @@ object MapGenerc {
               abc2.append(input.map[MX1](sm1), ma(b1))
             }
         }
-        val zero: AppenderSupport1.Simple2.Zero[MA] = new AppenderSupport1.Simple2.Zero[MA] {
-          override def zero[B1, B2](b1: B1, b2: B2): B1 => B2 = (b1: B1) => b2
+        val one: AppenderSupport1.Simple2.One[MA, S, T] = new AppenderSupport1.Simple2.One[MA, S, T] {
+          override def one[U, B1, B2](func1: FromToFunc[S[U], B1], func2: FromToFunc[T[U], B2]): B1 => B2 = (b1: B1) =>
+            func2.from(input.map[U](func1.to(b1)))
         }
-        generic3.append[MA, S, T](appender = appender, zero = zero)
+        generic3.append[MA, S, T](appender = appender, zero = one)
       }
     }
   }

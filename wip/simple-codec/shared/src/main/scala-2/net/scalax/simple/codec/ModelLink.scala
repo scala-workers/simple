@@ -26,7 +26,7 @@ object ModelLink {
         override def labelled: CompatLabelled[FMM] = new CompatLabelledImplHelper.Impl[FMM] {
           override def symbolLabelled: FMM[({ type T1[_] = Symbol })#T1] =
             ModelLinkCommonFSelf.FFromHList[({ type T1[_] = Symbol })#T1](namedModel)
-          override def mapGenerc: MapGenerc[FMM] = MapGenerc[FMM].derived(ModelLinkCommonFSelf.simpleRunner.simpleRunner2)
+          override def mapGenerc: MapGenerc[FMM] = MapGenerc[FMM].derived(ModelLinkCommonFSelf.simpleRunner.simpleRelease2)
         }
         override def FToHList[T[_]](x: FMM[T]): Any   = g.to(x.asInstanceOf[FMM[({ type U1[_] = Any })#U1]])
         override def FFromHList[T[_]](x: Any): FMM[T] = g.from(x.asInstanceOf[g.Repr]).asInstanceOf[FMM[T]]
