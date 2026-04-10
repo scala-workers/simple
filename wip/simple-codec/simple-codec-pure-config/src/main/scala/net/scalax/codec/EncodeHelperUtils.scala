@@ -2,7 +2,7 @@ package net.scalax.simple.codec.pureconfig
 
 import com.typesafe.config.{ConfigFactory, ConfigObject, ConfigValue}
 import net.scalax.simple.adt.nat.support.v5.AppenderSupport1
-import net.scalax.simple.adt.nat.support.ABCFunc
+import net.scalax.simple.adt.nat.support.{ABCFunc, FromToFunc}
 import pureconfig._
 
 import scala.jdk.CollectionConverters._
@@ -13,8 +13,10 @@ object EncodeHelperUtils {
 
   type EncodeAction[Name, Enc, Model] = (Name, Enc, Model) => ConfigObject
 
+  val emptyObj: ConfigObject = ConfigFactory.parseMap(Map.empty[String, ConfigValue].asJava).root()
+
   def encodeImpl[F[_[_]]](
-    sp3: AppenderSupport1.Simple3.Runner[F],
+    sp3: AppenderSupport1.Simple3.Release[F],
     namedIns: F[Named],
     encIns: () => F[ConfigWriter]
   ): F[IdType] => ConfigValue = {
@@ -37,14 +39,23 @@ object EncodeHelperUtils {
         }
       }
 
-    val zero: AppenderSupport1.Simple3.Zero[EncodeAction] = new AppenderSupport1.Simple3.Zero[EncodeAction] {
-      override def zero[B1, B2, B3](b1: B1, b2: B2, b3: B3): EncodeAction[B1, B2, B3] = (b1: B1, b2: B2, b3: B3) => {
-        ConfigFactory.parseMap(Map.empty[String, ConfigValue].asJava).root()
+    val one: AppenderSupport1.Simple3.One[EncodeAction, Named, ConfigWriter, IdType] =
+      new AppenderSupport1.Simple3.One[EncodeAction, Named, ConfigWriter, IdType] {
+        override def one[T, B1, B2, B3](
+          func1: FromToFunc[String, B1],
+          func2: FromToFunc[ConfigWriter[T], B2],
+          func3: FromToFunc[T, B3]
+        ): (B1, B2, B3) => ConfigObject = (b1: B1, b2: B2, b3: B3) => {
+          val nameStr: String     = func1.to(b1)
+          val wr: ConfigWriter[T] = func2.to(b2)
+          val t: T                = func3.to(b3)
+
+          emptyObj.withValue(nameStr, wr.to(t))
+        }
       }
-    }
 
     val encodeFunc: EncodeAction[F[Named], F[ConfigWriter], F[IdType]] =
-      sp3.append[EncodeAction, Named, ConfigWriter, IdType](appender = appender, zero = zero)
+      sp3.append[EncodeAction, Named, ConfigWriter, IdType](appender = appender, zero = one)
 
     (u: F[IdType]) => encodeFunc(namedIns, encIns(), u)
   }

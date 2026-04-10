@@ -20,7 +20,7 @@ object CirceGen {
       val labelledIns: F[({ type Str1[_] = String })#Str1] = sg.labelledValueFunc(lb.labelled.stringLabelled)
 
       Encoder.instance[F[({ type IDF[T] = T })#IDF]](
-        EncodeHelperUtils.encodeImpl[F](g1.simpleRunner.simpleRelease3, labelledIns, () => g.value)
+        EncodeHelperUtils.encodeImpl[F](g1.simpleRunner.simpleRelease3, labelledIns, () => g.value).andThen(Json.fromJsonObject)
       )
     }
 
@@ -30,15 +30,14 @@ object CirceGen {
       lb: BasedInstalledLabelled[F],
       sg: SimpleJsonLabelled[F]
     ): Decoder[F[({ type IDF[T] = T })#IDF]] = {
-      val bsInsatnall: SimpleProductContextX[F] = g1.basedInstalled
-      val simpleRunner: AppenderSupport4[F]     = g1.simpleRunner
+      val simpleRunner: AppenderSupport4[F] = g1.simpleRunner
 
       val labelledIns: F[({ type Str1[_] = String })#Str1] = sg.labelledValueFunc(lb.labelled.stringLabelled)
 
       Decoder.instance[F[({ type IDF[T] = T })#IDF]](
         EncodeHelperUtils.decodeImpl[F](
           simpleRunner.simpleRunner2,
-          simpleRunner.simpleRunner4,
+          simpleRunner.simpleRelease4,
           labelledIns,
           () => g.value,
           sg.defaultValue
