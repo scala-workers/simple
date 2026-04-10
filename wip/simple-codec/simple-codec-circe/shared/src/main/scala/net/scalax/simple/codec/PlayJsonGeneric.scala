@@ -36,7 +36,7 @@ object PlayJsonGeneric {
       val labelledIns: F[({ type Str1[_] = String })#Str1] = sg.labelledValueFunc(lb.labelled.stringLabelled)
 
       val func =
-        PlayJsonGeneric2.decodeImpl[F](simpleRunner.simpleRunner2, simpleRunner.simpleRunner4, labelledIns, () => g.value, sg.defaultValue)
+        PlayJsonGeneric2.decodeImpl[F](simpleRunner.simpleRelease2, simpleRunner.simpleRunner4, labelledIns, () => g.value, sg.defaultValue)
 
       implicitly[Reads[JsObject]].flatMapResult(func)
     }

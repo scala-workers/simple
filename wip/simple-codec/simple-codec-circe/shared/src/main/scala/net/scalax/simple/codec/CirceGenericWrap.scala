@@ -38,8 +38,8 @@ object EncodeHelperUtils {
           abc1: ABCFunc[String, B1, C1],
           abc2: ABCFunc[Encoder[T], B2, C2],
           abc3: ABCFunc[T, B3, C3],
-          ma: EncodeAction[B1, B2, B3]
-        ): EncodeAction[C1, C2, C3] = (n: C1, enc: C2, id: C3) => {
+          ma: (B1, B2, B3) => JsonObject
+        ): (C1, C2, C3) => JsonObject = (n: C1, enc: C2, id: C3) => {
           val str: String          = abc1.takeHead(n)
           val b1: B1               = abc1.takeTail(n)
           val encoderT: Encoder[T] = abc2.takeHead(enc)
@@ -62,7 +62,7 @@ object EncodeHelperUtils {
   type DecodeJson[Name, Dec, Model, DefaultValue] = (Name, Dec, DefaultValue) => Decoder.Result[Model]
 
   def decodeImpl[F[_[_]]](
-    sp2: AppenderSupport1.Simple2.Runner[F],
+    sp2: AppenderSupport1.Simple2.Release[F],
     sp4: AppenderSupport1.Simple4.Release[F],
     named: F[Named],
     g: () => F[Decoder],

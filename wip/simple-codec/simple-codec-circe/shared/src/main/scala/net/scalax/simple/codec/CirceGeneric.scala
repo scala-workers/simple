@@ -1,8 +1,7 @@
 package net.scalax.simple.codec
 
 import io.circe._
-import net.scalax.simple.adt.nat.support.SimpleProductContextX
-import net.scalax.simple.adt.nat.support.v5.{AppenderSupport3, AppenderSupport4}
+import net.scalax.simple.adt.nat.support.v5.AppenderSupport4
 import net.scalax.simple.codec.circe.EncodeHelperUtils
 import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance}
 import net.scalax.simple.codec.utils.ByNameImplicit
@@ -36,7 +35,7 @@ object CirceGen {
 
       Decoder.instance[F[({ type IDF[T] = T })#IDF]](
         EncodeHelperUtils.decodeImpl[F](
-          simpleRunner.simpleRunner2,
+          simpleRunner.simpleRelease2,
           simpleRunner.simpleRelease4,
           labelledIns,
           () => g.value,

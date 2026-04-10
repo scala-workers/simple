@@ -49,7 +49,7 @@ object PlayJsonGeneric2 {
   type DecodeJson[Name, Dec, Model, DefaultValue] = (Name, Dec, DefaultValue) => JsResult[Model]
 
   def decodeImpl[F[_[_]]](
-    sp2: AppenderSupport1.Simple2.Runner[F],
+    sp2: AppenderSupport1.Simple2.Release[F],
     sp4: AppenderSupport1.Simple4.Runner[F],
     named: F[Named],
     g: () => F[Reads],
