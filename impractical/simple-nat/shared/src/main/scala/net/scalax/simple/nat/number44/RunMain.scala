@@ -110,7 +110,7 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     def countIns(a1: Long, a2: Long, a3: Long, a4: Long, b1: Long, b2: Long, b3: Long, b4: Long): Unit = {
 
       val num1: ghdmzsk = build(current1 = a1, current2 = a2, current3 = a3, current4 = a4)
