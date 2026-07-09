@@ -23,10 +23,12 @@ object FillIdentity {
     def derived[H <: HList](implicit generic: Generic.Aux[T, H], filler: FillIdentity[H]): T = generic.from(filler.value)
   }
   class ModelPojoBuilder[E[_], Model] {
-    def derived[H <: shapeless.HList](implicit
+    def derived[H <: shapeless.HList, HCol <: shapeless.HList](implicit
       x: shapeless.Generic.Aux[Model, H],
-      n: PojoInstance[E, H]
-    ): PojoInstance[E, Model] = n.asInstanceOf[PojoInstance[E, Model]]
+      n: PojoInstance.U1Content[E, H, HCol]
+    ): PojoInstance[E, Model] = new PojoInstance[E, Model] {
+      override def instance: Any = n.insAny
+    }
   }
 
   object F {
