@@ -29,12 +29,12 @@ object RunTest1 {
     current2: Long,
     printlnSum: Int,
     speed: Long,
-    dealResult: (Long, Long, BigDecimal) => Unit
+    dealResult: BigDecimal => Unit
   ): Unit = {
     val needPrintln: Boolean = (current1 + current2) % speed == 0
 
     if (needPrintln) {
-      dealResult(current1, current2, BigDecimal(current2) / BigDecimal(current1)): Unit
+      dealResult(BigDecimal(current2) / BigDecimal(current1)): Unit
     }
 
     val currentNum = num()
@@ -67,7 +67,7 @@ object RunTest1 {
     num: () => ghdmzsk,
     printlnSum: Int,
     speed: Long = 80000,
-    dealResult: (Long, Long, BigDecimal) => Unit
+    dealResult: BigDecimal => Unit
   ): Unit =
     countImpl(
       num = num,
@@ -96,10 +96,8 @@ object RunTest1 {
         () => num1,
         printlnSum = 3,
         speed = 10000000,
-        dealResult = (u1, u2, coResult) => {
-          locally {
-            println(s"rawA: $result1,  limitedA: $coResult")
-          }
+        dealResult = coResult => {
+          println(s"rawA: $result1,  limitedA: $coResult")
         }
       )
       println("passed param 1")
@@ -107,10 +105,8 @@ object RunTest1 {
         () => num2,
         printlnSum = 3,
         speed = 10000000,
-        dealResult = (u1, u2, coResult) => {
-          locally {
-            println(s"rawB: $result2,  limitedB: $coResult")
-          }
+        dealResult = coResult => {
+          println(s"rawB: $result2,  limitedB: $coResult")
         }
       )
       println("passed param 2")
@@ -118,10 +114,8 @@ object RunTest1 {
         () => num3,
         printlnSum = 3,
         speed = 10000000,
-        dealResult = (u1, u2, coResult) => {
-          locally {
-            println(s"rawC: $result3,  limitedC: $coResult")
-          }
+        dealResult = coResult => {
+          println(s"rawC: $result3,  limitedC: $coResult")
         }
       )
       println("passed param 3")
@@ -129,10 +123,8 @@ object RunTest1 {
         () => num4,
         printlnSum = 3,
         speed = 10000000,
-        dealResult = (u1, u2, coResult) => {
-          locally {
-            println(s"rawC: $result4,  limitedC: $coResult")
-          }
+        dealResult = coResult => {
+          println(s"rawC: $result4,  limitedC: $coResult")
         }
       )
       println("passed param 4")
@@ -150,11 +142,9 @@ object RunTest1 {
       count(
         () => num5,
         printlnSum = 5,
-        speed = 10000000,
-        dealResult = (u1, u2, coResult) => {
-          locally {
-            println(s"resultSum1: $result5,  limitedSum1: $coResult")
-          }
+        speed = 1000000,
+        dealResult = coResult => {
+          println(s"resultSum1: $result5,  limitedSum1: $coResult")
         }
       )
       println("passed result 1")
@@ -172,11 +162,9 @@ object RunTest1 {
       count(
         () => num6,
         printlnSum = 5,
-        speed = 10000000,
-        dealResult = (u1, u2, coResult) => {
-          locally {
-            println(s"resultSum2: $result6,  limitedSum2: $coResult")
-          }
+        speed = 1000000,
+        dealResult = coResult => {
+          println(s"resultSum2: $result6,  limitedSum2: $coResult")
         }
       )
     }

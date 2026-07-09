@@ -3,8 +3,12 @@ package net.scalax.simple.codec
 import io.circe._
 import io.circe.syntax._
 import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, ModelLinkPojo}
+import net.scalax.simple.codec.simplecirce.*
+import CircePojo.*
 
-case class S3CatName(id4: Int, str4: Option[String], uClass4: Option[Long], name114: String, namexu4: String) derives ModelLinkPojo
+case class S3CatName(id4: Int, str4: Option[String], uClass4: Option[Long], name114: String, namexu4: String)
+    derives ModelLinkPojo,
+      SimpleEncoder
 
 object S3CatName {
 
