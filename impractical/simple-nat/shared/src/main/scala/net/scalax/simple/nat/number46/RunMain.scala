@@ -29,12 +29,12 @@ object RunTest1 {
     current2: Long,
     printlnSum: Int,
     speed: Long,
-    dealResult: (Long, Long) => Unit
+    dealResult: (Long, Long, BigDecimal) => Unit
   ): Unit = {
     val needPrintln: Boolean = (current1 + current2) % speed == 0
 
     if (needPrintln) {
-      dealResult(current1, current2): Unit
+      dealResult(current1, current2, BigDecimal(current2) / BigDecimal(current1)): Unit
     }
 
     val currentNum = num()
@@ -67,7 +67,7 @@ object RunTest1 {
     num: () => ghdmzsk,
     printlnSum: Int,
     speed: Long = 80000,
-    dealResult: (Long, Long) => Unit
+    dealResult: (Long, Long, BigDecimal) => Unit
   ): Unit =
     countImpl(
       num = num,
@@ -96,9 +96,8 @@ object RunTest1 {
         () => num1,
         printlnSum = 3,
         speed = 10000000,
-        dealResult = (u1, u2) => {
+        dealResult = (u1, u2, coResult) => {
           locally {
-            val coResult: BigDecimal = BigDecimal(u2) / BigDecimal(u1)
             println(s"rawA: $result1,  limitedA: $coResult")
           }
         }
@@ -108,9 +107,8 @@ object RunTest1 {
         () => num2,
         printlnSum = 3,
         speed = 10000000,
-        dealResult = (u1, u2) => {
+        dealResult = (u1, u2, coResult) => {
           locally {
-            val coResult: BigDecimal = BigDecimal(u2) / BigDecimal(u1)
             println(s"rawB: $result2,  limitedB: $coResult")
           }
         }
@@ -120,9 +118,8 @@ object RunTest1 {
         () => num3,
         printlnSum = 3,
         speed = 10000000,
-        dealResult = (u1, u2) => {
+        dealResult = (u1, u2, coResult) => {
           locally {
-            val coResult: BigDecimal = BigDecimal(u2) / BigDecimal(u1)
             println(s"rawC: $result3,  limitedC: $coResult")
           }
         }
@@ -132,9 +129,8 @@ object RunTest1 {
         () => num4,
         printlnSum = 3,
         speed = 10000000,
-        dealResult = (u1, u2) => {
+        dealResult = (u1, u2, coResult) => {
           locally {
-            val coResult: BigDecimal = BigDecimal(u2) / BigDecimal(u1)
             println(s"rawC: $result4,  limitedC: $coResult")
           }
         }
@@ -155,9 +151,8 @@ object RunTest1 {
         () => num5,
         printlnSum = 5,
         speed = 10000000,
-        dealResult = (u1, u2) => {
+        dealResult = (u1, u2, coResult) => {
           locally {
-            val coResult: BigDecimal = BigDecimal(u2) / BigDecimal(u1)
             println(s"resultSum1: $result5,  limitedSum1: $coResult")
           }
         }
@@ -178,9 +173,8 @@ object RunTest1 {
         () => num6,
         printlnSum = 5,
         speed = 10000000,
-        dealResult = (u1, u2) => {
+        dealResult = (u1, u2, coResult) => {
           locally {
-            val coResult: BigDecimal = BigDecimal(u2) / BigDecimal(u1)
             println(s"resultSum2: $result6,  limitedSum2: $coResult")
           }
         }
