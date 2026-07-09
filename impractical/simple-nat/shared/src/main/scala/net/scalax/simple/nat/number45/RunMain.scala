@@ -80,14 +80,14 @@ object RunTest1 {
 
   def main(arr: Array[String]): Unit = {
     def countIns(a1: Long, a2: Long, b1: Long, b2: Long, c1: Long, c2: Long): Unit = {
+      val num1: ghdmzsk       = build(current1 = a1, current2 = a2)
+      val result1: BigDecimal = BigDecimal(a2) / BigDecimal(a1)
 
-      val num1: ghdmzsk = build(current1 = a1, current2 = a2)
-      val num2: ghdmzsk = build(current1 = b1, current2 = b2)
-      val num3: ghdmzsk = build(current1 = c1, current2 = c2)
+      val num2: ghdmzsk       = build(current1 = b1, current2 = b2)
+      val result2: BigDecimal = BigDecimal(b2) / BigDecimal(b1)
 
-      val aResult: BigDecimal = BigDecimal(a1) / BigDecimal(a2)
-      val bResult: BigDecimal = BigDecimal(b1) / BigDecimal(b2)
-      val cResult: BigDecimal = BigDecimal(c1) / BigDecimal(c2)
+      val num3: ghdmzsk       = build(current1 = c1, current2 = c2)
+      val result3: BigDecimal = BigDecimal(c2) / BigDecimal(c1)
 
       count(
         () => num1,
@@ -95,60 +95,82 @@ object RunTest1 {
         speed = 10000000,
         dealResult = (u1, u2) => {
           locally {
-            val coResult: BigDecimal = BigDecimal(u1) / BigDecimal(u2)
-            println(s"rawA: $aResult,  limitedA: $coResult")
+            val coResult: BigDecimal = BigDecimal(u2) / BigDecimal(u1)
+            println(s"rawA: $result1,  limitedA: $coResult")
           }
         }
       )
-      println("passed A")
+      println("passed param 1")
       count(
         () => num2,
         printlnSum = 3,
         speed = 10000000,
         dealResult = (u1, u2) => {
           locally {
-            val coResult: BigDecimal = BigDecimal(u1) / BigDecimal(u2)
-            println(s"rawB: $bResult,  limitedB: $coResult")
+            val coResult: BigDecimal = BigDecimal(u2) / BigDecimal(u1)
+            println(s"rawB: $result2,  limitedB: $coResult")
           }
         }
       )
-      println("passed B")
+      println("passed param 2")
       count(
         () => num3,
         printlnSum = 3,
         speed = 10000000,
         dealResult = (u1, u2) => {
           locally {
-            val coResult: BigDecimal = BigDecimal(u1) / BigDecimal(u2)
-            println(s"rawC: $cResult,  limitedC: $coResult")
+            val coResult: BigDecimal = BigDecimal(u2) / BigDecimal(u1)
+            println(s"rawC: $result3,  limitedC: $coResult")
           }
         }
       )
-      println("passed C")
+      println("passed param 3")
+
+      val num4: ghdmzsk = num1
+        .inputGHDMZSK(() => Num45.Append1.tail1Num)
+        .inputGHDMZSK(() => num2)
+        .inputGHDMZSK(() => Num45.Append1.tail2Num)
+        .inputGHDMZSK(() => num3)
+        .inputGHDMZSK(() => Num45.Append1.tail2Num)
+      val result4 = (result1 / result2) + (result1 / result3)
 
       count(
-        () =>
-          num1
-            .inputGHDMZSK(() => Num45.Append1.tail1Num)
-            .inputGHDMZSK(() => num2)
-            .inputGHDMZSK(() => Num45.Append1.tail2Num)
-            .inputGHDMZSK(() => num3)
-            .inputGHDMZSK(() => Num45.Append1.tail2Num),
+        () => num4,
         printlnSum = 5,
         speed = 10000000,
         dealResult = (u1, u2) => {
           locally {
             val coResult: BigDecimal = BigDecimal(u2) / BigDecimal(u1)
-            println(s"resultSum: ${bResult / aResult + cResult / aResult},  limitedSum: $coResult")
+            println(s"resultSum1: $result4,  limitedSum1: $coResult")
           }
         }
       )
+      println("passed result 1")
 
+      val num5: ghdmzsk = num2
+        .inputGHDMZSK(() => Num45.Append1.tail1Num)
+        .inputGHDMZSK(() => num3)
+        .inputGHDMZSK(() => Num45.Append1.tail2Num)
+        .inputGHDMZSK(() => num4)
+        .inputGHDMZSK(() => Num45.Append1.tail2Num)
+      val result5 = (result2 / result3) + (result2 / result4)
+
+      count(
+        () => num5,
+        printlnSum = 5,
+        speed = 10000000,
+        dealResult = (u1, u2) => {
+          locally {
+            val coResult: BigDecimal = BigDecimal(u2) / BigDecimal(u1)
+            println(s"resultSum2: $result5,  limitedSum2: $coResult")
+          }
+        }
+      )
     }
 
     countIns(a1 = 127, a2 = 87, b1 = 79, b2 = 42, c1 = 3, c2 = 46)
     println("=== finished 1 ===")
-    countIns(a1 = 13, a2 = 23, b1 = 12, b2 = 3, c1 = 7, c2 = 67)
+    countIns(a1 = 32, a2 = 23, b1 = 12, b2 = 5, c1 = 7, c2 = 12)
     println("=== finished 2 ===")
 
   }

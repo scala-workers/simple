@@ -20,8 +20,25 @@ object Num46 { NumSelf =>
         override def pre1: ghdmzsk = tail1()
         override def inputGHDMZSK(appender1: () => ghdmzsk): ghdmzsk = new ghdmzsk {
           override def inputGHDMZSK(tail2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-            override def inputGHDMZSK(appender2: () => ghdmzsk): ghdmzsk =
-              appender1().inputGHDMZSK(() => tail1().inputGHDMZSK(appender1).inputGHDMZSK(tail2).inputGHDMZSK(appender2))
+            override def inputGHDMZSK(appender2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+              override def inputGHDMZSK(tail3: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                override def inputGHDMZSK(appender3: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                  override def inputGHDMZSK(tail4: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                    override def inputGHDMZSK(appender4: () => ghdmzsk): ghdmzsk =
+                      appender1().inputGHDMZSK(() =>
+                        tail1()
+                          .inputGHDMZSK(appender1)
+                          .inputGHDMZSK(tail2)
+                          .inputGHDMZSK(appender2)
+                          .inputGHDMZSK(tail3)
+                          .inputGHDMZSK(appender3)
+                          .inputGHDMZSK(tail4)
+                          .inputGHDMZSK(appender4)
+                      )
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -32,9 +49,23 @@ object Num46 { NumSelf =>
         override def pre2: ghdmzsk = tail1()
         override def inputGHDMZSK(appender1: () => ghdmzsk): ghdmzsk = new ghdmzsk {
           override def inputGHDMZSK(tail2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-            override def inputGHDMZSK(appender2: () => ghdmzsk): ghdmzsk =
-              tail2().inputGHDMZSK(appender2).inputGHDMZSK(tail1).inputGHDMZSK(appender1)
-
+            override def inputGHDMZSK(appender2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+              override def inputGHDMZSK(tail3: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                override def inputGHDMZSK(appender3: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                  override def inputGHDMZSK(tail4: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                    override def inputGHDMZSK(appender4: () => ghdmzsk): ghdmzsk =
+                      tail2()
+                        .inputGHDMZSK(appender2)
+                        .inputGHDMZSK(tail3)
+                        .inputGHDMZSK(appender3)
+                        .inputGHDMZSK(tail4)
+                        .inputGHDMZSK(appender4)
+                        .inputGHDMZSK(tail1)
+                        .inputGHDMZSK(appender1)
+                  }
+                }
+              }
+            }
           }
         }
       }
