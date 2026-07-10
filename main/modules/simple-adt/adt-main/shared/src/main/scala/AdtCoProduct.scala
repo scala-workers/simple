@@ -34,7 +34,7 @@ object AdtCoProduct {
   object Use {
 
     type AdtType = AdtCoProductSelf.Use.Positive[_, _]
-    trait Positive[H1, T1 <: AdtCoProductSelf.Use.AdtType] extends AdtCoProductSelf.Common.Positive[H1, T1]
+    trait Positive[H1, T1 <: AdtCoProductSelf.Use.AdtType] extends AdtCoProductSelf.Positive[H1, T1]
 
     object Positive {
 
@@ -66,7 +66,7 @@ object AdtCoProduct {
       def left[T](t: T): AdtCoProductSelf.Use.One[T] = new AdtCoProductSelf.Use.One[T] {
         override def _foldCoProduct[TU](hFunc: T => TU, tFunc: AdtCoProductSelf.Use.One[T] => TU): TU = hFunc(t)
       }
-      def right[T](one: AdtCoProductSelf.Use.One[T]): AdtCoProductSelf.Use.One[T] = new AdtCoProductSelf.Use.One[T] {
+      def rightWillNotUse[T](one: AdtCoProductSelf.Use.One[T]): AdtCoProductSelf.Use.One[T] = new AdtCoProductSelf.Use.One[T] {
         override def _foldCoProduct[TU](hFunc: T => TU, tFunc: AdtCoProductSelf.Use.One[T] => TU): TU = tFunc(one)
       }
 
@@ -78,7 +78,7 @@ object AdtCoProduct {
     }
   }
 
-  object Common {
+  /*object Common {
 
     type AdtType = AdtCoProductSelf.Common.Positive[_, _]
     trait Positive[H1, +T1 <: AdtCoProductSelf.Common.AdtType] extends AdtCoProductSelf.Positive[H1, T1]
@@ -107,6 +107,6 @@ object AdtCoProduct {
 
     }
 
-  }
+  }*/
 
 }

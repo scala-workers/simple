@@ -14,7 +14,7 @@ object ScalaAdtInstanceSupportCodegenExecRound {
 
     val parameterSize: Int = 22
 
-    locally {
+    /*locally {
       val filePath             = writePath / "ADTTraitBuilderRound.scala"
       val linerContent: String = ADTTraitBuilderRound(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
@@ -30,7 +30,7 @@ object ScalaAdtInstanceSupportCodegenExecRound {
       val filePath             = writePath / "ADTTraitBuilderRoundImpl2.scala"
       val linerContent: String = ADTTraitBuilderRoundImpl2(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
   }
 
