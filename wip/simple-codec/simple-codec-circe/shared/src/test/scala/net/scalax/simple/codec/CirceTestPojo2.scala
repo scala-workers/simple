@@ -11,7 +11,7 @@ object CatNameTest6 {
 
   import CirceGen.Pojo._
 
-  implicit val modelLinkPojo: ModelLinkPojo[CatNameTest6] = ModelLinkPojo.derived
+  implicit val modelLinkPojo: ModelLink.Pojo[CatNameTest6] = ModelLink.Pojo[CatNameTest6].derived
 
   val compileCtx = TypeClassContent[Encoder]
   implicit def encoderInstance: PojoInstance[compileCtx.EncoderGetter, CatNameTest6] =

@@ -3,7 +3,7 @@ package net.scalax.simple.codec
 import io.circe._
 import io.circe.syntax._
 import io.circe.generic.extras._
-import net.scalax.simple.codec.to_list_generic.ModelLinkPojo
+import net.scalax.simple.codec.to_list_generic.ModelLink
 
 case class AnnTestCatName(
   id4: Int,
@@ -15,7 +15,7 @@ case class AnnTestCatName(
 
 object AnnTestCatName {
 
-  implicit def modelLink: ModelLinkPojo[AnnTestCatName]          = ModelLinkPojo.derived
+  implicit def modelLink: ModelLink.Pojo[AnnTestCatName]         = ModelLink.Pojo[AnnTestCatName].derived
   def annInstance: ModelAnnotationsPojo[AnnTestCatName, JsonKey] = ModelAnnotationsPojo[AnnTestCatName, JsonKey].derived
 
 }

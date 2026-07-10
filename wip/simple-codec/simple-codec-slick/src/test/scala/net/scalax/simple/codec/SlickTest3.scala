@@ -8,7 +8,7 @@ import slick.lifted.{FlatShapeLevel, Rep, Shape}
 
 case class User3Cat(id: Option[Int], first: String, last: String, nickName: String, age: Long)
 object User3Cat {
-  implicit def appender: ModelLinkPojo[User3Cat] = ModelLinkPojo.derived
+  implicit def appender: ModelLink.Pojo[User3Cat] = ModelLink.Pojo[User3Cat].derived
 
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
 

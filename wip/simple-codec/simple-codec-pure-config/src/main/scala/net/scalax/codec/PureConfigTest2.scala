@@ -3,14 +3,14 @@ package net.scalax.codec
 import com.typesafe.config.ConfigRenderOptions
 import net.scalax.simple.codec.pureconfig.PureConfigLabelled
 import net.scalax.simple.codec.DefaultValuePojo
-import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLinkPojo, PojoInstance}
+import net.scalax.simple.codec.to_list_generic.{FillIdentity, ModelLink, PojoInstance}
 import pureconfig._
 
 case class SampleConf2(foo: Int = 22, name2: String, age: Int, bar: String, nick: String)
 
 object SampleConf2 {
 
-  implicit val modelLinkPojo: ModelLinkPojo[SampleConf2] = ModelLinkPojo.derived
+  implicit val modelLinkPojo: ModelLink.Pojo[SampleConf2] = ModelLink.Pojo[SampleConf2].derived
 
   import net.scalax.simple.codec.pureconfig.PureConfigUtils._
   implicit def pureConfigNamed: PureConfigLabelled.Pojo[SampleConf2] = PureConfigLabelled.pojo[SampleConf2].default

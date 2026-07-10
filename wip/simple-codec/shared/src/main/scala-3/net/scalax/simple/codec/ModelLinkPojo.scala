@@ -46,32 +46,3 @@ trait ModelLinkPojo[Model] extends ModelLink[({ type F[X[_]] = PojoInstance[X, M
   protected def genericFrom(t: Any): Model
   protected def genericTo(t: Model): Any
 }
-
-object ModelLinkPojo {
-
-  def buildUtilImplPojo[Model <: Product](cNamed: Any, fromTuple: Any => Model): ModelLinkPojo[Model] = new ModelLinkPojo[Model] {
-    ModelLinkPojoSelf =>
-    override def genericTo(x: Model): Any   = Tuple.fromProduct(x.asInstanceOf)
-    override def genericFrom(x: Any): Model = fromTuple(x.asInstanceOf[Tuple]).asInstanceOf[Model]
-    override def FFromHList[U[_]](t: Any): PojoInstance[U, Model] = new PojoInstance[U, Model] {
-      override def instance: Any = t
-    }
-    override def FToHList[U[_]](t: PojoInstance[U, Model]): Any = t.instance
-    override def size: ModelSize[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX] =
-      ModelSize[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX].derived(cNamed)
-
-    override def labelled: CompatLabelled[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX] =
-      new CompatLabelledImplHelper.Impl[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX] {
-        override def stringLabelled: PojoInstance[({ type T1[_] = String })#T1, Model] =
-          ModelLinkPojoSelf.FFromHList[({ type T1[_] = String })#T1](cNamed)
-        override def mapGenerc: MapGenerc[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX] =
-          MapGenerc[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX].derived(ModelLinkPojoSelf.simpleRunner.simpleRelease2)
-      }
-  }
-
-  inline def derived[Model <: Product](using g: scala.deriving.Mirror.ProductOf[Model]): ModelLinkPojo[Model] = {
-    val namedModel = scala.compiletime.constValueTuple[g.MirroredElemLabels]
-    buildUtilImplPojo(namedModel, g.fromTuple.asInstanceOf[Any => Model])
-  }
-
-}

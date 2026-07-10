@@ -3,7 +3,14 @@ package net.scalax.simple.codec
 import io.circe._
 import io.circe.generic.extras.JsonKey
 import io.circe.syntax._
-import net.scalax.simple.codec.to_list_generic.{FillIdentity, Fold1FGenerc, ModelLinkPojo, PojoInstance, ToListByTheSameTypeGeneric}
+import net.scalax.simple.codec.to_list_generic.{
+  FillIdentity,
+  Fold1FGenerc,
+  ModelLink,
+  ModelLinkPojo,
+  PojoInstance,
+  ToListByTheSameTypeGeneric
+}
 
 case class CatNameTest3(
   id3: Int,
@@ -17,7 +24,7 @@ object CatNameTest3 {
 
   val longOptEncoder: Encoder[Option[Long]] = Encoder[Option[String]].contramap((opt: Option[Long]) => for (u <- opt) yield u.toString)
 
-  implicit val modelLinkPojo: ModelLinkPojo[CatNameTest3] = ModelLinkPojo.derived
+  implicit val modelLinkPojo: ModelLinkPojo[CatNameTest3] = ModelLink.Pojo[CatNameTest3].derived
 
   implicit def annInstance: ModelAnnotationsPojo[CatNameTest3, JsonKey] = ModelAnnotationsPojo[CatNameTest3, JsonKey].derived
   implicit val jsonLabelled: SimpleJsonLabelled.Pojo[CatNameTest3] =

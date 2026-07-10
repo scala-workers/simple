@@ -37,9 +37,42 @@ object ModelLink {
     def implicitly(implicit u: ModelLinkSelf.F[FMM]): ModelLinkSelf.F[FMM] = u
   }
 
+  class BuilderPojo[Model] {
+    import shapeless.DefaultSymbolicLabelling
+
+    def derived(implicit
+      g: shapeless.Generic[Model],
+      c: DefaultSymbolicLabelling[Model]
+    ): ModelLinkPojo[Model] = {
+      val namedModel = c.apply()
+      new ModelLinkPojo[Model] { ModelLinkPojoSelf =>
+        override def labelled: CompatLabelled[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX] =
+          new CompatLabelledImplHelper.Impl[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX] {
+            override def symbolLabelled: PojoInstance[({ type T1[_] = Symbol })#T1, Model] =
+              ModelLinkPojoSelf.FFromHList[({ type T1[_] = Symbol })#T1](namedModel)
+            override def mapGenerc: MapGenerc[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX] =
+              MapGenerc[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX].derived(ModelLinkPojoSelf.simpleRunner.simpleRelease2)
+          }
+        override def genericFrom(x: Any): Model = g.from(x.asInstanceOf[g.Repr])
+        override def genericTo(x: Model): Any   = g.to(x)
+        override def FFromHList[U[_]](t: Any): PojoInstance[U, Model] = new PojoInstance[U, Model] {
+          override def instance: Any = t
+        }
+        override def FToHList[U[_]](t: PojoInstance[U, Model]): Any = t.instance
+        override def size: ModelSize[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX] =
+          ModelSize[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX].derived(namedModel)
+      }
+    }
+  }
+
   object F {
     def apply[F[_[_]]]: BuilderCommonF[F] = new BuilderCommonF[F]
   }
   type F[FModel[_[_]]] = ModelLink[FModel, FModel[({ type IDF[T] = T })#IDF]]
+
+  object Pojo {
+    def apply[Model]: BuilderPojo[Model] = new BuilderPojo[Model]
+  }
+  type Pojo[Model] = ModelLink[({ type T1[U1[_]] = PojoInstance[U1, Model] })#T1, Model]
 
 }

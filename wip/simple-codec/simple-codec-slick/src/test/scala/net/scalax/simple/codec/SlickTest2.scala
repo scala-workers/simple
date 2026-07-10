@@ -11,7 +11,7 @@ object User2Cat {
   class SCtx[U[_]] {
     type FModel[X[_]] = FillIdentity.Pojo[X, User2Cat[U]]
   }
-  implicit def appender[U[_]]: ModelLinkPojo[User2Cat[U]] = ModelLinkPojo.derived
+  implicit def appender[U[_]]: ModelLink.Pojo[User2Cat[U]] = ModelLink.Pojo[User2Cat[U]].derived
 
   type ShapeF[T] = Shape[_ <: FlatShapeLevel, Rep[T], T, Rep[T]]
 
