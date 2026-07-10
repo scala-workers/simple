@@ -90,21 +90,6 @@ object PojoInstance {
     def getSelfImpl3[MP](proName: String, func: Model => MP): U[MP] = getPropertyByPropertyName.getProperty[U, MP](proName)(value)
   }
 
-  trait U1Content[U[_], XModel <: shapeless.HList, XHList <: shapeless.HList] {
-    def insAny: XHList
-  }
-  object U1Content {
-    implicit def hlistAppendFetch[U[_], T, Tail1 <: shapeless.HList, Tail2 <: shapeless.HList](implicit
-      h: U[T],
-      tailInstance: U1Content[U, Tail1, Tail2]
-    ): U1Content[U, T :: Tail1, U[T] :: Tail2] = new U1Content[U, T :: Tail1, U[T] :: Tail2] {
-      override def insAny: U[T] :: Tail2 = h :: tailInstance.insAny
-    }
-    implicit def hlistZeroFetch[U[_]]: U1Content[U, shapeless.HNil, shapeless.HNil] = new U1Content[U, shapeless.HNil, shapeless.HNil] {
-      override val insAny: shapeless.HNil = shapeless.HNil
-    }
-  }
-
   /*def derived[Model, E[_], H <: shapeless.HList](implicit
     x: shapeless.Generic.Aux[Model, H],
     n: PojoInstance[E, H]

@@ -25,7 +25,7 @@ object FillIdentity {
   class ModelPojoBuilder[E[_], Model] {
     def derived[H <: shapeless.HList, HCol <: shapeless.HList](implicit
       x: shapeless.Generic.Aux[Model, H],
-      n: PojoInstance.U1Content[E, H, HCol]
+      n: FillIdentityHelper.U1Content.Aux[E, H, HCol]
     ): PojoInstance[E, Model] = new PojoInstance[E, Model] {
       override def instance: Any = n.insAny
     }
@@ -41,4 +41,28 @@ object FillIdentity {
   }
   type Pojo[U[_], Model] = PojoInstance[U, Model]
 
+}
+
+object FillIdentityHelper {
+  trait U1Content[U[_], XModel <: shapeless.HList] {
+    type XHList <: shapeless.HList
+    def insAny: XHList
+  }
+  object U1Content {
+    type Aux[U[_], XModel <: shapeless.HList, XH <: shapeless.HList] = U1Content[U, XModel] {
+      type XHList = XH
+    }
+
+    implicit def hlistAppendFetch[U[_], T, Tail1 <: shapeless.HList, Tail2 <: shapeless.HList](implicit
+      h: U[T],
+      tailInstance: U1Content.Aux[U, Tail1, Tail2]
+    ): U1Content.Aux[U, T :: Tail1, U[T] :: Tail2] = new U1Content[U, T :: Tail1] {
+      override type XHList = U[T] :: Tail2
+      override def insAny: U[T] :: Tail2 = h :: tailInstance.insAny
+    }
+    implicit def hlistZeroFetch[U[_]]: U1Content.Aux[U, shapeless.HNil, shapeless.HNil] = new U1Content[U, shapeless.HNil] {
+      override type XHList = shapeless.HNil
+      override val insAny: shapeless.HNil = shapeless.HNil
+    }
+  }
 }
