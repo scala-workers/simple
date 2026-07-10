@@ -5,158 +5,1357 @@
 
     trait ADTUnapplyBuilder {
       
-          trait ADTOptionsUnapply1 {
+      trait ADTOptionsUnapply1 {
+        
             def unapply[T1](
-              p1:  AdtCoProduct.Use.Positive[T1, _ ]
-            ): Option[T1] = p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0))
-          }
-        
+              p: CoProduct1[T1]
+            ): Some[T1] = Some(p.drop1)
+          
 
-          trait ADTOptionsUnapply2 {
-            def unapply[T2](
-              p2: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T2, _ ] ]
-            ): Option[T2] = p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0)))
-          }
-        
+            def unapply[T1,T2](
+              p: CoProduct2[T1,T2]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply3 {
-            def unapply[T3](
-              p3: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T3, _ ] ] ]
-            ): Option[T3] = p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0))))
-          }
-        
+            def unapply[T1,T2,T3](
+              p: CoProduct3[T1,T2,T3]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply4 {
-            def unapply[T4](
-              p4: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T4, _ ] ] ] ]
-            ): Option[T4] = p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0)))))
-          }
-        
+            def unapply[T1,T2,T3,T4](
+              p: CoProduct4[T1,T2,T3,T4]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply5 {
-            def unapply[T5](
-              p5: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T5, _ ] ] ] ] ]
-            ): Option[T5] = p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5](
+              p: CoProduct5[T1,T2,T3,T4,T5]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply6 {
-            def unapply[T6](
-              p6: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T6, _ ] ] ] ] ] ]
-            ): Option[T6] = p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0)))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6](
+              p: CoProduct6[T1,T2,T3,T4,T5,T6]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply7 {
-            def unapply[T7](
-              p7: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T7, _ ] ] ] ] ] ] ]
-            ): Option[T7] = p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7](
+              p: CoProduct7[T1,T2,T3,T4,T5,T6,T7]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply8 {
-            def unapply[T8](
-              p8: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T8, _ ] ] ] ] ] ] ] ]
-            ): Option[T8] = p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0)))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8](
+              p: CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply9 {
-            def unapply[T9](
-              p9: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T9, _ ] ] ] ] ] ] ] ] ]
-            ): Option[T9] = p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9](
+              p: CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply10 {
-            def unapply[T10](
-              p10: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T10, _ ] ] ] ] ] ] ] ] ] ]
-            ): Option[T10] = p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0)))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](
+              p: CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply11 {
-            def unapply[T11](
-              p11: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T11, _ ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T11] = p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0))))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
+              p: CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply12 {
-            def unapply[T12](
-              p12: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T12, _ ] ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T12] = p12._foldCoProduct(p12 => Option.empty, p11 => p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0)))))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply13 {
-            def unapply[T13](
-              p13: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T13, _ ] ] ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T13] = p13._foldCoProduct(p13 => Option.empty, p12 => p12._foldCoProduct(p12 => Option.empty, p11 => p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0))))))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply14 {
-            def unapply[T14](
-              p14: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T14, _ ] ] ] ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T14] = p14._foldCoProduct(p14 => Option.empty, p13 => p13._foldCoProduct(p13 => Option.empty, p12 => p12._foldCoProduct(p12 => Option.empty, p11 => p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0)))))))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply15 {
-            def unapply[T15](
-              p15: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T15, _ ] ] ] ] ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T15] = p15._foldCoProduct(p15 => Option.empty, p14 => p14._foldCoProduct(p14 => Option.empty, p13 => p13._foldCoProduct(p13 => Option.empty, p12 => p12._foldCoProduct(p12 => Option.empty, p11 => p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0))))))))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply16 {
-            def unapply[T16](
-              p16: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T16, _ ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T16] = p16._foldCoProduct(p16 => Option.empty, p15 => p15._foldCoProduct(p15 => Option.empty, p14 => p14._foldCoProduct(p14 => Option.empty, p13 => p13._foldCoProduct(p13 => Option.empty, p12 => p12._foldCoProduct(p12 => Option.empty, p11 => p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0)))))))))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply17 {
-            def unapply[T17](
-              p17: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T17, _ ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T17] = p17._foldCoProduct(p17 => Option.empty, p16 => p16._foldCoProduct(p16 => Option.empty, p15 => p15._foldCoProduct(p15 => Option.empty, p14 => p14._foldCoProduct(p14 => Option.empty, p13 => p13._foldCoProduct(p13 => Option.empty, p12 => p12._foldCoProduct(p12 => Option.empty, p11 => p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0))))))))))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply18 {
-            def unapply[T18](
-              p18: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T18, _ ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T18] = p18._foldCoProduct(p18 => Option.empty, p17 => p17._foldCoProduct(p17 => Option.empty, p16 => p16._foldCoProduct(p16 => Option.empty, p15 => p15._foldCoProduct(p15 => Option.empty, p14 => p14._foldCoProduct(p14 => Option.empty, p13 => p13._foldCoProduct(p13 => Option.empty, p12 => p12._foldCoProduct(p12 => Option.empty, p11 => p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0)))))))))))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply19 {
-            def unapply[T19](
-              p19: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T19, _ ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T19] = p19._foldCoProduct(p19 => Option.empty, p18 => p18._foldCoProduct(p18 => Option.empty, p17 => p17._foldCoProduct(p17 => Option.empty, p16 => p16._foldCoProduct(p16 => Option.empty, p15 => p15._foldCoProduct(p15 => Option.empty, p14 => p14._foldCoProduct(p14 => Option.empty, p13 => p13._foldCoProduct(p13 => Option.empty, p12 => p12._foldCoProduct(p12 => Option.empty, p11 => p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0))))))))))))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply20 {
-            def unapply[T20](
-              p20: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T20, _ ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T20] = p20._foldCoProduct(p20 => Option.empty, p19 => p19._foldCoProduct(p19 => Option.empty, p18 => p18._foldCoProduct(p18 => Option.empty, p17 => p17._foldCoProduct(p17 => Option.empty, p16 => p16._foldCoProduct(p16 => Option.empty, p15 => p15._foldCoProduct(p15 => Option.empty, p14 => p14._foldCoProduct(p14 => Option.empty, p13 => p13._foldCoProduct(p13 => Option.empty, p12 => p12._foldCoProduct(p12 => Option.empty, p11 => p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0)))))))))))))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply21 {
-            def unapply[T21](
-              p21: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T21, _ ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T21] = p21._foldCoProduct(p21 => Option.empty, p20 => p20._foldCoProduct(p20 => Option.empty, p19 => p19._foldCoProduct(p19 => Option.empty, p18 => p18._foldCoProduct(p18 => Option.empty, p17 => p17._foldCoProduct(p17 => Option.empty, p16 => p16._foldCoProduct(p16 => Option.empty, p15 => p15._foldCoProduct(p15 => Option.empty, p14 => p14._foldCoProduct(p14 => Option.empty, p13 => p13._foldCoProduct(p13 => Option.empty, p12 => p12._foldCoProduct(p12 => Option.empty, p11 => p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0))))))))))))))))))))))
-          }
-        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
 
-          trait ADTOptionsUnapply22 {
-            def unapply[T22](
-              p22: AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[_,  AdtCoProduct.Use.Positive[T22, _ ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ]
-            ): Option[T22] = p22._foldCoProduct(p22 => Option.empty, p21 => p21._foldCoProduct(p21 => Option.empty, p20 => p20._foldCoProduct(p20 => Option.empty, p19 => p19._foldCoProduct(p19 => Option.empty, p18 => p18._foldCoProduct(p18 => Option.empty, p17 => p17._foldCoProduct(p17 => Option.empty, p16 => p16._foldCoProduct(p16 => Option.empty, p15 => p15._foldCoProduct(p15 => Option.empty, p14 => p14._foldCoProduct(p14 => Option.empty, p13 => p13._foldCoProduct(p13 => Option.empty, p12 => p12._foldCoProduct(p12 => Option.empty, p11 => p11._foldCoProduct(p11 => Option.empty, p10 => p10._foldCoProduct(p10 => Option.empty, p9 => p9._foldCoProduct(p9 => Option.empty, p8 => p8._foldCoProduct(p8 => Option.empty, p7 => p7._foldCoProduct(p7 => Option.empty, p6 => p6._foldCoProduct(p6 => Option.empty, p5 => p5._foldCoProduct(p5 => Option.empty, p4 => p4._foldCoProduct(p4 => Option.empty, p3 => p3._foldCoProduct(p3 => Option.empty, p2 => p2._foldCoProduct(p2 => Option.empty, p1 => p1._foldCoProduct(p1 => Option.empty, p0 => Some(p0)))))))))))))))))))))))
-          }
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T1] = AppendTail6[T1].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply2 {
         
+            def unapply[T1,T2](
+              p: CoProduct2[T1,T2]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3](
+              p: CoProduct3[T1,T2,T3]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4](
+              p: CoProduct4[T1,T2,T3,T4]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5](
+              p: CoProduct5[T1,T2,T3,T4,T5]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6](
+              p: CoProduct6[T1,T2,T3,T4,T5,T6]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7](
+              p: CoProduct7[T1,T2,T3,T4,T5,T6,T7]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8](
+              p: CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9](
+              p: CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](
+              p: CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
+              p: CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T2] = AppendTail6[T2].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply3 {
+        
+            def unapply[T1,T2,T3](
+              p: CoProduct3[T1,T2,T3]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4](
+              p: CoProduct4[T1,T2,T3,T4]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5](
+              p: CoProduct5[T1,T2,T3,T4,T5]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6](
+              p: CoProduct6[T1,T2,T3,T4,T5,T6]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7](
+              p: CoProduct7[T1,T2,T3,T4,T5,T6,T7]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8](
+              p: CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9](
+              p: CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](
+              p: CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
+              p: CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T3] = AppendTail6[T3].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply4 {
+        
+            def unapply[T1,T2,T3,T4](
+              p: CoProduct4[T1,T2,T3,T4]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5](
+              p: CoProduct5[T1,T2,T3,T4,T5]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6](
+              p: CoProduct6[T1,T2,T3,T4,T5,T6]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7](
+              p: CoProduct7[T1,T2,T3,T4,T5,T6,T7]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8](
+              p: CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9](
+              p: CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](
+              p: CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
+              p: CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T4] = AppendTail6[T4].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply5 {
+        
+            def unapply[T1,T2,T3,T4,T5](
+              p: CoProduct5[T1,T2,T3,T4,T5]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6](
+              p: CoProduct6[T1,T2,T3,T4,T5,T6]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7](
+              p: CoProduct7[T1,T2,T3,T4,T5,T6,T7]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8](
+              p: CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9](
+              p: CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](
+              p: CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
+              p: CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T5] = AppendTail6[T5].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply6 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6](
+              p: CoProduct6[T1,T2,T3,T4,T5,T6]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7](
+              p: CoProduct7[T1,T2,T3,T4,T5,T6,T7]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8](
+              p: CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9](
+              p: CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](
+              p: CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
+              p: CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T6] = AppendTail6[T6].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply7 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7](
+              p: CoProduct7[T1,T2,T3,T4,T5,T6,T7]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8](
+              p: CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9](
+              p: CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](
+              p: CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
+              p: CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T7] = AppendTail6[T7].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply8 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8](
+              p: CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9](
+              p: CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](
+              p: CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
+              p: CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T8] = AppendTail6[T8].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply9 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9](
+              p: CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](
+              p: CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
+              p: CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T9] = AppendTail6[T9].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply10 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](
+              p: CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
+              p: CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T10] = AppendTail6[T10].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply11 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
+              p: CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T11] = AppendTail6[T11].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply12 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
+              p: CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
+            ): Option[T12] = AppendTail6[T12].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T12] = AppendTail6[T12].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T12] = AppendTail6[T12].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T12] = AppendTail6[T12].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T12] = AppendTail6[T12].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T12] = AppendTail6[T12].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T12] = AppendTail6[T12].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T12] = AppendTail6[T12].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T12] = AppendTail6[T12].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T12] = AppendTail6[T12].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T12] = AppendTail6[T12].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply13 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
+              p: CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
+            ): Option[T13] = AppendTail6[T13].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T13] = AppendTail6[T13].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T13] = AppendTail6[T13].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T13] = AppendTail6[T13].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T13] = AppendTail6[T13].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T13] = AppendTail6[T13].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T13] = AppendTail6[T13].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T13] = AppendTail6[T13].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T13] = AppendTail6[T13].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T13] = AppendTail6[T13].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply14 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
+              p: CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
+            ): Option[T14] = AppendTail6[T14].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T14] = AppendTail6[T14].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T14] = AppendTail6[T14].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T14] = AppendTail6[T14].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T14] = AppendTail6[T14].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T14] = AppendTail6[T14].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T14] = AppendTail6[T14].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T14] = AppendTail6[T14].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T14] = AppendTail6[T14].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply15 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
+              p: CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
+            ): Option[T15] = AppendTail6[T15].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T15] = AppendTail6[T15].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T15] = AppendTail6[T15].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T15] = AppendTail6[T15].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T15] = AppendTail6[T15].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T15] = AppendTail6[T15].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T15] = AppendTail6[T15].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T15] = AppendTail6[T15].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply16 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
+              p: CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
+            ): Option[T16] = AppendTail6[T16].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T16] = AppendTail6[T16].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T16] = AppendTail6[T16].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T16] = AppendTail6[T16].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T16] = AppendTail6[T16].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T16] = AppendTail6[T16].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T16] = AppendTail6[T16].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply17 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
+              p: CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
+            ): Option[T17] = AppendTail6[T17].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T17] = AppendTail6[T17].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T17] = AppendTail6[T17].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T17] = AppendTail6[T17].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T17] = AppendTail6[T17].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T17] = AppendTail6[T17].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply18 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
+              p: CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
+            ): Option[T18] = AppendTail6[T18].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T18] = AppendTail6[T18].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T18] = AppendTail6[T18].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T18] = AppendTail6[T18].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T18] = AppendTail6[T18].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply19 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
+              p: CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
+            ): Option[T19] = AppendTail6[T19].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T19] = AppendTail6[T19].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T19] = AppendTail6[T19].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T19] = AppendTail6[T19].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply20 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
+              p: CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
+            ): Option[T20] = AppendTail6[T20].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T20] = AppendTail6[T20].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T20] = AppendTail6[T20].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply21 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
+              p: CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
+            ): Option[T21] = AppendTail6[T21].take(AppendTail6.toValue(p))
+          
+
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T21] = AppendTail6[T21].take(AppendTail6.toValue(p))
+          
+      }
+    
+
+      trait ADTOptionsUnapply22 {
+        
+            def unapply[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
+              p: CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
+            ): Option[T22] = AppendTail6[T22].take(AppendTail6.toValue(p))
+          
+      }
+    
     }
   
