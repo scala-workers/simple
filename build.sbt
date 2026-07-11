@@ -70,7 +70,7 @@ addCommandAlias("releaseCodecLocal", "; +codecJVM/publishLocal ; +codecJS/publis
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
 // Configure
-val `simple-adt-version` = "0.0.2-M26"
+val `simple-adt-version` = "0.0.2-M27"
 
 // ===
 scalaVersion := scalaV.v213

@@ -1,0 +1,2 @@
+"../../tools/.jdks/corretto-1.8.0_462/bin/java" -Xmx10G -Xss500m -XX:+UseG1GC -jar "./sbtw-sbt-launch-bundle/sbt-launch-1.12.4.jar" ; ++2.12 adt-mainJVM/publishSigned; ++2.12 adt-mainJS/publishSigned ; ; ++2.13 adt-mainJVM/publishSigned; ++2.13 adt-mainJS/publishSigned ;
+"c:/Users/djx31/.jdks/ms-17.0.19/bin/java" -Xmx10G -Xss500m -XX:+UseG1GC -jar "./sbtw-sbt-launch-bundle/sbt-launch-1.12.4.jar" ; ++3.8 adt-mainJVM/publishSigned; ++3.8 adt-mainJS/publishSigned ;
