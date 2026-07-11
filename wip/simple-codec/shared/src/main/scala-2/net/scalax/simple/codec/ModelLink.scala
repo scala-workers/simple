@@ -40,10 +40,7 @@ object ModelLink {
   class BuilderPojo[Model] {
     import shapeless.DefaultSymbolicLabelling
 
-    def derived(implicit
-      g: shapeless.Generic[Model],
-      c: DefaultSymbolicLabelling[Model]
-    ): ModelLinkPojo[Model] = {
+    def derived(implicit g: shapeless.Generic[Model], c: DefaultSymbolicLabelling[Model]): ModelLinkPojo[Model] = {
       val namedModel = c.apply()
       new ModelLinkPojo[Model] { ModelLinkPojoSelf =>
         override def labelled: CompatLabelled[({ type FX[U1[_]] = PojoInstance[U1, Model] })#FX] =

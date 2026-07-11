@@ -3,7 +3,7 @@ package net.scalax.simple.codec
 import io.circe._
 import net.scalax.simple.adt.nat.support.v5.AppenderSupport4
 import net.scalax.simple.codec.circe.EncodeHelperUtils
-import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance}
+import net.scalax.simple.codec.to_list_generic.{BasedInstalledLabelled, BasedInstalledSimpleProduct, PojoInstance, SingletonMap}
 import net.scalax.simple.codec.utils.ByNameImplicit
 
 object CirceGen {
@@ -69,6 +69,9 @@ object CirceGen {
       val de1: Decoder[PojoInstance[({ type IDF[T] = T })#IDF, Model]] = F.getCirceDecoderF[({ type F[X[_]] = PojoInstance[X, Model] })#F]
       for (model <- de1) yield g1.fromIdentity(model)
     }
+
+    implicit def objectEncoder[Model](implicit mapper: SingletonMap[Model]): Encoder[Model] =
+      Encoder.encodeJsonObject.contramapObject(_ => JsonObject.empty)
 
   }
 
