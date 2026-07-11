@@ -83,24 +83,10 @@ class ADTTraitBuilder(val index: Int) {
       }
 
       class CoProduct$index[${typeParam1.mkString(',')}](foldImpl: $typeParam7)
-        extends $typeParam7
-        with helper1.CoProduct${index}Helper[${typeParam1.mkString(',')}] {
+        extends $typeParam7 {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: $typeParam14 => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct${index - 1}[${typeParam15.mkString(',')}]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct${index - 1}[${typeParam15.mkString(',')}]]](
-          (i1: T1) => Left(i1),
-          (i1: $typeParam14) => Right(new CoProduct${index - 1}[${typeParam15.mkString(',')}](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct$index[U1, ${typeParam1.drop(1).mkString(',')}] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct$index[U1, ${typeParam1.drop(1).mkString(',')}](valueR)
-        }
 
         def tail: CoProduct$index[${typeParam1.drop(1).mkString(',')}, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -141,26 +127,16 @@ class ADTTraitBuilder(val index: Int) {
     }
 
     class CoProduct1[T1](foldImpl: AdtCoProduct.Use.One[T1])
-      extends AdtCoProduct.Use.One[T1]
-      with helper1.CoProduct1Helper[T1] {
+      extends AdtCoProduct.Use.One[T1] {
       FoldApplySelf =>
 
       override def _foldCoProduct[TU](hFunc: T1 => TU, tFunc: AdtCoProduct.Use.One[T1] => TU): TU =
         FoldApplySelf.foldImpl._foldCoProduct[TU](hFunc, tFunc)
 
-      def drop1: T1 = AdtCoProduct.Use.One.merge(foldImpl)
-
-      def map1[U1](func: T1 => U1): CoProduct1[U1] = {
-        val valueR = AdtCoProduct.Use.One.foldOnce(foldImpl)(func)
-        val valueR2 = AdtCoProduct.Use.One.left[U1](valueR)
-        new CoProduct1[U1](valueR2)
-      }
-
       def tail: CoProduct1[T1] = FoldApplySelf
 
       @inline def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
-        val v1 = FoldApplySelf.map1(param1)
-        AdtCoProduct.Use.One.merge(v1)
+        param1(AdtCoProduct.Use.One.merge(FoldApplySelf))
       }
 
       def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = FoldApplySelf.fold(param1)

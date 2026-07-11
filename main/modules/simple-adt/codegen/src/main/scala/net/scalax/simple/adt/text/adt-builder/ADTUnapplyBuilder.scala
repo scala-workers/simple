@@ -25,7 +25,7 @@ class ADTUnapplyBuilder(val index: Int) {
           s"""
             def unapply[${typeParam1.mkString(',')}](
               p: CoProduct$index[${typeParam1.mkString(',')}]
-            ): Some[T${TraitBodySelf.index}] = Some(p.drop1)
+            ): Some[T${TraitBodySelf.index}] = Some(AdtCoProduct.Use.One.merge(p))
           """
         else
           s"""

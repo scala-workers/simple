@@ -45,11 +45,11 @@ object ScalaAdtInstanceSupportCodegenExec {
       os.write.over(filePath, linerContent, createFolders = true)
     }
 
-    locally {
+    /*locally {
       val filePath             = writePath / "ADTTraitBuilderHelper1.scala"
       val linerContent: String = ADTTraitBuilderHelper1(index = parameterSize).text
       os.write.over(filePath, linerContent, createFolders = true)
-    }
+    }*/
 
     locally {
       val filePath             = writePath / "ADTTraitBuilderHelper2.scala"

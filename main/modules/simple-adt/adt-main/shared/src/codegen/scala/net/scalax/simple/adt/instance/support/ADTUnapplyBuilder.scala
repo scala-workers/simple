@@ -9,7 +9,7 @@
         
             def unapply[T1](
               p: CoProduct1[T1]
-            ): Some[T1] = Some(p.drop1)
+            ): Some[T1] = Some(AdtCoProduct.Use.One.merge(p))
           
 
             def unapply[T1,T2](

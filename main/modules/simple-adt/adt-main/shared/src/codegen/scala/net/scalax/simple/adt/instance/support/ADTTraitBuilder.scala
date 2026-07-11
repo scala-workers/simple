@@ -12,26 +12,16 @@
     }
 
     class CoProduct1[T1](foldImpl: AdtCoProduct.Use.One[T1])
-      extends AdtCoProduct.Use.One[T1]
-      with helper1.CoProduct1Helper[T1] {
+      extends AdtCoProduct.Use.One[T1] {
       FoldApplySelf =>
 
       override def _foldCoProduct[TU](hFunc: T1 => TU, tFunc: AdtCoProduct.Use.One[T1] => TU): TU =
         FoldApplySelf.foldImpl._foldCoProduct[TU](hFunc, tFunc)
 
-      def drop1: T1 = AdtCoProduct.Use.One.merge(foldImpl)
-
-      def map1[U1](func: T1 => U1): CoProduct1[U1] = {
-        val valueR = AdtCoProduct.Use.One.foldOnce(foldImpl)(func)
-        val valueR2 = AdtCoProduct.Use.One.left[U1](valueR)
-        new CoProduct1[U1](valueR2)
-      }
-
       def tail: CoProduct1[T1] = FoldApplySelf
 
       @inline def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
-        val v1 = FoldApplySelf.map1(param1)
-        AdtCoProduct.Use.One.merge(v1)
+        param1(AdtCoProduct.Use.One.merge(FoldApplySelf))
       }
 
       def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = FoldApplySelf.fold(param1)
@@ -54,24 +44,10 @@
       }
 
       class CoProduct2[T1,T2](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.One[T2]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.One[T2]]
-        with helper1.CoProduct2Helper[T1,T2] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.One[T2]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.One[T2] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct1[T2]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct1[T2]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.One[T2]) => Right(new CoProduct1[T2](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct2[U1, T2] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct2[U1, T2](valueR)
-        }
 
         def tail: CoProduct2[T2, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -111,24 +87,10 @@
       }
 
       class CoProduct3[T1,T2,T3](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.One[T3]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.One[T3]]]
-        with helper1.CoProduct3Helper[T1,T2,T3] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.One[T3]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.One[T3]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct2[T2,T3]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct2[T2,T3]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.One[T3]]) => Right(new CoProduct2[T2,T3](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct3[U1, T2,T3] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct3[U1, T2,T3](valueR)
-        }
 
         def tail: CoProduct3[T2,T3, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -174,24 +136,10 @@
       }
 
       class CoProduct4[T1,T2,T3,T4](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.One[T4]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.One[T4]]]]
-        with helper1.CoProduct4Helper[T1,T2,T3,T4] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.One[T4]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.One[T4]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct3[T2,T3,T4]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct3[T2,T3,T4]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.One[T4]]]) => Right(new CoProduct3[T2,T3,T4](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct4[U1, T2,T3,T4] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct4[U1, T2,T3,T4](valueR)
-        }
 
         def tail: CoProduct4[T2,T3,T4, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -243,24 +191,10 @@
       }
 
       class CoProduct5[T1,T2,T3,T4,T5](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.One[T5]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.One[T5]]]]]
-        with helper1.CoProduct5Helper[T1,T2,T3,T4,T5] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.One[T5]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.One[T5]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct4[T2,T3,T4,T5]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct4[T2,T3,T4,T5]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.One[T5]]]]) => Right(new CoProduct4[T2,T3,T4,T5](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct5[U1, T2,T3,T4,T5] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct5[U1, T2,T3,T4,T5](valueR)
-        }
 
         def tail: CoProduct5[T2,T3,T4,T5, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -318,24 +252,10 @@
       }
 
       class CoProduct6[T1,T2,T3,T4,T5,T6](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.One[T6]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.One[T6]]]]]]
-        with helper1.CoProduct6Helper[T1,T2,T3,T4,T5,T6] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.One[T6]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.One[T6]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct5[T2,T3,T4,T5,T6]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct5[T2,T3,T4,T5,T6]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.One[T6]]]]]) => Right(new CoProduct5[T2,T3,T4,T5,T6](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct6[U1, T2,T3,T4,T5,T6] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct6[U1, T2,T3,T4,T5,T6](valueR)
-        }
 
         def tail: CoProduct6[T2,T3,T4,T5,T6, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -399,24 +319,10 @@
       }
 
       class CoProduct7[T1,T2,T3,T4,T5,T6,T7](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.One[T7]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.One[T7]]]]]]]
-        with helper1.CoProduct7Helper[T1,T2,T3,T4,T5,T6,T7] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.One[T7]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.One[T7]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct6[T2,T3,T4,T5,T6,T7]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct6[T2,T3,T4,T5,T6,T7]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.One[T7]]]]]]) => Right(new CoProduct6[T2,T3,T4,T5,T6,T7](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct7[U1, T2,T3,T4,T5,T6,T7] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct7[U1, T2,T3,T4,T5,T6,T7](valueR)
-        }
 
         def tail: CoProduct7[T2,T3,T4,T5,T6,T7, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -486,24 +392,10 @@
       }
 
       class CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.One[T8]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.One[T8]]]]]]]]
-        with helper1.CoProduct8Helper[T1,T2,T3,T4,T5,T6,T7,T8] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.One[T8]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.One[T8]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct7[T2,T3,T4,T5,T6,T7,T8]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct7[T2,T3,T4,T5,T6,T7,T8]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.One[T8]]]]]]]) => Right(new CoProduct7[T2,T3,T4,T5,T6,T7,T8](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct8[U1, T2,T3,T4,T5,T6,T7,T8] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct8[U1, T2,T3,T4,T5,T6,T7,T8](valueR)
-        }
 
         def tail: CoProduct8[T2,T3,T4,T5,T6,T7,T8, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -579,24 +471,10 @@
       }
 
       class CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.One[T9]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.One[T9]]]]]]]]]
-        with helper1.CoProduct9Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.One[T9]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.One[T9]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct8[T2,T3,T4,T5,T6,T7,T8,T9]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct8[T2,T3,T4,T5,T6,T7,T8,T9]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.One[T9]]]]]]]]) => Right(new CoProduct8[T2,T3,T4,T5,T6,T7,T8,T9](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct9[U1, T2,T3,T4,T5,T6,T7,T8,T9] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct9[U1, T2,T3,T4,T5,T6,T7,T8,T9](valueR)
-        }
 
         def tail: CoProduct9[T2,T3,T4,T5,T6,T7,T8,T9, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -678,24 +556,10 @@
       }
 
       class CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.One[T10]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.One[T10]]]]]]]]]]
-        with helper1.CoProduct10Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.One[T10]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.One[T10]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct9[T2,T3,T4,T5,T6,T7,T8,T9,T10]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct9[T2,T3,T4,T5,T6,T7,T8,T9,T10]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.One[T10]]]]]]]]]) => Right(new CoProduct9[T2,T3,T4,T5,T6,T7,T8,T9,T10](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct10[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct10[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10](valueR)
-        }
 
         def tail: CoProduct10[T2,T3,T4,T5,T6,T7,T8,T9,T10, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -783,24 +647,10 @@
       }
 
       class CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.One[T11]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.One[T11]]]]]]]]]]]
-        with helper1.CoProduct11Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.One[T11]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.One[T11]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct10[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct10[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.One[T11]]]]]]]]]]) => Right(new CoProduct10[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct11[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct11[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](valueR)
-        }
 
         def tail: CoProduct11[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -894,24 +744,10 @@
       }
 
       class CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.One[T12]]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.One[T12]]]]]]]]]]]]
-        with helper1.CoProduct12Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.One[T12]]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.One[T12]]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct11[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct11[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.One[T12]]]]]]]]]]]) => Right(new CoProduct11[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct12[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct12[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](valueR)
-        }
 
         def tail: CoProduct12[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -1011,24 +847,10 @@
       }
 
       class CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.One[T13]]]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.One[T13]]]]]]]]]]]]]
-        with helper1.CoProduct13Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.One[T13]]]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.One[T13]]]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct12[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct12[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.One[T13]]]]]]]]]]]]) => Right(new CoProduct12[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct13[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct13[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](valueR)
-        }
 
         def tail: CoProduct13[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -1134,24 +956,10 @@
       }
 
       class CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.One[T14]]]]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.One[T14]]]]]]]]]]]]]]
-        with helper1.CoProduct14Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.One[T14]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.One[T14]]]]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct13[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct13[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.One[T14]]]]]]]]]]]]]) => Right(new CoProduct13[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct14[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct14[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](valueR)
-        }
 
         def tail: CoProduct14[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -1263,24 +1071,10 @@
       }
 
       class CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.One[T15]]]]]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.One[T15]]]]]]]]]]]]]]]
-        with helper1.CoProduct15Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.One[T15]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.One[T15]]]]]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct14[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct14[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.One[T15]]]]]]]]]]]]]]) => Right(new CoProduct14[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct15[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct15[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](valueR)
-        }
 
         def tail: CoProduct15[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -1398,24 +1192,10 @@
       }
 
       class CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.One[T16]]]]]]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.One[T16]]]]]]]]]]]]]]]]
-        with helper1.CoProduct16Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.One[T16]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.One[T16]]]]]]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct15[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct15[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.One[T16]]]]]]]]]]]]]]]) => Right(new CoProduct15[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct16[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct16[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](valueR)
-        }
 
         def tail: CoProduct16[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -1539,24 +1319,10 @@
       }
 
       class CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.One[T17]]]]]]]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.One[T17]]]]]]]]]]]]]]]]]
-        with helper1.CoProduct17Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.One[T17]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.One[T17]]]]]]]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct16[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct16[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.One[T17]]]]]]]]]]]]]]]]) => Right(new CoProduct16[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct17[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct17[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](valueR)
-        }
 
         def tail: CoProduct17[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -1686,24 +1452,10 @@
       }
 
       class CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.One[T18]]]]]]]]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.One[T18]]]]]]]]]]]]]]]]]]
-        with helper1.CoProduct18Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.One[T18]]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.One[T18]]]]]]]]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct17[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct17[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.One[T18]]]]]]]]]]]]]]]]]) => Right(new CoProduct17[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct18[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct18[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](valueR)
-        }
 
         def tail: CoProduct18[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -1839,24 +1591,10 @@
       }
 
       class CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.One[T19]]]]]]]]]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.One[T19]]]]]]]]]]]]]]]]]]]
-        with helper1.CoProduct19Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.One[T19]]]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.One[T19]]]]]]]]]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct18[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct18[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.One[T19]]]]]]]]]]]]]]]]]]) => Right(new CoProduct18[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct19[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct19[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](valueR)
-        }
 
         def tail: CoProduct19[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -1998,24 +1736,10 @@
       }
 
       class CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.One[T20]]]]]]]]]]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.One[T20]]]]]]]]]]]]]]]]]]]]
-        with helper1.CoProduct20Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.One[T20]]]]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.One[T20]]]]]]]]]]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct19[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct19[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.One[T20]]]]]]]]]]]]]]]]]]]) => Right(new CoProduct19[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct20[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct20[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](valueR)
-        }
 
         def tail: CoProduct20[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -2163,24 +1887,10 @@
       }
 
       class CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.One[T21]]]]]]]]]]]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.One[T21]]]]]]]]]]]]]]]]]]]]]
-        with helper1.CoProduct21Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.One[T21]]]]]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.One[T21]]]]]]]]]]]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct20[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct20[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.One[T21]]]]]]]]]]]]]]]]]]]]) => Right(new CoProduct20[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct21[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct21[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](valueR)
-        }
 
         def tail: CoProduct21[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)
@@ -2334,24 +2044,10 @@
       }
 
       class CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](foldImpl: AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.Positive[T21, AdtCoProduct.Use.One[T22]]]]]]]]]]]]]]]]]]]]]])
-        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.Positive[T21, AdtCoProduct.Use.One[T22]]]]]]]]]]]]]]]]]]]]]]
-        with helper1.CoProduct22Helper[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] {
+        extends AdtCoProduct.Use.Positive[T1, AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.Positive[T21, AdtCoProduct.Use.One[T22]]]]]]]]]]]]]]]]]]]]]] {
         FoldApplySelf =>
 
         override def _foldCoProduct[Re](h: T1 => Re, t: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.Positive[T21, AdtCoProduct.Use.One[T22]]]]]]]]]]]]]]]]]]]]] => Re): Re = foldImpl._foldCoProduct[Re](h, t)
-
-        def drop1: Either[
-          T1,
-          CoProduct21[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]
-        ] = foldImpl._foldCoProduct[Either[T1, CoProduct21[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22]]](
-          (i1: T1) => Left(i1),
-          (i1: AdtCoProduct.Use.Positive[T2, AdtCoProduct.Use.Positive[T3, AdtCoProduct.Use.Positive[T4, AdtCoProduct.Use.Positive[T5, AdtCoProduct.Use.Positive[T6, AdtCoProduct.Use.Positive[T7, AdtCoProduct.Use.Positive[T8, AdtCoProduct.Use.Positive[T9, AdtCoProduct.Use.Positive[T10, AdtCoProduct.Use.Positive[T11, AdtCoProduct.Use.Positive[T12, AdtCoProduct.Use.Positive[T13, AdtCoProduct.Use.Positive[T14, AdtCoProduct.Use.Positive[T15, AdtCoProduct.Use.Positive[T16, AdtCoProduct.Use.Positive[T17, AdtCoProduct.Use.Positive[T18, AdtCoProduct.Use.Positive[T19, AdtCoProduct.Use.Positive[T20, AdtCoProduct.Use.Positive[T21, AdtCoProduct.Use.One[T22]]]]]]]]]]]]]]]]]]]]]) => Right(new CoProduct21[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](i1))
-        )
-
-        def map1[U1](func: T1 => U1): CoProduct22[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] = {
-          val valueR = AppendTail3.mapHead(foldImpl)(func)
-          new CoProduct22[U1, T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](valueR)
-        }
 
         def tail: CoProduct22[T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22, T1] = {
           val valueR = AppendTailHelper2.appendByDefault(foldImpl)

@@ -10,22 +10,11 @@ class ADTApplyFunction2(val index: Int) {
   class TraitBody(val index: Int) {
     TraitBodySelf =>
 
-    val typeParam1: Seq[String]  = for (i1 <- 1 to index) yield s"T$i1"
-    val typeParam2: Seq[String]  = "Target1 >: Nothing" +: (for (i1 <- 2 to index) yield s"Target$i1 >: Target${i1 - 1}")
-    val typeParam3: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1: T$i1 => Target$i1"
-    val typeParam4: Seq[String]  = s"TargetOther${index - 1}" +: (for (i1 <- 2 to index) yield s"T$i1")
-    val typeParam5: Seq[String]  = for (i1 <- 1 to index) yield s"apply(param$i1)"
-    val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1"
-    val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"AdtFunction[Target, T$i1]"
-    val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s".map1(_.adtFunctionApply(target)).tail"
-
-    /*def typeParam6Impl(index: Int): String = if (index < TraitBodySelf.index) {
-      s"""AdtCoProduct.Use.Positive[T$index, ${typeParam6Impl(index + 1)}]"""
-    } else {
-      s"""AdtCoProduct.Use.One[T$index]"""
-    }
-
-    val typeParam6: String = typeParam6Impl(1)*/
+    val typeParam1: Seq[String] = for (i1 <- 1 to index) yield s"T$i1"
+    val typeParam2: Seq[String] = "Target1 >: Nothing" +: (for (i1 <- 2 to index) yield s"Target$i1 >: Target${i1 - 1}")
+    val typeParam3: Seq[String] = for (i1 <- 1 to index) yield s"param$i1: T$i1 => Target$i1"
+    val typeParam4: Seq[String] = s"TargetOther${index - 1}" +: (for (i1 <- 2 to index) yield s"T$i1")
+    val typeParam5: Seq[String] = for (i1 <- 1 to index) yield s"apply(param$i1)"
 
     def typeParam7Impl(index: Int): String = if (index < TraitBodySelf.index) {
       s"""AdtCoProduct.Use.Positive[AdtFunction[Target, T$index], ${typeParam7Impl(index + 1)}]"""
@@ -35,12 +24,16 @@ class ADTApplyFunction2(val index: Int) {
 
     val typeParam7: String = typeParam7Impl(1)
 
+    val typeParam9: Seq[String]  = for (i1 <- 1 to index) yield s"param$i1"
+    val typeParam10: Seq[String] = for (i1 <- 1 to index) yield s"AdtFunction[Target, T$i1]"
+    val typeParam11: Seq[String] = for (i1 <- 1 to index) yield s"t1 => CoProduct${index}ApplySelf.instance$i1(t1.instance(target))"
+
     val text: String = s"""
       trait CoProduct${index}Apply[${typeParam1.mkString(',')}] extends
         ADTApplyFunction2Self.CoProduct${index}ApplyHelper[${typeParam1.mkString(',')}] {
         CoProduct${index}ApplySelf =>
         def instance[Target](target: Target)(implicit param: ADTValue[$typeParam7]): CoProduct$index[${typeParam1.mkString(',')}] = {
-          CoProduct${index}ApplySelf.typeOnly[Target]${typeParam11.mkString("")}
+          CoProduct${index}ApplySelf.typeOnly[Target].fold(${typeParam11.mkString(',')})
         }
 
         def typeOnly[Target](implicit param: ADTValue[$typeParam7]): CoProduct$index[${typeParam10.mkString(',')}] = {
