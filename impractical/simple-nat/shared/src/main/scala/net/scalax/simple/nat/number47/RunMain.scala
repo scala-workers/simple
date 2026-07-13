@@ -78,7 +78,7 @@ object RunTest1 {
 
     count(
       () => 月.inputGHDMZSK(() => 日).inputGHDMZSK(() => 时).inputGHDMZSK(() => 分).inputGHDMZSK(() => 秒).inputGHDMZSK(() => 毫秒),
-      printlnSum = 10,
+      printlnSum = 1000,
       speed = 100000000,
       dealResult = map => {
         println("day vs hour")
