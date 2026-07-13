@@ -81,10 +81,15 @@ object RunTest1 {
       printlnSum = 1000,
       speed = 100000000,
       dealResult = map => {
+        println("month vs day")
+        println(BigDecimal(map.get("月").getOrElse(1)) / BigDecimal(map.get("日").getOrElse(1)))
         println("day vs hour")
         println(BigDecimal(map.get("日").getOrElse(1)) / BigDecimal(map.get("时").getOrElse(1)))
         println("hour vs min")
         println(BigDecimal(map.get("时").getOrElse(1)) / BigDecimal(map.get("分").getOrElse(1)))
+        println("hour vs second")
+        println(BigDecimal(map.get("分").getOrElse(1)) / BigDecimal(map.get("秒").getOrElse(1)))
+
         println("hour vs second")
         println(BigDecimal(map.get("时").getOrElse(1)) / BigDecimal(map.get("秒").getOrElse(1)))
         println("=== finished 1 ===")
