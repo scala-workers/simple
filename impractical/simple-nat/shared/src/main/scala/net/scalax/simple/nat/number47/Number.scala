@@ -18,26 +18,54 @@ object Num47 { NumSelf =>
   }
 
   object Append1 {
-    def tail1Num(name: String): ghdmzsk = new ghdmzsk {
+    def tail1Num: ghdmzsk = new ghdmzsk {
       override def inputGHDMZSK(tail1: () => ghdmzsk): ghdmzsk = new ghdmzsk {
         override def inputGHDMZSK(tail2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
           override def inputGHDMZSK(tail3: () => ghdmzsk): ghdmzsk = new ghdmzsk {
             override def inputGHDMZSK(tail4: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-              override def inputGHDMZSK(tail5: () => ghdmzsk): ghdmzsk =
-                buildNum1(name).inputGHDMZSK(() => tail2().inputGHDMZSK(tail3).inputGHDMZSK(tail4).inputGHDMZSK(tail5).inputGHDMZSK(tail1))
+              override def inputGHDMZSK(tail5: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                override def inputGHDMZSK(tail6: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                  override def inputGHDMZSK(tail7: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                    override def inputGHDMZSK(tail8: () => ghdmzsk): ghdmzsk =
+                      tail8()
+                        .inputGHDMZSK(tail1)
+                        .inputGHDMZSK(tail2)
+                        .inputGHDMZSK(tail3)
+                        .inputGHDMZSK(tail4)
+                        .inputGHDMZSK(tail5)
+                        .inputGHDMZSK(tail6)
+                        .inputGHDMZSK(tail7)
+                  }
+                }
+              }
             }
           }
         }
       }
     }
 
-    val tail2Num: ghdmzsk = new ghdmzsk {
+    def tail2Num(name: String): ghdmzsk = new ghdmzsk {
       override def inputGHDMZSK(tail1: () => ghdmzsk): ghdmzsk = new ghdmzsk {
         override def inputGHDMZSK(tail2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
           override def inputGHDMZSK(tail3: () => ghdmzsk): ghdmzsk = new ghdmzsk {
             override def inputGHDMZSK(tail4: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-              override def inputGHDMZSK(tail5: () => ghdmzsk): ghdmzsk =
-                tail5().inputGHDMZSK(tail1).inputGHDMZSK(tail2).inputGHDMZSK(tail3).inputGHDMZSK(tail4)
+              override def inputGHDMZSK(tail5: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                override def inputGHDMZSK(tail6: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                  override def inputGHDMZSK(tail7: () => ghdmzsk): ghdmzsk = new ghdmzsk {
+                    override def inputGHDMZSK(tail8: () => ghdmzsk): ghdmzsk =
+                      buildNum1(name).inputGHDMZSK(() =>
+                        tail2()
+                          .inputGHDMZSK(tail3)
+                          .inputGHDMZSK(tail4)
+                          .inputGHDMZSK(tail5)
+                          .inputGHDMZSK(tail6)
+                          .inputGHDMZSK(tail7)
+                          .inputGHDMZSK(tail8)
+                          .inputGHDMZSK(tail1)
+                      )
+                  }
+                }
+              }
             }
           }
         }
