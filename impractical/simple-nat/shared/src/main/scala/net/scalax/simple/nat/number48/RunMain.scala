@@ -78,7 +78,7 @@ object RunTest1 {
 
     count(
       () => top.other(地支, 年, 月, 日, 时, 分),
-      printlnSum = 5,
+      printlnSum = 50,
       speed = 100000000,
       dealResult = map => {
         println(map)
