@@ -69,7 +69,7 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     lazy val 天干: ghdmzsk = Num47.Append1.tail1Num.inputGHDMZSK(() => 天干)
     val 地支: ghdmzsk      = build(10, "dizhi")
     val 年: ghdmzsk       = build(12, "year")
@@ -96,20 +96,22 @@ object RunTest1 {
         println(map)
 
         println("month vs day")
-        println(BigDecimal(map.get("day").getOrElse(1L)) / BigDecimal(map.get("month").getOrElse(1L)))
+        println(BigDecimal(map.getOrElse("day", 1L)) / BigDecimal(map.getOrElse("month", 1L)))
+        println("year vs month")
+        println(BigDecimal(map.getOrElse("month", 1L)) / BigDecimal(map.getOrElse("year", 1L)))
         println("day vs hour")
-        println(BigDecimal(map.get("hour").getOrElse(1L)) / BigDecimal(map.get("day").getOrElse(1L)))
+        println(BigDecimal(map.getOrElse("hour", 1L)) / BigDecimal(map.getOrElse("day", 1L)))
         println("hour vs min")
-        println(BigDecimal(map.get("min").getOrElse(1L)) / BigDecimal(map.get("hour").getOrElse(1L)))
+        println(BigDecimal(map.getOrElse("min", 1L)) / BigDecimal(map.getOrElse("hour", 1L)))
         println("min vs second")
-        println(BigDecimal(map.get("second").getOrElse(1L)) / BigDecimal(map.get("min").getOrElse(1L)))
+        println(BigDecimal(map.getOrElse("second", 1L)) / BigDecimal(map.getOrElse("min", 1L)))
 
         println("hour vs second")
-        println(BigDecimal(map.get("second").getOrElse(1L)) / BigDecimal(map.get("hour").getOrElse(1L)))
+        println(BigDecimal(map.getOrElse("second", 1L)) / BigDecimal(map.getOrElse("hour", 1L)))
         println("year vs day")
-        println(BigDecimal(map.get("day").getOrElse(1L)) / BigDecimal(map.get("year").getOrElse(1L)))
+        println(BigDecimal(map.getOrElse("day", 1L)) / BigDecimal(map.getOrElse("year", 1L)))
         println("day vs second")
-        println(BigDecimal(map.get("second").getOrElse(1L)) / BigDecimal(map.get("day").getOrElse(1L)))
+        println(BigDecimal(map.getOrElse("second", 1L)) / BigDecimal(map.getOrElse("day", 1L)))
         println("=== finished 1 ===")
       }
     )
