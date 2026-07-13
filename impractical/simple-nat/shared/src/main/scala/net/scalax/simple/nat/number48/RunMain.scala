@@ -69,35 +69,33 @@ object RunTest1 {
 
   def main(arr: Array[String]): Unit = {
     lazy val top: Time = TimeCount(() => top)
+    val 地支: Time       = build(12, "dizhi")
     val 年: Time        = build(12, "year")
     val 月: Time        = build(30, "month")
     val 日: Time        = build(24, "day")
     val 时: Time        = build(60, "hour")
-    val 分: Time        = build(60, "min")
-    lazy val 秒: Time   = TimeDong("second", () => 秒)
+    lazy val 分: Time   = TimeDong("min", () => 分)
 
     count(
-      () => top.other(年, 月, 日, 时, 分, 秒),
+      () => top.other(地支, 年, 月, 日, 时, 分),
       printlnSum = 5,
       speed = 100000000,
       dealResult = map => {
         println(map)
 
-        println("second vs min")
-        println(BigDecimal(map.getOrElse("second", 1L)) / BigDecimal(map.getOrElse("min", 1L)))
         println("min vs hour")
         println(BigDecimal(map.getOrElse("min", 1L)) / BigDecimal(map.getOrElse("hour", 1L)))
         println("hour vs day")
         println(BigDecimal(map.getOrElse("hour", 1L)) / BigDecimal(map.getOrElse("day", 1L)))
         println("day vs month")
         println(BigDecimal(map.getOrElse("day", 1L)) / BigDecimal(map.getOrElse("month", 1L)))
+        println("day vs month")
+        println(BigDecimal(map.getOrElse("month", 1L)) / BigDecimal(map.getOrElse("year", 1L)))
 
-        println("hour vs second")
-        println(BigDecimal(map.getOrElse("second", 1L)) / BigDecimal(map.getOrElse("hour", 1L)))
         println("year vs day")
         println(BigDecimal(map.getOrElse("day", 1L)) / BigDecimal(map.getOrElse("year", 1L)))
         println("day vs second")
-        println(BigDecimal(map.getOrElse("second", 1L)) / BigDecimal(map.getOrElse("day", 1L)))
+        println(BigDecimal(map.getOrElse("min", 1L) * 60) / BigDecimal(map.getOrElse("day", 1L)))
 
         println("=== finished 1 ===")
       }

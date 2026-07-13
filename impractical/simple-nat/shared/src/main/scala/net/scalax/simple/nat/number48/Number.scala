@@ -2,8 +2,6 @@ package net.scalax.simple
 package nat
 package number48
 
-import ghdmzsk._
-
 object Number48 {
 
   case class TimeResult(key: String, tail: () => TimeResult)
