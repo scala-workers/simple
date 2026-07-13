@@ -25,10 +25,10 @@ object RunTest1 {
   @tailrec
   def countImpl(
     num: () => ghdmzsk,
-    current: Map[String, Int],
+    current: Map[String, Long],
     printlnSum: Int,
     speed: Long,
-    dealResult: Map[String, Int] => Unit
+    dealResult: Map[String, Long] => Unit
   ): Unit = {
     val needPrintln: Boolean = current.values.sum % speed == 0
 
@@ -41,8 +41,9 @@ object RunTest1 {
     if (printlnSum > 0) {
       currentNum match {
         case num1: Num47.Num1 =>
-          val oldValue = current.getOrElse(num1.name, 1)
-          val newMap   = current + (num1.name -> (oldValue + 1))
+          val oldValue: Long = current.getOrElse(num1.name, 1L)
+          val newMap         = current + (num1.name -> (oldValue + 1L))
+
           countImpl(
             () => num1.inputGHDMZSK(() => null),
             current = newMap,
@@ -58,7 +59,7 @@ object RunTest1 {
     num: () => ghdmzsk,
     printlnSum: Int,
     speed: Long = 80000,
-    dealResult: Map[String, Int] => Unit
+    dealResult: Map[String, Long] => Unit
   ): Unit =
     countImpl(
       num = num,
@@ -69,11 +70,11 @@ object RunTest1 {
     )
 
   def main(arr: Array[String]): Unit = {
-    lazy val 月: ghdmzsk  = Num47.Append1.tail1Num("月").inputGHDMZSK(() => 月)
-    val 日: ghdmzsk       = build(30, "日")
-    val 时: ghdmzsk       = build(24, "时")
-    val 分: ghdmzsk       = build(60, "分")
-    val 秒: ghdmzsk       = build(60, "秒")
+    lazy val 月: ghdmzsk  = Num47.Append1.tail1Num("month").inputGHDMZSK(() => 月)
+    val 日: ghdmzsk       = build(30, "day")
+    val 时: ghdmzsk       = build(24, "hour")
+    val 分: ghdmzsk       = build(60, "min")
+    val 秒: ghdmzsk       = build(60, "second")
     lazy val 毫秒: ghdmzsk = Num47.Append1.tail2Num.inputGHDMZSK(() => 毫秒)
 
     count(
@@ -81,17 +82,19 @@ object RunTest1 {
       printlnSum = 1000,
       speed = 100000000,
       dealResult = map => {
+        println(map)
+
         println("month vs day")
-        println(BigDecimal(map.get("月").getOrElse(1)) / BigDecimal(map.get("日").getOrElse(1)))
+        println(BigDecimal(map.get("month").getOrElse(1L)) / BigDecimal(map.get("day").getOrElse(1L)))
         println("day vs hour")
-        println(BigDecimal(map.get("日").getOrElse(1)) / BigDecimal(map.get("时").getOrElse(1)))
+        println(BigDecimal(map.get("day").getOrElse(1L)) / BigDecimal(map.get("hour").getOrElse(1L)))
         println("hour vs min")
-        println(BigDecimal(map.get("时").getOrElse(1)) / BigDecimal(map.get("分").getOrElse(1)))
-        println("hour vs second")
-        println(BigDecimal(map.get("分").getOrElse(1)) / BigDecimal(map.get("秒").getOrElse(1)))
+        println(BigDecimal(map.get("hour").getOrElse(1L)) / BigDecimal(map.get("min").getOrElse(1L)))
+        println("min vs second")
+        println(BigDecimal(map.get("min").getOrElse(1L)) / BigDecimal(map.get("second").getOrElse(1L)))
 
         println("hour vs second")
-        println(BigDecimal(map.get("时").getOrElse(1)) / BigDecimal(map.get("秒").getOrElse(1)))
+        println(BigDecimal(map.get("hour").getOrElse(1L)) / BigDecimal(map.get("second").getOrElse(1L)))
         println("=== finished 1 ===")
       }
     )
