@@ -47,7 +47,7 @@ class ADTTraitBuilderHelper2(val index: Int) {
       val typeParam5: Seq[String] = for (i1 <- MethodDropBodySelf.index + 1 to TraitBodySelf.index) yield ".tail"
       val typeParam6: Seq[String] = for (i1 <- 1 to index - 1) yield "AdtCoProduct.Use.Positive.Right("
       val typeParam7: Seq[String] = for (i1 <- 1 to index - 1) yield ")"
-      val typeParam8: String = if (index == TraitBodySelf.index) "AdtCoProduct.Use.One.left(t)" else "AdtCoProduct.Use.Positive.Left(t)"
+      val typeParam8: String = if (index == TraitBodySelf.index) "AdtCoProduct.Use.One.value(t)" else "AdtCoProduct.Use.Positive.Left(t)"
 
       val text: String = s"""
         def instance$index(t: T$index): CoProduct${TraitBodySelf.index}[${TraitBodySelf.typeParam1.mkString(',')}] = {

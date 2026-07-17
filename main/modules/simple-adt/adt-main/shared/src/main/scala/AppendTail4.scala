@@ -57,7 +57,7 @@ object AppendAdt1 {
     val func: Either[Zero, AdtCoProduct.Use.One[OneValue]] => AdtCoProduct.Use.Positive[OneValue, AdtCoProduct.Use.One[Zero]] =
       (zeroEither: Either[Zero, AdtCoProduct.Use.One[OneValue]]) => {
         zeroEither.fold(
-          (zero: Zero) => AdtCoProduct.Use.Positive.Right[OneValue, AdtCoProduct.Use.One[Zero]](AdtCoProduct.Use.One.left[Zero](zero)),
+          (zero: Zero) => AdtCoProduct.Use.Positive.Right[OneValue, AdtCoProduct.Use.One[Zero]](AdtCoProduct.Use.One.value[Zero](zero)),
           (oneValue: AdtCoProduct.Use.One[OneValue]) => AdtCoProduct.Use.Positive.Left[OneValue, AdtCoProduct.Use.One[Zero]](oneValue.value)
         )
       }

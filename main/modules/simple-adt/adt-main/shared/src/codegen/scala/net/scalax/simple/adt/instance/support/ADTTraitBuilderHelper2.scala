@@ -12,7 +12,7 @@
         
         def instance1(t: T1): CoProduct1[T1] = {
           new CoProduct1[T1](
-            AdtCoProduct.Use.One.left(t)
+            AdtCoProduct.Use.One.value(t)
           )
         }
       
@@ -31,7 +31,7 @@
 
         def instance2(t: T2): CoProduct2[T1,T2] = {
           new CoProduct2[T1,T2](
-            AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t))
+            AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t))
           )
         }
       
@@ -57,7 +57,7 @@
 
         def instance3(t: T3): CoProduct3[T1,T2,T3] = {
           new CoProduct3[T1,T2,T3](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) )
           )
         }
       
@@ -90,7 +90,7 @@
 
         def instance4(t: T4): CoProduct4[T1,T2,T3,T4] = {
           new CoProduct4[T1,T2,T3,T4](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) )
           )
         }
       
@@ -130,7 +130,7 @@
 
         def instance5(t: T5): CoProduct5[T1,T2,T3,T4,T5] = {
           new CoProduct5[T1,T2,T3,T4,T5](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) )
           )
         }
       
@@ -177,7 +177,7 @@
 
         def instance6(t: T6): CoProduct6[T1,T2,T3,T4,T5,T6] = {
           new CoProduct6[T1,T2,T3,T4,T5,T6](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) )
           )
         }
       
@@ -231,7 +231,7 @@
 
         def instance7(t: T7): CoProduct7[T1,T2,T3,T4,T5,T6,T7] = {
           new CoProduct7[T1,T2,T3,T4,T5,T6,T7](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) )
           )
         }
       
@@ -292,7 +292,7 @@
 
         def instance8(t: T8): CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8] = {
           new CoProduct8[T1,T2,T3,T4,T5,T6,T7,T8](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) )
           )
         }
       
@@ -360,7 +360,7 @@
 
         def instance9(t: T9): CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9] = {
           new CoProduct9[T1,T2,T3,T4,T5,T6,T7,T8,T9](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) )
           )
         }
       
@@ -435,7 +435,7 @@
 
         def instance10(t: T10): CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10] = {
           new CoProduct10[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) )
           )
         }
       
@@ -517,7 +517,7 @@
 
         def instance11(t: T11): CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11] = {
           new CoProduct11[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) )
           )
         }
       
@@ -606,7 +606,7 @@
 
         def instance12(t: T12): CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12] = {
           new CoProduct12[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) ) )
           )
         }
       
@@ -702,7 +702,7 @@
 
         def instance13(t: T13): CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13] = {
           new CoProduct13[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) ) ) )
           )
         }
       
@@ -805,7 +805,7 @@
 
         def instance14(t: T14): CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14] = {
           new CoProduct14[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) ) ) ) )
           )
         }
       
@@ -915,7 +915,7 @@
 
         def instance15(t: T15): CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15] = {
           new CoProduct15[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) ) ) ) ) )
           )
         }
       
@@ -1032,7 +1032,7 @@
 
         def instance16(t: T16): CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16] = {
           new CoProduct16[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) )
           )
         }
       
@@ -1156,7 +1156,7 @@
 
         def instance17(t: T17): CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17] = {
           new CoProduct17[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
           )
         }
       
@@ -1287,7 +1287,7 @@
 
         def instance18(t: T18): CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18] = {
           new CoProduct18[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
           )
         }
       
@@ -1425,7 +1425,7 @@
 
         def instance19(t: T19): CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19] = {
           new CoProduct19[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
           )
         }
       
@@ -1570,7 +1570,7 @@
 
         def instance20(t: T20): CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20] = {
           new CoProduct20[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
           )
         }
       
@@ -1722,7 +1722,7 @@
 
         def instance21(t: T21): CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21] = {
           new CoProduct21[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
           )
         }
       
@@ -1881,7 +1881,7 @@
 
         def instance22(t: T22): CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22] = {
           new CoProduct22[T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22](
-            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.left(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
+            AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right( AdtCoProduct.Use.Positive.Right(AdtCoProduct.Use.One.value(t)) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) ) )
           )
         }
       

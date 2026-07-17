@@ -40,7 +40,7 @@ object AdtCoProduct {
 
     object One { UseOneSelf =>
 
-      def left[T](t: T): AdtCoProductSelf.Use.One[T] = new AdtCoProductSelf.Use.One[T] {
+      def value[T](t: T): AdtCoProductSelf.Use.One[T] = new AdtCoProductSelf.Use.One[T] {
         override def value: T = t
       }
 
