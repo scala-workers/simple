@@ -5,11 +5,11 @@ package support
 object AppendTail7 {
 
   trait Ctx1[Target] {
-    trait ToTarget[ProInstance1 <: AdtHList, ProInstance2 <: AdtCoProduct.Use.Positive[_, _]]
+    trait ToTarget[ProInstance1 <: AdtHList, ProInstance2 <: AdtCoProduct.Use.AdtType]
         extends SimpleAppenderAlias.AppenderAlias[
-          ({ type Func2[X1 <: AdtHList, X2 <: AdtCoProduct.Use.Positive[_, _]] = (X1, X2) => Target })#Func2,
+          ({ type Func2[X1 <: AdtHList, X2 <: AdtCoProduct.Use.AdtType] = (X1, X2) => Target })#Func2,
           AdtHList,
-          AdtCoProduct.Use.Positive[_, _],
+          AdtCoProduct.Use.AdtType,
           ({ type Append1[TItem, Tail <: AdtHList] = AdtHList.UsePositive[TItem => Target, Tail] })#Append1,
           AdtCoProduct.Use.Positive,
           ProInstance1,
@@ -30,10 +30,9 @@ object AppendTail7 {
     }
 
     object ToTarget {
-      def take[A <: AdtHList, B <: AdtCoProduct.Use.Positive[_, _]](a: A)(implicit k: ToTarget[A, B]): B => Target = (b: B) =>
-        k.current(a, b)
+      def take[A <: AdtHList, B <: AdtCoProduct.Use.AdtType](a: A)(implicit k: ToTarget[A, B]): B => Target = (b: B) => k.current(a, b)
 
-      implicit def positiveImplicit[Item, ProInstance1 <: AdtHList, ProInstance2 <: AdtCoProduct.Use.Positive[_, _]](implicit
+      implicit def positiveImplicit[Item, ProInstance1 <: AdtHList, ProInstance2 <: AdtCoProduct.Use.AdtType](implicit
         tail: ToTarget[ProInstance1, ProInstance2]
       ): ToTarget[AdtHList.UsePositive[Item => Target, ProInstance1], AdtCoProduct.Use.Positive[Item, ProInstance2]] =
         tail
@@ -44,7 +43,7 @@ object AppendTail7 {
         new ToTarget[AdtHList.UsePositive[Item => Target, AdtHList], AdtCoProduct.Use.One[Item]] {
           override def current: (AdtHList.UsePositive[Item => Target, AdtHList], AdtCoProduct.Use.One[Item]) => Target =
             (a: AdtHList.Positive[Item => Target, AdtHList], b: AdtCoProduct.Use.One[Item]) => {
-              a.head(AdtCoProduct.Use.One.merge(b))
+              a.head(b.value)
             }
         }
 

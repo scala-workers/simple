@@ -4,7 +4,7 @@ package support
 
 object AppendAdt1 {
 
-  trait AdtSupport[Zero, Pos1 <: AdtCoProduct.Use.Positive[_, _], Pos2 <: AdtCoProduct.Use.Positive[_, _]]
+  trait AdtSupport[Zero, Pos1 <: AdtCoProduct.Use.AdtType, Pos2 <: AdtCoProduct.Use.AdtType]
       extends SimpleAppenderAlias.AppenderAlias[
         ({
           type M22[
@@ -12,8 +12,8 @@ object AppendAdt1 {
             T2
           ] = Either[Zero, T1] => T2
         })#M22,
-        AdtCoProduct.Use.Positive[_, _],
-        AdtCoProduct.Use.Positive[_, _],
+        AdtCoProduct.Use.AdtType,
+        AdtCoProduct.Use.AdtType,
         AdtCoProduct.Use.Positive,
         AdtCoProduct.Use.Positive,
         Pos1,
@@ -58,8 +58,7 @@ object AppendAdt1 {
       (zeroEither: Either[Zero, AdtCoProduct.Use.One[OneValue]]) => {
         zeroEither.fold(
           (zero: Zero) => AdtCoProduct.Use.Positive.Right[OneValue, AdtCoProduct.Use.One[Zero]](AdtCoProduct.Use.One.left[Zero](zero)),
-          (oneValue: AdtCoProduct.Use.One[OneValue]) =>
-            AdtCoProduct.Use.Positive.Left[OneValue, AdtCoProduct.Use.One[Zero]](AdtCoProduct.Use.One.merge(oneValue))
+          (oneValue: AdtCoProduct.Use.One[OneValue]) => AdtCoProduct.Use.Positive.Left[OneValue, AdtCoProduct.Use.One[Zero]](oneValue.value)
         )
       }
 

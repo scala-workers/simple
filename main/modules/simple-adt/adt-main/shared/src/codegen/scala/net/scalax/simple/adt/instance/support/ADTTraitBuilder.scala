@@ -11,21 +11,12 @@
       def fold1[TargetOther0 >: Target0](param1: T1 => TargetOther0): TargetOther0
     }
 
-    class CoProduct1[T1](foldImpl: AdtCoProduct.Use.One[T1])
-      extends AdtCoProduct.Use.One[T1] {
-      FoldApplySelf =>
+    class CoProduct1[T1](foldImpl: AdtCoProduct.Use.One[T1]) extends AdtCoProduct.Use.One[T1] { FoldApplySelf =>
+      override def value: T1 = foldImpl.value
 
-      override def _foldCoProduct[TU](hFunc: T1 => TU, tFunc: AdtCoProduct.Use.One[T1] => TU): TU =
-        FoldApplySelf.foldImpl._foldCoProduct[TU](hFunc, tFunc)
+      @inline def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = param1(FoldApplySelf.value)
 
-      def tail: CoProduct1[T1] = FoldApplySelf
-
-      @inline def fold[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = {
-        param1(AdtCoProduct.Use.One.merge(FoldApplySelf))
-      }
-
-      def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = FoldApplySelf.fold(param1)
-
+      def fold1[TargetOther0](param1: T1 => TargetOther0): TargetOther0 = FoldApplySelf.fold[TargetOther0](param1)
     }
 
     object CoProduct1 {

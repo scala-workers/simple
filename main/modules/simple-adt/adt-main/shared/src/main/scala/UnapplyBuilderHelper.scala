@@ -133,10 +133,10 @@ object UnapplyBuilderHelper {
       : AppenderAlias[M, Pro1, AppendPro1, AppendPro1[T1, ProInstance1]]
   }
 
-  trait AppendToOption[TPoint, XU1 <: AdtCoProduct.Use.Positive[_, _]]
+  trait AppendToOption[TPoint, XU1 <: AdtCoProduct.Use.AdtType]
       extends AppenderAlias[
-        ({ type XM[U <: AdtCoProduct.Use.Positive[_, _]] = U => Option[TPoint] })#XM,
-        AdtCoProduct.Use.Positive[_, _],
+        ({ type XM[U <: AdtCoProduct.Use.AdtType] = U => Option[TPoint] })#XM,
+        AdtCoProduct.Use.AdtType,
         AdtCoProduct.Use.Positive,
         XU1
       ] {
@@ -151,7 +151,7 @@ object UnapplyBuilderHelper {
   }
 
   object AppendToOption extends LawImplicit {
-    implicit def appendToZero[OneType, ZeroInstance <: AdtCoProduct.Use.Positive[_, _]]
+    implicit def appendToZero[OneType, ZeroInstance <: AdtCoProduct.Use.AdtType]
       : AppendToOption[OneType, AdtCoProduct.Use.Positive[OneType, ZeroInstance]] =
       new AppendToOption[OneType, AdtCoProduct.Use.Positive[OneType, ZeroInstance]] {
         override def current: AdtCoProduct.Use.Positive[OneType, ZeroInstance] => Option[OneType] =
@@ -169,18 +169,18 @@ object UnapplyBuilderHelper {
   }
 
   trait LawImplicit {
-    implicit def appendToOption[T1, OT, ZT <: AdtCoProduct.Use.Positive[_, _]](implicit
+    implicit def appendToOption[T1, OT, ZT <: AdtCoProduct.Use.AdtType](implicit
       tail: AppendToOption[OT, ZT]
     ): AppendToOption[OT, AdtCoProduct.Use.Positive[T1, ZT]] =
       tail.next[T1, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any, Any]
   }
 
-  def toValue[OneType, ZeroInstance <: AdtCoProduct.Use.Positive[_, _]](
+  def toValue[OneType, ZeroInstance <: AdtCoProduct.Use.AdtType](
     m: AdtCoProduct.Use.Positive[OneType, ZeroInstance]
   ): AdtCoProduct.Use.Positive[OneType, ZeroInstance] = m
 
   trait Apply[T] {
-    def take[A <: AdtCoProduct.Use.Positive[_, _]](a: A)(implicit k: AppendToOption[T, A]): Option[T] = k.current(a)
+    def take[A <: AdtCoProduct.Use.AdtType](a: A)(implicit k: AppendToOption[T, A]): Option[T] = k.current(a)
   }
 
   def apply[T]: Apply[T] = new Apply[T] {
