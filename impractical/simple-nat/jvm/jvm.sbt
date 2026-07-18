@@ -2,7 +2,6 @@ name := "simple-nat"
 
 run / fork := true
 run / javaOptions += "-Xss5M"
-reStart / javaOptions += "-Xss5M"
 
 val taskAA = inputKey[Unit]("bb")
 
