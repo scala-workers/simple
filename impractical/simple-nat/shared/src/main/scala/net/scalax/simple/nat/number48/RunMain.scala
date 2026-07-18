@@ -67,7 +67,7 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     lazy val top: Time = TimeCount(() => top)
     val 地支: Time       = build(12, "dizhi")
     val 年: Time        = build(12, "year")
