@@ -4,7 +4,7 @@ package number48
 
 object Number48 {
 
-  case class TimeResult(key: String, tail: () => TimeResult)
+  class TimeResult(val key: String, val tail: () => TimeResult)
 
   trait Time {
     val other: (Time, Time, Time, Time, Time, Time) => TimeResult
