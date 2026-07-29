@@ -1,0 +1,238 @@
+object PushSettingsPlugin extends _root_.sbt.AutoPlugin {
+
+  import _root_.sbt._
+  import _root_.sbt.Keys._
+
+  private var preSettings: Seq[Setting[_]] = Seq.empty
+
+  def addSetting(set: Setting[_]): Unit = preSettings = set +: preSettings
+
+  override def requires: Plugins = net.scalax.simple.nat.sbt.ProjectKeys
+
+  addSetting {
+    organization := "net.scalax.simple"
+  }
+
+  addSetting {
+    organizationName := "Scala Workers"
+  }
+
+  addSetting {
+    organizationHomepage := Some(uri("https://github.com/scala-workers"))
+  }
+
+  addSetting {
+    scmInfo := Some(
+      ScmInfo(
+        uri("https://github.com/scalax/simple"),
+        "scm:git@github.com:scalax/simple.git"
+      )
+    )
+  }
+
+  val dev1 = Developer(
+    id = "Mars Liu",
+    name = "Liu Xin",
+    email = "mars.liu@outlook.com",
+    url = uri("https://marchliu.github.io/")
+  )
+
+  val dev2 = Developer(
+    id = "djx314",
+    name = "djx314",
+    email = "djx314@sina.cn",
+    url = uri("https://github.com/djx314")
+  )
+
+  addSetting {
+    developers := List(dev1, dev2)
+  }
+
+  addSetting {
+    description := "Simple, and scalable. Use it to subvert the author's imagination."
+  }
+
+  addSetting {
+    licenses := List(License("MIT License", uri("https://github.com/scalax/simple/blob/main/LICENSE")))
+  }
+
+  addSetting {
+    homepage := Some(uri("https://github.com/scalax/simple"))
+  }
+
+  addSetting {
+    pomIncludeRepository := { _ => false }
+  }
+
+  addSetting {
+    publishMavenStyle := true
+  }
+
+  addSetting {
+    versionScheme := Some("early-semver")
+  }
+
+  override lazy val projectSettings: Seq[Setting[_]] = preSettings
+
+}
+
+object ScalajsCommonPlugin extends _root_.sbt.AutoPlugin {
+
+  import _root_.sbt._
+  import _root_.sbt.Keys._
+
+  private var preSettings: Seq[Setting[_]] = Seq.empty
+
+  def addSetting(set: Setting[_]): Unit = preSettings = set +: preSettings
+
+  override def requires: Plugins = net.scalax.simple.nat.sbt.ProjectKeys
+
+  addSetting {
+    {
+      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
+      baseFilesToCross := {
+        val tryValue = baseFilesToCross.?.value
+        val newFile  = baseDirectory.value / ".." / "shared"
+        newFile +: tryValue.toList.flatten
+      }
+    }
+  }
+
+  override lazy val projectSettings: Seq[Setting[_]] = preSettings
+
+}
+
+object ScalajsJsPlugin extends _root_.sbt.AutoPlugin {
+
+  import _root_.sbt._
+  import _root_.sbt.Keys._
+
+  private var preSettings: Seq[Setting[_]] = Seq.empty
+
+  def addSetting(set: Setting[_]): Unit = preSettings = set +: preSettings
+
+  /*addSetting {
+    {
+      import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
+      jsEnv := Def.uncached(new org.scalajs.jsenv.nodejs.NodeJSEnv())
+    }
+  }*/
+
+  override lazy val projectSettings: Seq[Setting[_]] = preSettings
+
+}
+
+object SettingsGlobalPlugin extends _root_.sbt.AutoPlugin {
+
+  import _root_.sbt._
+  import _root_.sbt.Keys._
+
+  private var preSettings: Seq[Setting[_]] = Seq.empty
+
+  def addSetting(set: Setting[_]): Unit = preSettings = set +: preSettings
+
+  override def requires: Plugins = net.scalax.simple.nat.sbt.ProjectKeys && org.scalafmt.sbt.ScalafmtPlugin
+
+  object autoImport {
+    val enableZIOTest = settingKey[Boolean]("enable zio test.")
+
+  }
+
+  import autoImport._
+
+  addSetting {
+    enableZIOTest := false
+  }
+
+  addSetting {
+    testFrameworks ++= {
+      if (enableZIOTest.value) Seq(new TestFramework("zio.test.sbt.ZTestFramework")) else Seq.empty
+    }
+  }
+
+  addSetting {
+    {
+      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
+      baseCrossFile := (f => Seq(f / "src" / "codegen"))
+    }
+  }
+
+  addSetting {
+    {
+      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
+      Compile / baseCrossFile := {
+        val t = baseCrossFile.value
+        f => f / "src" / "main" +: t(f)
+      }
+    }
+  }
+
+  addSetting {
+    {
+      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
+      Test / baseCrossFile := {
+        val t = (Compile / baseCrossFile).value
+        f => (f / "src" / "test") +: (f / "src" / "test-codegen") +: t(f)
+      }
+    }
+  }
+
+  addSetting {
+    {
+      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
+      baseFilesToCross := {
+        val tryValue = baseFilesToCross.?.value
+        val newFile  = baseDirectory.value
+        newFile +: tryValue.toList.flatten
+      }
+    }
+  }
+
+  addSetting {
+    Compile / unmanagedSourceDirectories := {
+      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
+      import djx.sbt.depts.output.Djx314DeptsPlugin.autoImport._
+      import inner.CommonUtils._
+      import scala.collection.compat._
+      val t1    = (Compile / baseFilesToCross).value
+      val t2    = (Compile / baseCrossFile).value
+      val base  = (Compile / unmanagedSourceDirectories).value
+      val sv    = scalaVersion.value
+      val files = for (n1 <- t1; n2 <- t2(n1)) yield n2
+      val toAdd = for (f1 <- files; f2 <- genDirectory(f1, sv)) yield f2
+      val all   = base.map(_.getCanonicalFile).to(Set) ++ toAdd.map(_.getCanonicalFile).to(Set)
+      all.to(Seq)
+    }
+  }
+
+  addSetting {
+    Test / unmanagedSourceDirectories ++= {
+      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
+      import djx.sbt.depts.output.Djx314DeptsPlugin.autoImport._
+      import inner.CommonUtils._
+      import scala.collection.compat._
+      val t1    = (Test / baseFilesToCross).value
+      val t2    = (Test / baseCrossFile).value
+      val base  = (Test / unmanagedSourceDirectories).value
+      val sv    = scalaVersion.value
+      val files = for (n1 <- t1; n2 <- t2(n1)) yield n2
+      val toAdd = for (f1 <- files; f2 <- genDirectory(f1, sv)) yield f2
+      val all   = base.map(_.getCanonicalFile).to(Set) ++ toAdd.map(_.getCanonicalFile).to(Set)
+      all.to(Seq)
+    }
+  }
+
+  addSetting {
+    scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "UTF-8")
+  }
+
+  addSetting {
+    {
+      import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
+      scalafmtOnCompile := true
+    }
+  }
+
+  override lazy val projectSettings: Seq[Setting[_]] = preSettings
+
+}

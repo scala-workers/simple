@@ -1,1 +1,1 @@
-enablePlugins(`settings-global-plugin`, SbtTwirl, CodegenPlugin)
+enablePlugins(SettingsGlobalPlugin, SbtTwirl, CodegenPlugin)

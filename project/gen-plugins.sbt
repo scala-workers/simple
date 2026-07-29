@@ -41,7 +41,7 @@ def genPluginFromFile(f: Path): String = {
   genPluginString(str, f.getFileName.toString.split('.')(0))
 }
 
-Compile / sourceGenerators += Def.task {
+/*Compile / sourceGenerators += Def.task {
   val sourceDir = (Compile / sourceManaged).value / "PluginCollection.scala"
 
   val scriptFilesDir = file(".").getCanonicalFile / "scripts"
@@ -57,4 +57,4 @@ Compile / sourceGenerators += Def.task {
     }
   }
   Seq(sourceDir)
-}.taskValue
+}.taskValue*/

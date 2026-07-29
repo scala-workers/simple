@@ -7,17 +7,17 @@ val `modules/file`  = `main/file` / "modules"
 val `test/file`     = `main/file` / "test"
 val `doc-only/file` = `main/file` / "doc-only"
 
-val `ghdmzsk/file`                             = `modules/file` / "simple-ghdmzsk"
-lazy val ghdmzsk: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `ghdmzsk/file`
+val `ghdmzsk/file` = `modules/file` / "simple-ghdmzsk"
+lazy val ghdmzsk   = crossProject(JSPlatform, JVMPlatform) in `ghdmzsk/file`
 
 val `adt/file` = `modules/file` / "simple-adt"
 
 val `nat-support/file` = `adt/file` / "nat-support"
-lazy val `nat-support`: sbtcrossproject.CrossProject =
+lazy val `nat-support` =
   crossProject(JSPlatform, JVMPlatform) in `nat-support/file` dependsOn (`test-common` % Test)
 
 val `adt-main/file` = `adt/file` / "adt-main"
-lazy val `adt-main`: sbtcrossproject.CrossProject =
+lazy val `adt-main` =
   crossProject(JSPlatform, JVMPlatform) in `adt-main/file` dependsOn (`test-common` % Test)
 
 val `adt-codegen/file` = `adt/file` / "codegen"
@@ -53,8 +53,8 @@ lazy val `append-codegen` = project in `append-codegen/file`
 val `pureconfig/file`       = `codec/file` / "simple-codec-pure-config"
 lazy val `codec-pureconfig` = project in `pureconfig/file` dependsOn (codec.jvm, `test-common`.jvm % Test) aggregate codec.jvm
 
-val `test-common/file`                               = `test/file` / "test-common"
-lazy val `test-common`: sbtcrossproject.CrossProject = crossProject(JSPlatform, JVMPlatform) in `test-common/file`
+val `test-common/file` = `test/file` / "test-common"
+lazy val `test-common` = crossProject(JSPlatform, JVMPlatform) in `test-common/file`
 
 `adt-codegen` / rootCodegenPath := (`adt-main`.jvm / baseDirectory).value / ".." / ".." / "shared" / "src" / "codegen"
 
@@ -134,8 +134,8 @@ codec.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 `codec-circe`.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 
 // ===
-nat.jvm / scalaVersion       := scalaV.v3
-nat.js / scalaVersion        := scalaV.v3
+nat.jvm / scalaVersion       := scalaV.v213
+nat.js / scalaVersion        := scalaV.v213
 nat.jvm / crossScalaVersions := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 nat.js / crossScalaVersions  := Seq(scalaV.v212, scalaV.v213, scalaV.v3)
 

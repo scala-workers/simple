@@ -70,7 +70,8 @@ codegenImpl := {
     .evaluated
 }*/
 
-val scalaNatSupportCodegenExecInputStr = settingKey[String]("scalaNatSupportCodegenExecInputStr")
+// ** 待恢复
+/*val scalaNatSupportCodegenExecInputStr = settingKey[String]("scalaNatSupportCodegenExecInputStr")
 scalaNatSupportCodegenExecInputStr := {
   val projectRoot = rootCodegenPath.value / ".." / ".." / ".." / "nat-support" / "shared" / "src" / "codegen" / "scala"
   projectRoot.getAbsoluteFile.toString
@@ -97,12 +98,6 @@ codegenImpl := {
     .partialInput(s" $scalaAdtInstanceSupportCodegenExecInputStrMainClass")
     .partialInput(s" ${scalaAdtInstanceSupportCodegenExecInputStr.value}")
     .evaluated
-}
-
-/*val preGenMainClass = s"$codegenPackageName.PreCodegen"
-preCodegenImpl := (Compile / runMain).inputTaskValue
-  .partialInput(s" $preGenMainClass")
-  .partialInput(s" ${rootCodegenPath.value.getAbsoluteFile.toString}")
-  .evaluated*/
+}*/
 
 scalafmtOnCompile := true

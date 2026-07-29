@@ -1,1 +1,1 @@
-enablePlugins(`scalajs-common-plugin`, `settings-global-plugin`, `push-settings-plugin`)
+enablePlugins(ScalajsCommonPlugin, SettingsGlobalPlugin, PushSettingsPlugin)
