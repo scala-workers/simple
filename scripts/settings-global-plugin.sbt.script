@@ -97,11 +97,4 @@ scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "UTF-8")
 }
 // end setting
 
-// start setting
-{
-    import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
-    Compile / compile := ((Compile / compile) dependsOn (Compile / scalafmtSbt)).value
-}
-// end setting
-
 // scala code override lazy val projectSettings: Seq[Setting[_]] = preSettings

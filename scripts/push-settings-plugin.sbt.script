@@ -9,17 +9,13 @@ organizationName := "Scala Workers"
 // end setting
 
 // start setting
-xerial.sbt.Sonatype.autoImport.sonatypeProfileName := "net.scalax"
-// end setting
-
-// start setting
-organizationHomepage := Some(url("https://github.com/scala-workers"))
+organizationHomepage := Some(uri("https://github.com/scala-workers"))
 // end setting
 
 // start setting
 scmInfo := Some(
     ScmInfo(
-        url("https://github.com/scalax/simple"),
+        uri("https://github.com/scalax/simple"),
         "scm:git@github.com:scalax/simple.git"
     )
 )
@@ -29,14 +25,14 @@ val dev1 = Developer(
   id = "Mars Liu",
   name = "Liu Xin",
   email = "mars.liu@outlook.com",
-  url = url("https://marchliu.github.io/")
+  url = uri("https://marchliu.github.io/")
 )
 
 val dev2 = Developer(
   id = "djx314",
   name = "djx314",
   email = "djx314@sina.cn",
-  url = url("https://github.com/djx314")
+  url = uri("https://github.com/djx314")
 )
 
 // start setting
@@ -48,11 +44,11 @@ description := "Simple, and scalable. Use it to subvert the author's imagination
 // end setting
 
 // start setting
-licenses := List("MIT License" -> url("https://github.com/scalax/simple/blob/main/LICENSE"))
+licenses := List(License("MIT License", uri("https://github.com/scalax/simple/blob/main/LICENSE")))
 // end setting
 
 // start setting
-homepage := Some(url("https://github.com/scalax/simple"))
+homepage := Some(uri("https://github.com/scalax/simple"))
 // end setting
 
 // start setting
