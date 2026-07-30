@@ -1,133 +1,87 @@
 object PushSettingsPlugin extends _root_.sbt.AutoPlugin {
 
-  import _root_.sbt._
-  import _root_.sbt.Keys._
-
-  private var preSettings: Seq[Setting[_]] = Seq.empty
-
-  def addSetting(set: Setting[_]): Unit = preSettings = set +: preSettings
+  import sbt.*
+  import sbt.Keys.*
 
   override def requires: Plugins = net.scalax.simple.nat.sbt.ProjectKeys
 
-  addSetting {
-    organization := "net.scalax.simple"
-  }
-
-  addSetting {
-    organizationName := "Scala Workers"
-  }
-
-  addSetting {
-    organizationHomepage := Some(uri("https://github.com/scala-workers"))
-  }
-
-  addSetting {
-    scmInfo := Some(
-      ScmInfo(
-        uri("https://github.com/scalax/simple"),
-        "scm:git@github.com:scalax/simple.git"
-      )
-    )
-  }
-
-  val dev1 = Developer(
+  lazy val developer1 = Developer(
     id = "Mars Liu",
     name = "Liu Xin",
     email = "mars.liu@outlook.com",
     url = uri("https://marchliu.github.io/")
   )
 
-  val dev2 = Developer(
+  lazy val developer2 = Developer(
     id = "djx314",
     name = "djx314",
     email = "djx314@sina.cn",
     url = uri("https://github.com/djx314")
   )
 
-  addSetting {
-    developers := List(dev1, dev2)
-  }
-
-  addSetting {
-    description := "Simple, and scalable. Use it to subvert the author's imagination."
-  }
-
-  addSetting {
-    licenses := List(License("MIT License", uri("https://github.com/scalax/simple/blob/main/LICENSE")))
-  }
-
-  addSetting {
-    homepage := Some(uri("https://github.com/scalax/simple"))
-  }
-
-  addSetting {
-    pomIncludeRepository := { _ => false }
-  }
-
-  addSetting {
-    publishMavenStyle := true
-  }
-
-  addSetting {
-    versionScheme := Some("early-semver")
-  }
-
-  override lazy val projectSettings: Seq[Setting[_]] = preSettings
+  override lazy val projectSettings: Seq[Setting[?]] = List(
+    organization         := "net.scalax.simple",
+    organizationName     := "Scala Workers",
+    organizationHomepage := Some(uri("https://github.com/scala-workers")),
+    scmInfo := Some(
+      ScmInfo(
+        uri("https://github.com/scalax/simple"),
+        "scm:git@github.com:scalax/simple.git"
+      )
+    ),
+    developers           := List(developer1, developer2),
+    description          := "Simple, and scalable. Use it to subvert the author's imagination.",
+    licenses             := List(License("MIT License", uri("https://github.com/scalax/simple/blob/main/LICENSE"))),
+    homepage             := Some(uri("https://github.com/scalax/simple")),
+    pomIncludeRepository := { _ => false },
+    publishMavenStyle    := true,
+    versionScheme        := Some("early-semver")
+  )
 
 }
 
 object ScalajsCommonPlugin extends _root_.sbt.AutoPlugin {
 
-  import _root_.sbt._
-  import _root_.sbt.Keys._
-
-  private var preSettings: Seq[Setting[_]] = Seq.empty
-
-  def addSetting(set: Setting[_]): Unit = preSettings = set +: preSettings
+  import sbt.*
+  import sbt.Keys.*
+  import net.scalax.simple.nat.sbt.ProjectKeys.autoImport.*
 
   override def requires: Plugins = net.scalax.simple.nat.sbt.ProjectKeys
 
-  addSetting {
-    {
-      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
-      baseFilesToCross := {
-        val tryValue = baseFilesToCross.?.value
-        val newFile  = baseDirectory.value / ".." / "shared"
-        newFile +: tryValue.toList.flatten
-      }
-    }
-  }
-
-  override lazy val projectSettings: Seq[Setting[_]] = preSettings
+  override lazy val projectSettings: Seq[Setting[?]] = List(baseFilesToCross := {
+    val tryValue = baseFilesToCross.?.value
+    val newFile  = baseDirectory.value / ".."
+    newFile +: tryValue.toList.flatten
+  })
 
 }
 
 object ScalajsJsPlugin extends _root_.sbt.AutoPlugin {
 
-  import _root_.sbt._
-  import _root_.sbt.Keys._
+  import sbt.*
+  import sbt.Keys.*
 
-  private var preSettings: Seq[Setting[_]] = Seq.empty
+  private var preSettings: Seq[Setting[?]] = Seq.empty
 
   def addSetting(set: Setting[_]): Unit = preSettings = set +: preSettings
 
   /*addSetting {
     {
       import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
-      jsEnv := Def.uncached(new org.scalajs.jsenv.nodejs.NodeJSEnv())
+      jsEnv := new org.scalajs.jsenv.nodejs.NodeJSEnv()
     }
   }*/
 
-  override lazy val projectSettings: Seq[Setting[_]] = preSettings
+  override lazy val projectSettings: Seq[Setting[?]] = preSettings
 
 }
 
 object SettingsGlobalPlugin extends _root_.sbt.AutoPlugin {
 
-  import _root_.sbt._
-  import _root_.sbt.Keys._
+  import sbt.*
+  import sbt.Keys.*
 
-  private var preSettings: Seq[Setting[_]] = Seq.empty
+  private var preSettings: Seq[Setting[?]] = Seq.empty
 
   def addSetting(set: Setting[_]): Unit = preSettings = set +: preSettings
 
@@ -135,7 +89,6 @@ object SettingsGlobalPlugin extends _root_.sbt.AutoPlugin {
 
   object autoImport {
     val enableZIOTest = settingKey[Boolean]("enable zio test.")
-
   }
 
   import autoImport._
@@ -233,6 +186,6 @@ object SettingsGlobalPlugin extends _root_.sbt.AutoPlugin {
     }
   }
 
-  override lazy val projectSettings: Seq[Setting[_]] = preSettings
+  override lazy val projectSettings: Seq[Setting[?]] = preSettings
 
 }
