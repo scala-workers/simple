@@ -1,0 +1,1 @@
+enablePlugins(ScalajsCommonPlugin, SettingsGlobalPlugin, PushSettingsPlugin)

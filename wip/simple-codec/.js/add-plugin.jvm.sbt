@@ -1,0 +1,1 @@
+enablePlugins(ScalajsCommonPlugin, ScalajsJsPlugin, SettingsGlobalPlugin)
