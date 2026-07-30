@@ -81,67 +81,35 @@ object SettingsGlobalPlugin extends _root_.sbt.AutoPlugin {
   import sbt.*
   import sbt.Keys.*
 
-  private var preSettings: Seq[Setting[?]] = Seq.empty
-
-  def addSetting(set: Setting[_]): Unit = preSettings = set +: preSettings
-
   override def requires: Plugins = net.scalax.simple.nat.sbt.ProjectKeys && org.scalafmt.sbt.ScalafmtPlugin
 
   object autoImport {
     val enableZIOTest = settingKey[Boolean]("enable zio test.")
   }
 
-  import autoImport._
+  import autoImport.*
+  import net.scalax.simple.nat.sbt.ProjectKeys.autoImport.*
+  import org.scalafmt.sbt.ScalafmtPlugin.autoImport.*
 
-  addSetting {
-    enableZIOTest := false
-  }
-
-  addSetting {
+  override lazy val projectSettings: Seq[Setting[?]] = List(
+    enableZIOTest := false,
     testFrameworks ++= {
       if (enableZIOTest.value) Seq(new TestFramework("zio.test.sbt.ZTestFramework")) else Seq.empty
-    }
-  }
-
-  addSetting {
-    {
-      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
-      baseCrossFile := (f => Seq(f / "src" / "codegen"))
-    }
-  }
-
-  addSetting {
-    {
-      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
-      Compile / baseCrossFile := {
-        val t = baseCrossFile.value
-        f => f / "src" / "main" +: t(f)
-      }
-    }
-  }
-
-  addSetting {
-    {
-      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
-      Test / baseCrossFile := {
-        val t = (Compile / baseCrossFile).value
-        f => (f / "src" / "test") +: (f / "src" / "test-codegen") +: t(f)
-      }
-    }
-  }
-
-  addSetting {
-    {
-      import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
-      baseFilesToCross := {
-        val tryValue = baseFilesToCross.?.value
-        val newFile  = baseDirectory.value
-        newFile +: tryValue.toList.flatten
-      }
-    }
-  }
-
-  addSetting {
+    },
+    baseCrossFile := (f => Seq(f / "src" / "codegen")),
+    Compile / baseCrossFile := {
+      val t = baseCrossFile.value
+      f => f / "src" / "main" +: t(f)
+    },
+    Test / baseCrossFile := {
+      val t = (Compile / baseCrossFile).value
+      f => (f / "src" / "test") +: (f / "src" / "test-codegen") +: t(f)
+    },
+    baseFilesToCross := {
+      val tryValue = baseFilesToCross.?.value
+      val newFile  = baseDirectory.value
+      newFile +: tryValue.toList.flatten
+    },
     Compile / unmanagedSourceDirectories := {
       import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
       import djx.sbt.depts.output.Djx314DeptsPlugin.autoImport._
@@ -155,10 +123,7 @@ object SettingsGlobalPlugin extends _root_.sbt.AutoPlugin {
       val toAdd = for (f1 <- files; f2 <- genDirectory(f1, sv)) yield f2
       val all   = base.map(_.getCanonicalFile).to(Set) ++ toAdd.map(_.getCanonicalFile).to(Set)
       all.to(Seq)
-    }
-  }
-
-  addSetting {
+    },
     Test / unmanagedSourceDirectories ++= {
       import net.scalax.simple.nat.sbt.ProjectKeys.autoImport._
       import djx.sbt.depts.output.Djx314DeptsPlugin.autoImport._
@@ -172,20 +137,9 @@ object SettingsGlobalPlugin extends _root_.sbt.AutoPlugin {
       val toAdd = for (f1 <- files; f2 <- genDirectory(f1, sv)) yield f2
       val all   = base.map(_.getCanonicalFile).to(Set) ++ toAdd.map(_.getCanonicalFile).to(Set)
       all.to(Seq)
-    }
-  }
-
-  addSetting {
-    scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "UTF-8")
-  }
-
-  addSetting {
-    {
-      import org.scalafmt.sbt.ScalafmtPlugin.autoImport._
-      scalafmtOnCompile := true
-    }
-  }
-
-  override lazy val projectSettings: Seq[Setting[?]] = preSettings
+    },
+    scalacOptions ++= Seq("-feature", "-deprecation", "-encoding", "UTF-8"),
+    scalafmtOnCompile := true
+  )
 
 }

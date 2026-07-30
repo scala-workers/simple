@@ -67,8 +67,6 @@ addCommandAlias(
 )
 addCommandAlias("releaseCodecLocal", "; +codecJVM/publishLocal ; +codecJS/publishLocal ;")
 
-Global / onChangedBuildSource := ReloadOnSourceChanges
-
 // Configure
 val `simple-adt-version` = "0.0.2-M27"
 
