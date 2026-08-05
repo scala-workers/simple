@@ -14,5 +14,3 @@ scalacOptions ++= {
     List("-Yretain-trees")
   } else List.empty
 }
-
-run / fork := true

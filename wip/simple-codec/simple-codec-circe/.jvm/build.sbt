@@ -8,6 +8,4 @@ libraryDependencies ++= libScalax.`circe`.value
 libraryDependencies ++= libScalax.`play-json`.value
 libraryDependencies ++= libScalax.`circe-extras`.value
 
-run / fork := true
-
 scalafmtOnCompile := true
