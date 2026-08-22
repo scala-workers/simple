@@ -75,7 +75,7 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     def countIns(a1: Long, a2: Long, b1: Long, b2: Long): Unit = {
       val num1: Num51.Number51 = build(current1 = a1, current2 = a2)
       val result1: BigDecimal  = BigDecimal(a2) / BigDecimal(a1)
