@@ -24,7 +24,7 @@ object AnnCirceTest1 {
 
   import CirceGen.Pojo._
 
-  final def main(args: Array[String]): Unit = {
+  final def main1(args: Array[String]): Unit = {
     println(AnnTestCatName.annInstance.annInstance(_.name114))
     println(AnnTestCatName.annInstance.annInstance(_.uClass4))
     println(for (ann <- AnnTestCatName.annInstance.annInstance(_.uClass4)) yield ann.value)
