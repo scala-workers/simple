@@ -28,43 +28,16 @@ trait ConfigPojo[F[_[_]]] { Self =>
 }
 
 object ConfigPojo {
-  type StrF[_] = String
+  type StrF[_]  = String
+  type Type2[T] = Option[JsonKey]
 
   def fromAnnotation[F[_[_]]](ann: ModelAnnotations[F, JsonKey])(implicit bs: BasedInstalledSimpleProduct[F]): F[StrF] => F[StrF] = {
-    type Type2[T]       = Option[JsonKey]
-    type MFunc[A, B, C] = (A, B) => C
-
-    val appender = new AppenderSupport1.Simple3.Appender[MFunc, StrF, Type2, StrF] {
-      override def append[T, B1, B2, B3, C1, C2, C3](
-        abc1: ABCFunc[String, B1, C1],
-        abc2: ABCFunc[Option[JsonKey], B2, C2],
-        abc3: ABCFunc[String, B3, C3],
-        ma: (B1, B2) => B3
-      ): (C1, C2) => C3 = (c1: C1, c2: C2) => {
-        val str1: String             = abc1.takeHead(c1)
-        val b1: B1                   = abc1.takeTail(c1)
-        val jsonKey: Option[JsonKey] = abc2.takeHead(c2)
-        val b2: B2                   = abc2.takeTail(c2)
-        val b3: B3                   = ma(b1, b2)
-        val newName: String          = jsonKey.fold[String](str1)(jk => jk.value)
-
-        abc3.append(newName, b3)
-      }
+    val map2Generc = Map2Generc[F].derived(bs.simpleRunner.simpleRelease3)
+    val mapper2    = new Map2Generc.Map2Function[StrF, Type2, StrF] {
+      override def map[X1](in: String, in2: Option[JsonKey]): String = in2.fold(in)(ann => ann.value)
     }
 
-    val zero: AppenderSupport1.Simple3.One[MFunc, StrF, Type2, StrF] = new AppenderSupport1.Simple3.One[MFunc, StrF, Type2, StrF] {
-      override def one[T, B1, B2, B3](
-        func1: FromToFunc[String, B1],
-        func2: FromToFunc[Option[JsonKey], B2],
-        func3: FromToFunc[String, B3]
-      ): (B1, B2) => B3 = (b1, b2) => {
-        val stringKey = func2.to(b2).fold(func1.to(b1))(t => t.value)
-        func3.from(stringKey)
-      }
-    }
-
-    val func: (F[StrF], F[Type2]) => F[StrF] =
-      bs.simpleRunner.simpleRelease3.append[MFunc, StrF, Type2, StrF](appender = appender, zero = zero)
+    val func: (F[StrF], F[Type2]) => F[StrF] = map2Generc.map[StrF, Type2, StrF](mapper2)
 
     (labelled: F[StrF]) => func(labelled, ann.annInstance)
   }
