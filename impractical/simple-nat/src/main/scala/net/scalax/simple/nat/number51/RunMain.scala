@@ -3,7 +3,6 @@ package nat
 package number51
 
 import scala.annotation.tailrec
-import ghdmzsk.ghdmzsk
 
 object RunTest1 {
 
@@ -102,7 +101,7 @@ object RunTest1 {
       )
       println("passed param 2")
 
-      val num5: Num51.Number51 = num1(num2)(Num51.appender1)(Num51.appender2)
+      val num5: Num51.Number51 = num1.other(num2, Num51.appender1, Num51.appender2)
       val result5              = result1 / result2
 
       count(
@@ -115,7 +114,7 @@ object RunTest1 {
       )
       println("passed result 1")
 
-      val num6: Num51.Number51 = num5(num2)(Num51.appender1)(Num51.appender2)
+      val num6: Num51.Number51 = num5.other(num2, Num51.appender1, Num51.appender2)
       val result6              = result5 / result2
 
       count(
