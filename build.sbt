@@ -42,7 +42,7 @@ val `codec-circe/file` = `codec/file` / "simple-codec-circe"
 lazy val `codec-circe` = crossProject(JSPlatform, JVMPlatform) in `codec-circe/file` dependsOn (codec, `test-common` % Test) aggregate codec
 
 val `nat/file` = `impractical/file` / "simple-nat"
-lazy val nat   = crossProject(JSPlatform, JVMPlatform).crossType(CrossType.Pure) in `nat/file` dependsOn ghdmzsk aggregate ghdmzsk
+lazy val nat   = crossProject(JSPlatform, JVMPlatform) in `nat/file` dependsOn ghdmzsk aggregate ghdmzsk
 
 val `append-support/file` = `modules/file` / "simple-append-support" / "append-main"
 /*lazy val `append-support` = crossProject(JSPlatform, JVMPlatform) in `append-support/file` dependsOn (`test-common` % Test)*/

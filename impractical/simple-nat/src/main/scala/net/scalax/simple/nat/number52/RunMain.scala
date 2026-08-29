@@ -65,7 +65,7 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     val 地支: Time = build(12, TimeCount, TimeTop("dizhi"))
     val 年: Time  = build(12, TimeCount, TimeDong("year"))
     val 月: Time  = build(30, TimeCount, TimeDong("month"))
