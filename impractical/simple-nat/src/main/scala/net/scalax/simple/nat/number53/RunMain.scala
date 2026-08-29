@@ -84,9 +84,9 @@ object RunTest1 {
         println(BigDecimal(map.getOrElse("shuaya", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
         println("richu vs chifan except 2:1")
         println(BigDecimal(map.getOrElse("chifan", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
-        println("richu vs shukouping except 1:7")
+        println(s"richu vs shukouping except 1:7(${BigDecimal(1) / BigDecimal(7)})")
         println(BigDecimal(map.getOrElse("shukouping", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
-        println("richu vs tihuzi except 2:3")
+        println(s"richu vs tihuzi except 2:3(${BigDecimal(2) / BigDecimal(3)})")
         println(BigDecimal(map.getOrElse("tihuzi", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
 
         println("=== finished 1 ===")
