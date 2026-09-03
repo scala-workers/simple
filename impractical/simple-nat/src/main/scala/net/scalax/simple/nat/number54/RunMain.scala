@@ -17,23 +17,23 @@ object RunTest1 {
 
   def main(arr: Array[String]): Unit = {
 
-    val result1 = build(3)
-    val result2 = build(4)
-    val result3 = result1.plus(result2)
+    val result1: Number = build(3)
+    val result2: Number = build(4)
+    val result3: Number = result1.plus(result2)
 
     println(s"result1: ${result1.size}, except: 3")
     println(s"result2: ${result2.size}, except: 4")
     println(s"result3: ${result3.size}, except: 7")
 
-    val result4 = build(4)
-    val result5 = build(5)
-    val result6 = result4.plus(result5)
+    val result4: Number = build(4)
+    val result5: Number = build(5)
+    val result6: Number = result4.plus(result5)
 
     println(s"result4: ${result4.size}, except: 4")
     println(s"result5: ${result5.size}, except: 5")
     println(s"result6: ${result6.size}, except: 9")
 
-    val result7 = result3.plus(result6)
+    val result7: Number = result3.plus(result6)
     println(s"result7: ${result7.size}, except: 16")
 
   }
