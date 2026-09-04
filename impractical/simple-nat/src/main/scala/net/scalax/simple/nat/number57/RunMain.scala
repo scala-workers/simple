@@ -1,9 +1,9 @@
 package net.scalax.simple
 package nat
-package number56
+package number57
 
 import scala.annotation.tailrec
-import number56.Num56._
+import number57.Num57._
 
 object RunTest1 {
   def build(current1: Long, current2: Long, current3: Long): Number = {
@@ -15,9 +15,9 @@ object RunTest1 {
       }
     }
 
-    lazy val build_1: Number = buildImpl(appender = Successor1.apply, numLong = current1, zero = () => build_2)
-    lazy val build_2: Number = buildImpl(appender = Successor2.apply, numLong = current2, zero = () => build_3)
-    lazy val build_3: Number = buildImpl(appender = Successor3.apply, numLong = current3, zero = () => build_1)
+    lazy val build_1: Number = buildImpl(appender = Successor1, numLong = current1, zero = () => build_2)
+    lazy val build_2: Number = buildImpl(appender = Successor2, numLong = current2, zero = () => build_3)
+    lazy val build_3: Number = buildImpl(appender = Successor3, numLong = current3, zero = () => build_1)
 
     build_1
   }
@@ -90,7 +90,7 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main1(arr: Array[String]): Unit = {
+  def main(arr: Array[String]): Unit = {
     val num1: Number        = build(current1 = 2, current2 = 56, current3 = 7)
     val result1: BigDecimal = (BigDecimal(2) - BigDecimal(56)) / BigDecimal(7)
     count(
@@ -107,8 +107,8 @@ object RunTest1 {
       dealResult = (l1, l2, l3) => println(s"except:$result2 autal: ${(BigDecimal(l1) - BigDecimal(l2)) / BigDecimal(l3)}")
     )
 
-    val num3: Number        = num1.plus(num2)
-    val result3: BigDecimal = (result1 + result2) / 2
+    val num3: Number        = num1.plus(num2, Successor4, Successor3.apply)
+    val result3: BigDecimal = result1 + result2
     count(
       num3,
       printlnSum = 5,
@@ -123,8 +123,8 @@ object RunTest1 {
       dealResult = (l1, l2, l3) => println(s"except:$result4 autal: ${(BigDecimal(l1) - BigDecimal(l2)) / BigDecimal(l3)}")
     )
 
-    val num5: Number        = num3.plus(num4)
-    val result5: BigDecimal = (result3 + result4) / 2
+    val num5: Number        = num3.plus(num4, Successor3, Successor4)
+    val result5: BigDecimal = result3 + result4
     count(
       num5,
       printlnSum = 5,
