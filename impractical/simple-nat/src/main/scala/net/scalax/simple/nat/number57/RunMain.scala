@@ -107,12 +107,18 @@ object RunTest1 {
       dealResult = (l1, l2, l3) => println(s"except:$result2 autal: ${(BigDecimal(l1) - BigDecimal(l2)) / BigDecimal(l3)}")
     )
 
-    val num3: Number        = num1.plus(num2, Successor4, Successor3.apply)
+    val num3: Number        = num1.plus(num2, Successor4, Successor3)
+    val num3_1: Number      = num1.plus(num2, Successor3, Successor4)
     val result3: BigDecimal = result1 + result2
     count(
       num3,
       printlnSum = 5,
       dealResult = (l1, l2, l3) => println(s"except:$result3 autal: ${(BigDecimal(l1) - BigDecimal(l2)) / BigDecimal(l3)}")
+    )
+    count(
+      num3_1,
+      printlnSum = 5,
+      dealResult = (l1, l2, l3) => println(s"same as before: ${(BigDecimal(l1) - BigDecimal(l2)) / BigDecimal(l3)}")
     )
 
     val num4: Number        = build(current1 = 5, current2 = 65, current3 = 7)
@@ -123,13 +129,20 @@ object RunTest1 {
       dealResult = (l1, l2, l3) => println(s"except:$result4 autal: ${(BigDecimal(l1) - BigDecimal(l2)) / BigDecimal(l3)}")
     )
 
-    val num5: Number        = num3.plus(num4, Successor3, Successor4)
+    val num5: Number        = num3.plus(num4, Successor4, Successor3)
+    val num5_1: Number      = num3.plus(num4, Successor3, Successor4)
     val result5: BigDecimal = result3 + result4
     count(
       num5,
       printlnSum = 5,
       speed = 400000,
       dealResult = (l1, l2, l3) => println(s"except:$result5 autal: ${(BigDecimal(l1) - BigDecimal(l2)) / BigDecimal(l3)}")
+    )
+    count(
+      num5_1,
+      printlnSum = 5,
+      speed = 400000,
+      dealResult = (l1, l2, l3) => println(s"same as before: ${(BigDecimal(l1) - BigDecimal(l2)) / BigDecimal(l3)}")
     )
 
   }
