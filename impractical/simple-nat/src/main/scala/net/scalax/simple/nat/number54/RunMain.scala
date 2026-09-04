@@ -15,7 +15,7 @@ object RunTest1 {
     }
   }
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
 
     val result1: Number = build(3)
     val result2: Number = build(4)
