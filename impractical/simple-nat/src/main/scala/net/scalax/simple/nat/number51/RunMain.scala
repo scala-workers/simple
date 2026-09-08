@@ -37,9 +37,10 @@ object RunTest1 {
     }
 
     if (printlnSum > 0) {
-      if (num.isNumerator) {
+      val (nextCount, numType) = num.unsafeRun
+      if (numType) {
         countImpl(
-          num.tail(),
+          nextCount(),
           current1 = current1 + 1,
           current2 = current2,
           printlnSum = if (needPrintln) printlnSum - 1 else printlnSum,
@@ -48,7 +49,7 @@ object RunTest1 {
         )
       } else {
         countImpl(
-          num.tail(),
+          nextCount(),
           current1 = current1,
           current2 = current2 + 1,
           printlnSum = if (needPrintln) printlnSum - 1 else printlnSum,

@@ -20,20 +20,20 @@ object RunTest1 {
     val result2: Number = build(4, 8)
     val result3: Number = result1.plus(result2)
 
-    println(s"result1: ${result1.size}, except: -2")
-    println(s"result2: ${result2.size}, except: -4")
-    println(s"result3: ${result3.size}, except: -6")
+    println(s"result1: ${result1.unsafeRun}, except: -2")
+    println(s"result2: ${result2.unsafeRun}, except: -4")
+    println(s"result3: ${result3.unsafeRun}, except: -6")
 
     val result4: Number = build(4, 5)
     val result5: Number = build(18, 2)
     val result6: Number = result4.plus(result5)
 
-    println(s"result4: ${result4.size}, except: -1")
-    println(s"result5: ${result5.size}, except: 16")
-    println(s"result6: ${result6.size}, except: 15")
+    println(s"result4: ${result4.unsafeRun}, except: -1")
+    println(s"result5: ${result5.unsafeRun}, except: 16")
+    println(s"result6: ${result6.unsafeRun}, except: 15")
 
     val result7: Number = result3.plus(result6)
-    println(s"result7: ${result7.size}, except: 9")
+    println(s"result7: ${result7.unsafeRun}, except: 9")
 
   }
 

@@ -6,16 +6,17 @@ object Num54 { NumSelf =>
 
   trait Number {
     def plus(other: Number): Number
-    def size: Int
+    def unsafeRun: Int
   }
 
-  case class Successor(tail: Number) extends Number {
-    override def plus(other: Number): Number = Successor(tail.plus(other))
-    override def size: Int                   = tail.size + 1
-  }
-  case object Zero extends Number {
+  val Successor: Number => Number = tail =>
+    new Number {
+      override def plus(other: Number): Number = Successor(tail.plus(other))
+      override def unsafeRun: Int              = tail.unsafeRun + 1
+    }
+  val Zero = new Number {
     override def plus(other: Number): Number = other
-    override def size: Int                   = 0
+    override def unsafeRun: Int              = 0
   }
 
 }

@@ -6,26 +6,30 @@ object Num57 { NumSelf =>
 
   // 整数list
   trait Number {
-    def tail: () => Number
     def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number
-    def numType: Int
+    def unsafeRun: (() => Number, Int)
   }
 
-  case class Successor1(override val tail: () => Number) extends Number {
-    override def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
-      Successor1(() => tail().plus(other, appender1, appender2))
-    override def numType: Int = 1
-  }
-  case class Successor2(override val tail: () => Number) extends Number {
-    override def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
-      Successor2(() => tail().plus(other, appender1, appender2))
-    override def numType: Int = 2
-  }
-  case class Successor3(override val tail: () => Number) extends Number {
-    override def numType: Int                                                                                          = 3
-    override def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
-      appender1(() => other.plus(tail(), appender2, appender1))
-  }
+  val Successor1: (() => Number) => Number = tail =>
+    new Number {
+      override def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
+        Successor1(() => tail().plus(other, appender1, appender2))
+      override def unsafeRun: (() => Number, Int) = (tail, 1)
+    }
+
+  val Successor2: (() => Number) => Number = tail =>
+    new Number {
+      override def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
+        Successor2(() => tail().plus(other, appender1, appender2))
+      override def unsafeRun: (() => Number, Int) = (tail, 2)
+    }
+
+  val Successor3: (() => Number) => Number = tail =>
+    new Number {
+      override def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
+        appender1(() => other.plus(tail(), appender2, appender1))
+      override def unsafeRun: (() => Number, Int) = (tail, 3)
+    }
 
   val Successor4: (() => Number) => Number = numP => numP()
 

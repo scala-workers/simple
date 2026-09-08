@@ -40,9 +40,10 @@ object RunTest1 {
       } else printlnSum
 
     if (printlnSum > 0) {
-      if (num.numType == 1) {
+      val (nextCount, numType) = num.unsafeRun
+      if (numType == 1) {
         countImpl(
-          num.tail(),
+          nextCount(),
           current1 = current1 + 1,
           current2 = current2,
           current3 = current3,
@@ -50,9 +51,9 @@ object RunTest1 {
           speed = speed,
           dealResult = dealResult
         )
-      } else if (num.numType == 2) {
+      } else if (numType == 2) {
         countImpl(
-          num.tail(),
+          nextCount(),
           current1 = current1,
           current2 = current2 + 1,
           current3 = current3,
@@ -62,7 +63,7 @@ object RunTest1 {
         )
       } else {
         countImpl(
-          num.tail(),
+          nextCount(),
           current1 = current1,
           current2 = current2,
           current3 = current3 + 1,
@@ -90,7 +91,7 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     val num1: Number        = build(current1 = 2, current2 = 56, current3 = 7)
     val result1: BigDecimal = (BigDecimal(2) - BigDecimal(56)) / BigDecimal(7)
     count(
