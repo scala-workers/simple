@@ -91,7 +91,7 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main1(arr: Array[String]): Unit = {
+  def main(arr: Array[String]): Unit = {
     val num1: Number        = build(current1 = 2, current2 = 56, current3 = 7)
     val result1: BigDecimal = (BigDecimal(2) - BigDecimal(56)) / BigDecimal(7)
     count(
@@ -141,6 +141,22 @@ object RunTest1 {
     )
     count(
       num5_1,
+      printlnSum = 5,
+      speed = 400000,
+      dealResult = (l1, l2, l3) => println(s"same as before: ${(BigDecimal(l1) - BigDecimal(l2)) / BigDecimal(l3)}")
+    )
+
+    val num6: Number        = num3.plus(num4, Successor4, Successor3).plus(num2, Successor3, Successor4)
+    val num6_1: Number      = num3.plus(num4.plus(num2, Successor3, Successor4), Successor4, Successor3)
+    val result6: BigDecimal = result3 + result4 + result2
+    count(
+      num6,
+      printlnSum = 5,
+      speed = 400000,
+      dealResult = (l1, l2, l3) => println(s"except:$result6 autal: ${(BigDecimal(l1) - BigDecimal(l2)) / BigDecimal(l3)}")
+    )
+    count(
+      num6_1,
       printlnSum = 5,
       speed = 400000,
       dealResult = (l1, l2, l3) => println(s"same as before: ${(BigDecimal(l1) - BigDecimal(l2)) / BigDecimal(l3)}")
