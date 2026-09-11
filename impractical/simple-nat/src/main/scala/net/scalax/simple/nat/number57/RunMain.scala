@@ -91,7 +91,7 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     val num1: Number        = build(current1 = 2, current2 = 56, current3 = 7)
     val result1: BigDecimal = (BigDecimal(2) - BigDecimal(56)) / BigDecimal(7)
     count(

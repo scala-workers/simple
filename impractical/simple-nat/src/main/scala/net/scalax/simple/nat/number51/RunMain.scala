@@ -75,7 +75,7 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main1(arr: Array[String]): Unit = {
+  def main(arr: Array[String]): Unit = {
     def countIns(a1: Long, a2: Long, b1: Long, b2: Long): Unit = {
       val num1: Num51.Number51 = build(current1 = a1, current2 = a2)
       val result1: BigDecimal  = BigDecimal(a2) / BigDecimal(a1)
@@ -124,6 +124,19 @@ object RunTest1 {
         speed = 1000000,
         dealResult = coResult => {
           println(s"resultSum2: $result6,  limitedSum2: $coResult")
+        }
+      )
+
+      val one                  = build(1, 1)
+      val num7: Num51.Number51 = num5.other(one.other(num6, Num51.appender1, Num51.appender2), Num51.appender1, Num51.appender2)
+      val result7              = result5 * result6
+
+      count(
+        num7,
+        printlnSum = 5,
+        speed = 1000000,
+        dealResult = coResult => {
+          println(s"except7: $result7,  current7: $coResult")
         }
       )
     }
