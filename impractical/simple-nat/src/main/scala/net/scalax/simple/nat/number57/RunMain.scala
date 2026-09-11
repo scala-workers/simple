@@ -25,53 +25,27 @@ object RunTest1 {
   @tailrec
   def countImpl(
     num: Number,
-    current1: Long,
-    current2: Long,
-    current3: Long,
+    current: Map[(() => Number) => Number, Long],
     printlnSum: Int,
     speed: Long,
     dealResult: (Long, Long, Long) => Unit
   ): Unit = {
-    val needPrintln: Boolean = (current1 + current2 + current3) % speed == 0
+    val needPrintln: Boolean = current.values.sum % speed == 0
     val printSum: Int        =
       if (needPrintln) {
-        dealResult(current1, current2, current3): Unit
+        dealResult(current.getOrElse(Successor1, 1), current.getOrElse(Successor2, 1), current.getOrElse(Successor3, 1)): Unit
         printlnSum - 1
       } else printlnSum
 
     if (printlnSum > 0) {
       val (nextCount, numType) = num.unsafeRun
-      if (numType == 1) {
-        countImpl(
-          nextCount(),
-          current1 = current1 + 1,
-          current2 = current2,
-          current3 = current3,
-          printlnSum = printSum,
-          speed = speed,
-          dealResult = dealResult
-        )
-      } else if (numType == 2) {
-        countImpl(
-          nextCount(),
-          current1 = current1,
-          current2 = current2 + 1,
-          current3 = current3,
-          printlnSum = printSum,
-          speed = speed,
-          dealResult = dealResult
-        )
-      } else {
-        countImpl(
-          nextCount(),
-          current1 = current1,
-          current2 = current2,
-          current3 = current3 + 1,
-          printlnSum = printSum,
-          speed = speed,
-          dealResult = dealResult
-        )
-      }
+      countImpl(
+        nextCount(),
+        current = current + (numType -> (current.getOrElse(numType, 1L) + 1L)),
+        printlnSum = printSum,
+        speed = speed,
+        dealResult = dealResult
+      )
     }
   }
 
@@ -83,9 +57,7 @@ object RunTest1 {
   ): Unit =
     countImpl(
       num = num,
-      current1 = 1,
-      current2 = 1,
-      current3 = 1,
+      current = Map.empty,
       printlnSum = printlnSum,
       speed = speed,
       dealResult = dealResult

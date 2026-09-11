@@ -24,39 +24,26 @@ object RunTest1 {
   @tailrec
   def countImpl(
     num: Num51.Number51,
-    current1: Long,
-    current2: Long,
+    current: Map[(() => Num51.Number51) => Num51.Number51, Long],
     printlnSum: Int,
     speed: Long,
     dealResult: BigDecimal => Unit
   ): Unit = {
-    val needPrintln: Boolean = (current1 + current2) % speed == 0
+    val needPrintln: Boolean = current.values.sum % speed == 0
 
     if (needPrintln) {
-      dealResult(BigDecimal(current2) / BigDecimal(current1)): Unit
+      dealResult(BigDecimal(current.getOrElse(Num51.appender2, 1L)) / BigDecimal(current.getOrElse(Num51.appender1, 1L))): Unit
     }
 
     if (printlnSum > 0) {
       val (nextCount, numType) = num.unsafeRun
-      if (numType) {
-        countImpl(
-          nextCount(),
-          current1 = current1 + 1,
-          current2 = current2,
-          printlnSum = if (needPrintln) printlnSum - 1 else printlnSum,
-          speed = speed,
-          dealResult = dealResult
-        )
-      } else {
-        countImpl(
-          nextCount(),
-          current1 = current1,
-          current2 = current2 + 1,
-          printlnSum = if (needPrintln) printlnSum - 1 else printlnSum,
-          speed = speed,
-          dealResult = dealResult
-        )
-      }
+      countImpl(
+        nextCount(),
+        current = current + (numType -> (current.getOrElse(numType, 1L) + 1L)),
+        printlnSum = if (needPrintln) printlnSum - 1 else printlnSum,
+        speed = speed,
+        dealResult = dealResult
+      )
     }
   }
 
@@ -68,14 +55,13 @@ object RunTest1 {
   ): Unit =
     countImpl(
       num = num,
-      current1 = 1,
-      current2 = 1,
+      current = Map.empty,
       printlnSum = printlnSum,
       speed = speed,
       dealResult = dealResult
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     def countIns(a1: Long, a2: Long, b1: Long, b2: Long): Unit = {
       val num1: Num51.Number51 = build(current1 = a1, current2 = a2)
       val result1: BigDecimal  = BigDecimal(a2) / BigDecimal(a1)
